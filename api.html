@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AIV API</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Buy an AI Verse API key. OpenAI-compatible AIV models with monthly plans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout (API): same system as home — centered thesis hero, three-up use cases, split pricing row, order form card, then a narrow confirmation sheet. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--bad:#b42318;--field:#ffffff;
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand svg{height:22px;width:auto;display:block}
+.brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.links{display:flex;gap:26px;font-size:14px}
+.links a{text-decoration:none;opacity:.85}.links a:hover,.links a[aria-current]{opacity:1}
+.links a[aria-current]{font-weight:500}
+.nav .right{margin-left:auto;display:flex;gap:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:500 15px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn.sm{padding:9px 18px;font-size:14px}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}.btn.dark:hover{opacity:.86}
+.btn.pill{background:var(--pill);color:var(--fg)}.btn.pill:hover{background:var(--line)}
+.btn.line{border-color:var(--line);color:var(--fg);background:transparent}.btn.line:hover{background:var(--pill)}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.btn svg{width:14px;height:14px}
+
+.hero{text-align:center;padding-block:96px 72px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:500 clamp(42px,7vw,80px)/1 var(--display);letter-spacing:-.04em;margin:18px auto 0;max-width:13ch;text-wrap:balance}
+.lede{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:34em;margin:22px auto 0;text-wrap:balance}
+.hero .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
+h3{font:500 20px/1.25 var(--display);letter-spacing:-.015em;margin:0}
+
+.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.use{background:var(--card);border-radius:18px;padding:30px 30px 32px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.use .k{font:400 12px/1 var(--mono);color:var(--muted)}
+.use p{margin:0;color:var(--muted);font-size:14.5px}
+
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;padding-block:96px;border-top:1px solid var(--line);margin-top:96px}
+.split .intro p{color:var(--muted);max-width:40ch;margin:18px 0 0}
+.rows{display:flex;flex-direction:column}
+.rowi{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding-block:20px;border-top:1px solid var(--line)}
+.rowi:first-child{border-top:0;padding-top:4px}
+.rowi .n{font:500 13px/1.6 var(--mono);color:var(--muted)}
+.rowi b{font-weight:500;display:block}
+.rowi span{color:var(--muted)}
+
+.price{background:var(--ink-btn);color:var(--ink-btn-fg);border-radius:22px;padding:44px 44px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
+.price .amt{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:18px}
+.price .amt b{font:500 clamp(64px,9vw,104px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.price .amt span{font:500 20px/1.2 var(--display);opacity:.75}
+.price .eyebrow{color:inherit;opacity:.65}
+.price p{margin:16px 0 0;opacity:.75;max-width:36ch}
+.price ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.price li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;opacity:.92}
+.price li svg{width:16px;height:16px;margin-top:4px}
+.price .buy{background:var(--ink-btn-fg);color:var(--ink-btn);margin-top:28px;padding:14px 28px;font-size:16px}
+.price .buy:hover{opacity:.9}
+
+/* order form */
+#order{scroll-margin-top:100px;padding-block:72px 96px}
+.order{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.card{background:var(--card);border-radius:18px;padding:36px 38px;min-width:0}
+.summary .line{display:flex;justify-content:space-between;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);font-size:14.5px}
+.summary .line span:last-child{font-variant-numeric:tabular-nums;font-weight:500}
+.summary .line.tot{border-bottom:0;font-size:16px}
+.summary p{color:var(--muted);font-size:13.5px;margin:16px 0 0}
+form{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:500}
+label .opt{color:var(--soft);font-weight:400}
+input,textarea{font:400 15px/1.4 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:0;min-width:0}
+textarea{resize:vertical;min-height:150px}
+input:focus,textarea:focus{border-color:var(--fg)}
+input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;font-weight:400}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.foot-form{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.note{color:var(--muted);font-size:12.5px;margin:0;max-width:42ch}
+.status{border-radius:14px;padding:18px 20px;background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.status b{color:var(--bad)}
+.status p{margin:6px 0 0;color:var(--muted)}
+.status .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* confirmation (matches the event-status email layout) */
+.done{max-width:600px;margin:0 auto;padding-block:96px 120px}
+.done svg.mark{height:30px;width:auto;display:block;color:var(--fg)}
+.done h2{font:500 30px/1.2 var(--display);letter-spacing:-.02em;margin:40px 0 0}
+.done p{margin:16px 0 0;font-size:16px;line-height:1.6}
+.done .muted{color:var(--muted);font-size:14.5px}
+.done .home{display:flex;width:100%;border-radius:10px;padding:16px 20px;margin-top:32px;font-size:15px}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--muted);font-size:13.5px}
+.foot{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+.foot .brand{color:var(--fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
+.fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
+
+@media (max-width:900px){.links{display:none}.uses{grid-template-columns:1fr}.split,.order,.price{grid-template-columns:1fr}.split{gap:28px;padding-block:72px;margin-top:72px}.price{gap:28px}}
+@media (max-width:560px){.nav .right .pill{display:none}.card{padding:28px 22px}.price{padding:32px 24px}.row2{grid-template-columns:1fr}.hero{padding-block:64px 52px}.done{padding-block:64px 88px}}
+
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.plan{background:var(--card);border-radius:18px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.plan.hi{background:var(--ink-btn);color:var(--ink-btn-fg)}
+.plan.hi .muted,.plan.hi .eyebrow{color:inherit;opacity:.7}
+.plan .amt{display:flex;align-items:baseline;gap:8px}
+.plan .amt b{font:500 54px/1 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.plan .amt span{opacity:.7}
+.plan ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px;font-size:14.5px}
+.plan li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px}
+.plan li svg{width:15px;height:15px;margin-top:4px}
+.plan .btn{margin-top:auto;justify-content:center}
+.plan.hi .btn{background:var(--ink-btn-fg);color:var(--ink-btn)}
+.muted{color:var(--muted)}
+.notice{margin-top:14px;font-size:13.5px;color:var(--muted)}
+.notice b{color:var(--bad);font-weight:500}
+.code{position:relative;background:var(--card);border-radius:14px;min-width:0}
+.code pre{margin:0;padding:18px 20px;overflow-x:auto;font:400 13px/1.65 var(--mono);color:var(--fg)}
+.code .cp{position:absolute;top:10px;right:10px}
+.tabs{display:inline-flex;gap:2px;background:var(--pill);border-radius:999px;padding:3px;margin-bottom:12px}
+.tabs button{border:0;background:transparent;color:var(--muted);font:500 13px var(--body);padding:7px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+.tbl th{text-align:left;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td code,.inline{font:400 13px var(--mono);background:var(--pill);border-radius:6px;padding:2px 6px}
+.keypanel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.keybox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:14px}
+.keybox code{flex:1;min-width:0;font:500 14px var(--mono);overflow-wrap:anywhere;user-select:all}
+.warn{background:color-mix(in srgb,var(--bad) 9%,var(--card));border-radius:12px;padding:12px 14px;margin-top:12px;font-size:13.5px}
+.meter{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:10px}
+.meter i{display:block;height:100%;background:var(--fg);border-radius:99px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14px;margin-top:14px}
+.kv span:nth-child(odd){color:var(--muted)}
+.kv span:nth-child(even){font-variant-numeric:tabular-nums;text-align:right}
+.faq details{border-top:1px solid var(--line);padding-block:16px}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--muted);font-size:18px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin:10px 0 0;max-width:70ch}
+.sec{padding-block:96px 0}
+.sec .head{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+@media (max-width:900px){.plans,.keypanel{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav class="links" aria-label="Main">
+        <a href="index.html#apps">Apps</a>
+        <a href="business.html">Business</a>
+        <a href="data.html">Data</a>
+        <a href="api.html" aria-current="page">API</a>
+        <a href="chat.html">Ask AIV</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="right">
+        <a class="btn pill sm" href="#key">My key</a>
+        <a class="btn dark sm" href="#plans">Get an API key</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">AIV API</span>
+    <h1>Build with AIV.</h1>
+    <p class="lede">Add fast AI to your own apps with one API key. The AIV API works with any code that already talks to the OpenAI API, so you can switch by changing two lines.</p>
+    <div class="cta">
+      <a class="btn dark" href="#plans">Get an API key <svg><use href="#arrow"/></svg></a>
+      <a class="btn pill" href="#docs">Read the docs</a>
+    </div>
+  </section>
+
+  <section id="claim" hidden aria-live="polite" style="scroll-margin-top:100px;margin-bottom:24px"></section>
+
+  <section id="plans" style="scroll-margin-top:100px">
+    <div class="plans">
+      <div class="plan"><span class="eyebrow">Starter</span><div class="amt"><b>$9</b><span>/ month</span></div><p class="muted" style="margin:0">For side projects and testing.</p>
+        <ul><li><svg><use href="#tick"/></svg><span>5,000 requests / month</span></li><li><svg><use href="#tick"/></svg><span>aiv-1 and aiv-1-mini models</span></li><li><svg><use href="#tick"/></svg><span>Streaming responses</span></li></ul>
+        <a class="btn dark" href="#" data-plan="starter">Subscribe</a></div>
+      <div class="plan hi"><span class="eyebrow">Pro</span><div class="amt"><b>$29</b><span>/ month</span></div><p class="muted" style="margin:0">For apps with real users.</p>
+        <ul><li><svg><use href="#tick"/></svg><span>25,000 requests / month</span></li><li><svg><use href="#tick"/></svg><span>aiv-1 and aiv-1-mini models</span></li><li><svg><use href="#tick"/></svg><span>Streaming responses</span></li></ul>
+        <a class="btn" href="#" data-plan="pro">Subscribe</a></div>
+      <div class="plan"><span class="eyebrow">Business</span><div class="amt"><b>$99</b><span>/ month</span></div><p class="muted" style="margin:0">For teams and higher volume.</p>
+        <ul><li><svg><use href="#tick"/></svg><span>100,000 requests / month</span></li><li><svg><use href="#tick"/></svg><span>aiv-1 and aiv-1-mini models</span></li><li><svg><use href="#tick"/></svg><span>Streaming responses</span></li></ul>
+        <a class="btn dark" href="#" data-plan="business">Subscribe</a></div>
+    </div>
+    <p class="notice" id="planNotice">Billed monthly through Stripe. Cancel or change plans anytime. Each request can return up to 2,048 tokens.</p>
+  </section>
+
+  <section class="split" id="how" style="margin-top:96px">
+    <div class="intro">
+      <h2>How buying a key works</h2>
+      <p>Checkout takes about a minute. Your key appears on this page as soon as payment goes through.</p>
+    </div>
+    <div class="rows">
+      <div class="rowi"><span class="n">01</span><div><b>Choose a plan</b><span>Pay securely through Stripe. AI Verse never sees your card details.</span></div></div>
+      <div class="rowi"><span class="n">02</span><div><b>Copy your key</b><span>You return here and your key is shown once. Save it somewhere safe, like a password manager.</span></div></div>
+      <div class="rowi"><span class="n">03</span><div><b>Make your first call</b><span>Use the examples below. Check usage or replace your key anytime under My key.</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="docs" style="scroll-margin-top:100px">
+    <div class="head"><span class="eyebrow">Quickstart</span><h2>Your first request</h2></div>
+    <div class="tabs" role="tablist" aria-label="Code language">
+      <button role="tab" aria-selected="true" data-lang="curl" id="tab-curl">curl</button>
+      <button role="tab" aria-selected="false" data-lang="js" id="tab-js">JavaScript</button>
+      <button role="tab" aria-selected="false" data-lang="py" id="tab-py">Python</button>
+    </div>
+    <div class="code"><button class="btn line sm cp" type="button" id="copyCode">Copy</button><pre id="codeBlock"></pre></div>
+
+    <div class="tbl" style="margin-top:40px">
+      <table>
+        <thead><tr><th>Endpoint</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>POST /v1/chat/completions</code></td><td>Send messages, get an answer. Same format as OpenAI. Set <code>"stream": true</code> to stream.</td></tr>
+          <tr><td><code>GET /v1/models</code></td><td>Lists available models: <code>aiv-1</code> (best quality) and <code>aiv-1-mini</code> (faster).</td></tr>
+          <tr><td><code>GET /v1/usage</code></td><td>Your plan, status, and requests used this month.</td></tr>
+          <tr><td><code>POST /v1/keys/rotate</code></td><td>Replaces your key. The old key stops working immediately.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="notice">Authenticate every request with <span class="inline">Authorization: Bearer YOUR_KEY</span>. Keep keys on your server, not in public web pages or apps.</p>
+  </section>
+
+  <section class="sec" id="key" style="scroll-margin-top:100px">
+    <div class="head"><span class="eyebrow">My key</span><h2>Check usage or replace your key</h2></div>
+    <div class="keypanel">
+      <div class="card">
+        <form id="keyForm" novalidate autocomplete="off">
+          <label for="myKey">Your API key<input id="myKey" type="password" placeholder="aiv_live_…" spellcheck="false"><span class="err" id="myKey-err" hidden></span></label>
+          <div class="row wrap" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+            <button class="btn dark sm" type="submit" id="checkBtn">Check usage</button>
+            <button class="btn line sm" type="button" id="rotateBtn">Replace key</button>
+          </div>
+          <p class="note" style="margin-top:12px">Your key is sent only to the AIV API to look up your plan. This page doesn't save it.</p>
+        </form>
+        <div id="rotateConfirm" class="warn" hidden><b>Replace this key?</b> Apps using the current key will stop working until you update them.<div style="display:flex;gap:8px;margin-top:10px"><button class="btn dark sm" type="button" id="rotateYes">Replace key</button><button class="btn line sm" type="button" id="rotateNo">Cancel</button></div></div>
+      </div>
+      <div class="card" id="keyOut"><span class="eyebrow">Usage this month</span><p class="muted" style="margin:12px 0 0">Enter your key to see your plan, status and remaining requests.</p></div>
+    </div>
+    <div class="card" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div><h3>Billing and plans</h3><p class="muted" style="margin:6px 0 0">Change plans, update your card, see invoices or cancel in the Stripe billing portal.</p></div>
+      <a class="btn line" href="#" id="portalBtn">Manage billing <svg><use href="#arrow"/></svg></a>
+    </div>
+  </section>
+
+  <section class="sec faq" aria-label="Questions" style="padding-bottom:96px">
+    <div class="head"><span class="eyebrow">Questions</span><h2>Good to know</h2></div>
+    <details><summary>What counts as a request?</summary><p>Each call to /v1/chat/completions counts as one request, whether it's short or long and whether it streams. Checking usage and listing models are free.</p></details>
+    <details><summary>What happens if I reach my limit?</summary><p>Requests return a 429 error with a message saying when your allowance resets, on the 1st of each month. You can upgrade anytime in the billing portal and the new limit applies right away.</p></details>
+    <details><summary>Do you store my prompts?</summary><p>No. The AIV API passes your request to its model provider and returns the answer without saving prompts or responses. We store only your plan, subscription status, request count and a scrambled (hashed) copy of your key.</p></details>
+    <details><summary>I lost my key. Can you send it again?</summary><p>For your security, nobody can look up a key after it's shown, including us. If you still have it, use Replace key above. If it's lost, email team@aiverse.it.com from the address you subscribed with.</p></details>
+    <details><summary>Can I cancel?</summary><p>Yes, anytime in the billing portal. Your key keeps working until the end of the period you paid for, then stops.</p></details>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav aria-label="Footer">
+        <a href="index.html#apps">Apps</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="chat.html">Ask AIV</a><a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Payments are processed by Stripe. AIV models are served by third-party model providers.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   AIV API SETTINGS — fill these in after following server/SETUP.md
+   ============================================================ */
+const AIV_API_CONFIG = {
+  apiBase: 'https://api.aiverse.it.com',          // your Cloudflare Worker address
+  paymentLinks: {                                // Stripe payment links (buy.stripe.com/…)
+    starter:  '',
+    pro:      '',
+    business: ''
+  },
+  portalUrl: ''                                  // Stripe customer portal link
+};
+
+(()=>{
+'use strict';
+const C=AIV_API_CONFIG, base=C.apiBase.replace(/\/+$/,'');
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function copyText(text,btn){try{await navigator.clipboard.writeText(text);const t=btn.textContent;btn.textContent='Copied';setTimeout(()=>btn.textContent=t,1600);}catch(e){btn.textContent='Select and copy manually';}}
+async function api(path,opt={}){let r;try{r=await fetch(base+path,opt);}catch(e){throw new Error('Couldn\'t reach the AIV API. Check your connection and try again.');}const j=await r.json().catch(()=>({}));if(!r.ok){const err=new Error((j.error&&j.error.message)||('Request failed ('+r.status+').'));err.status=r.status;err.type=j.error&&j.error.type;throw err;}return j;}
+
+/* plans → Stripe */
+document.querySelectorAll('[data-plan]').forEach(a=>{const url=C.paymentLinks[a.dataset.plan];if(url){a.href=url;a.rel='noopener';}else a.addEventListener('click',e=>{e.preventDefault();$('planNotice').innerHTML='<b>Checkout isn\'t open yet.</b> Plans go on sale soon. Email team@aiverse.it.com to be notified.';});});
+const portal=$('portalBtn');if(C.portalUrl){portal.href=C.portalUrl;portal.target='_blank';portal.rel='noopener';}else portal.addEventListener('click',e=>{e.preventDefault();portal.firstChild.textContent='Billing portal opens soon ';});
+
+/* code samples */
+const SAMPLES={
+ curl:`curl ${base}/v1/chat/completions \\
+  -H "Authorization: Bearer $AIV_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "aiv-1",
+    "messages": [{"role": "user", "content": "Write a 3-item packing list for a beach day."}]
+  }'`,
+ js:`import OpenAI from "openai";
+
+const aiv = new OpenAI({
+  apiKey: process.env.AIV_API_KEY,
+  baseURL: "${base}/v1",
+});
+
+const res = await aiv.chat.completions.create({
+  model: "aiv-1",
+  messages: [{ role: "user", content: "Summarize this week's sales in one sentence." }],
+});
+console.log(res.choices[0].message.content);`,
+ py:`from openai import OpenAI
+import os
+
+aiv = OpenAI(api_key=os.environ["AIV_API_KEY"], base_url="${base}/v1")
+
+res = aiv.chat.completions.create(
+    model="aiv-1",
+    messages=[{"role": "user", "content": "Draft a friendly appointment reminder text."}],
+)
+print(res.choices[0].message.content)`};
+let lang='curl';
+function showCode(l){lang=l;$('codeBlock').textContent=SAMPLES[l];document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.lang===l)));}
+document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>showCode(b.dataset.lang));
+$('copyCode').onclick=e=>copyText(SAMPLES[lang],e.currentTarget);showCode('curl');
+
+/* show a new key */
+function keyCard(title,key,sub){
+  const box=$('claim');box.hidden=false;
+  box.innerHTML=`<div class="card"><span class="eyebrow">Your API key</span><h2 style="margin-top:12px;font-size:28px">${esc(title)}</h2><p class="muted" style="margin:8px 0 0">${esc(sub)}</p><div class="keybox"><code id="newKey">${esc(key)}</code><button class="btn dark sm" type="button" id="copyNew">Copy key</button></div><div class="warn"><b>Save this key now.</b> It won't be shown again. Store it in a password manager or your server's environment variables, and never share it publicly.</div></div>`;
+  $('copyNew').onclick=e=>copyText(key,e.currentTarget);
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function claimFromCheckout(){
+  const sid=new URLSearchParams(location.search).get('session_id');if(!sid)return;
+  const box=$('claim');box.hidden=false;box.innerHTML='<div class="card"><span class="eyebrow">Payment received</span><h2 style="margin-top:12px;font-size:28px">Creating your API key…</h2><p class="muted" style="margin:8px 0 0">This usually takes a few seconds.</p></div>';
+  box.scrollIntoView({block:'start'});
+  for(let i=0;i<15;i++){
+    try{const j=await api('/v1/claim?session_id='+encodeURIComponent(sid));history.replaceState(null,'',location.pathname+'#claim');keyCard(`Welcome to AIV ${j.plan_name}`,j.key,`Your plan includes ${Number(j.monthly_requests).toLocaleString()} requests a month.`);return;}
+    catch(e){if(e.type!=='not_ready'&&e.status!==404){break;}await new Promise(r=>setTimeout(r,2000));}
+  }
+  history.replaceState(null,'',location.pathname);
+  box.innerHTML='<div class="card"><span class="eyebrow">Payment received</span><h2 style="margin-top:12px;font-size:28px">We couldn\'t show your key here</h2><p class="muted" style="margin:8px 0 0">Your payment went through, but the key took too long to appear or was already shown. Email team@aiverse.it.com from the address you paid with and we\'ll issue your key.</p></div>';
+}
+claimFromCheckout();
+
+/* usage + rotate */
+const keyVal=()=>$('myKey').value.trim();
+function keyErr(msg){const e=$('myKey-err');e.textContent=msg;e.hidden=!msg;$('myKey').setAttribute('aria-invalid',msg?'true':'false');}
+function validKey(){const k=keyVal();if(!/^aiv_live_[A-Za-z0-9]{20,}$/.test(k)){keyErr(k?'That doesn\'t look like an AIV key. Keys start with aiv_live_.':'Enter your API key.');return null;}keyErr('');return k;}
+async function run(btn,fn){btn.disabled=true;try{await fn();}catch(e){$('keyOut').innerHTML=`<span class="eyebrow">Usage this month</span><p style="margin:12px 0 0;color:var(--bad)">${esc(e.message)}</p>`;}finally{btn.disabled=false;}}
+$('keyForm').addEventListener('submit',e=>{e.preventDefault();const k=validKey();if(!k)return;run($('checkBtn'),async()=>{
+  const u=await api('/v1/usage',{headers:{Authorization:'Bearer '+k}});const pct=Math.min(100,u.used/u.limit*100);
+  $('keyOut').innerHTML=`<span class="eyebrow">Usage this month</span><div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;gap:12px"><h3>${esc(u.plan_name)} plan</h3><span class="muted" style="font-size:13px">${u.status==='active'?'Active':esc(u.status)}</span></div><div class="meter" aria-label="${Math.round(pct)}% used"><i style="width:${pct}%"></i></div><div class="kv"><span>Requests used</span><span>${u.used.toLocaleString()} of ${u.limit.toLocaleString()}</span><span>Remaining</span><span>${Math.max(0,u.limit-u.used).toLocaleString()}</span><span>Resets on</span><span>${esc(u.resets_on)}</span><span>Key ending in</span><span>…${esc(u.key_last4)}</span></div>${u.status!=='active'?'<p class="warn" style="margin-top:14px">This subscription isn\'t active, so the key is paused. Update your payment in Manage billing.</p>':''}`;
+});});
+$('rotateBtn').onclick=()=>{if(validKey())$('rotateConfirm').hidden=false;};
+$('rotateNo').onclick=()=>{$('rotateConfirm').hidden=true;};
+$('rotateYes').onclick=()=>{const k=validKey();if(!k)return;run($('rotateYes'),async()=>{const j=await api('/v1/keys/rotate',{method:'POST',headers:{Authorization:'Bearer '+k}});$('rotateConfirm').hidden=true;$('myKey').value='';keyCard('Your new API key',j.key,'Your old key has stopped working. Update it in your apps.');});};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Verse for Business</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Custom AI for your business from AI Verse. $150 plus API billing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: same system as home — centered thesis hero, three-up use cases, split pricing row, order form card, then a narrow confirmation sheet. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--bad:#b42318;--field:#ffffff;
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand svg{height:22px;width:auto;display:block}
+.brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.links{display:flex;gap:26px;font-size:14px}
+.links a{text-decoration:none;opacity:.85}.links a:hover,.links a[aria-current]{opacity:1}
+.links a[aria-current]{font-weight:500}
+.nav .right{margin-left:auto;display:flex;gap:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:500 15px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn.sm{padding:9px 18px;font-size:14px}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}.btn.dark:hover{opacity:.86}
+.btn.pill{background:var(--pill);color:var(--fg)}.btn.pill:hover{background:var(--line)}
+.btn.line{border-color:var(--line);color:var(--fg);background:transparent}.btn.line:hover{background:var(--pill)}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.btn svg{width:14px;height:14px}
+
+.hero{text-align:center;padding-block:96px 72px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:500 clamp(42px,7vw,80px)/1 var(--display);letter-spacing:-.04em;margin:18px auto 0;max-width:13ch;text-wrap:balance}
+.lede{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:34em;margin:22px auto 0;text-wrap:balance}
+.hero .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
+h3{font:500 20px/1.25 var(--display);letter-spacing:-.015em;margin:0}
+
+.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.use{background:var(--card);border-radius:18px;padding:30px 30px 32px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.use .k{font:400 12px/1 var(--mono);color:var(--muted)}
+.use p{margin:0;color:var(--muted);font-size:14.5px}
+
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;padding-block:96px;border-top:1px solid var(--line);margin-top:96px}
+.split .intro p{color:var(--muted);max-width:40ch;margin:18px 0 0}
+.rows{display:flex;flex-direction:column}
+.rowi{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding-block:20px;border-top:1px solid var(--line)}
+.rowi:first-child{border-top:0;padding-top:4px}
+.rowi .n{font:500 13px/1.6 var(--mono);color:var(--muted)}
+.rowi b{font-weight:500;display:block}
+.rowi span{color:var(--muted)}
+
+.price{background:var(--ink-btn);color:var(--ink-btn-fg);border-radius:22px;padding:44px 44px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
+.price .amt{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:18px}
+.price .amt b{font:500 clamp(64px,9vw,104px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.price .amt span{font:500 20px/1.2 var(--display);opacity:.75}
+.price .eyebrow{color:inherit;opacity:.65}
+.price p{margin:16px 0 0;opacity:.75;max-width:36ch}
+.price ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.price li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;opacity:.92}
+.price li svg{width:16px;height:16px;margin-top:4px}
+.price .buy{background:var(--ink-btn-fg);color:var(--ink-btn);margin-top:28px;padding:14px 28px;font-size:16px}
+.price .buy:hover{opacity:.9}
+
+/* order form */
+#order{scroll-margin-top:100px;padding-block:72px 96px}
+.order{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.card{background:var(--card);border-radius:18px;padding:36px 38px;min-width:0}
+.summary .line{display:flex;justify-content:space-between;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);font-size:14.5px}
+.summary .line span:last-child{font-variant-numeric:tabular-nums;font-weight:500}
+.summary .line.tot{border-bottom:0;font-size:16px}
+.summary p{color:var(--muted);font-size:13.5px;margin:16px 0 0}
+form{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:500}
+label .opt{color:var(--soft);font-weight:400}
+input,textarea{font:400 15px/1.4 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:0;min-width:0}
+textarea{resize:vertical;min-height:150px}
+input:focus,textarea:focus{border-color:var(--fg)}
+input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;font-weight:400}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.foot-form{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.note{color:var(--muted);font-size:12.5px;margin:0;max-width:42ch}
+.status{border-radius:14px;padding:18px 20px;background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.status b{color:var(--bad)}
+.status p{margin:6px 0 0;color:var(--muted)}
+.status .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+/* confirmation (matches the event-status email layout) */
+.done{max-width:600px;margin:0 auto;padding-block:96px 120px}
+.done svg.mark{height:30px;width:auto;display:block;color:var(--fg)}
+.done h2{font:500 30px/1.2 var(--display);letter-spacing:-.02em;margin:40px 0 0}
+.done p{margin:16px 0 0;font-size:16px;line-height:1.6}
+.done .muted{color:var(--muted);font-size:14.5px}
+.done .home{display:flex;width:100%;border-radius:10px;padding:16px 20px;margin-top:32px;font-size:15px}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--muted);font-size:13.5px}
+.foot{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+.foot .brand{color:var(--fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
+.fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
+
+@media (max-width:900px){.links{display:none}.uses{grid-template-columns:1fr}.split,.order,.price{grid-template-columns:1fr}.split{gap:28px;padding-block:72px;margin-top:72px}.price{gap:28px}}
+@media (max-width:560px){.nav .right .pill{display:none}.card{padding:28px 22px}.price{padding:32px 24px}.row2{grid-template-columns:1fr}.hero{padding-block:64px 52px}.done{padding-block:64px 88px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav class="links" aria-label="Main">
+        <a href="index.html#apps">Apps</a>
+        <a href="business.html" aria-current="page">Business</a>
+        <a href="data.html">Data</a>
+        <a href="api.html">API</a>
+        <a href="chat.html">Ask AIV</a>
+        <a href="index.html#groq">Get a free key</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="right">
+        <a class="btn pill sm" href="contact.html">Contact us</a>
+        <a class="btn dark sm" href="#order" data-buy>Buy now</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="offer" class="wrap">
+  <section class="hero">
+    <span class="eyebrow">AI Verse for Business</span>
+    <h1>Give your business superpowers.</h1>
+    <p class="lede">We build custom AI tools around the work your team repeats every day. You tell us the task, we deliver a tool made for it, and it runs on your own AI account.</p>
+    <div class="cta">
+      <a class="btn dark" href="#order" data-buy>Buy now · $150 <svg><use href="#arrow"/></svg></a>
+      <a class="btn pill" href="#pricing">See what's included</a>
+    </div>
+  </section>
+
+  <section aria-label="What we build">
+    <div class="uses">
+      <div class="use"><span class="k">Customers</span><h3>Support assistant</h3><p>Answers common customer questions from your own policies, menus, price lists or FAQs.</p></div>
+      <div class="use"><span class="k">Admin</span><h3>Inbox and document helper</h3><p>Sorts email, drafts replies, and pulls key details out of invoices, forms and contracts.</p></div>
+      <div class="use"><span class="k">Scheduling</span><h3>Booking and planning</h3><p>Plans shifts, appointments and routes around your hours, staff and deadlines.</p></div>
+      <div class="use"><span class="k">Team knowledge</span><h3>Internal guide</h3><p>A searchable assistant trained on your procedures, so new staff get answers fast.</p></div>
+      <div class="use"><span class="k">Sales &amp; marketing</span><h3>Content studio</h3><p>Writes product descriptions, social posts, quotes and follow-ups in your brand voice.</p></div>
+      <div class="use"><span class="k">Numbers</span><h3>Reports and dashboards</h3><p>Turns spreadsheets and sales exports into plain-language summaries and charts.</p></div>
+    </div>
+  </section>
+
+  <section class="split" id="how">
+    <div class="intro">
+      <h2>How it works</h2>
+      <p>Each tool is built for one business and one job. Nothing generic, and no long contracts.</p>
+    </div>
+    <div class="rows">
+      <div class="rowi"><span class="n">01</span><div><b>Tell us the task</b><span>Fill out the order form with your business, your website and what you want the AI to handle.</span></div></div>
+      <div class="rowi"><span class="n">02</span><div><b>We scope and build it</b><span>Our team follows up by email to confirm details, then builds your tool.</span></div></div>
+      <div class="rowi"><span class="n">03</span><div><b>You run it on your own key</b><span>We connect it to your AI provider account, so usage is billed to you directly at the provider's rates.</span></div></div>
+    </div>
+  </section>
+
+  <section id="pricing" style="scroll-margin-top:100px">
+    <div class="price">
+      <div>
+        <span class="eyebrow">Custom AI solution</span>
+        <div class="amt"><b>$150</b><span>+ API billing</span></div>
+        <p>API billing is what your AI provider charges for usage. You pay it on your own account, and many providers, including Groq, offer a free tier to start.</p>
+        <a class="btn buy" href="#order" data-buy>Buy now <svg><use href="#arrow"/></svg></a>
+      </div>
+      <ul>
+        <li><svg><use href="#tick"/></svg><span>A custom AI tool built around your request</span></li>
+        <li><svg><use href="#tick"/></svg><span>Your business name, logo and colors</span></li>
+        <li><svg><use href="#tick"/></svg><span>Setup with your own AI key, so your data stays with you</span></li>
+        <li><svg><use href="#tick"/></svg><span>Works on phones, tablets and computers</span></li>
+        <li><svg><use href="#tick"/></svg><span>Files you own and can host anywhere</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="order" hidden aria-labelledby="orderTitle">
+    <div class="order">
+      <aside class="card summary">
+        <span class="eyebrow">Your order</span>
+        <div style="margin-top:14px">
+          <div class="line"><span>Custom AI solution</span><span>$150.00</span></div>
+          <div class="line"><span>API billing</span><span>Paid to your provider</span></div>
+          <div class="line tot"><span>Due to AI Verse</span><span>$150.00</span></div>
+        </div>
+        <p>Nothing is charged on this page. We'll email you to confirm the details of your request and arrange payment before work begins.</p>
+      </aside>
+      <div class="card">
+        <h2 id="orderTitle" style="font-size:26px">Tell us about your business</h2>
+        <form id="orderForm" novalidate style="margin-top:22px">
+          <div class="row2">
+            <label for="first">First name<input id="first" autocomplete="given-name" maxlength="60"><span class="err" id="first-err" hidden></span></label>
+            <label for="last">Last name<input id="last" autocomplete="family-name" maxlength="60"><span class="err" id="last-err" hidden></span></label>
+          </div>
+          <label for="email">Email<input id="email" type="email" autocomplete="email" maxlength="120" placeholder="you@yourbusiness.com"><span class="err" id="email-err" hidden></span></label>
+          <div class="row2">
+            <label for="biz">Business name<input id="biz" autocomplete="organization" maxlength="100"><span class="err" id="biz-err" hidden></span></label>
+            <label for="site">Website<input id="site" type="url" inputmode="url" autocomplete="url" maxlength="200" placeholder="yourbusiness.com"><span class="err" id="site-err" hidden></span></label>
+          </div>
+          <label for="request">Your request<textarea id="request" maxlength="4000" placeholder="What should the AI do for your business? Who will use it, and what does a typical day look like?"></textarea><span class="err" id="request-err" hidden></span></label>
+          <div class="hp" aria-hidden="true"><label for="hpField">Leave this empty<input id="hpField" tabindex="-1" autocomplete="off"></label></div>
+          <div class="foot-form">
+            <p class="note">We use these details only to respond to your order. Never paste API keys or passwords here.</p>
+            <button class="btn dark" type="submit" id="sendBtn">Submit order <svg><use href="#arrow"/></svg></button>
+          </div>
+          <div id="status" class="status" hidden role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="thanks" class="wrap" hidden>
+  <section class="done" aria-live="polite">
+    <svg class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
+    <h2>Order Status Update</h2>
+    <p>Your request for <b id="tBiz"></b> has been received. We'll be in touch shortly!</p>
+    <p class="muted">A member of our team will reply to <span id="tEmail"></span>.</p>
+    <a class="btn dark home" href="index.html">Back to home</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav aria-label="Footer">
+        <a href="index.html#apps">Apps</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="index.html#groq">Groq setup</a><a href="chat.html">Ask AIV</a><a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. API usage is billed by your AI provider and is not included in the $150 price.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+const TEAM='team@aiverse.it.com';
+const ENDPOINT='https://formsubmit.co/ajax/'+TEAM;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function openOrder(e){if(e)e.preventDefault();const o=$('order');o.hidden=false;o.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});setTimeout(()=>$('first').focus({preventScroll:true}),400);}
+document.querySelectorAll('[data-buy]').forEach(a=>a.addEventListener('click',openOrder));
+if(location.hash==='#order')openOrder();
+
+const normUrl=v=>{v=v.trim();if(!v)return'';return /^https?:\/\//i.test(v)?v:'https://'+v;};
+const rules={
+  first:v=>v.trim()?'':'Enter your first name.',
+  last:v=>v.trim()?'':'Enter your last name.',
+  email:v=>!v.trim()?'Enter your email so we can reply.':/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())?'':'Check your email address, for example name@business.com.',
+  biz:v=>v.trim()?'':'Enter your business name.',
+  site:v=>{if(!v.trim())return'Enter your website, or "none" if you don\'t have one.';if(/^none$/i.test(v.trim()))return'';try{const u=new URL(normUrl(v));return u.hostname.includes('.')?'':'Check the website address, for example yourbusiness.com.';}catch(e){return'Check the website address, for example yourbusiness.com.';}},
+  request:v=>v.trim().length>=10?'':'Describe your request in at least 10 characters.'
+};
+function check(id){const el=$(id),msg=rules[id](el.value),err=$(id+'-err');err.textContent=msg;err.hidden=!msg;el.setAttribute('aria-invalid',msg?'true':'false');return !msg;}
+Object.keys(rules).forEach(id=>$(id).addEventListener('blur',()=>{if($(id).value)check(id);}));
+
+async function copyText(text,btn){try{await navigator.clipboard.writeText(text);const t=btn.textContent;btn.textContent='Copied';setTimeout(()=>btn.textContent=t,1600);}catch(e){btn.textContent='Copy failed — select the text manually';}}
+
+function showThanks(d){
+  $('tBiz').textContent=d.biz;$('tEmail').textContent=d.email;
+  $('offer').hidden=true;$('thanks').hidden=false;window.scrollTo(0,0);
+  history.replaceState(null,'',location.pathname);
+}
+function showFail(d,reason){
+  const st=$('status');const subject=`Business order: ${d.biz}`;
+  const body=`Name: ${d.first} ${d.last}\nEmail: ${d.email}\nBusiness: ${d.biz}\nWebsite: ${d.site}\nPlan: Custom AI solution, $150 + API billing\n\nRequest:\n${d.request}`;
+  st.hidden=false;
+  st.innerHTML=`<b>Your order wasn't sent.</b><p>${esc(reason)} Your details are still in the form. You can email them to ${TEAM} instead.</p><div class="acts"><a class="btn dark sm" href="mailto:${TEAM}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">Open in email app</a><button class="btn line sm" type="button" id="copyOrder">Copy order details</button></div>`;
+  $('copyOrder').onclick=e=>copyText(`To: ${TEAM}\nSubject: ${subject}\n\n${body}`,e.currentTarget);
+}
+
+$('orderForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const ids=Object.keys(rules);const ok=ids.map(check).every(Boolean);
+  if(!ok){$(ids.find(id=>$(id).getAttribute('aria-invalid')==='true')).focus();return;}
+  if($('hpField').value)return;
+  const d={first:$('first').value.trim(),last:$('last').value.trim(),email:$('email').value.trim(),biz:$('biz').value.trim(),site:/^none$/i.test($('site').value.trim())?'None':normUrl($('site').value),request:$('request').value.trim()};
+  const btn=$('sendBtn');btn.disabled=true;btn.firstChild.textContent='Submitting… ';$('status').hidden=true;
+  try{
+    const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({
+      _subject:`Business order: ${d.biz} (${d.first} ${d.last})`,_replyto:d.email,_template:'table',_captcha:'false',
+      'Order':'Custom AI solution — $150 + API billing','First name':d.first,'Last name':d.last,Email:d.email,Business:d.biz,Website:d.site,Request:d.request
+    })});
+    const j=await r.json().catch(()=>({}));
+    if(r.ok&&String(j.success)==='true')showThanks(d);
+    else showFail(d,j.message?`The form service said: ${j.message}.`:'The form service didn\'t accept it.');
+  }catch(err){showFail(d,'We couldn\'t reach the form service.');}
+  finally{btn.disabled=false;btn.firstChild.textContent='Submit order ';}
+});
+})();
+</script>
+</body>
+</html>

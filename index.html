@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Verse</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="AI Verse builds AI tools for everyday tasks: learning, money, planning and fitness. Free to use with your own AI key.">
@@ -6,6 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* Layout: SpaceX-style quiet grid — centered thesis hero, two-up warm-grey cards, split "how it works" rows. */
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+[hidden]{display:none!important}
 :root{
   --bg:#ffffff;
   --fg:#111111;
@@ -127,6 +135,8 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
   .subnav .r{display:none}
 }
 </style>
+</head>
+<body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="aiv" viewBox="168 188 1044 394">
@@ -146,12 +156,17 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
       <a class="brand" href="#top" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav class="links" aria-label="Main">
         <a href="#apps">Apps</a>
+        <a href="business.html">Business</a>
+        <a href="data.html">Data</a>
+        <a href="api.html">API</a>
+        <a href="chat.html">Ask AIV</a>
         <a href="#access">How it works</a>
         <a href="#groq">Get a free key</a>
         <a href="#principles">Privacy</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="right">
-        <a class="btn pill sm" href="https://console.groq.com/keys" target="_blank" rel="noopener">Free Groq key</a>
+        <a class="btn pill sm" href="chat.html">Ask AIV</a>
         <a class="btn dark sm" href="#apps">Explore apps</a>
       </div>
     </div>
@@ -161,7 +176,7 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
       <a href="#finance">Financial Intelligence</a>
       <a href="#aide">Aide</a>
       <a href="#fitness">Fitness Intelligence</a>
-      <div class="r"><a href="#access">Bring your own key</a><a href="#groq">Setup guide</a></div>
+      <div class="r"><a href="#access">Bring your own key</a><a href="#groq">Setup guide</a><a href="business.html">For business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="contact.html">Contact</a></div>
     </div>
   </div>
 </header>
@@ -260,9 +275,12 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
     <div class="foot">
       <a class="brand" href="#top"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#learning">Learning</a><a href="#finance">Finance</a><a href="#aide">Aide</a><a href="#fitness">Fitness</a><a href="#groq">Groq setup</a>
+        <a href="#learning">Learning</a><a href="#finance">Finance</a><a href="#aide">Aide</a><a href="#fitness">Fitness</a><a href="#groq">Groq setup</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="chat.html">Ask AIV</a><a href="contact.html">Contact</a>
       </nav>
     </div>
-    <p class="fine">© 2026 AI Verse. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
   </div>
 </footer>
+
+</body>
+</html>

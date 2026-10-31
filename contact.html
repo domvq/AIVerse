@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact AI Verse</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Contact the AI Verse team at team@aiverse.it.com.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: same system as the home page — centered heading, then a two-up of a quiet info card and the form card. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--bad:#b42318;--field:#ffffff;
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand svg{height:22px;width:auto;display:block}
+.brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.links{display:flex;gap:26px;font-size:14px}
+.links a{text-decoration:none;opacity:.85}.links a:hover,.links a[aria-current]{opacity:1}
+.links a[aria-current]{font-weight:500}
+.nav .right{margin-left:auto;display:flex;gap:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:500 15px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn.sm{padding:9px 18px;font-size:14px}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}.btn.dark:hover{opacity:.86}
+.btn.pill{background:var(--pill);color:var(--fg)}.btn.pill:hover{background:var(--line)}
+.btn.line{border-color:var(--line);color:var(--fg);background:transparent}.btn.line:hover{background:var(--pill)}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.btn svg{width:14px;height:14px}
+
+.hero{text-align:center;padding-block:80px 52px}
+h1{font:500 clamp(40px,6vw,68px)/1.03 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.lede{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:32em;margin:20px auto 0;text-wrap:balance}
+
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start;padding-bottom:96px}
+.card{background:var(--card);border-radius:18px;padding:36px 38px;min-width:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h2{font:500 24px/1.2 var(--display);letter-spacing:-.02em;margin:0}
+.info p{color:var(--muted);margin:12px 0 0;max-width:40ch}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
+.mail .addr{font:500 clamp(18px,2vw,22px)/1.2 var(--display);letter-spacing:-.01em;user-select:all;overflow-wrap:anywhere}
+.topics{margin-top:30px;border-top:1px solid var(--line)}
+.topics div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding-block:14px;border-bottom:1px solid var(--line);font-size:14px}
+.topics b{font-weight:500}
+.topics span{color:var(--muted)}
+
+form{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:500}
+label .opt{color:var(--soft);font-weight:400}
+input,select,textarea{font:400 15px/1.4 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:0;min-width:0}
+textarea{resize:vertical;min-height:150px}
+input:focus,select:focus,textarea:focus{border-color:var(--fg)}
+input[aria-invalid="true"],textarea[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;font-weight:400}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.foot-form{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.note{color:var(--muted);font-size:12.5px;margin:0;max-width:42ch}
+.count{color:var(--soft);font:400 12px var(--mono);text-align:right}
+
+.status{border-radius:14px;padding:18px 20px;margin-top:4px}
+.status.ok{background:color-mix(in srgb,var(--good) 12%,var(--card));}
+.status.ok b{color:var(--good)}
+.status.fail{background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.status.fail b{color:var(--bad)}
+.status p{margin:6px 0 0;color:var(--muted)}
+.status .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--muted);font-size:13.5px}
+.foot{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+.foot .brand{color:var(--fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
+.fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
+
+@media (max-width:900px){.links{display:none}.grid{grid-template-columns:1fr}}
+@media (max-width:560px){.nav .right .pill{display:none}.card{padding:28px 22px}.row2{grid-template-columns:1fr}.topics div{grid-template-columns:1fr;gap:2px}.hero{padding-block:56px 40px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav class="links" aria-label="Main">
+        <a href="index.html#apps">Apps</a>
+        <a href="business.html">Business</a>
+        <a href="data.html">Data</a>
+        <a href="api.html">API</a>
+        <a href="chat.html">Ask AIV</a>
+        <a href="index.html#access">How it works</a>
+        <a href="index.html#groq">Get a free key</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+      <div class="right">
+        <a class="btn pill sm" href="https://console.groq.com/keys" target="_blank" rel="noopener">Free Groq key</a>
+        <a class="btn dark sm" href="index.html#apps">Explore apps</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Contact AI Verse</h1>
+    <p class="lede">Questions about an app, a feature you'd like to see, or a custom AI solution for your work. Send us a message and the team will reply by email.</p>
+  </section>
+
+  <div class="grid">
+    <aside class="card info">
+      <span class="eyebrow">Team email</span>
+      <div class="mail">
+        <span class="addr" id="teamAddr">team@aiverse.it.com</span>
+        <button class="btn line sm" type="button" id="copyAddr">Copy</button>
+      </div>
+      <p>Prefer your own email app? Write to us directly at this address. The form sends to the same inbox.</p>
+      <div class="topics">
+        <div><b>App support</b><span>Setup help, AI keys, bugs in Learning, Finance, Aide or Fitness.</span></div>
+        <div><b>Custom solutions</b><span>An AI tool built around a task your team does every day.</span></div>
+        <div><b>Partnerships</b><span>Schools, clinics, nonprofits and companies working with us.</span></div>
+      </div>
+    </aside>
+
+    <section class="card" aria-labelledby="formTitle">
+      <h2 id="formTitle">Send a message</h2>
+      <form id="contactForm" novalidate style="margin-top:22px">
+        <div class="row2">
+          <label for="first">First name<input id="first" name="first_name" autocomplete="given-name" required maxlength="60"><span class="err" id="first-err" hidden></span></label>
+          <label for="last">Last name<input id="last" name="last_name" autocomplete="family-name" required maxlength="60"><span class="err" id="last-err" hidden></span></label>
+        </div>
+        <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="you@example.com"><span class="err" id="email-err" hidden></span></label>
+        <label for="request">What can we help with?
+          <select id="request" name="request" required>
+            <option value="">Choose a topic</option>
+            <option>App support</option>
+            <option>Bug report</option>
+            <option>Feature request</option>
+            <option>Custom AI solution</option>
+            <option>Partnership</option>
+            <option>Press or media</option>
+            <option>Something else</option>
+          </select>
+          <span class="err" id="request-err" hidden></span>
+        </label>
+        <label for="message">Message
+          <textarea id="message" name="message" required maxlength="4000" placeholder="Tell us what you need. For app issues, include which app and what you were doing."></textarea>
+          <span class="err" id="message-err" hidden></span>
+        </label>
+        <div class="count" id="count">0 / 4000</div>
+        <div class="hp" aria-hidden="true"><label for="website">Leave this empty<input id="website" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+        <div class="foot-form">
+          <p class="note">We use your email only to reply to this message. Never paste API keys or passwords here.</p>
+          <button class="btn dark" type="submit" id="sendBtn">Send message <svg><use href="#arrow"/></svg></button>
+        </div>
+        <div id="status" class="status" hidden role="status" aria-live="polite"></div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav aria-label="Footer">
+        <a href="index.html#learning">Learning</a><a href="index.html#finance">Finance</a><a href="index.html#aide">Aide</a><a href="index.html#fitness">Fitness</a><a href="index.html#groq">Groq setup</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="chat.html">Ask AIV</a><a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+const TEAM='team@aiverse.it.com';
+const ENDPOINT='https://formsubmit.co/ajax/'+TEAM;
+const $=id=>document.getElementById(id);
+const form=$('contactForm'),btn=$('sendBtn'),status=$('status');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function copyText(text,button){
+  try{await navigator.clipboard.writeText(text);const t=button.textContent;button.textContent='Copied';setTimeout(()=>button.textContent=t,1600);}
+  catch(e){const r=document.createRange();r.selectNodeContents($('teamAddr'));const s=getSelection();s.removeAllRanges();s.addRange(r);button.textContent='Press Ctrl+C';}
+}
+$('copyAddr').addEventListener('click',e=>copyText(TEAM,e.currentTarget));
+
+$('message').addEventListener('input',e=>{$('count').textContent=e.target.value.length+' / 4000';});
+
+const rules={
+  first:v=>v.trim()?'':'Enter your first name.',
+  last:v=>v.trim()?'':'Enter your last name.',
+  email:v=>!v.trim()?'Enter your email so we can reply.':/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())?'':'Check your email address, for example name@example.com.',
+  request:v=>v?'':'Choose a topic.',
+  message:v=>v.trim().length>=10?'':'Write a message of at least 10 characters.'
+};
+function check(id){const el=$(id),msg=rules[id](el.value),err=$(id+'-err');err.textContent=msg;err.hidden=!msg;el.setAttribute('aria-invalid',msg?'true':'false');return !msg;}
+Object.keys(rules).forEach(id=>$(id).addEventListener('blur',()=>{if($(id).value)check(id);}));
+
+function data(){return{first:$('first').value.trim(),last:$('last').value.trim(),email:$('email').value.trim(),request:$('request').value,message:$('message').value.trim()};}
+function mailBody(d){return `Name: ${d.first} ${d.last}\nEmail: ${d.email}\nTopic: ${d.request}\n\n${d.message}`;}
+
+function showOk(d){
+  status.className='status ok';status.hidden=false;
+  status.innerHTML=`<b>Message sent.</b><p>Thanks, ${esc(d.first)}. We'll reply to ${esc(d.email)}.</p>`;
+  form.reset();$('count').textContent='0 / 4000';
+}
+function showFail(d,reason){
+  const subject=`[${d.request}] Message from ${d.first} ${d.last}`;
+  const href=`mailto:${TEAM}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailBody(d))}`;
+  status.className='status fail';status.hidden=false;
+  status.innerHTML=`<b>Your message wasn't sent.</b><p>${esc(reason)} Your text is still in the form. You can email it to ${TEAM} instead.</p><div class="acts"><a class="btn dark sm" href="${href}">Open in email app</a><button class="btn line sm" type="button" id="copyMsg">Copy message</button><button class="btn line sm" type="button" id="copyTo">Copy our email</button></div>`;
+  $('copyMsg').onclick=e=>copyText(`To: ${TEAM}\nSubject: ${subject}\n\n${mailBody(d)}`,e.currentTarget);
+  $('copyTo').onclick=e=>copyText(TEAM,e.currentTarget);
+}
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const ok=Object.keys(rules).map(check).every(Boolean);
+  if(!ok){const first=Object.keys(rules).find(id=>$(id).getAttribute('aria-invalid')==='true');$(first).focus();return;}
+  if($('website').value)return;
+  const d=data();
+  btn.disabled=true;btn.firstChild.textContent='Sending… ';status.hidden=true;
+  try{
+    const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({
+      _subject:`[${d.request}] ${d.first} ${d.last} — AI Verse contact form`,
+      _replyto:d.email,_template:'table',_captcha:'false',
+      'First name':d.first,'Last name':d.last,Email:d.email,Request:d.request,Message:d.message
+    })});
+    const j=await r.json().catch(()=>({}));
+    if(r.ok&&String(j.success)==='true')showOk(d);
+    else showFail(d,j.message?`The form service said: ${j.message}.`:'The form service didn\'t accept it.');
+  }catch(err){showFail(d,'We couldn\'t reach the form service.');}
+  finally{btn.disabled=false;btn.firstChild.textContent='Send message ';}
+});
+})();
+</script>
+</body>
+</html>
