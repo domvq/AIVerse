@@ -10,5 +10,5 @@ window.AIV_SITE = {
 
   // Your Ask AIV server address (see ask-aiv/SETUP.md),
   // e.g. 'https://ask-aiv.YOURNAME.workers.dev'. Leave empty until it's deployed.
-  askAiv: ''
+  askAiv: 'https://ask-aiv.domhasaball.workers.dev'
 };
