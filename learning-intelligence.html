@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learning Intelligence — Adaptive AI Tutor &amp; Research Lab</title>
+<meta name="description" content="An adaptive AI tutor with a live knowledge map, quizzes, flashcards, slides and study guides, plus a research lab for reading papers with verified citations, learning methodology, planning experiments and practicing scientific writing.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111'/%3E%3Ccircle cx='20' cy='40' r='6' fill='white'/%3E%3Ccircle cx='44' cy='22' r='6' fill='white'/%3E%3Ccircle cx='44' cy='44' r='6' fill='white'/%3E%3Cpath d='M25 37l14-12M26 40h12' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+[hidden]{display:none!important}
+
+:root{--bg:#fff;--card:#f4f4f5;--box:#fff;--line:#e6e6e9;--ink:#111214;--muted:#6b6d72;--soft:#9a9ca1;--good:#15803d;--good-bg:#dcfce7;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;--kcal:#f97316;--pro:#0891b2;--carb:#d97706;--fat:#8b5cf6;--sleep:#8b5cf6;--lift:#0e7490;--water:#0284c7;--btn:#111214;--btn-ink:#fff;--r:14px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0e0f11;--card:#1a1b1e;--box:#141518;--line:#2a2c30;--ink:#ececee;--muted:#a1a3a8;--soft:#7a7c82;--good:#4ade80;--good-bg:#14321f;--warn:#fbbf24;--warn-bg:#3a2d0c;--bad:#f87171;--bad-bg:#3b1414;--kcal:#fb923c;--pro:#22d3ee;--carb:#fbbf24;--fat:#a78bfa;--sleep:#a78bfa;--lift:#22d3ee;--water:#38bdf8;--btn:#ececee;--btn-ink:#111214;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.shell{max-width:780px;margin:0 auto;padding:24px 18px 110px}
+@media (min-width:820px){.shell{margin:20px auto;border:1px solid var(--line);border-radius:22px;padding:26px 26px 110px;min-height:calc(100vh - 40px)}}
+header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+h1{font-size:30px;line-height:1.15;margin:0;font-weight:700;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px;margin:3px 0 0}
+.hdr-r{display:flex;gap:8px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:5px;background:var(--good-bg);color:var(--good);font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap;border:0;cursor:pointer;font-family:inherit}
+.badge.off{background:var(--card);color:var(--muted)}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--box);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.icon-btn:hover{background:var(--card)}
+.ic{width:20px;height:20px;flex:none}
+.view{display:none}.view.on{display:block;animation:fade .15s ease}
+@keyframes fade{from{opacity:0}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{background:var(--card);border-radius:var(--r);padding:14px 14px 12px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer;min-width:0}
+.stat:hover{filter:brightness(.98)}
+.stat .ic{width:20px;height:20px}
+.stat b{display:block;font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat b small{font-size:18px;font-weight:600;color:var(--muted)}
+.stat>span:last-child{font-size:13px;color:var(--muted)}
+.c-kcal{color:var(--kcal)}.c-lift{color:var(--lift)}.c-pro{color:var(--pro)}.c-sleep{color:var(--sleep)}.c-water{color:var(--water)}.c-carb{color:var(--carb)}.c-fat{color:var(--fat)}
+h2{font-size:15px;font-weight:600;margin:22px 0 10px}
+h3{font-size:15px;font-weight:600;margin:0}
+h4{font-size:13px;font-weight:600;margin:14px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.box{background:var(--box);border:1px solid var(--line);border-radius:var(--r);padding:14px 14px}
+.soft{background:var(--card);border-radius:var(--r);padding:14px}
+.box+.box,.soft+.soft,.box+.soft,.soft+.box{margin-top:10px}
+.row{display:flex;gap:8px;align-items:center}
+.wrap{flex-wrap:wrap}.between{justify-content:space-between}.end{justify-content:flex-end}.grow{flex:1;min-width:0}
+.pill{display:inline-block;background:var(--card);color:var(--ink);font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.box .pill{background:var(--card)}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:12px}
+.note{color:var(--muted);font-size:12.5px;margin:10px 0 0}
+ul.ex{margin:8px 0 0;padding-left:22px}ul.ex li{margin:3px 0}
+.btn{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--box);color:var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;position:relative;text-decoration:none}
+.btn:hover{background:var(--card)}
+.btn.primary{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
+.btn.primary:hover{opacity:.9}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.danger{color:var(--bad)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn .ic{width:16px;height:16px}
+.loading{color:transparent!important}.loading>*{visibility:hidden}
+.loading::after{content:"";position:absolute;inset:0;margin:auto;width:16px;height:16px;border:2px solid var(--soft);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:10px;flex:1;min-width:0}
+input,select,textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid transparent;border-radius:10px;padding:9px 11px;width:100%;outline:0;min-width:0}
+.box input,.box select,.box textarea{background:var(--card)}
+input:focus,select:focus,textarea:focus{border-color:var(--ink)}
+textarea{resize:vertical}
+label.check{flex-direction:row;align-items:center;gap:8px;font-weight:500;color:var(--ink);font-size:14px}
+label.check input{width:auto}
+.form-row{display:flex;gap:10px;flex-wrap:wrap}.form-row>label{min-width:110px}
+.seg{display:inline-flex;background:var(--card);border-radius:11px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer}
+.seg button.on{background:var(--box);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--box);color:var(--ink);font:inherit;font-size:12.5px;padding:5px 10px;border-radius:99px;cursor:pointer;text-align:left}
+.chip:hover{background:var(--card)}
+.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--ink)}
+.mrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .t{font-weight:600;font-size:14px}
+.x{border:0;background:none;color:var(--soft);cursor:pointer;font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
+.x:hover{background:var(--card);color:var(--ink)}
+.empty{color:var(--muted);font-size:14px;margin:4px 0}
+.md p{margin:0 0 8px}.md ul,.md ol{margin:0 0 8px;padding-left:20px}.md li{margin:2px 0}.md h4{text-transform:none;letter-spacing:0;color:var(--ink);font-size:14px}.md>:last-child{margin-bottom:0}
+.coach-head{display:flex;gap:8px;align-items:center;font-weight:600;margin-bottom:8px}
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.msg{padding:10px 12px;border-radius:12px;max-width:92%;font-size:14px}
+.msg.me{align-self:flex-end;background:var(--btn);color:var(--btn-ink)}
+.msg.ai{align-self:flex-start;background:var(--box);border:1px solid var(--line)}
+.askbar{display:flex;gap:6px;margin-top:10px}
+.askbar input{background:var(--box);border:1px solid var(--line)}
+/* workout logging */
+.exc{background:var(--box);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-top:10px}
+.sets{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+.sets th{font-size:11.5px;font-weight:600;color:var(--muted);text-align:left;padding:2px 4px;text-transform:uppercase;letter-spacing:.04em}
+.sets td{padding:3px 4px}
+.sets input{padding:7px 8px;text-align:center}
+.sets tr.done td{opacity:.6}
+.setchk{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--box);cursor:pointer;display:grid;place-items:center;color:var(--muted);font-size:15px}
+.setchk.on{background:var(--good);border-color:var(--good);color:#fff}
+#restBar{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:30;background:var(--btn);color:var(--btn-ink);border-radius:14px;padding:10px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);width:min(440px,92vw)}
+#restBar[hidden]{display:none}
+#restBar b{font-size:22px;font-variant-numeric:tabular-nums;min-width:64px}
+#restBar button{background:transparent;color:inherit;border:1px solid currentColor;border-radius:8px;padding:4px 9px;font:inherit;font-size:13px;cursor:pointer;opacity:.9}
+/* charts */
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart text{fill:var(--muted);font-size:11px;font-family:inherit}
+.chart .grid line{stroke:var(--line)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* photos */
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.thumb{position:relative;border-radius:10px;overflow:hidden;background:var(--card);aspect-ratio:3/4;border:0;padding:0;cursor:pointer}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb span{position:absolute;left:4px;bottom:4px;background:rgba(0,0,0,.6);color:#fff;font-size:10.5px;padding:1px 6px;border-radius:6px}
+.compare{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:70vh;margin:0 auto;user-select:none}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.compare .top{clip-path:inset(0 0 0 50%)}
+.compare .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;pointer-events:none}
+.side{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.side figure{margin:0}.side img{width:100%;border-radius:10px;display:block;background:var(--card)}
+.side figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:4px}
+.posewrap{position:relative;max-width:420px;margin:0 auto}
+.posewrap img,.posewrap canvas{width:100%;display:block;border-radius:12px}
+.posewrap canvas{position:absolute;inset:0}
+.ring{width:118px;height:118px;flex:none}
+.ring text{font-family:inherit}
+/* bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav.tabs .in{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--ink);font-size:12px;font-weight:600;padding:2px 0}
+nav.tabs a .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1.5px solid transparent}
+nav.tabs a.on .ico{border-color:var(--ink)}
+nav.tabs a:not(.on){color:var(--muted)}
+/* dialogs, toasts, ai progress */
+dialog{border:1px solid var(--line);border-radius:16px;padding:0;background:var(--bg);color:var(--ink);width:min(560px,94vw);box-shadow:0 20px 60px rgba(0,0,0,.28)}
+dialog.wide{width:min(760px,96vw)}
+dialog::backdrop{background:rgba(10,12,14,.45)}
+.dlg-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.dlg-b{padding:16px;max-height:78vh;overflow:auto}
+#toasts{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;width:min(470px,92vw)}
+.toast{background:var(--btn);color:var(--btn-ink);padding:10px 14px;border-radius:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,.22);font-size:14px;animation:fade .2s}
+.toast.err{background:var(--bad);color:#fff}
+.toast button{background:none;border:1px solid currentColor;color:inherit;border-radius:7px;padding:3px 9px;cursor:pointer;font:inherit;font-size:13px}
+#llmBar{position:fixed;top:12px;right:12px;z-index:90;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:min(340px,90vw);box-shadow:0 8px 24px rgba(0,0,0,.15);font-size:12px;color:var(--muted)}
+#llmBar[hidden]{display:none}
+.llm-track{height:4px;background:var(--line);border-radius:4px;margin-top:6px;overflow:hidden}.llm-track i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
+.llm-track.big{height:8px;margin-top:14px}#gateTrack[hidden]{display:none}
+#gate{width:min(460px,94vw)}#gate h3{font-size:20px;margin:0 0 6px}
+[data-prov][hidden]{display:none}
+#aiCard .seg{margin-bottom:12px}
+details summary{cursor:pointer;font-weight:600;font-size:14px}
+.steps{padding-left:20px;margin:6px 0}.steps li{margin:4px 0}
+code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 14px;font-size:14px}
+.kv span:nth-child(even){font-weight:600;text-align:right}
+.hint{color:var(--muted);font-size:12.5px}
+@media (max-width:520px){h1{font-size:26px}.stat b{font-size:28px}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.mrow{grid-template-columns:60px 1fr auto}}
+
+.err{color:var(--bad);font-weight:600}
+#map{overflow-x:auto}#map svg{min-width:480px;width:100%;max-width:680px;height:auto;display:block;margin:0 auto}
+#map g[data-id]{cursor:pointer}#map g[data-id]:focus-visible{outline:none}#map g[data-id]:focus-visible circle{stroke:var(--ink);stroke-width:3}
+.n0{fill:var(--soft)}.n1{fill:var(--bad)}.n2{fill:var(--carb)}.n3{fill:var(--good)}
+.edge{stroke:var(--line);stroke-width:2}.num{fill:#fff;font-weight:700;font-size:13px}.lbl{fill:var(--ink);font-size:12px}
+.ring{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-dasharray:5 4}.selr{stroke:var(--ink);stroke-width:3}
+.lg{font-size:12.5px}.lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px 0 10px;vertical-align:-1px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;white-space:normal}
+.opt.good{border-color:var(--good);background:var(--good-bg)}.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.opt:disabled{opacity:1;color:var(--ink);cursor:default}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.fc{min-height:120px;text-align:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--box);color:var(--ink);font:inherit;cursor:pointer}
+.fc .b,.fc.flip .f{display:none}.fc.flip .b{display:block}.fc.flip{background:var(--card)}
+.slide{border:1px solid var(--line);border-radius:12px;padding:22px;min-height:220px;background:var(--box)}
+.slide h3{font-size:19px;margin-bottom:8px}
+pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-size:13px}
+.out{overflow-wrap:anywhere}
+.cite{border:1px solid var(--ink);border-radius:5px;padding:0 6px;font-size:12px;margin-left:4px;background:transparent;color:var(--ink);cursor:pointer;font-family:inherit}
+.ok{color:var(--good)}.warnt{color:var(--bad)}
+.src{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:10px;font-size:14px}
+.src p{margin:0 0 8px;padding:4px 6px;border-radius:6px}.src p.on{background:var(--warn-bg)}
+.sc{display:grid;grid-template-columns:110px 1fr 30px;gap:8px;align-items:center;margin:6px 0;font-size:14px}
+.tile{background:var(--card);border-radius:var(--r);padding:12px 14px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.tile:hover{filter:brightness(.98)}.tile b{display:block;font-size:14.5px;margin-top:6px}.tile span{font-size:12.5px;color:var(--muted)}
+.lvlsel{width:auto;font-size:13px;padding:6px 8px}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="top">
+  <div><h1>Learning Intelligence</h1><p class="sub">Adaptive AI tutor &amp; research lab</p></div>
+  <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
+ </header>
+ <section class="view" id="v-home"></section>
+ <section class="view" id="v-learn"></section>
+ <section class="view" id="v-papers"></section>
+ <section class="view" id="v-methods"></section>
+ <section class="view" id="v-writing"></section>
+ <section class="view" id="v-settings">
+  <div class="row between"><h2 style="margin-top:4px">Settings</h2><a class="btn sm" href="#home">Done</a></div>
+  <div class="box"><h3>About you</h3><br><div class="form-row"><label>Name<input data-prof="name" placeholder="optional"></label><label>Research level<select data-labset="lvl"><option>High school</option><option>Undergraduate</option><option>Graduate</option><option>Early-career researcher</option></select></label></div></div>
+  <div class="box" id="aiCard" style="margin-top:10px">
+   <h3>AI provider</h3>
+   <p class="sub">Choose where your AI tutor runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
+   <div class="seg" id="provSeg"><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div data-prov="groq">
+    <p class="sub">Fast, with a free tier. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
+    <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
+    <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
+   </div>
+   <div data-prov="custom">
+    <p class="sub">Use your own key from any OpenAI-compatible service. A few services block requests from web pages — Test connection will tell you.</p><br>
+    <div class="form-row"><label>Service<select data-set="customPreset" id="customPreset"></select></label><label>API URL<input data-set="customBase" id="customBase" placeholder="https://api.example.com/v1" autocomplete="off"></label></div>
+    <label>API key<span class="row"><input type="password" data-set="customKey" id="customKey" placeholder="sk-…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#customKey">Show</button></span></label>
+    <label>Model<input data-set="customModel" list="modelList" placeholder="Click Test connection to list models" autocomplete="off"></label>
+   </div>
+   <div data-prov="local">
+    <p class="sub">Run a model on your own computer with Ollama or LM Studio. Nothing leaves your machine. Works on the computer running the model.</p><br>
+    <div class="form-row"><label>Server<select id="localPreset"><option value="http://localhost:11434/v1">Ollama</option><option value="http://localhost:1234/v1">LM Studio</option><option value="">Custom address</option></select></label><label>Server URL<input data-set="localBase" id="localBase" autocomplete="off"></label></div>
+    <label>Model<input data-set="localModel" list="modelList" placeholder="e.g. qwen3:8b — click Test connection to list" autocomplete="off"></label>
+    <details><summary>Setup</summary>
+     <p class="sub"><b>Ollama</b></p>
+     <ol class="steps"><li>Install from <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a> and download a model, e.g. <code>ollama pull qwen3:8b</code> (7–8B models or larger work best for planning and email).</li>
+     <li>Allow this site to talk to Ollama by setting <code>OLLAMA_ORIGINS</code> to <code class="originCode"></code>, then restart Ollama.<br>Mac: <code>launchctl setenv OLLAMA_ORIGINS "<span class="originCode"></span>"</code> · Windows: add it under System → Environment Variables · Linux: <code>OLLAMA_ORIGINS=<span class="originCode"></span> ollama serve</code></li></ol>
+     <p class="sub"><b>LM Studio</b></p>
+     <ol class="steps"><li>Load a model, open the Developer tab and start the server.</li><li>Turn on <b>Enable CORS</b> in the server settings.</li></ol>
+     <p class="hint">If your browser asks to let this site access devices on your local network, allow it.</p>
+    </details>
+   </div>
+   <div data-prov="browser">
+    <p class="sub">A small model downloads once into this browser and runs on your graphics card — fully private, and it works offline afterwards. Needs Chrome or Edge with WebGPU. Answers are simpler than cloud models. Food photos are still recognized on-device; AI physique reviews need a vision model from another provider.</p><br>
+    <label>Model<select data-set="webllmModel" id="webllmModel"></select></label>
+    <div class="row wrap"><button class="btn sm" type="button" id="btnLoadLLM">Download &amp; load model</button><span class="hint" id="llmStatus"></span></div>
+   </div>
+   <div class="row wrap" style="margin-top:14px"><button class="btn sm" id="btnTestKey">Test connection</button><span class="hint" id="keyStatus"></span></div>
+   <datalist id="modelList"><option value="openai/gpt-oss-120b"><option value="openai/gpt-oss-20b"></datalist>
+   <p class="hint" id="voiceNote" style="margin-top:10px"></p>
+  </div>
+
+
+  <div class="box" style="margin-top:10px">
+   <h3>Your data</h3><p class="sub">Your learning path, mastery, chats and writing scores are stored only in this browser. Text you send to the AI goes only to the provider you chose.</p><br>
+   <div class="row wrap"><button class="btn sm" id="btnExport">Export backup</button><label class="btn sm" style="margin:0;flex:none;font-size:13px;color:var(--ink)">Import backup<input type="file" id="importFile" accept="application/json" hidden></label><button class="btn sm danger" id="btnWipe">Erase everything</button></div>
+  </div>
+ </section>
+</div>
+<nav class="tabs" aria-label="Sections"><div class="in">
+ <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
+ <a href="#learn" data-nav="learn"><span class="ico"><span data-ic="map"></span></span>Learn</a>
+ <a href="#papers" data-nav="papers"><span class="ico"><span data-ic="doc"></span></span>Papers</a>
+ <a href="#methods" data-nav="methods"><span class="ico"><span data-ic="flask"></span></span>Methods</a>
+ <a href="#writing" data-nav="writing"><span class="ico"><span data-ic="pen"></span></span>Writing</a>
+</div></nav>
+<dialog id="dlg"></dialog>
+<dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
+<div id="toasts" aria-live="polite"></div>
+<div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
+
+<input type="file" id="filePick" hidden>
+<script>
+(()=>{
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const DAY=864e5;
+const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone;
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const today=()=>ymd(new Date());
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const sod=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+const addDays=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const parseD=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');return m?new Date(+m[1],m[2]-1,+m[3]):new Date(s);};
+const daysAgo=s=>Math.round((sod(new Date())-sod(parseD(s)))/DAY);
+const fmtD=s=>parseD(s).toLocaleDateString([],{month:'short',day:'numeric'});
+const fmtDL=s=>parseD(s).toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});
+const r0=n=>Math.round(n),r1=n=>Math.round(n*10)/10;
+const num=v=>{const n=parseFloat(v);return Number.isFinite(n)?n:null;};
+const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
+const sum=a=>a.reduce((x,y)=>x+(+y||0),0);
+const avg=a=>a.length?sum(a)/a.length:0;
+const cap=s=>String(s||'').replace(/^\w/,c=>c.toUpperCase());
+
+
+/* ---------- toasts ---------- */
+function toast(msg,{err=false,action,fn,ms=4500}={}){const el=document.createElement('div');el.className='toast'+(err?' err':'');el.innerHTML=`<span>${esc(msg)}</span>`;if(action){const b=document.createElement('button');b.textContent=action;b.onclick=()=>{el.remove();fn&&fn();};el.appendChild(b);}$('#toasts').appendChild(el);setTimeout(()=>el.remove(),action?9000:(err?7000:ms));}
+let actx;function beep(n=1){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();for(let i=0;i<n;i++){const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*.25;o.frequency.value=880;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+.22);}}catch(e){}try{navigator.vibrate&&navigator.vibrate([150,80,150]);}catch(e){}}
+async function run(btn,fn){if(btn){btn.disabled=true;btn.classList.add('loading');}try{return await fn();}catch(e){console.error(e);toast(e.message||String(e),{err:true});}finally{if(btn){btn.disabled=false;btn.classList.remove('loading');}}}
+function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
+async function copy(txt){try{await navigator.clipboard.writeText(txt);toast('Copied');}catch(e){toast('Copy failed',{err:true});}}
+
+
+
+/* ---------- AI providers ---------- */
+const DEFAULT_GROQ='openai/gpt-oss-120b';
+const DEFAULT_WEBLLM='Qwen3-0.6B-q4f16_1-MLC';
+const WEBLLM_URL='https://esm.run/@mlc-ai/web-llm@0.2.83';
+const WEBLLM_MODELS=[['Qwen3-0.6B-q4f16_1-MLC','Qwen3 0.6B — about 400 MB, fastest (default)','400 MB'],['Qwen3-1.7B-q4f16_1-MLC','Qwen3 1.7B — about 1 GB, smarter','1 GB'],['Llama-3.2-3B-Instruct-q4f16_1-MLC','Llama 3.2 3B — about 2 GB','2 GB'],['Qwen3-4B-q4f16_1-MLC','Qwen3 4B — about 2.5 GB, best quality, needs a strong GPU','2.5 GB']];
+const modelSize=id=>(WEBLLM_MODELS.find(m=>m[0]===id)||[])[2]||'several hundred MB';
+const PRESETS={openai:['OpenAI','https://api.openai.com/v1'],anthropic:['Anthropic Claude','https://api.anthropic.com/v1'],openrouter:['OpenRouter','https://openrouter.ai/api/v1'],gemini:['Google Gemini','https://generativelanguage.googleapis.com/v1beta/openai'],mistral:['Mistral','https://api.mistral.ai/v1'],together:['Together AI','https://api.together.xyz/v1'],deepseek:['DeepSeek','https://api.deepseek.com/v1'],other:['Other (OpenAI-compatible)','']};
+const PROV_NAMES={groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
+const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.groqKey)return'groq';return navigator.gpu?'browser':'groq';};
+function setupNeeded(msg){go('settings');throw new Error(msg);}
+function aiConn(){const s=S.settings,p=prov();
+ if(p==='groq'){if(!s.groqKey)setupNeeded('Add a free Groq API key in Settings, or choose another AI provider.');return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey}};}
+ if(p==='custom'){if(!s.customBase)setupNeeded('Add your AI service\'s URL in Settings.');return{p,base:s.customBase.replace(/\/+$/,''),headers:s.customKey?{Authorization:'Bearer '+s.customKey}:{}};}
+ if(p==='local')return{p,base:(s.localBase||'http://localhost:11434/v1').replace(/\/+$/,''),headers:{}};
+ return{p:'browser'};}
+function aiTarget(){const c=aiConn(),s=S.settings;
+ if(c.p==='groq')return{...c,model:s.model||DEFAULT_GROQ};
+ if(c.p==='custom'){if(!s.customModel)setupNeeded('Choose a model for your AI service in Settings (Test connection lists them).');return{...c,model:s.customModel};}
+ if(c.p==='local'){if(!s.localModel)setupNeeded('Choose which local model to use in Settings (Test connection lists them).');return{...c,model:s.localModel};}
+ return{...c,model:s.webllmModel||DEFAULT_WEBLLM};}
+const hasAI=()=>{const s=S.settings,p=prov();return (p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
+function baseSystem(){const n=new Date();return `You are the AI inside a learning app with an adaptive tutor and a research-skills lab${S.tutor&&S.tutor.topic?' (current topic: '+S.tutor.topic+')':''}. Today is ${ymd(n)}. Be accurate, never invent facts, sources or quotes, and say so when you are unsure.`;}
+function parseJSON(t){try{return JSON.parse(t);}catch(e){}const s=t.replace(/```(?:json)?/g,'');const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1));}catch(e){}}throw new Error('The AI returned something unreadable — please try again'+(prov()==='browser'||prov()==='local'?' (smaller models sometimes struggle with this; a larger model helps).':'.'));}
+const errMsg=t=>{try{const j=JSON.parse(t);const e=j.error;return(e&&(e.message||(typeof e==='string'?e:'')))||j.message||'';}catch(_){return String(t||'').slice(0,300);}};
+function netErr(T){if(T.p==='local')return `Can't reach your local model at ${T.base}. Make sure ${/:1234/.test(T.base)?'LM Studio\'s server is running with CORS enabled':'Ollama is running and OLLAMA_ORIGINS allows this site'}, and allow local network access if your browser asks — see Settings → Local model → Setup.`;if(T.p==='custom')return `Couldn't reach ${T.base}. Check the URL — or this service may not allow requests from web pages (CORS).`;return 'Network error — check your connection and try again.';}
+async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try{
+ const T=aiTarget();
+ const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
+ if(T.p==='browser')await ensureBrowserModel(T.model);
+ let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});
+ txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
+ return json?parseJSON(txt):txt;
+}catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
+async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
+ if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
+ const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
+ if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
+ if(json)body.response_format={type:'json_object'};
+ if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
+ let r,tries=0;
+ for(;;){
+  try{r=await fetch(T.base+'/chat/completions',{method:'POST',signal,headers:{'Content-Type':'application/json',...T.headers},body:JSON.stringify(body)});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+  if(r.status===429&&tries<3){tries++;await sleep(1500*tries);continue;}
+  if((r.status===400||r.status===422)&&tries<5){const t=await r.text();tries++;
+   if(body.response_format&&/json|response_format/i.test(t)){delete body.response_format;continue;}
+   if(body.reasoning_effort&&/reasoning/i.test(t)){delete body.reasoning_effort;continue;}
+   if(body.max_completion_tokens&&/max_completion_tokens/i.test(t)){body.max_tokens=body.max_completion_tokens;delete body.max_completion_tokens;continue;}
+   if(body.max_tokens&&/max_tokens/i.test(t)){body.max_completion_tokens=body.max_tokens;delete body.max_tokens;continue;}
+   if('temperature'in body&&/temperature/i.test(t)){delete body.temperature;continue;}
+   throw new Error('AI request failed: '+(errMsg(t)||'bad request'));}
+  break;
+ }
+ if(!r.ok){const m=errMsg(await r.text().catch(()=>''));
+  if(r.status===401||r.status===403)throw new Error('The AI service rejected the API key — check it in Settings.'+(m?' ('+m+')':''));if(r.status===429)throw new Error('Rate limit reached — wait a minute and try again.'+(m?' ('+m+')':''));if(r.status===404)throw new Error(T.p==='local'?`The model "${T.model}" isn't on your local server — pull or load it first.`:`Model or URL not found${m?': '+m:''}.`);
+  throw new Error(`AI request failed (${r.status})${m?': '+m:''}`);}
+ const d=await r.json();return d.choices?.[0]?.message?.content||'';
+}
+/* in-browser model (WebLLM + WebGPU) */
+const llm={lib:null,engine:null,model:'',loading:null};
+function llmProgress(text,frac){const g=$('#gate');if(g&&g.open&&text!=null){$('#gateStatus').textContent=text;$('#gateFill').style.width=Math.round((frac||0)*100)+'%';}const bar=$('#llmBar');if(!bar)return;if(g&&g.open&&text!=null){bar.hidden=true;return;}if(text==null){bar.hidden=true;const s=$('#llmStatus');if(s)s.textContent=llm.engine?`Loaded: ${llm.model}`:'';return;}bar.hidden=false;$('#llmText').textContent=text;$('#llmFill').style.width=Math.round((frac||0)*100)+'%';const s=$('#llmStatus');if(s)s.textContent=text;}
+async function getEngine(model){
+ if(llm.engine&&llm.model===model)return llm.engine;
+ if(llm.loading)return llm.loading;
+ if(!navigator.gpu)throw new Error('In-browser AI needs WebGPU — use Chrome or Edge on a computer with a recent graphics card, or choose another AI provider in Settings.');
+ llm.loading=(async()=>{try{llmProgress('Loading the AI engine…',0);llm.lib=llm.lib||await import(WEBLLM_URL);if(llm.engine){try{await llm.engine.unload();}catch(e){}llm.engine=null;}llmProgress('Preparing '+model+' (first time downloads the model)…',0);llm.engine=await llm.lib.CreateMLCEngine(model,{initProgressCallback:p=>llmProgress(p.text,p.progress)},{context_window_size:8192});llm.model=model;return llm.engine;}catch(e){llm.engine=null;throw new Error('Could not load the in-browser model: '+(e?.message||e));}finally{llm.loading=null;llmProgress(null);}})();
+ return llm.loading;
+}
+let dlAsk=null;
+const llmReady=()=>!!llm.engine&&llm.model===(S.settings.webllmModel||DEFAULT_WEBLLM);
+function gateShow({title,text,btns=[]}){const g=$('#gate');$('#gateHide').hidden=true;$('#gateTitle').textContent=title;$('#gateText').textContent=text;$('#gateStatus').textContent='';$('#gateFill').style.width='0%';$('#gateTrack').hidden=!!btns.length;const bw=$('#gateBtns');bw.innerHTML='';btns.forEach(([label,cls,fn])=>{const b=document.createElement('button');b.className='btn '+cls;b.textContent=label;b.onclick=fn;bw.appendChild(b);});if(!g.open)g.showModal();}
+function gateClose(){const g=$('#gate');if(g.open)g.close();}
+function askDownload(model){if(dlAsk)return dlAsk;dlAsk=new Promise(res=>{$('#gate').addEventListener('close',()=>res(false),{once:true});gateShow({title:'Download the AI model',text:`Your AI tutor runs privately on this device. Before you can use it, it needs a one-time download of about ${modelSize(model)} (Wi-Fi recommended). After that it works offline and nothing you type leaves this device.`,btns:[['Not now','ghost',()=>{gateClose();res(false);}],['Use a different AI','ghost',()=>{gateClose();res(false);go('settings');}],['Download now','primary',()=>res(true)]]});}).finally(()=>{dlAsk=null;});return dlAsk;}
+async function ensureBrowserModel(model){
+ if(llm.engine&&llm.model===model)return;
+ if(!navigator.gpu)setupNeeded('This browser can\'t run on-device AI (it needs WebGPU — Chrome or Edge on a computer). Choose another AI provider in Settings.');
+ const cached=S.settings.llmReady===model;
+ if(!cached&&!llm.loading){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
+ if(!cached)gateShow({title:'Downloading the AI model',text:`One-time download of about ${modelSize(model)}. Keep this tab open — you can keep using the rest of the app.`});
+ const hide=$('#gateHide');if(hide)hide.hidden=cached;
+ try{await getEngine(model);S.settings.llmReady=model;save();refresh();if(!cached)toast('AI is ready — running on this device');}
+ finally{gateClose();}
+}
+async function browserChat(model,sys,prompt,{json,temp,max,signal}){
+ const eng=await getEngine(model);if(signal){if(signal.aborted)throw new DOMException('Stopped','AbortError');signal.addEventListener('abort',()=>{try{eng.interruptGenerate();}catch(e){}},{once:true});}const qwen=/qwen3/i.test(model);
+ const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
+ const req={messages:[{role:'system',content:sys},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ if(json)req.response_format={type:'json_object'};
+ llmProgress('Thinking on your device…',1);
+ try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
+}
+/* speech-to-text (Whisper) — only where the provider offers it */
+function whisperTarget(){const s=S.settings,p=prov();
+ if(p==='groq'&&s.groqKey)return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.groqKey},model:'whisper-large-v3'};
+ if(p==='custom'&&s.customKey&&/api\.openai\.com/.test(s.customBase))return{url:'https://api.openai.com/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-1'};
+ if(p==='custom'&&s.customKey&&/groq\.com/.test(s.customBase))return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-large-v3'};
+ return null;}
+const canWhisper=()=>!!whisperTarget();
+async function transcribe(blob){const W=whisperTarget();if(!W)throw new Error('Recorded-audio transcription needs a Groq or OpenAI key. With '+PROV_NAMES[prov()]+', use live dictation in Chrome, Edge or Safari.');if(blob.size>24.5e6)throw new Error('Recording is larger than the 25 MB limit — record shorter segments.');const ext=/mp4|aac|m4a/.test(blob.type)?'m4a':(/ogg/.test(blob.type)?'ogg':'webm');const fd=new FormData();fd.append('file',blob,'audio.'+ext);fd.append('model',W.model);fd.append('response_format','json');let r;try{r=await fetch(W.url,{method:'POST',headers:W.headers,body:fd});}catch(e){throw new Error('Could not reach the transcription service.');}if(!r.ok){const m=errMsg(await r.text().catch(()=>''));throw new Error('Transcription failed'+(m?': '+m:''));}return((await r.json()).text||'').trim();}
+async function listModels(){const T=aiConn();if(T.p==='browser')return WEBLLM_MODELS.map(m=>m[0]);if(/api\.anthropic\.com/.test(T.base)){const r=await fetch('https://api.anthropic.com/v1/models',{headers:anthropicHeaders()}).catch(()=>{throw new Error(netErr(T));});if(!r.ok)throw new Error(r.status===401?'The service rejected the API key.':'Could not list models ('+r.status+').');return((await r.json()).data||[]).map(m=>m.id);}let r;try{r=await fetch(T.base+'/models',{headers:T.headers});}catch(e){throw new Error(netErr(T));}if(!r.ok)throw new Error(r.status===401||r.status===403?'The service rejected the API key.':'Could not list models ('+r.status+').');const d=await r.json();const arr=d.data||d.models||[];return arr.map(m=>m.id||m.name||m.model).filter(Boolean).filter(id=>!/whisper|tts|embed|guard|orpheus|playai|moderation|dall-e|image|audio|transcribe/i.test(id)).sort();}
+
+
+/* ---------- vision AI (photos) ---------- */
+const DEFAULT_VISION='qwen/qwen3.8-27b';
+function visionTarget(){const s=S.settings,p=prov();
+ if(p==='groq'&&s.groqKey)return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey},model:s.visionModel||DEFAULT_VISION};
+ if(p==='custom'&&s.customBase&&(s.customVision||s.customModel))return{...aiConn(),model:s.customVision||s.customModel};
+ if(p==='local'&&s.localVision)return{...aiConn(),model:s.localVision};
+ return null;}
+const canVision=()=>!!visionTarget();
+async function aiVision(prompt,images,{system='',json=false,max=1600,temp=0.3}={}){
+ const T=visionTarget();if(!T)setupNeeded('AI photo analysis needs a vision-capable model: a Groq key, another API key with a vision model, or a local vision model (e.g. qwen2.5vl). Choose one in Settings → AI provider.');
+ const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
+ const content=[{type:'text',text:prompt},...images.map(u=>({type:'image_url',image_url:{url:u}}))];
+ let txt=await remoteChat(T,sys,content,{json,temp,max});txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').trim();return json?parseJSON(txt):txt;}
+
+
+const anthropicHeaders=()=>({'content-type':'application/json','x-api-key':S.settings.customKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'});
+async function anthropicChat(T,sys,prompt,{max,temp,signal}){let r;try{r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal,headers:anthropicHeaders(),body:JSON.stringify({model:T.model,max_tokens:Math.max(max,1024),temperature:Math.min(temp,1),system:sys,messages:[{role:'user',content:prompt}]})});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+ const j=await r.json().catch(()=>({}));if(!r.ok){const m=j.error&&j.error.message||'';if(r.status===401||r.status===403)throw new Error('Anthropic rejected the API key — check it in Settings.'+(m?' ('+m+')':''));if(r.status===429)throw new Error('Rate limit reached — wait a minute and try again.');throw new Error(`AI request failed (${r.status})${m?': '+m:''}`);}
+ return(j.content||[]).map(x=>x.text||'').join('');}
+
+/* ---------- charts (inline SVG) ---------- */
+function lineChart(series,{h=170,yfmt=v=>r1(v),xfmt=t=>fmtD(ymd(new Date(t))),band=null,zero=false}={}){
+ const pts=series.flatMap(s=>s.points);if(pts.length<1)return'<p class="empty">Not enough data yet.</p>';
+ const W=600,L=44,Rm=10,Tm=10,B=22;let xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);if(band)ys=ys.concat(band);let x0=Math.min(...xs),x1=Math.max(...xs);if(x0===x1){x0-=DAY;x1+=DAY;}let y0=Math.min(...ys),y1=Math.max(...ys);if(zero)y0=Math.min(0,y0);const pd=(y1-y0)*.12||1;y0-=pd;y1+=pd;if(zero&&y0<0&&Math.min(...ys)>=0)y0=0;
+ const X=x=>L+(x-x0)/(x1-x0)*(W-L-Rm),Y=y=>Tm+(1-(y-y0)/(y1-y0))*(h-Tm-B);
+ let g='<g class="grid">';for(let i=0;i<=3;i++){const v=y0+(y1-y0)*i/3;g+=`<line x1="${L}" x2="${W-Rm}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${esc(yfmt(v))}</text>`;}g+='</g>';
+ if(band)g+=`<rect x="${L}" width="${W-L-Rm}" y="${Y(band[1])}" height="${Math.max(0,Y(band[0])-Y(band[1]))}" fill="currentColor" opacity=".06"/>`;
+ g+=`<text x="${L}" y="${h-4}">${esc(xfmt(x0))}</text><text x="${W-Rm}" y="${h-4}" text-anchor="end">${esc(xfmt(x1))}</text>`;
+ for(const s of series){const p=[...s.points].sort((a,b)=>a.x-b.x);if(!p.length)continue;const c=s.color||'var(--ink)';if(p.length>1)g+=`<polyline fill="none" stroke="${c}" stroke-width="${s.thin?1.5:2.5}" ${s.dash?'stroke-dasharray="5 4"':''} stroke-linejoin="round" stroke-linecap="round" points="${p.map(q=>X(q.x).toFixed(1)+','+Y(q.y).toFixed(1)).join(' ')}"/>`;if(!s.noDots&&p.length<=60)g+=p.map(q=>`<circle cx="${X(q.x).toFixed(1)}" cy="${Y(q.y).toFixed(1)}" r="3" fill="${c}"><title>${esc(xfmt(q.x))}: ${esc(yfmt(q.y))}</title></circle>`).join('');}
+ return `<svg class="chart" viewBox="0 0 ${W} ${h}" role="img">${g}</svg>`+(series.length>1?`<div class="legend">${series.filter(s=>s.label).map(s=>`<span><i style="background:${s.color}"></i>${esc(s.label)}</span>`).join('')}</div>`:'');}
+function hbars(rows,{max,band}={}){const mx=max||Math.max(1,...rows.map(r=>r.v),band?band[1]:0);return rows.map(r=>`<div class="mrow"><span>${esc(r.label)}</span><div class="bar" style="position:relative">${band?`<span style="position:absolute;left:${band[0]/mx*100}%;width:${(band[1]-band[0])/mx*100}%;top:0;bottom:0;background:var(--good);opacity:.18"></span>`:''}<i style="width:${clamp(r.v/mx*100,0,100)}%;background:${r.color||'var(--ink)'};position:relative"></i></div><span class="tiny muted" style="min-width:56px;text-align:right">${esc(r.txt??r1(r.v))}</span></div>`).join('');}
+function ring(val,max,{color='var(--kcal)',label='',sub=''}={}){const p=clamp(val/(max||1),0,1.2),C=2*Math.PI*48;return `<svg class="ring" viewBox="0 0 118 118"><circle cx="59" cy="59" r="48" fill="none" stroke="var(--line)" stroke-width="10"/><circle cx="59" cy="59" r="48" fill="none" stroke="${p>1.05?'var(--bad)':color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 59 59)"/><text x="59" y="58" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">${esc(label)}</text><text x="59" y="76" text-anchor="middle" font-size="11" fill="var(--muted)">${esc(sub)}</text></svg>`;}
+function slope(points){if(points.length<2)return 0;const n=points.length,mx=avg(points.map(p=>p.x)),my=avg(points.map(p=>p.y));let a=0,b=0;for(const p of points){a+=(p.x-mx)*(p.y-my);b+=(p.x-mx)**2;}return b?a/b:0;}
+function movingAvg(points,days=7){return points.map(p=>({x:p.x,y:avg(points.filter(q=>q.x<=p.x&&q.x>p.x-days*DAY).map(q=>q.y))}));}
+
+/* ---------- modal ---------- */
+function openModal(title,html,{onMount,wide}={}){const d=$('#dlg');d.onclick=null;d.innerHTML=`<div class="dlg-h"><h3>${esc(title)}</h3><button class="x" data-close aria-label="Close">×</button></div><div class="dlg-b">${html}</div>`;d.classList.toggle('wide',!!wide);if(!d.open)d.showModal();$$('[data-close]',d).forEach(b=>b.onclick=()=>d.close());icons(d);wireMics(d);onMount&&onMount(d);return d;}
+const closeModal=()=>{const d=$('#dlg');if(d.open)d.close();};
+
+/* ---------- voice dictation ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let activeDict=null;
+function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)return;b._w=1;if(!SR){b.hidden=true;return;}b.innerHTML=ic('mic');b.onclick=e=>{e.preventDefault();const t=root.querySelector('#'+b.dataset.dictate)||$('#'+b.dataset.dictate);if(activeDict){const same=activeDict.b===b;activeDict.rec.stop();activeDict=null;if(same)return;}const rec=new SR();rec.lang=navigator.language||'en-US';rec.interimResults=true;rec.continuous=false;const base=t.value?t.value.replace(/\s*$/,' '):'';rec.onresult=ev=>{let s='';for(const r of ev.results)s+=r[0].transcript;t.value=base+s;};rec.onend=()=>{b.classList.remove('rec');b.style.color='';activeDict=null;if(b.dataset.submit&&t.value.trim())$(b.dataset.submit).click();};rec.onerror=ev=>{if(ev.error==='not-allowed')toast('Microphone access was denied.',{err:true});};rec.start();b.style.color='var(--bad)';activeDict={b,rec};};});}
+
+
+
+/* ---------- icons ---------- */
+const I={
+ home:'<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/>',
+ map:'<circle cx="5" cy="17" r="2.5"/><circle cx="12" cy="6" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="M6.5 15l4-7M13.5 8l4 7M7.5 17h9"/>',
+ doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+ flask:'<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/>',
+ pen:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+ spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+ brain:'<path d="M9 4c-2 0-4 1.5-4 4 0 1.5.5 2.5 1 3-1 .7-1.5 2-1 3.5.5 1.2 1.5 2 2.5 2 0 2 1.5 3.5 3.5 3.5V4z"/><path d="M15 4c2 0 4 1.5 4 4 0 1.5-.5 2.5-1 3 1 .7 1.5 2 1 3.5-.5 1.2-1.5 2-2.5 2 0 2-1.5 3.5-3.5 3.5"/>',
+ target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/>',
+ check:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/>',
+ quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ upload:'<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>'
+};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]||''}</svg>`;
+function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
+
+/* ---------- storage ---------- */
+const KEY='learnintel.v1';
+const freshTutor=()=>({topic:'',lvl:'Beginner',nodes:[],hist:[],sel:null});
+const DEF=()=>({profile:{name:''},settings:{provider:'',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:''},tutor:freshTutor(),lab:{lvl:'Undergraduate',hist:[],ptitle:'',ptext:''},chat:[],mchat:[],setupDone:false});
+function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.tutor={...freshTutor(),...(s.tutor||{})};d.lab={...DEF().lab,...(s.lab||{})};}}catch(e){}return d;}
+let S=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
+function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
+
+/* ---------- AI job runner (one at a time, with Stop) ---------- */
+let ctl=null;
+const ask=(p,o={})=>{ctl=new AbortController();return ai(p,{system:o.system||'',temp:o.temp??.5,max:o.max??2500,signal:ctl.signal});};
+const ja=(p,o={})=>{ctl=new AbortController();return ai(p,{system:o.system||'',json:true,temp:o.temp??.4,max:o.max??3000,signal:ctl.signal});};
+async function job(out,stopSel,msg,fn){out.innerHTML=`<p class="muted">${esc(msg)}…</p>`;const st=stopSel&&$(stopSel);if(st){st.hidden=false;st.onclick=()=>ctl&&ctl.abort();}try{await fn();}catch(e){console.error(e);out.innerHTML=e&&e.stopped?'<p class="muted">Stopped.</p>':`<p class="err">${esc((e&&e.message)||'Something went wrong. Try again.')}</p>`;}finally{if(st)st.hidden=true;}}
+
+/* ---------- navigation ---------- */
+const VIEWS=['home','learn','papers','methods','writing','settings'];
+let cur='home';const R={};
+const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
+function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
+function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
+function refresh(){(R[cur]||(()=>{}))();badge();}
+function badge(){const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';}else if(need){b.className='badge off';b.textContent='AI: download needed';}else{b.className='badge';b.textContent=p==='browser'?'On-device AI':p==='local'?'Local AI':'AI tutor on';}}
+const LABLVLS=['High school','Undergraduate','Graduate','Early-career researcher'];
+const lvlSelect=()=>`<select class="lvlsel" data-labset="lvl" aria-label="Research level">${LABLVLS.map(l=>`<option ${l===S.lab.lvl?'selected':''}>${l}</option>`).join('')}</select>`;
+document.addEventListener('change',e=>{const el=e.target;if(el.dataset&&el.dataset.labset){S.lab[el.dataset.labset]=el.value;save();$$('[data-labset]').forEach(x=>{if(x!==el)x.value=el.value;});}});
+
+/* ---------- adaptive tutor core ---------- */
+const TU=()=>S.tutor;
+const nd=id=>TU().nodes.find(n=>n.id==id),curNode=()=>nd(TU().sel)||TU().nodes[0];
+const mlvl=m=>m==null?0:m<.4?1:m<.7?2:3;
+const masteryAvg=()=>TU().nodes.length?TU().nodes.reduce((a,n)=>a+(n.m||0),0)/TU().nodes.length:0;
+const tctx=()=>`Topic: ${TU().topic}. Student level: ${TU().lvl}. Mastery by concept: `+TU().nodes.map(n=>`${n.name} ${n.m==null?'untested':Math.round(n.m*100)+'%'}`).join('; ')+'.';
+const TSYS=()=>'You are a warm, precise adaptive tutor. Pitch everything at the student\'s level and give extra support on weak concepts. '+tctx();
+function pickNext(){const ok=n=>n.pre.every(p=>!nd(p)||(nd(p).m??0)>=.5),w=n=>n.m??.5,l=TU().nodes.filter(n=>w(n)<.7).sort((a,b)=>w(a)-w(b));return l.find(ok)||l[0];}
+async function buildPath(topic,level){const t=TU();t.topic=topic.trim();t.lvl=level;if(!t.topic)return;go('learn');await sleep(30);const out=$('#tOut');
+ await job(out,'#tStop','Mapping the topic',async()=>{const r=await ja(`Break "${t.topic}" for a ${t.lvl} learner into 6-8 core concepts with prerequisites, foundations first. JSON: {"nodes":[{"id":"c1","name":"short name","pre":["ids of prerequisite concepts"]}]}`,{system:'You design curricula.'});
+  if(!r||!Array.isArray(r.nodes)||r.nodes.length<2)throw new Error('The AI\'s reply could not be read. Press the button again.');
+  t.nodes=r.nodes.slice(0,10).map((n,i)=>({id:String(n.id||'c'+(i+1)),name:String(n.name||'Concept '+(i+1)),pre:(Array.isArray(n.pre)?n.pre:[]).map(String).filter(x=>x!=n.id),m:null,d:3}));t.hist=[];t.sel=t.nodes[0].id;save();renderMap();await quiz('diag');});}
+async function quiz(mode){const n=curNode(),t=TU(),all=mode!=='quiz',ns=all?t.nodes:[n],count=mode==='exam'?6:mode==='diag'?t.nodes.length:5,diff=mode==='quiz'?n.d:3;const out=$('#tOut');
+ await job(out,'#tStop',mode==='diag'?'Finding your knowledge gaps':'Writing questions',async()=>{const r=await ja(`Write ${count} multiple-choice questions ${mode==='diag'?'(exactly one per concept) to find knowledge gaps':'on '+ns.map(x=>x.name).join(', ')}. Difficulty ${diff} of 5. Concept ids: ${ns.map(x=>x.id+'='+x.name).join('; ')}. JSON: {"q":[{"node":"concept id","q":"question","o":["A","B","C","D"],"a":0,"why":"one-sentence explanation"}]} where "a" is the zero-based index of the correct option.`,{system:TSYS(),max:3500});
+  const qs=(r&&r.q||[]).filter(q=>q&&q.q&&Array.isArray(q.o)&&q.o.length>1&&Number.isInteger(+q.a)&&+q.a>=0&&+q.a<q.o.length).map(q=>({...q,a:+q.a}));
+  if(!qs.length)throw new Error('The AI\'s reply could not be read. Press the button again.');play(mode,qs,n.id);});}
+function play(mode,qs,nid){const out=$('#tOut');let i=0;const res=[];
+ const step=()=>{if(i>=qs.length)return done();const q=qs[i];out.innerHTML=`<p class="muted small">Question ${i+1} of ${qs.length}${mode==='diag'?' · diagnostic':mode==='exam'?' · practice test':''}</p><p><b>${esc(q.q)}</b></p>`+q.o.map((o,k)=>`<button class="btn opt" data-k="${k}">${esc(o)}</button>`).join('')+'<div id="fb"></div>';
+  $$('.opt',out).forEach(b=>b.onclick=()=>{const k=+b.dataset.k,ok=k===q.a;res.push({node:nd(q.node)?q.node:nid,ok});$$('.opt',out).forEach((x,j)=>{x.disabled=true;if(j===q.a)x.classList.add('good');else if(j===k)x.classList.add('bad');});$('#fb').innerHTML=`<p>${ok?'<b class="ok">Correct.</b>':'<b class="warnt">Not quite.</b>'} ${esc(q.why||'')}</p><button class="btn primary" id="nx">${i+1<qs.length?'Next question':'See results'}</button>`;$('#nx').onclick=()=>{i++;step();};$('#nx').focus();});};
+ const done=()=>{const t=TU(),by={};res.forEach(r=>{const n=nd(r.node);if(!n)return;n.m=(n.m??.5)*.5+(r.ok?.5:0);(by[n.id]=by[n.id]||[]).push(r.ok);});
+  Object.entries(by).forEach(([id,a])=>{const n=nd(id),p=a.filter(Boolean).length/a.length;n.d=Math.min(5,Math.max(1,n.d+(p>=.8?1:p<=.4?-1:0)));});
+  t.hist.push({t:Date.now(),a:masteryAvg(),mode});save();renderMap();const sc=res.filter(r=>r.ok).length,nx=pickNext();
+  out.innerHTML=`<h3>Score: ${sc} of ${res.length}</h3><ul>`+Object.entries(by).map(([id,a])=>`<li>${esc(nd(id).name)}: ${a.filter(Boolean).length}/${a.length}. Difficulty is now ${nd(id).d} of 5.</li>`).join('')+'</ul><p>'+(nx?`Study <b>${esc(nx.name)}</b> next.`:'You have mastered every concept on this map.')+'</p>'+(nx?'<button class="btn primary" id="stn">Open next concept</button>':'');
+  if(nx)$('#stn').onclick=()=>{t.sel=nx.id;save();renderMap();tool('lesson');};};step();}
+const TOOLS={lesson:['Lesson',n=>`Teach "${n.name}" as a short lesson: a plain-language hook, the core idea with a worked example, one common mistake, then 2 check-your-understanding questions with answers at the end. Use markdown.`],guide:['Study guide',n=>`Write a study guide for "${n.name}": objectives, key terms, main ideas, a worked example, and self-test questions with answers. Use markdown.`],notes:['Quick notes',n=>`Write quick notes for "${n.name}": at most 12 bullets plus any key formulas or rules. Use markdown.`]};
+function tool(k){const out=$('#tOut');return job(out,'#tStop','Writing '+TOOLS[k][0].toLowerCase(),async()=>{out.innerHTML=tmd(await ask(TOOLS[k][1](curNode()),{system:TSYS(),max:3000}));});}
+function cards(){const out=$('#tOut');return job(out,'#tStop','Making flashcards',async()=>{const r=await ja(`Make 8 flashcards on "${curNode().name}" within ${TU().topic}. JSON: {"cards":[{"f":"front","b":"back"}]}`,{system:TSYS()});if(!r||!Array.isArray(r.cards)||!r.cards.length)throw new Error('The AI\'s reply could not be read. Press the button again.');out.innerHTML='<p class="muted small">Click a card to flip it.</p><div class="cards">'+r.cards.map(c=>`<button class="fc" aria-label="Flip card"><span class="f">${esc(c.f)}</span><span class="b">${esc(c.b)}</span></button>`).join('')+'</div>';$$('.fc',out).forEach(b=>b.onclick=()=>b.classList.toggle('flip'));});}
+function deck(){const out=$('#tOut');return job(out,'#tStop','Building slides',async()=>{const r=await ja(`Make a 6-slide deck teaching "${curNode().name}" within ${TU().topic}. JSON: {"slides":[{"t":"title","bullets":["point"],"note":"speaker note"}]}`,{system:TSYS(),max:3000});if(!r||!Array.isArray(r.slides)||!r.slides.length)throw new Error('The AI\'s reply could not be read. Press the button again.');let i=0;const showS=()=>{const s=r.slides[i];out.innerHTML=`<div class="slide"><h3>${esc(s.t)}</h3><ul>${(s.bullets||[]).map(b=>'<li>'+esc(b)+'</li>').join('')}</ul><p class="muted small">${esc(s.note||'')}</p></div><div class="row" style="margin-top:8px"><button class="btn sm" id="pv">Previous</button><span class="muted small">${i+1} / ${r.slides.length}</span><button class="btn sm" id="nxs">Next</button></div>`;$('#pv').onclick=()=>{i=Math.max(0,i-1);showS();};$('#nxs').onclick=()=>{i=Math.min(r.slides.length-1,i+1);showS();};};showS();});}
+function solve(){const out=$('#tOut');const p=$('#prob').value.trim()||`Create a challenging problem on ${curNode().name}, then solve it.`;return job(out,'#tStop','Solving',async()=>{out.innerHTML=tmd(await ask(`Give an expert solution, step by step, explaining the reasoning behind each step, then the final answer and a tip to avoid the usual error. Problem: ${p}`,{system:TSYS(),max:3000,temp:.3}));});}
+
+/* ---------- HOME ---------- */
+const HOME_Q=()=>{const t=TU(),nx=t.nodes.length?pickNext():null;return[nx?`Explain ${nx.name} simply`:'Explain photosynthesis simply',t.nodes.some(n=>n.m!=null&&n.m<.5)?'Help me with the concepts I got wrong':'How should I study for a big exam?','How do I read a research paper efficiently?','Correlation vs. causation — what\'s the difference?'];};
+R.home=()=>{const v=$('#v-home'),t=TU(),mast=t.nodes.filter(n=>(n.m||0)>=.7).length,wh=S.lab.hist,lw=wh[wh.length-1],wavg=lw?avg(Object.values(lw.sc).map(Number)):null,nx=t.nodes.length?pickNext():null;
+ v.innerHTML=`<div class="grid">
+  <button class="stat" data-go="learn"><span class="c-lift">${ic('target')}</span><b>${t.nodes.length?Math.round(masteryAvg()*100)+'%':'—'}</b><span>Overall mastery${t.topic?' · '+esc(t.topic):''}</span></button>
+  <button class="stat" data-go="learn"><span class="c-good" style="color:var(--good)">${ic('check')}</span><b>${t.nodes.length?`${mast} / ${t.nodes.length}`:'—'}</b><span>Concepts mastered</span></button>
+  <button class="stat" data-go="learn"><span class="c-kcal">${ic('quiz')}</span><b>${t.hist.length}</b><span>Quizzes taken</span></button>
+  <button class="stat" data-go="writing"><span class="c-sleep">${ic('pen')}</span><b>${wavg!=null?r1(wavg)+' <small>/ 5</small>':'—'}</b><span>Latest writing score</span></button>
+ </div>
+ <h2>Continue learning</h2><div class="box">${t.nodes.length?`<div class="row between wrap"><div><h3>${esc(t.topic)}</h3><div class="small muted">${esc(t.lvl)} · ${t.nodes.length} concepts</div></div><span class="pill">${Math.round(masteryAvg()*100)}% mastery</span></div><p style="margin:10px 0 0">${nx?`Study next: <b>${esc(nx.name)}</b>${nx.m!=null?` (${Math.round(nx.m*100)}%)`:''}`:'Every concept is mastered — take a practice test to lock it in.'}</p><div class="row wrap" style="margin-top:12px"><button class="btn primary" id="hNext">${nx?'Open next concept':'Practice test'}</button><a class="btn" href="#learn">Knowledge map</a></div>`:`<p class="small" style="margin-top:0">Pick any topic. The tutor maps it into concepts, finds your gaps with a quick diagnostic, then adapts lessons and quizzes to you.</p><div class="row wrap"><input id="hTopic" placeholder="What do you want to learn? e.g. Cardiac rhythms, Algebra II, WW2" style="flex:1;min-width:200px"><select id="hLvl" style="width:auto"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><button class="btn primary" id="hBuild">Build my learning path</button></div>`}</div>
+ <h2>Research lab</h2><div class="grid">${[['papers','doc','Read a paper','Summaries with verified quotes'],['methods','flask','Methodology tutor','Study design, bias, statistics'],['methods','target','Plan an experiment','Critique or draft a plan'],['writing','pen','Writing practice','Scored feedback by section']].map(([h,i,t,s])=>`<button class="tile" data-go="${h}"><span class="c-lift">${ic(i)}</span><b>${t}</b><span>${s}</span></button>`).join('')}</div>
+ <h2>AI Tutor</h2><div class="soft"><div class="coach-head"><span class="c-lift">${ic('brain')}</span>Your AI tutor</div>
+  <div class="chips">${HOME_Q().map(q=>`<button class="chip" data-hq="${esc(q)}">${esc(q)}</button>`).join('')}</div>
+  <div class="chat" id="chat"></div>
+  <form class="askbar" id="askForm" autocomplete="off"><input id="askIn" placeholder="Ask anything you're learning…" aria-label="Ask your tutor"><button type="button" class="icon-btn" data-dictate="askIn" data-submit="#askBtn" title="Speak"></button><button class="btn primary" id="askBtn">Ask</button></form></div>`;
+ icons(v);wireMics(v);renderChat();
+ $('#askForm').onsubmit=e=>{e.preventDefault();const q=$('#askIn').value;$('#askIn').value='';askTutor(q,$('#askBtn'));};
+ $$('[data-hq]',v).forEach(b=>b.onclick=()=>askTutor(b.dataset.hq,$('#askBtn')));
+ const hb=$('#hBuild');if(hb){hb.onclick=()=>buildPath($('#hTopic').value,$('#hLvl').value);$('#hTopic').onkeydown=e=>{if(e.key==='Enter')hb.click();};}
+ const hn=$('#hNext');if(hn)hn.onclick=()=>{go('learn');setTimeout(()=>{if(nx){TU().sel=nx.id;save();renderMap();tool('lesson');}else quiz('exam');},60);};};
+function renderChat(){const c=$('#chat');if(!c)return;const m=S.chat.slice(-8);c.innerHTML=m.map(x=>x.role==='user'?`<div class="msg me">${esc(x.text)}</div>`:`<div class="msg ai"><div class="md">${tmd(x.text)}</div></div>`).join('')+(m.length?'<div class="row end"><button class="btn ghost sm" id="chatClear">Clear chat</button></div>':'');const cl=$('#chatClear');if(cl)cl.onclick=()=>{S.chat=[];save();renderChat();};}
+async function askTutor(q,btn){q=String(q||'').trim();if(!q)return;S.chat.push({role:'user',text:q});S.chat=S.chat.slice(-30);save();renderChat();
+ await run(btn,async()=>{const hist=S.chat.slice(-7,-1).map(m=>`${m.role==='user'?'Student':'Tutor'}: ${m.text.slice(0,600)}`).join('\n');const txt=await ai(`${hist?'Conversation so far:\n'+hist+'\n\n':''}Student: ${q}`,{system:'You are a warm, precise tutor. Explain clearly with a concrete example, check understanding with one short question at the end, and adapt to the student. '+(TU().topic?tctx():''),temp:.5,max:2000});S.chat.push({role:'ai',text:txt});save();renderChat();});}
+
+/* ---------- LEARN ---------- */
+R.learn=()=>{const v=$('#v-learn'),t=TU();
+ v.innerHTML=`<div class="box"><div class="row wrap"><input id="topic" aria-label="Topic" placeholder="What do you want to learn? e.g. Cardiac rhythms, Algebra II, WW2" value="${esc(t.topic)}" style="flex:1;min-width:200px"><select id="lvl" aria-label="Level" style="width:auto">${['Beginner','Intermediate','Advanced'].map(l=>`<option ${l===t.lvl?'selected':''}>${l}</option>`).join('')}</select><button class="btn primary" id="go">${t.nodes.length?'Rebuild path':'Build my learning path'}</button><button class="btn" id="reset">Start over</button></div></div>
+ <div id="app" ${t.nodes.length?'':'hidden'}>
+  <h2>Knowledge map</h2><div class="box"><div class="row between wrap"><span class="small muted" id="ov"></span><span class="lg muted">Click a concept to study it.<i style="background:var(--soft)"></i>Not tested<i style="background:var(--bad)"></i>Gap<i style="background:var(--carb)"></i>Developing<i style="background:var(--good)"></i>Mastered</span></div><div id="map" style="margin-top:6px"></div><p id="next" class="small"></p><div class="row"><span class="muted small">Mastery over time</span><svg id="spark" width="220" height="40" role="img" aria-label="Mastery trend"></svg></div></div>
+  <h2 id="sel"></h2><div class="box"><div class="row wrap" id="tools"></div>
+   <div class="row wrap" style="margin-top:10px"><input id="prob" aria-label="Problem" placeholder="Paste a problem for an expert step-by-step solution (or leave blank for a worked example)" style="flex:1;min-width:200px"><button class="btn" id="solve">Expert solution</button><button class="btn danger" id="tStop" hidden>Stop</button></div>
+   <div id="tOut" class="out md" aria-live="polite" style="margin-top:14px"></div></div>
+ </div>`;
+ $('#go').onclick=()=>{const tp=$('#topic').value.trim();if(!tp){$('#topic').focus();return;}if(t.nodes.length&&tp===t.topic&&!confirm('Rebuild the map for this topic? Your mastery scores will reset.'))return;buildPath(tp,$('#lvl').value);};$('#topic').onkeydown=e=>{if(e.key==='Enter')$('#go').click();};
+ let rt=null;$('#reset').onclick=()=>{const b=$('#reset');if(b.dataset.arm){clearTimeout(rt);S.tutor=freshTutor();save();R.learn();toast('Progress cleared');}else{b.dataset.arm=1;b.textContent='Click again to erase progress';rt=setTimeout(()=>{delete b.dataset.arm;b.textContent='Start over';},4000);}};
+ $('#solve').onclick=solve;renderMap();};
+function renderMap(){const t=TU();if(!t.nodes.length||!$('#map'))return;$('#app').hidden=false;
+ const dp={},D=(n,seen=[])=>{if(dp[n.id]!=null)return dp[n.id];if(seen.includes(n.id))return 0;return dp[n.id]=1+Math.max(-1,...n.pre.map(p=>nd(p)?D(nd(p),seen.concat(n.id)):-1));};
+ const cols=[];t.nodes.forEach(n=>(cols[D(n)]=cols[D(n)]||[]).push(n));const rows=Math.max(...cols.filter(Boolean).map(c=>c.length)),W=cols.length*150+20,H=rows*84+30,pos={};
+ cols.forEach((c,x)=>c&&c.forEach((n,y)=>pos[n.id]=[70+x*150,(H-c.length*84)/2+y*84+42]));
+ const nx=pickNext();let s=`<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="Knowledge map">`;
+ t.nodes.forEach(n=>n.pre.forEach(p=>{if(pos[p]&&pos[n.id])s+=`<line class="edge" x1="${pos[p][0]}" y1="${pos[p][1]}" x2="${pos[n.id][0]}" y2="${pos[n.id][1]}"/>`;}));
+ t.nodes.forEach(n=>{const[x,y]=pos[n.id],sel=n.id==t.sel,isN=nx&&nx.id==n.id;s+=`<g data-id="${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.name)}, ${n.m==null?'not tested':Math.round(n.m*100)+'% mastery'}${isN?', study next':''}">`+(isN?`<circle class="ring" cx="${x}" cy="${y}" r="31"/>`:'')+`<circle class="n${mlvl(n.m)}${sel?' selr':''}" cx="${x}" cy="${y}" r="24"/><text class="num" x="${x}" y="${y+5}" text-anchor="middle">${n.m==null?'?':Math.round(n.m*100)}</text><text class="lbl" x="${x}" y="${y+48}" text-anchor="middle">${esc(n.name.length>19?n.name.slice(0,18)+'…':n.name)}</text></g>`;});
+ $('#map').innerHTML=s+'</svg>';$$('#map [data-id]').forEach(g=>{const f=()=>{t.sel=g.dataset.id;save();renderMap();};g.onclick=f;g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f();}};});
+ $('#next').innerHTML=nx?`Study next: <b>${esc(nx.name)}</b> (dashed ring).`:'Every concept is mastered. Take a practice test to lock it in.';$('#ov').textContent='Overall mastery '+Math.round(masteryAvg()*100)+'%';
+ const h=t.hist.map(x=>x.a);$('#spark').innerHTML=h.length>1?`<polyline fill="none" style="stroke:var(--ink)" stroke-width="2" points="${h.map((v,i)=>(6+i*(208/(h.length-1)))+','+(34-v*28)).join(' ')}"/>`:'<text x="0" y="24" style="fill:var(--muted);font-size:12px">Take 2+ quizzes to see a trend</text>';
+ const n=curNode();$('#sel').textContent=n.name+(n.m==null?'':' · '+Math.round(n.m*100)+'% mastery · difficulty '+n.d+' of 5');
+ $('#tools').innerHTML='<button data-t="lesson" class="btn primary sm">Lesson</button><button data-t="quiz" class="btn sm">Adaptive quiz</button><button data-t="cards" class="btn sm">Flashcards</button><button data-t="exam" class="btn sm">Practice test</button><button data-t="deck" class="btn sm">Slide deck</button><button data-t="guide" class="btn sm">Study guide</button><button data-t="notes" class="btn sm">Quick notes</button>';
+ $$('#tools button').forEach(b=>b.onclick=()=>{const k=b.dataset.t;({cards,deck}[k]||(k==='quiz'||k==='exam'?()=>quiz(k):()=>tool(k)))();});}
+
+/* ---------- PAPERS (summaries with verified citations) ---------- */
+const PDFJS='https://cdn.jsdelivr.net/npm/pdfjs-dist@4/build/';
+async function pdfText(file,maxPages=40){const lib=await import(PDFJS+'pdf.min.mjs');lib.GlobalWorkerOptions.workerSrc=PDFJS+'pdf.worker.min.mjs';const doc=await lib.getDocument({data:await file.arrayBuffer()}).promise;let out='';for(let i=1;i<=Math.min(doc.numPages,maxPages);i++){const pg=await doc.getPage(i);const tc=await pg.getTextContent();let lastY=null,line='';for(const it of tc.items){if(!it.str.trim()&&!line)continue;const y=Math.round(it.transform[5]);if(lastY!==null&&Math.abs(y-lastY)>2){const gap=Math.abs(y-lastY),lh=Math.max(8,it.height||10);out+=line.trim()+(gap>lh*1.7?'\n\n':'\n');line='';}line+=it.str+' ';lastY=y;}out+=line.trim()+'\n\n';}return out.replace(/-\n(?=[a-z])/g,'').replace(/([^\n.!?:])\n(?=[a-z(])/g,'$1 ');}
+const paperLimit=()=>prov()==='browser'?6000:24000;
+const LSYS=()=>`You are a rigorous, encouraging research-methods teacher. The learner is at the "${S.lab.lvl}" level: define jargon, use concrete examples, and never invent facts or sources. If you are unsure, say so.`;
+const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim();
+function splitParas(t){let a=t.split(/\n\s*\n/).map(s=>s.trim()).filter(s=>s.length>40);if(a.length<4){a=[];const s=t.replace(/\s+/g,' ').match(/[^.!?]+[.!?]+/g)||[t];for(let i=0;i<s.length;i+=4)a.push(s.slice(i,i+4).join(' ').trim());}return a;}
+R.papers=()=>{const v=$('#v-papers'),L=paperLimit();
+ v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Read a paper</h2>${lvlSelect()}</div>
+ <div class="box"><p class="small" style="margin-top:0">Paste a paper or load a PDF. Every claim in the summary points to a paragraph and an exact quote, and each quote is checked against your text. ${prov()==='browser'?`The in-browser model reads about the first ${L.toLocaleString()} characters, so paste the section you want to study.`:`Up to about ${L.toLocaleString()} characters are read.`}</p>
+  <input id="ptitle" aria-label="Paper title" placeholder="Paper title (optional)" value="${esc(S.lab.ptitle)}">
+  <textarea id="ptext" aria-label="Paper text" rows="9" style="margin-top:8px" placeholder="Paste paper text here…">${esc(S.lab.ptext)}</textarea>
+  <div class="row wrap" style="margin-top:8px"><button class="btn" id="pfile">${ic('upload')} Load PDF or text file</button><span class="hint grow" id="pinfo"></span><button class="btn primary" id="sum">${ic('spark')} Summarize with citations</button><button class="btn danger" id="stop0" hidden>Stop</button></div></div>
+ <div id="o0" class="out" aria-live="polite" style="margin-top:12px"></div><div class="src" id="src" hidden></div>`;
+ icons(v);const upd=()=>{const n=$('#ptext').value.length;$('#pinfo').textContent=n?`${n.toLocaleString()} characters${n>L?` — the first ${L.toLocaleString()} will be read`:''}`:'';};upd();
+ $('#ptext').oninput=()=>{S.lab.ptext=$('#ptext').value.slice(0,200000);save();upd();};$('#ptitle').oninput=()=>{S.lab.ptitle=$('#ptitle').value;save();};
+ $('#pfile').onclick=async()=>{const f=await new Promise(res=>{const p=$('#filePick');p.value='';p.accept='.pdf,.txt,.md,.html,.htm';p.onchange=()=>res(p.files[0]||null);p.click();});if(!f)return;await run($('#pfile'),async()=>{let txt;if(/\.pdf$/i.test(f.name)||f.type==='application/pdf')txt=await pdfText(f).catch(e=>{throw new Error('Could not read that PDF: '+(e.message||e));});else{txt=await f.text();if(/\.html?$/i.test(f.name))txt=new DOMParser().parseFromString(txt,'text/html').body.textContent||'';}txt=txt.replace(/\n{3,}/g,'\n\n').trim();if(!txt)throw new Error('No text found — scanned PDFs need OCR first.');$('#ptext').value=txt;S.lab.ptext=txt.slice(0,200000);if(!$('#ptitle').value){$('#ptitle').value=f.name.replace(/\.\w+$/,'');S.lab.ptitle=$('#ptitle').value;}save();upd();});};
+ $('#sum').onclick=summarize;};
+function summarize(){const t=$('#ptext').value.trim().slice(0,paperLimit());if(t.length<200){toast('Paste at least a few paragraphs of the paper.');$('#ptext').focus();return;}const paras=splitParas(t),o=$('#o0'),title=$('#ptitle').value;
+ job(o,'#stop0','Reading the paper',async()=>{const r=await ja('Use ONLY the supplied paper. Every claim must cite one paragraph id and an exact verbatim quote (at most 25 words) copied character-for-character from that paragraph. If the paper does not say something, do not claim it.\n\nPaper'+(title?' "'+title+'"':'')+':\n'+paras.map((p,i)=>`[P${i+1}] ${p}`).join('\n\n')+`\n\nSummarize for the learner. JSON: {"sections":[{"h":"Research question","claims":[{"t":"plain-language claim","p":"P3","q":"exact quote"}]},{"h":"Methods","claims":[]},{"h":"Key findings","claims":[]},{"h":"Limitations the authors state","claims":[]}],"ask":["3 critical questions a careful reader should ask that the paper does not fully answer"]}`,{system:LSYS(),temp:.2,max:3500});
+  if(!r||!Array.isArray(r.sections))throw new Error('The AI\'s reply could not be read. Press the button again.');let ok=0,n=0;
+  const html=r.sections.map(s=>`<h3>${esc(s.h)}</h3><ul>`+(s.claims||[]).map(c=>{const i=parseInt(String(c.p).replace(/\D/g,''))-1,q=norm(c.q||'');n++;let st,k=i;if(paras[i]&&q&&norm(paras[i]).includes(q)){st='<span class="ok">✓ quote verified</span>';ok++;}else{k=paras.findIndex(p=>q&&norm(p).includes(q));st=k>=0?'<span class="ok">✓ verified in P'+(k+1)+'</span>':'<span class="warnt">⚠ quote not found in paper. Check this claim yourself.</span>';if(k>=0)ok++;}return `<li>${esc(c.t)} <button class="cite" data-k="${k}">P${(k>=0?k:i)+1}</button> <small>${st}</small></li>`;}).join('')+'</ul>').join('');
+  o.innerHTML=`<div class="box"><p style="margin-top:0"><span class="pill ${ok===n?'good':ok>=n*.7?'warn':'bad'}">${ok} of ${n} citations verified</span> against your text. Unverified ones may be wrong, so check them.</p>`+html+'<h3>Questions to ask as you read</h3><ul>'+(r.ask||[]).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+  const s=$('#src');s.hidden=false;s.innerHTML='<b>Source text</b>'+paras.map((p,i)=>`<p id="sp${i}"><b>[P${i+1}]</b> ${esc(p)}</p>`).join('');
+  $$('#o0 .cite').forEach(b=>b.onclick=()=>{$$('#src p').forEach(p=>p.classList.remove('on'));const e=$('#sp'+b.dataset.k);if(e){e.classList.add('on');e.scrollIntoView({block:'center',behavior:'smooth'});}});});}
+
+/* ---------- METHODS (tutor chat + experiment planner) ---------- */
+R.methods=()=>{const v=$('#v-methods');
+ v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Methodology tutor</h2>${lvlSelect()}</div>
+ <div class="soft"><div class="row wrap"><select id="cmode" aria-label="Mode" style="width:auto"><option value="explain">Explain it to me</option><option value="socratic">Quiz me Socratically</option></select></div>
+  <div class="chips" style="margin-top:8px">${['What is a confounding variable?','RCT vs cohort study?','p-value vs effect size','How do I pick a sample size?','What is selection bias?','When do I use a non-parametric test?'].map(q=>`<button class="chip" data-mq="${esc(q)}">${esc(q)}</button>`).join('')}</div>
+  <div class="chat" id="mchat"></div>
+  <form class="askbar" id="mForm" autocomplete="off"><input id="cin" placeholder="Ask about study design, bias, statistics, ethics…" aria-label="Your question"><button type="button" class="icon-btn" data-dictate="cin" data-submit="#csend" title="Speak"></button><button class="btn primary" id="csend">Send</button><button type="button" class="btn danger" id="stop1" hidden>Stop</button></form></div>
+ <h2>Hypothesis &amp; experiment planner</h2><div class="box"><p class="small" style="margin-top:0">Write your own draft first. The tutor critiques it, or helps you build one from just a question.</p>
+  <label>Research question<input id="hq" placeholder="Does X affect Y in Z?"></label>
+  <label>Your hypothesis<textarea id="hh" rows="3"></textarea></label>
+  <label>Your experiment plan (design, variables, sample, analysis)<textarea id="hp" rows="5"></textarea></label>
+  <div class="row wrap"><button class="btn primary" id="crit">Critique my plan</button><button class="btn" id="draft">Help me draft one</button><button class="btn danger" id="stop2" hidden>Stop</button></div>
+  <div id="o2" class="out md" aria-live="polite" style="margin-top:12px"></div></div>`;
+ wireMics(v);paintM();$('#mForm').onsubmit=e=>{e.preventDefault();sendM();};$$('[data-mq]',v).forEach(b=>b.onclick=()=>sendM(b.dataset.mq));
+ const plan=mode=>{const q=$('#hq').value.trim(),h=$('#hh').value.trim(),p=$('#hp').value.trim();if(!q&&!h){$('#hq').focus();return;}const el=$('#o2'),body=`Research question: ${q||'(none)'}\nHypothesis: ${h||'(none)'}\nPlan: ${p||'(none)'}`;
+  job(el,'#stop2',mode==='crit'?'Reviewing your plan':'Drafting a plan',async()=>{el.innerHTML=tmd(await ask(mode==='crit'?`Critique this learner's work like a thesis advisor. Check: is the hypothesis falsifiable and specific; are variables operationalized (independent, dependent, controls, likely confounders); is the design able to support the claim (randomization, blinding, comparison group); sample size and power; the planned statistics; threats to validity; ethics. Give strengths first, then numbered fixes, then a revised hypothesis. Do not rewrite the whole plan.\n\n${body}`:`Help the learner build a plan. Explain the reasoning at each step. Give: refined question, null and alternative hypotheses, variables table, design options with a recommended one and why, sample and power considerations, measurement, analysis plan, threats to validity, ethics. Label each part with why it matters.\n\n${body}`,{system:LSYS(),max:3500}));});};
+ $('#crit').onclick=()=>plan('crit');$('#draft').onclick=()=>plan('draft');};
+function paintM(){const c=$('#mchat');if(!c)return;c.innerHTML=S.mchat.slice(-12).map(m=>m.r==='u'?`<div class="msg me">${esc(m.t)}</div>`:`<div class="msg ai"><div class="md">${tmd(m.t)}</div></div>`).join('')+(S.mchat.length?'<div class="row end"><button class="btn ghost sm" id="mClear">Clear</button></div>':'');const cl=$('#mClear');if(cl)cl.onclick=()=>{S.mchat=[];save();paintM();};}
+async function sendM(q){q=String(q||$('#cin').value).trim();if(!q)return;$('#cin').value='';S.mchat.push({r:'u',t:q});S.mchat.push({r:'a',t:'…'});paintM();const soc=$('#cmode').value==='socratic',i=S.mchat.length-1;
+ const rules=LSYS()+'\n\n'+(soc?'Teach Socratically: ask ONE probing question at a time, wait for the answer, then give brief feedback before the next question.':'Explain clearly with a concrete example, then offer one check question.');
+ const tr=S.mchat.slice(0,-1).slice(-6).filter(m=>m.t&&m.t!=='…').map(m=>(m.r==='u'?'Learner: ':'Tutor: ')+m.t).join('\n');
+ const st=$('#stop1');st.hidden=false;st.onclick=()=>ctl&&ctl.abort();
+ try{S.mchat[i].t=await ask('Conversation so far:\n'+tr+'\n\nWrite the tutor\'s next reply.',{system:rules,max:1800});}
+ catch(e){S.mchat[i].t=e&&e.stopped?'Stopped.':'**Error:** '+((e&&e.message)||'Something went wrong. Try again.');}
+ finally{st.hidden=true;S.mchat=S.mchat.slice(-30);save();paintM();}}
+
+/* ---------- WRITING practice ---------- */
+const CR=['Clarity','Precision','Evidence','Structure','Concision'];
+R.writing=()=>{const v=$('#v-writing');
+ v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Scientific writing practice</h2>${lvlSelect()}</div>
+ <div class="box"><div class="row wrap"><select id="wsec" aria-label="Section" style="width:auto">${['Abstract','Introduction','Methods','Results','Discussion','Limitations'].map(s=>`<option>${s}</option>`).join('')}</select><button class="btn" id="wprompt">${ic('spark')} Give me a practice scenario</button><button class="btn danger" id="stop3" hidden>Stop</button></div>
+  <div id="wscen" class="out md small" style="margin-top:8px"></div>
+  <textarea id="wtext" aria-label="Your writing" rows="9" style="margin-top:8px" placeholder="Write your section here…"></textarea>
+  <div class="row" style="margin-top:8px"><button class="btn primary" id="wscore">Score my writing</button></div>
+  <div id="o3" class="out md" aria-live="polite" style="margin-top:12px"></div></div>
+ <h2>Progress</h2><div class="box" id="prog"></div>`;
+ icons(v);progress();
+ $('#wprompt').onclick=()=>{const el=$('#wscen');job(el,'#stop3','Creating a scenario',async()=>{el.innerHTML=tmd(await ask(`Invent a short, clearly fictional mini-study with a few concrete numbers (design, sample, outcome) suitable for writing the ${$('#wsec').value} section. Label it "Practice data (fictional)". 6 lines max.`,{system:LSYS(),temp:.8,max:700}));});};
+ $('#wscore').onclick=()=>{const t=$('#wtext').value.trim();if(t.length<40){toast('Write at least a couple of sentences first.');$('#wtext').focus();return;}const o=$('#o3'),scen=$('#wscen').textContent.trim();
+  job(o,'#stop3','Scoring',async()=>{const r=await ja(`Score this ${$('#wsec').value} section of a research report from 1 to 5 on ${CR.join(', ')}. Be honest and specific. ${scen?'Practice scenario it should reflect: '+scen:''}\n\nText:\n${t}\n\nJSON: {"scores":{${CR.map(c=>'"'+c+'":3').join(',')}},"feedback":["3 specific, actionable points quoting the learner's words"],"rewrite":"improved version of the weakest sentence","next":"one exercise to practice next"}`,{system:LSYS(),temp:.2,max:1800});
+   const sc=r&&r.scores;if(!sc)throw new Error('The AI\'s reply could not be read. Press the button again.');CR.forEach(c=>sc[c]=clamp(Math.round(+sc[c]||0),0,5));S.lab.hist.push({t:Date.now(),s:$('#wsec').value,sc});S.lab.hist=S.lab.hist.slice(-50);save();
+   o.innerHTML=CR.map(c=>`<div class="sc"><span>${c}</span><div class="bar"><i style="width:${sc[c]*20}%;background:${sc[c]>=4?'var(--good)':sc[c]<=2?'var(--bad)':'var(--carb)'}"></i></div><b>${sc[c]}</b></div>`).join('')+'<h4>Feedback</h4><ul>'+(r.feedback||[]).map(f=>'<li>'+esc(f)+'</li>').join('')+'</ul><h4>Stronger version of your weakest sentence</h4><p>'+esc(r.rewrite||'')+'</p><h4>Try next</h4><p>'+esc(r.next||'')+'</p>';progress();});};};
+function progress(){const el=$('#prog');if(!el)return;const h=S.lab.hist;if(!h.length){el.innerHTML='<p class="empty">Score a few pieces of writing to see your progress.</p>';return;}
+ const m=x=>CR.map(c=>[c,avg(x.map(y=>Number(y.sc[c])||0))]),a=h.slice(0,Math.ceil(h.length/2)),b=h.slice(Math.ceil(h.length/2));
+ el.innerHTML=(h.length>1?lineChart([{points:h.map(x=>({x:x.t,y:avg(CR.map(c=>Number(x.sc[c])||0))})),color:'var(--lift)'}],{yfmt:v=>r1(v),xfmt:t=>new Date(t).toLocaleDateString([],{month:'short',day:'numeric'}),band:[4,5],h:150}):'')+`<p class="small">${h.length} attempt${h.length>1?'s':''}. ${h.length>1?'Recent average by criterion: '+m(b.length?b:h).map(([c,v],i)=>{const d=v-m(a)[i][1];return `${c} ${v.toFixed(1)}${b.length&&d>.2?' ↑':b.length&&d<-.2?' ↓':''}`;}).join(', '):'Complete one more attempt to see your trend.'}</p>`;}
+
+/* ---------- SETTINGS ---------- */
+function renderProv(){const p=prov();$$('#provSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.p===p);});$$('[data-prov]').forEach(d=>d.hidden=d.dataset.prov!==p);const o=location.origin&&location.origin!=='null'?location.origin:'https://your-site.com';$$('.originCode').forEach(c=>c.textContent=o);const lp=$('#localPreset');if(lp)lp.value=[...lp.options].some(x=>x.value===(S.settings.localBase||''))?S.settings.localBase:'';$('#voiceNote').textContent=(SR?'Voice input uses your browser\'s speech recognition. ':'')+(p==='browser'?'The in-browser model reads about the first 6,000 characters of a paper; cloud and local models read much more.':'');if(p!=='browser'&&$('#llmStatus'))$('#llmStatus').textContent='';if(p==='browser'&&!navigator.gpu)$('#llmStatus').textContent='This browser doesn\'t support WebGPU — try Chrome or Edge on a computer.';}
+R.settings=()=>{$$('[data-prof]').forEach(el=>{el.value=S.profile[el.dataset.prof]??'';});$$('#v-settings [data-labset]').forEach(el=>{el.value=S.lab[el.dataset.labset];});$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!S.settings[k];else el.value=S.settings[k]??'';});renderProv();};
+function bindSettings(){$$('[data-prof]').forEach(el=>el.addEventListener('input',()=>{S.profile[el.dataset.prof]=el.value;save();}));$$('[data-set]').forEach(el=>el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'?'change':'input',()=>{const k=el.dataset.set;let v=el.type==='checkbox'?el.checked:el.value;if(typeof v==='string')v=v.trim();S.settings[k]=v;save();badge();}));}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t)go(t.dataset.go);});
+
+/* ---------- init ---------- */
+function init(){icons();bindSettings();
+ $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=()=>go('settings');
+ $('#btnExport').onclick=()=>{const data={...S,settings:{...S.settings,groqKey:'',customKey:''}};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'}));a.download=`learning-backup-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
+ $('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!d.tutor)throw 0;if(!confirm('Replace your current progress with this backup?'))return;const keep={groqKey:S.settings.groqKey,customKey:S.settings.customKey};S={...DEF(),...d,tutor:{...freshTutor(),...d.tutor},lab:{...DEF().lab,...d.lab},settings:{...DEF().settings,...d.settings}};if(!S.settings.groqKey)S.settings.groqKey=keep.groqKey;if(!S.settings.customKey)S.settings.customKey=keep.customKey;save();refresh();toast('Backup restored');}catch(_){toast('That file is not a valid backup.',{err:true});}e.target.value='';};
+ $('#btnWipe').onclick=()=>{if(!confirm('Erase your learning path, chats, writing scores and settings from this browser? This cannot be undone.'))return;localStorage.removeItem(KEY);location.reload();};
+ $$('[data-show]').forEach(b=>b.onclick=()=>{const k=$(b.dataset.show);k.type=k.type==='password'?'text':'password';b.textContent=k.type==='password'?'Show':'Hide';});
+ $('#provSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.settings.provider=b.dataset.p;save();$('#keyStatus').textContent='';renderProv();badge();};
+ $('#customPreset').innerHTML=Object.entries(PRESETS).map(([k,[n]])=>`<option value="${k}">${n}</option>`).join('');
+ $('#customPreset').addEventListener('change',e=>{const u=PRESETS[e.target.value]?.[1];if(u){S.settings.customBase=u;$('#customBase').value=u;}S.settings.customModel='';save();R.settings();if(!u)$('#customBase').focus();});
+ $('#localPreset').onchange=e=>{const v=e.target.value;if(v){S.settings.localBase=v;$('#localBase').value=v;save();}else $('#localBase').focus();};
+ $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
+ $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
+ $('#gateHide').onclick=()=>gateClose();
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':'model';st.textContent='Checking…';
+  try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
+   if(listErr&&/rejected/.test(listErr.message))throw listErr;
+   if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}
+   if((p==='local'||p==='custom')&&!S.settings[key])throw listErr||new Error('No models found — download or load one first.');
+   const reply=await ai('Reply with just the word: ready',{temp:0,max:300});
+   st.textContent=`Connected${models.length&&p!=='browser'?` · ${models.length} models available`:''} · ${aiTarget().model} replied “${reply.slice(0,40)}”.`;
+  }catch(err){st.textContent='';throw err;}});
+
+
+ window.addEventListener('hashchange',()=>show(hashView()));
+ show(hashView());
+ if(prov()==='browser'&&navigator.gpu&&S.settings.llmReady&&S.settings.llmReady===(S.settings.webllmModel||DEFAULT_WEBLLM))setTimeout(()=>getEngine(S.settings.llmReady).catch(e=>console.warn('Model warm-up failed',e)),1500);
+}
+init();
+})();
+</script>
+</body>
+</html>
