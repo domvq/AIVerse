@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Financial Intelligence — AI Markets &amp; Money Center</title>
-<meta name="description" content="AI financial assistant: live stock dashboard, stock analysis, technical indicators, probabilistic forecasts, company financials, portfolio tracking, paper trading, budgeting with statement uploads, and an AI agent that prepares tasks for your approval.">
+<meta name="description" content="AI financial assistant: live stock dashboard, a live stock market predictor, stock analysis, technical indicators, probabilistic forecasts, company financials, portfolio tracking, paper trading, budgeting with statement uploads, and an AI agent that prepares tasks for your approval.">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111'/%3E%3Cpath d='M14 44l12-12 8 8 16-18' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 <style>
@@ -135,7 +135,7 @@ label.check input{width:auto}
 .ring text{font-family:inherit}
 /* bottom nav */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
-nav.tabs .in{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs .in{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
 nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--ink);font-size:12px;font-weight:600;padding:2px 0}
 nav.tabs a .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1.5px solid transparent}
 nav.tabs a.on .ico{border-color:var(--ink)}
@@ -187,6 +187,63 @@ code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
 .searchres{position:relative}
 .searchres .list{position:absolute;left:0;right:0;top:4px;z-index:15;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:4px 12px;box-shadow:0 10px 30px rgba(0,0,0,.15);max-height:320px;overflow:auto}
 .disclaimer{font-size:11.5px;color:var(--soft);margin:18px 0 0;text-align:center}
+
+/* live predictor */
+.pxprice{font-size:34px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15;transition:color .8s}
+.pxprice.fl-up{color:var(--good);transition:none}.pxprice.fl-dn{color:var(--bad);transition:none}
+.pxstat{text-align:right;font-size:13px;font-weight:600;max-width:60%}
+@media (max-width:560px){.pxstat{text-align:left;max-width:none;width:100%}}
+.pxstat .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--soft);margin-right:6px;vertical-align:1px}
+.pxstat .dot.live{background:var(--good);animation:pxp 1.6s infinite}
+@keyframes pxp{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--good) 60%,transparent)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.pxstat .dot.live{animation:none}.pxprice{transition:none}}
+.big2{display:block;font-size:19px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin-top:2px;line-height:1.25}
+.prob{display:flex;align-items:center;gap:8px}
+.prob .pb{flex:1;min-width:56px;height:8px;border-radius:9px;background:color-mix(in srgb,var(--bad) 28%,var(--card));overflow:hidden}
+.prob .pb i{display:block;height:100%;background:var(--good);border-radius:9px}
+.drv{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) 84px;gap:10px;align-items:center;padding:6px 0;font-size:13.5px}
+.dbar{position:relative;height:8px;background:var(--card);border-radius:9px}
+.dbar::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--line)}
+.dbar i{position:absolute;top:0;bottom:0;border-radius:9px}
+
+/* AI Verse promo + AIV key */
+.aivpromo{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 12px 12px 16px;margin:0 0 14px}
+.aivpromo .t{flex:1;min-width:200px;font-size:13px;line-height:1.4}
+.aivpromo .t b{display:block;font-size:14.5px;margin-bottom:1px}
+.aivpromo .t span{opacity:.72}
+.aivpromo a.go{background:var(--bg);color:var(--ink);text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:99px;white-space:nowrap}
+.aivpromo a.go:hover{opacity:.9}
+.aivpromo .add{background:none;border:0;color:inherit;opacity:.75;font:inherit;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.aivpromo .x{background:none;border:0;color:inherit;opacity:.55;font-size:20px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:8px}
+.aivpromo .x:hover{opacity:1}
+.aivpromo a:focus-visible,.aivpromo button:focus-visible{outline:2px solid var(--bg);outline-offset:2px}
+
+/* ===== responsive layout: bottom tabs on phones, sidebar on desktop ===== */
+nav.tabs .side-brand,nav.tabs .side-home{display:none}
+@media (min-width:900px){
+ body{padding-left:240px}
+ nav.tabs{top:0;bottom:0;left:0;right:auto;width:240px;display:flex;flex-direction:column;gap:14px;border-top:0;border-right:1px solid var(--line);padding:22px 14px 18px;background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;overflow-y:auto}
+ nav.tabs .side-brand{display:flex;align-items:center;gap:10px;padding:0 6px 4px;text-decoration:none;color:var(--ink)}
+ .side-brand .logo{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:16px}
+ .side-brand b{display:block;font-size:14.5px;line-height:1.2}
+ .side-brand small{display:block;color:var(--muted);font-size:12px;line-height:1.25;margin-top:1px}
+ nav.tabs .in{display:flex;flex-direction:column;gap:2px;max-width:none;margin:0}
+ nav.tabs a{flex-direction:row;justify-content:flex-start;gap:10px;font-size:14px;font-weight:500;padding:9px 10px;border-radius:10px;color:var(--muted)}
+ nav.tabs a .ico{width:auto;height:auto;border:0!important;border-radius:0}
+ nav.tabs a:hover{background:var(--card);color:var(--ink)}
+ nav.tabs a.on{background:var(--card);color:var(--ink);font-weight:600}
+ nav.tabs .side-home{display:block;margin-top:auto;padding:8px 10px;font-size:13px;color:var(--muted);text-decoration:none;border-radius:10px}
+ nav.tabs .side-home:hover{background:var(--card);color:var(--ink)}
+ .shell{max-width:1180px;margin:0 auto;border:0;border-radius:0;padding:24px 36px 60px;min-height:100vh}
+ header.top{justify-content:flex-end;margin-bottom:12px}
+ header.top>div:first-child{display:none}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .disclaimer{text-align:left}
+ svg.chart{max-height:300px}
+}
+.grid>.soft,.grid>.box,.grid3>.soft,.grid3>.box{margin-top:0}
+@media (min-width:900px) and (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -195,9 +252,12 @@ code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
   <div><h1>Financial Intelligence</h1><p class="sub">Your AI markets &amp; money center</p></div>
   <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
  </header>
+ <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of Financial Intelligence</b><span>An AIV API key runs every AI Verse app on full-strength AI. One key, every app, no extra setup.</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
+
  <section class="view" id="v-home"></section>
  <section class="view" id="v-markets"></section>
  <section class="view" id="v-research"></section>
+ <section class="view" id="v-predict"></section>
  <section class="view" id="v-portfolio"></section>
  <section class="view" id="v-budget"></section>
  <section class="view" id="v-settings">
@@ -222,9 +282,14 @@ code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
   <div class="box" id="aiCard" style="margin-top:10px">
    <h3>AI provider</h3>
    <p class="sub">Choose where your AI advisor runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
-   <div class="seg" id="provSeg"><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div class="seg" id="provSeg"><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div data-prov="aiv">
+    <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
+    <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
+    <label>Model<select data-set="aivModel" id="aivModel"><option value="aiv-1">aiv-1: best quality</option><option value="aiv-1-mini">aiv-1-mini: fastest</option></select></label>
+   </div>
    <div data-prov="groq">
-    <p class="sub">Fast, with a free tier. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
+    <p class="sub">Free tier, recommended for testing. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
     <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
     <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
     <label>Vision model (for statement images)<input data-set="visionModel" placeholder="qwen/qwen3.8-27b" autocomplete="off"></label>
@@ -268,19 +333,21 @@ code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
  </section>
  <p class="disclaimer">For information and education only — not investment, tax or legal advice. Forecasts are probabilities, not promises. No real trades are placed.</p>
 </div>
-<nav class="tabs" aria-label="Sections"><div class="in">
+<nav class="tabs" aria-label="Sections"><a class="side-brand" href="#home"><span class="logo">F</span><span><b>Financial Intelligence</b><small>Your AI markets &amp; money center</small></span></a><div class="in">
  <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
  <a href="#markets" data-nav="markets"><span class="ico"><span data-ic="pulse"></span></span>Markets</a>
  <a href="#research" data-nav="research"><span class="ico"><span data-ic="search"></span></span>Research</a>
+ <a href="#predict" data-nav="predict"><span class="ico"><span data-ic="radar"></span></span>Predict</a>
  <a href="#portfolio" data-nav="portfolio"><span class="ico"><span data-ic="pie"></span></span>Portfolio</a>
  <a href="#budget" data-nav="budget"><span class="ico"><span data-ic="wallet"></span></span>Budget</a>
-</div></nav>
+</div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
 <dialog id="dlg"></dialog>
 <dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
 <div id="toasts" aria-live="polite"></div>
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
+<script src="../config.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -336,7 +403,8 @@ const I={
  doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
  star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
  swap:'<path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/>',
- mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>'
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ radar:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="12" cy="12" r="1"/>'
 };
 const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]||''}</svg>`;
 function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
@@ -355,9 +423,9 @@ const monthName=k=>{const[y,m]=k.split('-').map(Number);return new Date(y,m-1,1)
 const KEY='finintel.v1';
 const DEF=()=>({
  profile:{name:'',age:35,income:'',risk:'moderate',horizon:'long',experience:'beginner',goalsText:''},
- settings:{provider:'',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',visionModel:'qwen/qwen3.8-27b',customVision:'',localVision:'',finnhubKey:'',twelveKey:'',autoLow:false},
+ settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',visionModel:'qwen/qwen3.8-27b',customVision:'',localVision:'',finnhubKey:'',twelveKey:'',autoLow:false},
  setupDone:false,watchlist:['AAPL','MSFT','NVDA','AMZN','SPY'],holdings:[],paper:{cash:100000,start:100000,positions:{},orders:[]},
- tx:[],budgets:{},accounts:[],goals:[],alerts:[],chat:[],pending:[],reports:[],statements:[],lastSym:'AAPL',insight:null,tickets:[]});
+ tx:[],budgets:{},accounts:[],goals:[],alerts:[],chat:[],pending:[],reports:[],statements:[],lastSym:'AAPL',insight:null,tickets:[],predLog:[]});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.paper={...DEF().paper,...(s.paper||{})};}}catch(e){}return d;}
 let S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
@@ -444,7 +512,7 @@ function fanChart(H,mc,{h=220}={}){const hist=H.slice(-126).map(b=>b.c);const da
  g+=`<polygon points="${area(0,4)}" fill="var(--lift)" opacity=".12"/><polygon points="${area(1,3)}" fill="var(--lift)" opacity=".22"/>`;
  g+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2" points="${hist.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ')}"/>`;
  g+=`<polyline fill="none" stroke="var(--lift)" stroke-width="2" stroke-dasharray="5 4" points="${X(hist.length-1)},${Y(hist[hist.length-1])} ${mc.band.map((b,i)=>X(hist.length+i).toFixed(1)+','+Y(b[2]).toFixed(1)).join(' ')}"/>`;
- g+=`<line x1="${X(hist.length-1)}" x2="${X(hist.length-1)}" y1="${T}" y2="${h-B}" stroke="var(--line)"/><text x="${L}" y="${h-4}">6 months ago</text><text x="${X(hist.length-1)}" y="${h-4}" text-anchor="middle">today</text><text x="${W-Rm}" y="${h-4}" text-anchor="end">+${days} trading days</text>`;
+ g+=`<line x1="${X(hist.length-1)}" x2="${X(hist.length-1)}" y1="${T}" y2="${h-B}" stroke="var(--line)"/><text x="${L}" y="${h-4}">6 months ago</text>${(W-Rm)-X(hist.length-1)>130?`<text x="${X(hist.length-1)}" y="${h-4}" text-anchor="middle">today</text>`:""}<text x="${W-Rm}" y="${h-4}" text-anchor="end">+${days} trading days</text>`;
  return `<svg class="chart" viewBox="0 0 ${W} ${h}" role="img" aria-label="Forecast range">${g}</svg><div class="legend"><span><i style="background:var(--ink)"></i>Price</span><span><i style="background:var(--lift)"></i>Median path</span><span><i style="background:var(--lift);opacity:.35"></i>50% range</span><span><i style="background:var(--lift);opacity:.15"></i>90% range</span></div>`;}
 
 /* ---------- fundamentals scorecard ---------- */
@@ -495,21 +563,24 @@ const DEFAULT_WEBLLM='Qwen3-0.6B-q4f16_1-MLC';
 const WEBLLM_URL='https://esm.run/@mlc-ai/web-llm@0.2.83';
 const WEBLLM_MODELS=[['Qwen3-0.6B-q4f16_1-MLC','Qwen3 0.6B — about 400 MB, fastest (default)','400 MB'],['Qwen3-1.7B-q4f16_1-MLC','Qwen3 1.7B — about 1 GB, smarter','1 GB'],['Llama-3.2-3B-Instruct-q4f16_1-MLC','Llama 3.2 3B — about 2 GB','2 GB'],['Qwen3-4B-q4f16_1-MLC','Qwen3 4B — about 2.5 GB, best quality, needs a strong GPU','2.5 GB']];
 const modelSize=id=>(WEBLLM_MODELS.find(m=>m[0]===id)||[])[2]||'several hundred MB';
+const AIV_BASE=((window.AIV_SITE&&window.AIV_SITE.server)||'https://api.aiverse.it.com').replace(/\/+$/,'')+'/v1';
 const PRESETS={openai:['OpenAI','https://api.openai.com/v1'],openrouter:['OpenRouter','https://openrouter.ai/api/v1'],gemini:['Google Gemini','https://generativelanguage.googleapis.com/v1beta/openai'],mistral:['Mistral','https://api.mistral.ai/v1'],together:['Together AI','https://api.together.xyz/v1'],deepseek:['DeepSeek','https://api.deepseek.com/v1'],other:['Other (OpenAI-compatible)','']};
-const PROV_NAMES={groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
-const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.groqKey)return'groq';return navigator.gpu?'browser':'groq';};
+const PROV_NAMES={aiv:'your AIV key',groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
+const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.aivKey)return'aiv';if(S.settings.groqKey)return'groq';return navigator.gpu?'browser':'groq';};
 function setupNeeded(msg){go('settings');throw new Error(msg);}
 function aiConn(){const s=S.settings,p=prov();
+ if(p==='aiv'){if(!s.aivKey)setupNeeded('Add your AIV API key in Settings (AI provider → AIV key), or choose another AI provider.');return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey}};}
  if(p==='groq'){if(!s.groqKey)setupNeeded('Add a free Groq API key in Settings, or choose another AI provider.');return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey}};}
  if(p==='custom'){if(!s.customBase)setupNeeded('Add your AI service\'s URL in Settings.');return{p,base:s.customBase.replace(/\/+$/,''),headers:s.customKey?{Authorization:'Bearer '+s.customKey}:{}};}
  if(p==='local')return{p,base:(s.localBase||'http://localhost:11434/v1').replace(/\/+$/,''),headers:{}};
  return{p:'browser'};}
 function aiTarget(){const c=aiConn(),s=S.settings;
+ if(c.p==='aiv')return{...c,model:s.aivModel||'aiv-1'};
  if(c.p==='groq')return{...c,model:s.model||DEFAULT_GROQ};
  if(c.p==='custom'){if(!s.customModel)setupNeeded('Choose a model for your AI service in Settings (Test connection lists them).');return{...c,model:s.customModel};}
  if(c.p==='local'){if(!s.localModel)setupNeeded('Choose which local model to use in Settings (Test connection lists them).');return{...c,model:s.localModel};}
  return{...c,model:s.webllmModel||DEFAULT_WEBLLM};}
-const hasAI=()=>{const s=S.settings,p=prov();return (p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
+const hasAI=()=>{const s=S.settings,p=prov();return (p==='aiv'&&!!s.aivKey)||(p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
 function baseSystem(){const n=new Date();return `You are the AI financial assistant inside a personal markets and money app${S.profile.name?' for '+S.profile.name:''}. Current local time: ${n.toLocaleString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'})} (today's date is ${ymd(n)}). Use only the data provided about the user; never invent holdings, balances, prices or facts about them. Be clear, specific and honest about uncertainty.`;}
 function parseJSON(t){try{return JSON.parse(t);}catch(e){}const s=t.replace(/```(?:json)?/g,'');const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1));}catch(e){}}throw new Error('The AI returned something unreadable — please try again'+(prov()==='browser'||prov()==='local'?' (smaller models sometimes struggle with this; a larger model helps).':'.'));}
 const errMsg=t=>{try{const j=JSON.parse(t);const e=j.error;return(e&&(e.message||(typeof e==='string'?e:'')))||j.message||'';}catch(_){return String(t||'').slice(0,300);}};
@@ -560,11 +631,22 @@ const llmReady=()=>!!llm.engine&&llm.model===(S.settings.webllmModel||DEFAULT_WE
 function gateShow({title,text,btns=[]}){const g=$('#gate');$('#gateHide').hidden=true;$('#gateTitle').textContent=title;$('#gateText').textContent=text;$('#gateStatus').textContent='';$('#gateFill').style.width='0%';$('#gateTrack').hidden=!!btns.length;const bw=$('#gateBtns');bw.innerHTML='';btns.forEach(([label,cls,fn])=>{const b=document.createElement('button');b.className='btn '+cls;b.textContent=label;b.onclick=fn;bw.appendChild(b);});if(!g.open)g.showModal();}
 function gateClose(){const g=$('#gate');if(g.open)g.close();}
 function askDownload(model){if(dlAsk)return dlAsk;dlAsk=new Promise(res=>{$('#gate').addEventListener('close',()=>res(false),{once:true});gateShow({title:'Download the AI model',text:`Your AI advisor runs privately on this device. Before you can use it, it needs a one-time download of about ${modelSize(model)} (Wi-Fi recommended). After that it works offline and nothing you type leaves this device.`,btns:[['Not now','ghost',()=>{gateClose();res(false);}],['Use a different AI','ghost',()=>{gateClose();res(false);go('settings');}],['Download now','primary',()=>res(true)]]});}).finally(()=>{dlAsk=null;});return dlAsk;}
+
+/* ---------- AI Verse: AIV key promo + one-click on-device AI ---------- */
+let skipAsk=false;
+function promo(){const el=$('#aivPromo');if(!el)return;let hid=false;try{hid=sessionStorage.getItem('aivPromoHide')==='1';}catch(e){}el.hidden=hid||(prov()==='aiv'&&!!S.settings.aivKey);}
+async function aiBadgeClick(){const p=prov(),m=S.settings.webllmModel||DEFAULT_WEBLLM,need=p==='browser'&&S.settings.llmReady!==m&&!llmReady();
+ if(hasAI()&&!need){go('settings');return;}
+ if(!navigator.gpu){toast('The free on-device AI needs WebGPU (Chrome or Edge on a computer). Add an AIV key or a free Groq key in Settings instead.',{err:true});go('settings');return;}
+ S.settings.provider='browser';save();try{badge();}catch(e){}skipAsk=true;
+ try{await ensureBrowserModel(m);}catch(e){toast(e.message||String(e),{err:true});}finally{skipAsk=false;try{badge();}catch(e){}}}
+document.addEventListener('click',e=>{if(e.target.closest('#aivPromoX')){try{sessionStorage.setItem('aivPromoHide','1');}catch(_){}promo();}else if(e.target.closest('#aivPromoAdd')){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=$('#setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},120);}});
+
 async function ensureBrowserModel(model){
  if(llm.engine&&llm.model===model)return;
  if(!navigator.gpu)setupNeeded('This browser can\'t run on-device AI (it needs WebGPU — Chrome or Edge on a computer). Choose another AI provider in Settings.');
  const cached=S.settings.llmReady===model;
- if(!cached&&!llm.loading){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
+ if(!cached&&!llm.loading&&!skipAsk){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
  if(!cached)gateShow({title:'Downloading the AI model',text:`One-time download of about ${modelSize(model)}. Keep this tab open — you can keep using the rest of the app.`});
  const hide=$('#gateHide');if(hide)hide.hidden=cached;
  try{await getEngine(model);S.settings.llmReady=model;save();refresh();if(!cached)toast('AI is ready — running on this device');}
@@ -637,13 +719,13 @@ function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)r
 
 
 /* ---------- navigation ---------- */
-const VIEWS=['home','markets','research','portfolio','budget','settings'];
+const VIEWS=['home','markets','research','predict','portfolio','budget','settings'];
 let cur='home';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
-function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
+function show(v){if(cur==='predict'&&v!=='predict')predStop();cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
 function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
 function refresh(){(R[cur]||(()=>{}))();badge();}
-function badge(){const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';}else if(need){b.className='badge off';b.textContent='AI: download needed';}else{b.className='badge';b.textContent=p==='browser'?'On-device AI':p==='local'?'Local AI':'AI advisor on';}}
+function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI advisor on';}}
 const fail=(el,e)=>{if(el)el.innerHTML=`<p class="small" style="color:var(--bad);margin:0">${esc(e.message||String(e))}</p>`;};
 function marketStatus(){const ny=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));const d=ny.getDay(),m=ny.getHours()*60+ny.getMinutes();const open=d>0&&d<6&&m>=570&&m<960;return{open,txt:open?'Market open':d>0&&d<6&&m<570?'Pre-market':'Market closed'};}
 function spark(H,{w=120,h=34,color}={}){const c=H.slice(-60).map(b=>b.c);if(c.length<2)return'';const mn=Math.min(...c),mx=Math.max(...c);const col=color||(c[c.length-1]>=c[0]?'var(--good)':'var(--bad)');return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline fill="none" stroke="${col}" stroke-width="1.8" points="${c.map((v,i)=>(i/(c.length-1)*w).toFixed(1)+','+(h-2-(v-mn)/(mx-mn||1)*(h-4)).toFixed(1)).join(' ')}"/></svg>`;}
@@ -821,7 +903,7 @@ async function renderResearch(sym){const body=$('#rsBody');let q,pr;try{[q,pr]=a
    <h4>Key levels</h4><div class="kv"><span>Support</span><span>${T.sup.map(x=>money(x)).join(' · ')||'—'}</span><span>Resistance</span><span>${T.res.map(x=>money(x)).join(' · ')||'—'}</span><span>Average daily range (ATR 14)</span><span>${money(T.atr)}</span><span>Max drawdown (1Y)</span><span>${r1(T.dd)}%</span></div>
    <h4>Pattern backtest (${bt.years} years of history)</h4><div class="scroll"><table class="tbl"><tr><th>Strategy</th><th>Return</th><th>Per year</th><th>Max drawdown</th><th>Trades</th><th>Win rate</th></tr>${[['Buy and hold',bt.hold],['50/200-day trend filter',bt.cross],['RSI dip-buying (<30)',bt.rsi]].map(([n,x])=>`<tr><td>${n}</td><td class="${cls(x.ret)}">${pct(x.ret,1)}</td><td>${pct(x.cagr,1)}</td><td class="down">${r1(x.dd)}%</td><td>${n==='Buy and hold'?'—':x.trades}</td><td>${x.win!=null&&n!=='Buy and hold'?r0(x.win)+'%':'—'}</td></tr>`).join('')}</table></div><p class="note">Shows how these patterns would have performed on this stock's past prices, ignoring costs and taxes. Past patterns don't guarantee future results.</p>`;
   const drawFc=()=>{const mc=monteCarlo(H,{days:rsDays,drift:rsDrift});$('#rsFcStat').innerHTML=fanChart(H,mc)+`<div class="scroll"><table class="tbl" style="margin-top:8px"><tr><th>Horizon</th><th>Median</th><th>50% range</th><th>90% range</th><th>Chance higher</th><th>≥ +10%</th><th>≤ −10%</th></tr>${mc.horizons.map(h=>`<tr><td>${{21:'1 month',63:'3 months',126:'6 months',252:'1 year'}[h.d]}</td><td>${money(h.p50)}</td><td>${money(h.p25)}–${money(h.p75)}</td><td>${money(h.p5)}–${money(h.p95)}</td><td>${r0(h.up)}%</td><td>${r0(h.up10)}%</td><td>${r0(h.dn10)}%</td></tr>`).join('')}</table></div>`;return mc;};
-  $('#rsFc').innerHTML=`<p class="small" style="margin-top:0">2,000 simulated paths built from this stock's own daily returns (bootstrapped, so fat tails and volatility are realistic). Ranges show how wide the plausible outcomes are — not a price target.</p><div class="form-row"><label>Horizon<select id="fcDays"><option value="63">3 months</option><option value="126">6 months</option><option value="252">1 year</option></select></label><label>Expected trend<select id="fcDrift"><option value="market">Market average (~7%/yr)</option><option value="zero">No trend</option><option value="historical">This stock's own past trend</option></select></label></div><div id="rsFcStat"></div><button class="btn sm" id="fcAI" style="margin-top:10px">${ic('spark')} AI forecast narrative</button><div id="fcAIOut" class="md" style="margin-top:8px"></div><p class="note">Assumes the future behaves statistically like the past ~2 years. Earnings, news and market shocks can push prices outside these ranges.</p>`;
+  $('#rsFc').innerHTML=`<p class="small" style="margin-top:0">2,000 simulated paths built from this stock's own daily returns (bootstrapped, so fat tails and volatility are realistic). Ranges show how wide the plausible outcomes are — not a price target.</p><div class="form-row"><label>Horizon<select id="fcDays"><option value="63">3 months</option><option value="126">6 months</option><option value="252">1 year</option></select></label><label>Expected trend<select id="fcDrift"><option value="market">Market average (~7%/yr)</option><option value="zero">No trend</option><option value="historical">This stock's own past trend</option></select></label></div><div id="rsFcStat"></div><div class="row wrap" style="margin-top:10px"><button class="btn sm" id="fcAI">${ic('spark')} AI forecast narrative</button><button class="btn sm" data-go="predict">${ic('radar')} Live predictor</button></div><div id="fcAIOut" class="md" style="margin-top:8px"></div><p class="note">Assumes the future behaves statistically like the past ~2 years. Earnings, news and market shocks can push prices outside these ranges.</p>`;
   $('#fcDays').value=String(rsDays);$('#fcDrift').value=rsDrift;let MC=drawFc();$('#fcDays').onchange=e=>{rsDays=+e.target.value;MC=drawFc();};$('#fcDrift').onchange=e=>{rsDrift=e.target.value;MC=drawFc();};
   $('#fcAI').onclick=e=>run(e.currentTarget,async()=>{let nw=[];try{nw=await news(sym);}catch(_){}$('#fcAIOut').innerHTML=md(await ai(`Write a probabilistic outlook for ${sym} over the next ${rsDays} trading days.\nStatistical model: ${MC.horizons.map(h=>`${h.d}d median ${money(h.p50)}, 90% ${money(h.p5)}–${money(h.p95)}, P(up) ${r0(h.up)}%`).join('; ')} (drift: ${rsDrift}).\nTechnicals: ${T.label}; ${T.sig.map(s=>s.name+': '+s.detail).join(' ')}\nFundamentals: P/E ${r1(M.peTTM??NaN)}, revenue growth ${pct(M.revenueGrowthTTMYoy,1)}, net margin ${r1(M.netProfitMarginTTM??NaN)}%.\nRecent headlines: ${nw.slice(0,8).map(n=>n.headline).join(' | ')||'none'}`,{system:'You are a quantitative analyst. Give **Bull / Base / Bear** scenarios with probabilities that sum to 100% and stay consistent with the statistical model (do not contradict its ranges without saying why), the key drivers for each, and **What would change the outlook**. State clearly that this is not a prediction or advice. Under 220 words.',temp:.4,max:1200}));});
  }catch(e){['#rsChart','#rsTech','#rsFc'].forEach(id=>fail($(id),e));}
@@ -955,9 +1037,203 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-
 document.addEventListener('change',e=>{const s=e.target;if(s.dataset&&s.dataset.txcat){const t=S.tx.find(x=>x.id===s.dataset.txcat);if(t){t.cat=s.value;save();}}});
 
 /* ---------- init ---------- */
+/* ---------- LIVE PREDICTOR ---------- */
+const PH=[{d:1,label:'Next trading day'},{d:5,label:'1 week'},{d:21,label:'1 month'}];
+const FEAT_NAMES=["Last day's move",'1-week momentum','1-month momentum','3-month momentum','RSI','MACD momentum','Distance from 50-day average','Distance from 200-day average','Volatility trend','Bollinger Band position','Volume vs normal'];
+const PX={sym:'',H:null,M:null,q:null,price:null,pc:null,ticks:[],seed:null,ws:null,wsLive:false,lastTrade:0,timers:[],paintT:0,pend:0,alert:null,virt:null,err:'',name:'',ts:0,loaded:false};
+S.predLog=Array.isArray(S.predLog)?S.predLog:[];
+const ncdf=x=>{const t=1/(1+.2316419*Math.abs(x)),d=.3989423*Math.exp(-x*x/2),p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return x>0?1-p:p;};
+const sigm=z=>1/(1+Math.exp(-z));
+const DRIFT_D=Math.log(1.07)/252;
+
+/* time in New York (exchange time) */
+function nyParts(ts=Date.now()){const s=new Date(ts).toLocaleString('en-US',{timeZone:'America/New_York',hour12:false,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'});const m=s.match(/(\d+)\/(\d+)\/(\d+),?\s+(\d+):(\d+):(\d+)/);const date=`${m[3]}-${m[1]}-${m[2]}`;return{date,min:(+m[4]%24)*60+ +m[5]+ +m[6]/60,dow:new Date(date+'T12:00:00Z').getUTCDay()};}
+function session(ts=Date.now()){
+ if(isDemo()&&PX.virt){const el=(ts-PX.virt.start)/1000;return{open:true,min:Math.min(389.5,PX.virt.min0+el/6),date:PX.virt.date,wk:true,demo:true};}
+ const n=nyParts(ts),min=n.min-570,wk=n.dow>0&&n.dow<6;return{open:wk&&min>=0&&min<390,min,date:n.date,wk,pre:wk&&min<0,after:wk&&min>=390};}
+const hhmm=m=>{const t=570+Math.round(m),h=Math.floor(t/60),mm=t%60;return `${(h+11)%12+1}:${pad(mm)}${h>=12?'pm':'am'}`;};
+
+/* ---------- model ---------- */
+function predFeatures(H){const c=H.map(b=>b.c),v=H.map(b=>+b.v||0);const s50=smaA(c,50),s200=smaA(c,200),rs=rsiA(c),mc=macdA(c),bb=bollA(c);const lr=c.map((x,i)=>i?Math.log(x/c[i-1]):0);const sdw=(i,k)=>stdev(lr.slice(i-k+1,i+1));
+ return c.map((x,i)=>{if(i<200||s200[i]==null||mc.sig[i]==null||!bb[i]||rs[i]==null)return null;const s20=sdw(i,20)||1e-4,s100=sdw(i,100)||1e-4,va=avg(v.slice(i-19,i+1)),b=bb[i];
+  return[lr[i]/s20,Math.log(x/c[i-5]),Math.log(x/c[i-20]),Math.log(x/c[i-60]),(rs[i]-50)/50,(mc.m[i]-mc.sig[i])/x*100,x/s50[i]-1,x/s200[i]-1,Math.log(s20/s100),b.up-b.lo?(x-b.lo)/(b.up-b.lo)-.5:0,va>0?Math.log((v[i]+1)/(va+1)):0];});}
+function lrTrain(X,y,{l2=.05,it=300,rate=.5}={}){const n=X.length,d=X[0].length,mu=Array(d).fill(0),sd=Array(d).fill(0);for(const r of X)r.forEach((x,k)=>mu[k]+=x/n);for(const r of X)r.forEach((x,k)=>sd[k]+=(x-mu[k])**2/n);for(let k=0;k<d;k++)sd[k]=Math.sqrt(sd[k])||1;
+ const Z=X.map(r=>r.map((x,k)=>clamp((x-mu[k])/sd[k],-4,4)));const w=new Float64Array(d);const base=clamp(avg(y),.02,.98);let b=Math.log(base/(1-base));
+ for(let t=0;t<it;t++){const g=new Float64Array(d);let gb=0;for(let i=0;i<n;i++){const z=Z[i];let s=b;for(let k=0;k<d;k++)s+=w[k]*z[k];const e=sigm(s)-y[i];gb+=e;for(let k=0;k<d;k++)g[k]+=e*z[k];}b-=rate*gb/n;for(let k=0;k<d;k++)w[k]-=rate*(g[k]/n+l2*w[k]);}
+ return{mu,sd,w:Array.from(w),b,base};}
+function lrProb(m,x){const z=x.map((v,k)=>clamp((v-m.mu[k])/m.sd[k],-4,4));let s=m.b;for(let k=0;k<z.length;k++)s+=m.w[k]*z[k];return{p:sigm(s),contrib:z.map((v,k)=>v*m.w[k])};}
+/* walk-forward test: retrain every 21 days on data whose outcome was already known (no look-ahead), then score on the following days */
+function predModel(H){const F=predFeatures(H),c=H.map(b=>b.c),n=c.length,out={};
+ for(const{d}of PH){const idx=[];for(let i=0;i<n-d;i++)if(F[i])idx.push(i);const lab=i=>c[i+d]>c[i]?1:0;
+  if(idx.length<130){out[d]={err:'Not enough price history for this horizon yet.'};continue;}
+  const test=Math.min(200,idx.length-110),t0=idx.length-test,preds=[];let m=null;
+  for(let j=t0;j<idx.length;j++){if(!m||(j-t0)%21===0){const cut=idx[j],tr=idx.filter(i=>i+d<cut);m=lrTrain(tr.map(i=>F[i]),tr.map(lab));}const i=idx[j];preds.push({p:lrProb(m,F[i]).p,y:lab(i),b:m.base});}
+  const acc=avg(preds.map(r=>(r.p>.5)===(r.y===1)?1:0))*100,upRate=avg(preds.map(r=>r.y))*100,baseAcc=Math.max(upRate,100-upRate);
+  const brier=avg(preds.map(r=>(r.p-r.y)**2)),brierB=avg(preds.map(r=>(r.b-r.y)**2)),bss=brierB?1-brier/brierB:0;
+  /* overlapping multi-day windows share outcomes, so judge the edge on the number of independent periods */
+  const nEff=Math.max(1,test/d),need=1.28*Math.sqrt(2500/nEff),gain=acc-baseAcc;
+  const rel=nEff<20?'thin':bss>.02&&gain>need?'edge':bss>0&&gain>need/2?'slight':'none';
+  out[d]={m:lrTrain(idx.map(i=>F[i]),idx.map(lab)),acc,baseAcc,upRate,bss,tested:test,rel};}
+ return out;}
+/* shrink toward the base rate when the model hasn't proven itself on this stock */
+function predNow(Mh,F){const x=F&&F[F.length-1];if(!x||!Mh||Mh.err)return null;const r=lrProb(Mh.m,x);const k=Mh.rel==='edge'?1:Mh.rel==='slight'?.6:.3;return{p:Mh.m.base+(r.p-Mh.m.base)*k,raw:r.p,contrib:r.contrib};}
+function ewmaVol(H){const lr=logRets(H.map(b=>b.c)).slice(-250);if(lr.length<25)return stdev(lr)||.015;let v=avg(lr.slice(0,20).map(x=>x*x));for(const x of lr)v=.94*v+.06*x*x;return Math.sqrt(v);}
+function predRange(P,sig,d){const s=sig*Math.sqrt(d),m=DRIFT_D*d;return{med:P*Math.exp(m),lo68:P*Math.exp(m-s),hi68:P*Math.exp(m+s),lo90:P*Math.exp(m-1.645*s),hi90:P*Math.exp(m+1.645*s)};}
+function liveHist(H,price,q,sess){if(!H||!H.length||!(price>0))return H;const out=H.slice(),last=out[out.length-1],lastD=ymd(new Date(last.t));
+ if(lastD===sess.date){out[out.length-1]={...last,c:price,h:Math.max(last.h,price),l:Math.min(last.l,price)};}
+ else if((sess.open||sess.after)&&lastD<sess.date){out.push({t:parseD(sess.date).getTime(),o:(q&&q.o)||price,h:Math.max((q&&q.h)||price,price),l:Math.min((q&&q.l)||price,price),c:price,v:last.v,live:true});}
+ return out;}
+const relInfo=r=>({edge:['good','Has shown an edge'],slight:['warn','Slight edge'],none:['','No proven edge'],thin:['','Not enough history to test']}[r]||['','—']);
+
+/* ---------- track record ---------- */
+function predResolve(sym,H){const sess=session(),dates=H.map(b=>ymd(new Date(b.t)));let ch=false;
+ for(const e of S.predLog){if(e.sym!==sym||e.res)continue;const i=dates.indexOf(e.baseDate);if(i<0||i+e.d>=H.length)continue;const dd=dates[i+e.d];if(dd===sess.date&&sess.open)continue;
+  const px=H[i+e.d].c,up=px>e.base;e.res={px,date:dd,up,hit:up===(e.p>.5),in90:px>=e.lo90&&px<=e.hi90,brier:(e.p-(up?1:0))**2};ch=true;}
+ if(ch)save();}
+function predLogNow(sym,price,rows,baseDate){if(isDemo())return;const t=today();let ch=false;for(const r of rows){if(r.p==null)continue;if(S.predLog.some(e=>e.sym===sym&&e.d===r.d&&e.made===t))continue;S.predLog.push({id:uid(),sym,d:r.d,made:t,baseDate,base:price,p:r.p,lo68:r.lo68,hi68:r.hi68,lo90:r.lo90,hi90:r.hi90,ts:Date.now()});ch=true;}if(S.predLog.length>400)S.predLog=S.predLog.slice(-400);if(ch)save();}
+function predTrackHTML(){if(isDemo())return '<p class="empty">Your prediction track record starts once live market data is connected. Demo predictions aren\'t scored.</p>';
+ const L=S.predLog,done=L.filter(e=>e.res);if(!L.length)return '<p class="empty">Predictions are saved automatically when you view a stock here, then scored once the outcome is known. Check back after a few trading days.</p>';
+ const lab={1:'Next day',5:'1 week',21:'1 month'};
+ const sumRows=PH.map(({d})=>{const D=done.filter(e=>e.d===d);return D.length?`<tr><td>${lab[d]}</td><td>${D.length}</td><td>${r0(avg(D.map(e=>e.res.hit?1:0))*100)}%</td><td>${r0(avg(D.map(e=>e.res.in90?1:0))*100)}%</td><td>${r2(avg(D.map(e=>e.res.brier)))}</td></tr>`:'';}).join('');
+ const recent=[...L].sort((a,b)=>b.ts-a.ts).slice(0,12);
+ return (sumRows?`<div class="scroll"><table class="tbl"><tr><th>Horizon</th><th>Scored</th><th>Direction right</th><th>Inside 90% range</th><th>Brier score</th></tr>${sumRows}</table></div><p class="note">A coin flip gets about 50% of directions right and a Brier score of 0.25 (lower is better). A well-calibrated 90% range should contain the outcome about 90% of the time.</p>`:`<p class="small muted" style="margin-top:0">${L.length} prediction${L.length===1?'':'s'} waiting for their outcome.</p>`)
+  +`<h4>Recent predictions</h4><div class="scroll"><table class="tbl"><tr><th>Made</th><th>Symbol</th><th>Horizon</th><th>Chance higher</th><th>From</th><th>Outcome</th></tr>${recent.map(e=>`<tr><td>${fmtD(e.made)}</td><td><span class="sym">${esc(e.sym)}</span></td><td>${lab[e.d]}</td><td>${r0(e.p*100)}%</td><td>${money(e.base)}</td><td>${e.res?`<span class="${e.res.hit?'up':'down'}">${e.res.hit?'✓':'✗'} ${money(e.res.px)}</span>`:'<span class="tiny muted">Pending</span>'}</td></tr>`).join('')}</table></div>`;}
+
+/* ---------- intraday data ---------- */
+async function intraday(sym){const k=S.settings.twelveKey;if(!k||isDemo())return null;return cached('i:'+sym,4*6e4,async()=>{let r;try{r=await fetch(`https://api.twelvedata.com/time_series?symbol=${encodeURIComponent(sym)}&interval=5min&outputsize=80&apikey=${encodeURIComponent(k)}`);}catch(e){return null;}const d=await r.json();if(d.status==='error')return null;
+ const v=(d.values||[]).map(x=>{const m=/(\d{4}-\d{2}-\d{2}) (\d{2}):(\d{2})/.exec(x.datetime||'');return m?{date:m[1],m:+m[2]*60+ +m[3]-570+5,p:+x.close}:null;}).filter(Boolean);if(!v.length)return null;const day=v[0].date;
+ return{date:day,pts:v.filter(x=>x.date===day&&x.m>=0&&x.m<=390).map(({m,p})=>({m,p})).reverse()};});}
+function demoSession(sym,price,pc,sig){const r=rng(hashStr(sym+':'+today()));const m0=PX.virt.min0;const pts=[];let p=pc*Math.exp(sig*.3*gauss(r));for(let m=0;m<=m0;m+=1){pts.push({m,p});p*=Math.exp(sig/Math.sqrt(390)*gauss(r));}const k=price/pts[pts.length-1].p;return pts.map(x=>({m:x.m,p:r2(x.p*Math.pow(k,x.m/m0))}));}
+
+/* ---------- charts ---------- */
+function predIntraChart(pts,{pc,price,sess,sig,caption}){
+ const W=600,h=210,L=50,Rm=10,T=10,B=22,X=m=>L+clamp(m,0,390)/390*(W-L-Rm);let cone=[];
+ if(sess.open&&price&&sig){const m0=sess.min,step=Math.max(2,(390-m0)/40);for(let m=m0;m<390;m+=step){const s=sig*Math.sqrt((m-m0)/390);cone.push({m,a:price*Math.exp(-1.645*s),b:price*Math.exp(-.674*s),c:price*Math.exp(.674*s),d:price*Math.exp(1.645*s)});}const s=sig*Math.sqrt((390-m0)/390);cone.push({m:390,a:price*Math.exp(-1.645*s),b:price*Math.exp(-.674*s),c:price*Math.exp(.674*s),d:price*Math.exp(1.645*s)});}
+ const ys=[...pts.map(q=>q.p),...cone.flatMap(c=>[c.a,c.d])];if(pc)ys.push(pc);if(price)ys.push(price);if(!pts.length&&!cone.length)return `<p class="empty">${esc(caption||'The intraday chart fills in as live prices arrive.')}</p>`;
+ let y0=Math.min(...ys),y1=Math.max(...ys);const pd=(y1-y0)*.08||(price||1)*.002;y0-=pd;y1+=pd;const Y=v=>T+(1-(v-y0)/(y1-y0))*(h-T-B);
+ let g='<g class="grid">';for(let i=0;i<=3;i++){const v=y0+(y1-y0)*i/3;g+=`<line x1="${L}" x2="${W-Rm}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}"/><text x="${L-6}" y="${(Y(v)+4).toFixed(1)}" text-anchor="end">${money(v,v<20?2:0)}</text>`;}g+='</g>';
+ if(cone.length){const poly=(lo,hi)=>cone.map(c=>`${X(c.m).toFixed(1)},${Y(c[hi]).toFixed(1)}`).join(' ')+' '+[...cone].reverse().map(c=>`${X(c.m).toFixed(1)},${Y(c[lo]).toFixed(1)}`).join(' ');g+=`<polygon points="${poly('a','d')}" fill="var(--lift)" opacity=".12"/><polygon points="${poly('b','c')}" fill="var(--lift)" opacity=".24"/>`;}
+ if(pc)g+=`<line x1="${L}" x2="${W-Rm}" y1="${Y(pc).toFixed(1)}" y2="${Y(pc).toFixed(1)}" stroke="var(--soft)" stroke-dasharray="4 4"/><text x="${W-Rm}" y="${(Y(pc)-5).toFixed(1)}" text-anchor="end">prev close ${money(pc)}</text>`;
+ const P=pts.length>500?pts.filter((_,i)=>i%Math.ceil(pts.length/500)===0||i===pts.length-1):pts;
+ if(P.length>1){const col=price!=null&&pc!=null&&price<pc?'var(--bad)':'var(--good)';g+=`<polyline fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" points="${P.map(q=>X(q.m).toFixed(1)+','+Y(q.p).toFixed(1)).join(' ')}"/>`;}
+ const lastPt=pts[pts.length-1];if(lastPt&&sess.open)g+=`<circle cx="${X(lastPt.m).toFixed(1)}" cy="${Y(lastPt.p).toFixed(1)}" r="4" fill="var(--ink)"/>`;
+ g+=`<text x="${X(0)}" y="${h-4}">9:30am</text><text x="${X(150)}" y="${h-4}" text-anchor="middle">12:00pm</text><text x="${X(390)}" y="${h-4}" text-anchor="end">4:00pm</text>`;
+ return `<svg class="chart" viewBox="0 0 ${W} ${h}" role="img" aria-label="Intraday price and expected range to the close">${g}</svg><div class="legend"><span><i style="background:var(--good)"></i>Price today</span>${cone.length?'<span><i style="background:var(--lift);opacity:.45"></i>Likely range to close (68%)</span><span><i style="background:var(--lift);opacity:.2"></i>Wide range (90%)</span>':''}</div>${caption?`<p class="note">${esc(caption)}</p>`:''}`;}
+
+/* ---------- view ---------- */
+R.predict=()=>{
+ const v=$('#v-predict'),sym=normSym(S.lastSym||'AAPL');
+ v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Live predictor${demoTag()}</h2><span class="pill" id="pxMkt"></span></div>
+ <div class="searchres"><div class="row"><input id="pxIn" placeholder="Search a company or ticker" autocomplete="off" aria-label="Search symbol"><button class="btn primary" id="pxGo">Predict</button></div><div id="pxSug"></div></div>
+ <div class="chips" style="margin-top:8px">${[...new Set([...S.watchlist,...S.holdings.map(h=>h.sym)])].slice(0,10).map(s=>`<button class="chip" data-psym="${s}" ${s===sym?'style="background:var(--btn);color:var(--btn-ink);border-color:var(--btn)"':''}>${s}</button>`).join('')}</div>
+ <div class="box" style="margin-top:12px">
+  <div class="row between wrap" style="align-items:flex-start"><div><div class="small muted" id="pxName">${esc(sym)}</div><div class="pxprice" id="pxPrice">…</div><div class="small" id="pxChg"></div></div><div class="pxstat"><div><span class="dot" id="pxDot"></span><span id="pxStatus">Connecting…</span></div><div class="tiny muted" id="pxTime"></div></div></div>
+  <div id="pxIntra" style="margin-top:10px"></div>
+  <div class="grid" id="pxToday" style="margin-top:10px"></div>
+  <div class="row wrap" style="margin-top:10px"><button class="btn sm" id="pxAlert">${ic('bell')} Alert me if the price breaks its expected range</button><span class="tiny muted" id="pxAlertTxt"></span></div>
+ </div>
+ <h2>Predictions</h2><div class="box"><div id="pxTbl"><p class="empty">Building the model…</p></div><div id="pxFan" style="margin-top:12px"></div></div>
+ <h2>What's driving it</h2><div class="box"><div id="pxDrv"><p class="empty">Loading…</p></div><button class="btn sm" id="pxAI" style="margin-top:10px">${ic('spark')} AI explanation</button><div id="pxAIOut" class="md" style="margin-top:8px"></div></div>
+ <h2>Track record</h2><div class="box" id="pxTrack">${predTrackHTML()}</div>
+ <h2>Scan your watchlist</h2><div class="box"><p class="small muted" style="margin-top:0">Ranks your watchlist by the 1-week model's chance of finishing higher, with how reliable the model has been on each stock.</p><button class="btn sm" id="pxScanBtn">Scan watchlist</button><div id="pxScan" style="margin-top:10px"></div></div>
+ <h2>How the predictor works</h2><div class="soft small"><p style="margin-top:0"><b>Direction</b> comes from a statistical model trained on this stock's own past: recent momentum, RSI, MACD, distance from its 50- and 200-day averages, volatility and volume. It's tested the honest way: retrained every month only on data it could have known at the time, then scored on the days that followed.</p><p><b>Ranges</b> come from the stock's recent volatility (weighted toward the last few weeks). <b>Today's close</b> updates with every live price.</p><p style="margin-bottom:0">When the model hasn't beaten a simple baseline on a stock, its probabilities are pulled toward the stock's normal up-day rate and labeled <i>No proven edge</i>. Markets are mostly random in the short term; treat these as odds, not calls.</p></div>`;
+ icons(v);
+ const goSym=s=>{s=normSym(s);if(!VALID_SYM.test(s))return;S.lastSym=s;save();PX.sym=s;R.predict();};
+ $('#pxGo').onclick=()=>goSym($('#pxIn').value);$('#pxIn').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();goSym($('#pxIn').value);}};suggest($('#pxIn'),$('#pxSug'),goSym);
+ v.querySelectorAll('[data-psym]').forEach(b=>b.onclick=()=>goSym(b.dataset.psym));
+ $('#pxAlert').onclick=()=>{if(PX.alert){PX.alert=null;predPaintAlert();return;}const r=PX.lastToday;if(!r){toast('Wait for the prediction to load.',{err:true});return;}PX.alert={lo:r.lo90,hi:r.hi90};try{if('Notification'in window&&Notification.permission==='default')Notification.requestPermission();}catch(e){}predPaintAlert();};
+ $('#pxAI').onclick=e=>run(e.currentTarget,predExplain);
+ $('#pxScanBtn').onclick=e=>run(e.currentTarget,predScan);
+ predLoad(sym);};
+
+function predStop(){if(PX.ws){try{PX.ws.close();}catch(e){}PX.ws=null;}PX.wsLive=false;PX.timers.forEach(clearInterval);PX.timers=[];if(PX.pend){clearTimeout(PX.pend);PX.pend=0;}}
+async function predLoad(sym){predStop();Object.assign(PX,{sym,H:null,M:null,q:null,price:null,pc:null,ticks:[],seed:null,err:'',alert:null,loaded:false,lastToday:null,virt:isDemo()?{start:Date.now(),min0:120,date:today()}:null});
+ const mk=$('#pxMkt'),st=session();mk.textContent=isDemo()?'Simulated session':st.open?'Market open':st.pre?'Pre-market':'Market closed';mk.className='pill'+(st.open?' good':'');
+ profile(sym).then(p=>{if(PX.sym===sym&&$('#pxName'))$('#pxName').textContent=`${p.name||sym} · ${sym}`;}).catch(()=>{});
+ try{PX.q=await quote(sym);}catch(e){if(PX.sym!==sym)return;$('#pxStatus').textContent=e.message;$('#pxPrice').textContent='—';fail($('#pxTbl'),e);$('#pxDrv').innerHTML='';return;}
+ if(PX.sym!==sym||cur!=='predict')return;PX.pc=PX.q.pc;PX.price=PX.q.c;PX.ts=(PX.q.t||Date.now()/1000)*1000;
+ try{let H=await history(sym);
+  if(isDemo()){/* simulated session: start from the last real close so today's move is realistic */const td=today();if(ymd(new Date(H[H.length-1].t))===td)H=H.slice(0,-1);PX.pc=H[H.length-1].c;PX.price=r2(PX.pc*Math.exp(ewmaVol(H)*.35*gauss(rng(hashStr(sym+td)))));PX.q={...PX.q,c:PX.price,pc:PX.pc,o:PX.pc,h:Math.max(PX.pc,PX.price),l:Math.min(PX.pc,PX.price)};}
+  PX.H=H;PX.M=predModel(H);predResolve(sym,H);}catch(e){PX.err=e.message;}
+ if(PX.sym!==sym||cur!=='predict')return;
+ const sig=PX.H?ewmaVol(PX.H):null;
+ if(isDemo())PX.ticks=demoSession(sym,PX.price,PX.pc,sig||.015);
+ else{try{const I=await intraday(sym);if(I)PX.seed=I;if(I&&I.date===session().date)PX.ticks=I.pts.slice();}catch(e){}if(!PX.ticks.length&&session().open&&PX.q.o)PX.ticks=[{m:0,p:PX.q.o}];}
+ PX.loaded=true;predPaintPrice();predPaintLive();const tr=$('#pxTrack');if(tr)tr.innerHTML=predTrackHTML();
+ predStart(sym,sig||.015);}
+
+function predStart(sym,sig){
+ if(isDemo()){const tick=()=>{if(PX.sym!==sym)return;const s=session(),last=PX.ticks[PX.ticks.length-1];const dt=Math.max(.05,s.min-(last?last.m:s.min));predTick(r2(PX.price*Math.exp(sig*1.6*Math.sqrt(dt/390)*gauss(Math.random))),Date.now());};PX.timers.push(setInterval(tick,1500));return;}
+ const key=S.settings.finnhubKey,st=session();
+ const poll=async()=>{try{const q=await fh('/quote',{symbol:sym});if(PX.sym!==sym||!q||!q.c)return;PX.q=q;PX.pc=q.pc;if(!PX.wsLive||Date.now()-PX.lastTrade>30000)predTick(q.c,(q.t||Date.now()/1000)*1000);else predPaintPrice();}catch(e){PX.err=e.message;predPaintPrice();}};
+ PX.timers.push(setInterval(poll,st.open?15000:60000));
+ if(st.open&&'WebSocket'in window){try{const ws=new WebSocket('wss://ws.finnhub.io?token='+encodeURIComponent(key));PX.ws=ws;ws.onopen=()=>{try{ws.send(JSON.stringify({type:'subscribe',symbol:sym}));}catch(e){}};ws.onmessage=e=>{let d;try{d=JSON.parse(e.data);}catch(_){return;}if(d.type!=='trade'||!Array.isArray(d.data))return;const t=d.data.filter(x=>x.s===sym);if(!t.length||PX.sym!==sym)return;const L=t[t.length-1];PX.wsLive=true;PX.lastTrade=Date.now();predTick(L.p,L.t);};ws.onerror=()=>{PX.wsLive=false;};ws.onclose=()=>{PX.wsLive=false;if(PX.ws===ws)PX.ws=null;};}catch(e){}}}
+
+function predTick(p,ts){if(!(p>0))return;const prev=PX.price;PX.price=p;PX.ts=ts;const s=session(ts);
+ if(s.open){const T=PX.ticks,m=s.min;if(T.length&&m-T[T.length-1].m<.25)T[T.length-1].p=p;else T.push({m,p});if(T.length>1600)T.splice(0,T.length-1600);}
+ predPaintPrice(prev);predCheckAlert();const now=Date.now();
+ if(now-PX.paintT>=2000){PX.paintT=now;predPaintLive();}else if(!PX.pend)PX.pend=setTimeout(()=>{PX.pend=0;PX.paintT=Date.now();predPaintLive();},2000-(now-PX.paintT));}
+
+function predPaintPrice(prev){const el=$('#pxPrice');if(!el||cur!=='predict')return;const p=PX.price,pc=PX.pc;el.textContent=money(p);
+ if(prev!=null&&p!==prev){el.classList.remove('fl-up','fl-dn');void el.offsetWidth;el.classList.add(p>prev?'fl-up':'fl-dn');clearTimeout(PX.flT);PX.flT=setTimeout(()=>el.classList.remove('fl-up','fl-dn'),700);}
+ const ch=p!=null&&pc?p-pc:null;$('#pxChg').innerHTML=ch!=null?`<span class="${cls(ch)}">${ch>=0?'+':''}${money(ch)} (${pct(ch/pc*100)})</span> <span class="muted">today</span>`:'';
+ const s=session(),dot=$('#pxDot');let txt,live=false;
+ if(isDemo()){txt='Demo — simulated live prices';live=true;}
+ else if(PX.err&&!PX.wsLive)txt=PX.err;
+ else if(s.open&&PX.wsLive&&Date.now()-PX.lastTrade<30000){txt='Live — streaming trades';live=true;}
+ else if(s.open){txt='Live — updating every 15 seconds';live=true;}
+ else txt=s.pre?'Pre-market — showing last price':'Market closed — showing last price';
+ $('#pxStatus').textContent=txt;dot.className='dot'+(live?' live':'');
+ $('#pxTime').textContent=PX.ts?`${isDemo()?'Session time '+hhmm(s.min)+' ET':'Updated '+new Date(PX.ts).toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit'})}`:'';}
+
+function predPaintLive(){if(cur!=='predict'||!PX.loaded||!$('#pxTbl'))return;const sym=PX.sym,P=PX.price,pc=PX.pc,s=session();
+ if(!PX.H){$('#pxIntra').innerHTML=predIntraChart(PX.ticks,{pc,price:P,sess:s,sig:null,caption:'Add a free Twelve Data key in Settings to unlock predictions (they need daily price history).'});fail($('#pxTbl'),new Error(PX.err||'Price history unavailable.'));$('#pxDrv').innerHTML='';$('#pxToday').innerHTML='';return;}
+ const LH=liveHist(PX.H,P,PX.q,s),F=predFeatures(LH),sig=ewmaVol(PX.H),dayMovePct=sig*100;
+ /* today */
+ let todayHTML='',seedCap='';
+ if(s.open){const rem=Math.max(0,390-s.min)/390,sr=sig*Math.sqrt(Math.max(rem,1/390)),pUp=pc?ncdf(Math.log(P/pc)/sr):null,med=P,r68=[P*Math.exp(-sr),P*Math.exp(sr)],r90=[P*Math.exp(-1.645*sr),P*Math.exp(1.645*sr)],sh=sig*Math.sqrt(Math.min(60,390-s.min)/390);
+  PX.lastToday={lo90:r90[0],hi90:r90[1],pUp};
+  todayHTML=`<div class="soft"><div class="tiny muted">Chance today closes higher</div><b class="big2">${pUp!=null?r0(pUp*100)+'%':'—'}</b><div class="prob" style="margin-top:6px"><div class="pb"><i style="width:${pUp!=null?r1(pUp*100):50}%"></i></div></div><div class="tiny muted" style="margin-top:4px">than yesterday's ${money(pc)}</div></div>
+  <div class="soft"><div class="tiny muted">Expected close (68% range)</div><b class="big2">${money(r68[0])} – ${money(r68[1])}</b><div class="tiny muted" style="margin-top:4px">90%: ${money(r90[0])} – ${money(r90[1])} · ${Math.round(390-s.min)} min left</div></div>
+  <div class="soft"><div class="tiny muted">Next hour (68% range)</div><b class="big2">${money(P*Math.exp(-sh))} – ${money(P*Math.exp(sh))}</b><div class="tiny muted" style="margin-top:4px">±${r2(sh*100)}% typical move</div></div>
+  <div class="soft"><div class="tiny muted">Move so far vs normal day</div><b class="big2 ${cls(P-pc)}">${pct((P/pc-1)*100)}</b><div class="tiny muted" style="margin-top:4px">${Math.abs(Math.log(P/pc))>2*sig?'Unusually large':Math.abs(Math.log(P/pc))>sig?'Bigger than usual':'Within normal'} (typical ±${r2(dayMovePct)}%)</div></div>`;}
+ else{const n1=predNow(PX.M[1],F),r=predRange(P,sig,1);PX.lastToday={lo90:r.lo90,hi90:r.hi90,pUp:n1?n1.p:null};
+  todayHTML=`<div class="soft"><div class="tiny muted">${s.pre?'Last close':'Closing price'}</div><b class="big2">${money(P)}</b><div class="tiny muted" style="margin-top:4px">${pc?pct((P/pc-1)*100)+' on the day':''}</div></div>
+  <div class="soft"><div class="tiny muted">Next session: chance higher</div><b class="big2">${n1?r0(n1.p*100)+'%':'—'}</b><div class="prob" style="margin-top:6px"><div class="pb"><i style="width:${n1?r1(n1.p*100):50}%"></i></div></div></div>
+  <div class="soft"><div class="tiny muted">Next session range (68%)</div><b class="big2">${money(r.lo68)} – ${money(r.hi68)}</b><div class="tiny muted" style="margin-top:4px">90%: ${money(r.lo90)} – ${money(r.hi90)}</div></div>
+  <div class="soft"><div class="tiny muted">Typical daily move</div><b class="big2">±${r2(dayMovePct)}%</b><div class="tiny muted" style="margin-top:4px">Live updates resume at 9:30am ET</div></div>`;
+  if(!PX.ticks.length&&PX.seed)seedCap=`Last session (${fmtD(PX.seed.date)}).`;}
+ $('#pxToday').innerHTML=todayHTML;
+ $('#pxIntra').innerHTML=predIntraChart(s.open||!PX.seed?PX.ticks:PX.seed.pts,{pc,price:P,sess:s,sig,caption:seedCap||(!s.open&&!PX.seed&&!isDemo()?(S.settings.twelveKey?'The intraday chart fills in during market hours.':'Add a free Twelve Data key in Settings to see the last session\'s intraday chart. Live ticks appear here during market hours.'):'')});
+ /* horizons */
+ const rows=PH.map(({d,label})=>{const Mh=PX.M[d],n=predNow(Mh,F),r=predRange(P,sig,d);return{d,label,Mh,n,p:n?n.p:null,...r};});
+ $('#pxTbl').innerHTML=`<div class="scroll"><table class="tbl"><tr><th>Horizon</th><th>Chance higher</th><th>Likely range (68%)</th><th>Wide range (90%)</th><th>Model reliability</th></tr>${rows.map(r=>{const[k,t]=relInfo(r.Mh&&r.Mh.rel);return `<tr><td>${r.label}</td><td>${r.p!=null?`<div class="prob"><b style="min-width:38px;text-align:right">${r0(r.p*100)}%</b><div class="pb"><i style="width:${r1(r.p*100)}%"></i></div></div>`:'—'}</td><td>${money(r.lo68)} – ${money(r.hi68)}</td><td class="muted">${money(r.lo90)} – ${money(r.hi90)}</td><td>${r.Mh&&!r.Mh.err?`<span class="pill ${k}" title="Tested on ${r.Mh.tested} past days: ${r0(r.Mh.acc)}% of directions right vs ${r0(r.Mh.baseAcc)}% for always guessing the more common outcome">${t}</span><div class="tiny muted">${r0(r.Mh.acc)}% right vs ${r0(r.Mh.baseAcc)}% baseline</div>`:`<span class="tiny muted">${esc(r.Mh?r.Mh.err:'—')}</span>`}</td></tr>`;}).join('')}</table></div><p class="note">"Baseline" is how often you'd be right by always guessing the stock's more common outcome over the same ${PX.M[5]&&PX.M[5].tested||200} test days. Beating it consistently is hard, so most stocks show little or no edge.</p>`;
+ const band=Array.from({length:21},(_,i)=>{const r=predRange(P,sig,i+1),s1=sig*Math.sqrt(i+1),m=DRIFT_D*(i+1);return[r.lo90,P*Math.exp(m-.674*s1),r.med,P*Math.exp(m+.674*s1),r.hi90];});
+ $('#pxFan').innerHTML=fanChart(LH,{band})+'<p class="note">Price over the last 6 months, with the likely (50%) and wide (90%) ranges for the next 21 trading days based on current volatility.</p>';
+ /* drivers (1-week model) */
+ const dm=rows.find(r=>r.d===5);if(dm&&dm.n){const C=dm.n.contrib.map((v,k)=>({k,v})).sort((a,b)=>Math.abs(b.v)-Math.abs(a.v)).slice(0,6),mx=Math.max(.05,...C.map(c=>Math.abs(c.v)));
+  $('#pxDrv').innerHTML=`<p class="small muted" style="margin-top:0">What's moving the 1-week prediction (${r0(dm.p*100)}% chance higher) right now:</p>${C.map(c=>`<div class="drv"><span>${FEAT_NAMES[c.k]}</span><div class="dbar"><i style="${c.v>=0?`left:50%;width:${r1(Math.abs(c.v)/mx*50)}%;background:var(--good)`:`right:50%;width:${r1(Math.abs(c.v)/mx*50)}%;background:var(--bad)`}"></i></div><span class="tiny ${c.v>=0?'up':'down'}">${Math.abs(c.v)<.03?'Barely':c.v>=0?'Pushes up':'Pushes down'}</span></div>`).join('')}`;}
+ else $('#pxDrv').innerHTML='<p class="empty">Not enough history to explain this prediction.</p>';
+ PX.rows=rows;PX.sig=sig;
+ predLogNow(sym,P,rows,ymd(new Date(LH[LH.length-1].t)));}
+
+function predPaintAlert(){const b=$('#pxAlert'),t=$('#pxAlertTxt');if(!b)return;b.classList.toggle('primary',!!PX.alert);t.textContent=PX.alert?`On — alerts outside ${money(PX.alert.lo)} – ${money(PX.alert.hi)}`:'';}
+function predCheckAlert(){const a=PX.alert,p=PX.price;if(!a||!(p>0))return;if(p<a.lo||p>a.hi){const msg=`${PX.sym} ${p>a.hi?'broke above':'fell below'} its expected range: now ${money(p)}`;toast(msg,{ms:12000});beep(2);try{if('Notification'in window&&Notification.permission==='granted')new Notification(`${PX.sym} price alert`,{body:msg});}catch(e){}PX.alert=null;predPaintAlert();}}
+
+async function predExplain(){if(!PX.rows)throw new Error('Wait for the prediction to load.');const s=session(),T=technicals(liveHist(PX.H,PX.price,PX.q,s)),d5=PX.rows.find(r=>r.d===5);
+ const drivers=d5&&d5.n?d5.n.contrib.map((v,k)=>({k,v})).sort((a,b)=>Math.abs(b.v)-Math.abs(a.v)).slice(0,4).map(c=>`${FEAT_NAMES[c.k]} (${c.v>=0?'pushes up':'pushes down'})`).join(', '):'n/a';
+ const today=PX.lastToday?`${s.open?'Chance today closes above yesterday\'s close':'Next session chance higher'}: ${r0((PX.lastToday.pUp||.5)*100)}%.`:'';
+ $('#pxAIOut').innerHTML=md(await ai(`Explain this statistical prediction for ${PX.sym}.\nPrice now ${money(PX.price)} (${pct((PX.price/PX.pc-1)*100)} vs previous close). Typical daily move ±${r2(PX.sig*100)}%. ${today}\nHorizons: ${PX.rows.map(r=>`${r.label}: ${r.p!=null?r0(r.p*100)+'% chance higher':'n/a'}, 68% range ${money(r.lo68)}–${money(r.hi68)}, model reliability: ${r.Mh&&!r.Mh.err?`${relInfo(r.Mh.rel)[1]} (${r0(r.Mh.acc)}% right vs ${r0(r.Mh.baseAcc)}% baseline over ${r.Mh.tested} test days)`:'n/a'}`).join('; ')}.\nTop drivers of the 1-week model: ${drivers}.\nTechnical picture: ${T.label}.`,{system:'You are a careful quantitative analyst explaining a statistical model\'s output to a non-expert. In under 170 words: what the model expects and how confident it is; the 2-3 biggest drivers in plain language; how reliable the model has been on this stock (use the test numbers, and say plainly if it has no proven edge); and one thing that could make it wrong (earnings, news, market-wide moves). Never tell the user to buy or sell. End with: "Not investment advice."',temp:.3,max:1000}));}
+
+async function predScan(){const L=[...new Set(S.watchlist)].slice(0,8);const out=$('#pxScan');if(!L.length){out.innerHTML='<p class="empty">Your watchlist is empty. Add symbols on the Markets tab.</p>';return;}out.innerHTML='<p class="empty">Scanning…</p>';const rows=[];
+ const draw=()=>{const R0=[...rows].sort((a,b)=>(b.p??-1)-(a.p??-1));out.innerHTML=`<div class="scroll"><table class="tbl"><tr><th>Symbol</th><th>Price</th><th>Today</th><th>1-week chance higher</th><th>Typical week move</th><th>Reliability</th></tr>${R0.map(r=>r.err?`<tr><td><span class="sym">${r.s}</span></td><td colspan="5" class="tiny muted" style="text-align:left;white-space:normal">${esc(r.err)}</td></tr>`:`<tr class="click" data-psym2="${r.s}"><td><span class="sym">${r.s}</span></td><td>${money(r.price)}</td><td class="${cls(r.dp)}">${pct(r.dp)}</td><td>${r.p!=null?`<div class="prob"><b style="min-width:38px;text-align:right">${r0(r.p*100)}%</b><div class="pb"><i style="width:${r1(r.p*100)}%"></i></div></div>`:'—'}</td><td>±${r1(r.mv)}%</td><td><span class="pill ${relInfo(r.rel)[0]}">${relInfo(r.rel)[1]}</span></td></tr>`).join('')}</table></div>${rows.length<L.length?`<p class="tiny muted">Scanning ${rows.length+1} of ${L.length}…</p>`:''}`;out.querySelectorAll('[data-psym2]').forEach(tr=>tr.onclick=()=>{S.lastSym=tr.dataset.psym2;save();PX.sym=tr.dataset.psym2;R.predict();});};
+ for(const s of L){try{const H=await history(s),M=predModel(H),q=await quote(s),F=predFeatures(liveHist(H,q.c,q,session())),n=predNow(M[5],F);rows.push({s,price:q.c,dp:q.dp,p:n?n.p:null,rel:M[5]&&M[5].rel,mv:ewmaVol(H)*Math.sqrt(5)*100});}catch(e){rows.push({s,err:e.message});}if(cur!=='predict')return;draw();}}
+document.addEventListener('visibilitychange',()=>{if(cur!=='predict'||!PX.sym||!PX.loaded)return;if(document.hidden)predStop();else predStart(PX.sym,PX.sig||.015);});
+
+
 function init(){
  icons();bindSettings();
- $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=()=>go('settings');
+ $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=aiBadgeClick;
  $('#btnExport').onclick=()=>{const data={...S,settings:{...S.settings,groqKey:'',customKey:'',finnhubKey:'',twelveKey:''}};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'}));a.download=`finance-backup-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
  $('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!Array.isArray(d.holdings))throw 0;if(!confirm('Replace your current data with this backup?'))return;const keep=['groqKey','customKey','finnhubKey','twelveKey'];const ks={};keep.forEach(k=>ks[k]=S.settings[k]);S={...DEF(),...d,profile:{...DEF().profile,...d.profile},settings:{...DEF().settings,...d.settings}};keep.forEach(k=>{if(!S.settings[k])S.settings[k]=ks[k];});save();refresh();toast('Backup restored');}catch(_){toast('That file is not a valid backup.',{err:true});}e.target.value='';};
  $('#btnWipe').onclick=()=>{if(!confirm('Erase all portfolio, budget, paper-trading and settings data from this browser? This cannot be undone.'))return;localStorage.removeItem(KEY);location.reload();};
@@ -969,7 +1245,7 @@ function init(){
  $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
  $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
  $('#gateHide').onclick=()=>gateClose();
- $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':'model';st.textContent='Checking…';
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':'model';st.textContent='Checking…';
   try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
    if(listErr&&/rejected/.test(listErr.message))throw listErr;
    if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}

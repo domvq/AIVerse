@@ -143,6 +143,12 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 .keylink:hover{color:var(--fg);border-color:var(--fg)}
 .keylink svg{width:12px;height:12px}
 
+.rec{white-space:nowrap}
+@media (min-width:561px){.rowi{grid-template-columns:240px minmax(0,1fr)}}
+.rowi .v a{color:var(--fg);text-underline-offset:3px}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.app .acts .btn.pill{white-space:normal;text-align:left;line-height:1.2}
+
 /* chatbot builder promo */
 .promo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:var(--card);border-radius:22px;padding:44px;margin-bottom:16px}
 .promo-copy h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
@@ -254,28 +260,28 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
           <div class="top"><h3>Learning Intelligence</h3><span class="eyebrow">Education</span></div>
           <p>An adaptive tutor for any topic. It maps the subject into concepts, finds your gaps with a quick diagnostic, then adjusts lessons, quizzes and difficulty as you improve. A research lab helps you read papers with verified citations, plan experiments and practice scientific writing.</p>
           <div class="tags"><span>Knowledge map</span><span>Adaptive quizzes</span><span>Flashcards</span><span>Paper reader</span><span>Writing scores</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/learning-intelligence.html">Open app <svg><use href="#arrow"/></svg></a></div>
+          <div class="acts"><a class="btn dark sm" href="apps/learning-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="finance">
           <div class="top"><h3>Financial Intelligence</h3><span class="eyebrow">Money</span></div>
-          <p>Your markets and money center. Track a watchlist, analyze stocks with technicals and probabilistic forecasts, follow your portfolio, practice with paper trading, and budget from uploaded bank statements. The AI advisor prepares changes and waits for your approval.</p>
-          <div class="tags"><span>Stock analysis</span><span>Forecast ranges</span><span>Paper trading</span><span>Budgeting</span><span>Reports</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/financial-intelligence.html">Open app <svg><use href="#arrow"/></svg></a></div>
+          <p>Your markets and money center. Watch prices live with a stock predictor that gives the odds of a stock closing higher and its likely range, tested honestly against its own past. Analyze stocks, follow your portfolio, practice with paper trading, and budget from uploaded bank statements.</p>
+          <div class="tags"><span>Live predictor</span><span>Stock analysis</span><span>Paper trading</span><span>Budgeting</span><span>Reports</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/financial-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="aide">
           <div class="top"><h3>Aide</h3><span class="eyebrow">Personal assistant</span></div>
           <p>A personal assistant that plans your day around fixed events and deadlines. It keeps your calendar, tasks, reminders and birthdays in one place, plans trips, writes and translates messages, summarizes meetings, and triages Gmail. Just type or say what you need.</p>
           <div class="tags"><span>Daily planner</span><span>Calendar</span><span>Voice commands</span><span>Inbox triage</span><span>Travel plans</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/aide.html">Open app <svg><use href="#arrow"/></svg></a></div>
+          <div class="acts"><a class="btn dark sm" href="apps/aide.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="fitness">
           <div class="top"><h3>Fitness Intelligence</h3><span class="eyebrow">Health &amp; training</span></div>
           <p>An AI coach for training and nutrition. It builds a program for your goal and equipment, logs every set and sets your next weights automatically, tracks measurements and progress photos, and counts calories and macros with photo food recognition.</p>
           <div class="tags"><span>Workout plans</span><span>Auto progression</span><span>Body tracking</span><span>Macros</span><span>Meal plans</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/fitness-intelligence.html">Open app <svg><use href="#arrow"/></svg></a></div>
+          <div class="acts"><a class="btn dark sm" href="apps/fitness-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
       </div>
     </section>
@@ -283,11 +289,12 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <section class="split" id="access" style="margin-top:96px">
       <div class="intro">
         <h2>Bring your own AI</h2>
-        <p>Every AI Verse app lets you choose where the AI runs. We recommend a free Groq key: it's fast, costs nothing to start, and takes about two minutes to set up.</p>
-        <a class="btn dark" href="#groq">See the setup guide <svg><use href="#arrow"/></svg></a>
+        <p>Every AI Verse app lets you choose where the AI runs. Start free with a Groq key for testing, or get an AIV API key for full use: one key runs every app at full strength.</p>
+        <div class="cta-row"><a class="btn dark" href="api.html#plans">Get AIV key <svg><use href="#arrow"/></svg></a><a class="btn pill" href="#groq">Free Groq setup guide</a></div>
       </div>
       <div class="rows">
-        <div class="rowi"><div class="k">Groq key<span class="rec">Recommended</span></div><div class="v"><b>Free tier, very fast.</b> Create a key at console.groq.com and paste it into any app's Settings. Also unlocks voice transcription and photo analysis.</div></div>
+        <div class="rowi"><div class="k">AIV API key<span class="rec full">Recommended for full use</span></div><div class="v"><b>Full-strength AI, one key for every app.</b> Monthly plans from $9. Buy a key on the <a href="api.html#plans">API page</a> and paste it into any app's Settings → AI provider → AIV key.</div></div>
+        <div class="rowi"><div class="k">Groq key<span class="rec">Recommended for testing</span></div><div class="v"><b>Free tier, very fast.</b> Create a key at console.groq.com and paste it into any app's Settings. Also unlocks voice transcription and photo analysis.</div></div>
         <div class="rowi"><div class="k">Other API key</div><div class="v">Use a key you already have from OpenAI, OpenRouter, Google Gemini, Mistral, Together AI or DeepSeek.</div></div>
         <div class="rowi"><div class="k">Local model</div><div class="v">Run a model on your own computer with Ollama or LM Studio. Nothing leaves your machine.</div></div>
         <div class="rowi"><div class="k">In-browser</div><div class="v">A small model downloads once (about 400 MB) and runs on your graphics card in Chrome or Edge. Private and works offline.</div></div>

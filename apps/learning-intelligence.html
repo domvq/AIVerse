@@ -190,6 +190,45 @@ pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-siz
 .tile{background:var(--card);border-radius:var(--r);padding:12px 14px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
 .tile:hover{filter:brightness(.98)}.tile b{display:block;font-size:14.5px;margin-top:6px}.tile span{font-size:12.5px;color:var(--muted)}
 .lvlsel{width:auto;font-size:13px;padding:6px 8px}
+
+/* AI Verse promo + AIV key */
+.aivpromo{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 12px 12px 16px;margin:0 0 14px}
+.aivpromo .t{flex:1;min-width:200px;font-size:13px;line-height:1.4}
+.aivpromo .t b{display:block;font-size:14.5px;margin-bottom:1px}
+.aivpromo .t span{opacity:.72}
+.aivpromo a.go{background:var(--bg);color:var(--ink);text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:99px;white-space:nowrap}
+.aivpromo a.go:hover{opacity:.9}
+.aivpromo .add{background:none;border:0;color:inherit;opacity:.75;font:inherit;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.aivpromo .x{background:none;border:0;color:inherit;opacity:.55;font-size:20px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:8px}
+.aivpromo .x:hover{opacity:1}
+.aivpromo a:focus-visible,.aivpromo button:focus-visible{outline:2px solid var(--bg);outline-offset:2px}
+
+/* ===== responsive layout: bottom tabs on phones, sidebar on desktop ===== */
+nav.tabs .side-brand,nav.tabs .side-home{display:none}
+@media (min-width:900px){
+ body{padding-left:240px}
+ nav.tabs{top:0;bottom:0;left:0;right:auto;width:240px;display:flex;flex-direction:column;gap:14px;border-top:0;border-right:1px solid var(--line);padding:22px 14px 18px;background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;overflow-y:auto}
+ nav.tabs .side-brand{display:flex;align-items:center;gap:10px;padding:0 6px 4px;text-decoration:none;color:var(--ink)}
+ .side-brand .logo{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:16px}
+ .side-brand b{display:block;font-size:14.5px;line-height:1.2}
+ .side-brand small{display:block;color:var(--muted);font-size:12px;line-height:1.25;margin-top:1px}
+ nav.tabs .in{display:flex;flex-direction:column;gap:2px;max-width:none;margin:0}
+ nav.tabs a{flex-direction:row;justify-content:flex-start;gap:10px;font-size:14px;font-weight:500;padding:9px 10px;border-radius:10px;color:var(--muted)}
+ nav.tabs a .ico{width:auto;height:auto;border:0!important;border-radius:0}
+ nav.tabs a:hover{background:var(--card);color:var(--ink)}
+ nav.tabs a.on{background:var(--card);color:var(--ink);font-weight:600}
+ nav.tabs .side-home{display:block;margin-top:auto;padding:8px 10px;font-size:13px;color:var(--muted);text-decoration:none;border-radius:10px}
+ nav.tabs .side-home:hover{background:var(--card);color:var(--ink)}
+ .shell{max-width:1180px;margin:0 auto;border:0;border-radius:0;padding:24px 36px 60px;min-height:100vh}
+ header.top{justify-content:flex-end;margin-bottom:12px}
+ header.top>div:first-child{display:none}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .disclaimer{text-align:left}
+ svg.chart{max-height:300px}
+}
+.grid>.soft,.grid>.box,.grid3>.soft,.grid3>.box{margin-top:0}
+@media (min-width:900px) and (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -198,6 +237,8 @@ pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-siz
   <div><h1>Learning Intelligence</h1><p class="sub">Adaptive AI tutor &amp; research lab</p></div>
   <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
  </header>
+ <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of Learning Intelligence</b><span>An AIV API key runs every AI Verse app on full-strength AI. One key, every app, no extra setup.</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
+
  <section class="view" id="v-home"></section>
  <section class="view" id="v-learn"></section>
  <section class="view" id="v-papers"></section>
@@ -209,9 +250,14 @@ pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-siz
   <div class="box" id="aiCard" style="margin-top:10px">
    <h3>AI provider</h3>
    <p class="sub">Choose where your AI tutor runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
-   <div class="seg" id="provSeg"><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div class="seg" id="provSeg"><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div data-prov="aiv">
+    <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
+    <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
+    <label>Model<select data-set="aivModel" id="aivModel"><option value="aiv-1">aiv-1: best quality</option><option value="aiv-1-mini">aiv-1-mini: fastest</option></select></label>
+   </div>
    <div data-prov="groq">
-    <p class="sub">Fast, with a free tier. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
+    <p class="sub">Free tier, recommended for testing. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
     <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
     <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
    </div>
@@ -251,19 +297,20 @@ pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-siz
   </div>
  </section>
 </div>
-<nav class="tabs" aria-label="Sections"><div class="in">
+<nav class="tabs" aria-label="Sections"><a class="side-brand" href="#home"><span class="logo">L</span><span><b>Learning Intelligence</b><small>Adaptive AI tutor &amp; research lab</small></span></a><div class="in">
  <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
  <a href="#learn" data-nav="learn"><span class="ico"><span data-ic="map"></span></span>Learn</a>
  <a href="#papers" data-nav="papers"><span class="ico"><span data-ic="doc"></span></span>Papers</a>
  <a href="#methods" data-nav="methods"><span class="ico"><span data-ic="flask"></span></span>Methods</a>
  <a href="#writing" data-nav="writing"><span class="ico"><span data-ic="pen"></span></span>Writing</a>
-</div></nav>
+</div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
 <dialog id="dlg"></dialog>
 <dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
 <div id="toasts" aria-live="polite"></div>
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
+<script src="../config.js"></script>
 <script>
 (()=>{
 'use strict';
@@ -306,21 +353,24 @@ const DEFAULT_WEBLLM='Qwen3-0.6B-q4f16_1-MLC';
 const WEBLLM_URL='https://esm.run/@mlc-ai/web-llm@0.2.83';
 const WEBLLM_MODELS=[['Qwen3-0.6B-q4f16_1-MLC','Qwen3 0.6B — about 400 MB, fastest (default)','400 MB'],['Qwen3-1.7B-q4f16_1-MLC','Qwen3 1.7B — about 1 GB, smarter','1 GB'],['Llama-3.2-3B-Instruct-q4f16_1-MLC','Llama 3.2 3B — about 2 GB','2 GB'],['Qwen3-4B-q4f16_1-MLC','Qwen3 4B — about 2.5 GB, best quality, needs a strong GPU','2.5 GB']];
 const modelSize=id=>(WEBLLM_MODELS.find(m=>m[0]===id)||[])[2]||'several hundred MB';
+const AIV_BASE=((window.AIV_SITE&&window.AIV_SITE.server)||'https://api.aiverse.it.com').replace(/\/+$/,'')+'/v1';
 const PRESETS={openai:['OpenAI','https://api.openai.com/v1'],anthropic:['Anthropic Claude','https://api.anthropic.com/v1'],openrouter:['OpenRouter','https://openrouter.ai/api/v1'],gemini:['Google Gemini','https://generativelanguage.googleapis.com/v1beta/openai'],mistral:['Mistral','https://api.mistral.ai/v1'],together:['Together AI','https://api.together.xyz/v1'],deepseek:['DeepSeek','https://api.deepseek.com/v1'],other:['Other (OpenAI-compatible)','']};
-const PROV_NAMES={groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
-const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.groqKey)return'groq';return navigator.gpu?'browser':'groq';};
+const PROV_NAMES={aiv:'your AIV key',groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
+const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.aivKey)return'aiv';if(S.settings.groqKey)return'groq';return navigator.gpu?'browser':'groq';};
 function setupNeeded(msg){go('settings');throw new Error(msg);}
 function aiConn(){const s=S.settings,p=prov();
+ if(p==='aiv'){if(!s.aivKey)setupNeeded('Add your AIV API key in Settings (AI provider → AIV key), or choose another AI provider.');return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey}};}
  if(p==='groq'){if(!s.groqKey)setupNeeded('Add a free Groq API key in Settings, or choose another AI provider.');return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey}};}
  if(p==='custom'){if(!s.customBase)setupNeeded('Add your AI service\'s URL in Settings.');return{p,base:s.customBase.replace(/\/+$/,''),headers:s.customKey?{Authorization:'Bearer '+s.customKey}:{}};}
  if(p==='local')return{p,base:(s.localBase||'http://localhost:11434/v1').replace(/\/+$/,''),headers:{}};
  return{p:'browser'};}
 function aiTarget(){const c=aiConn(),s=S.settings;
+ if(c.p==='aiv')return{...c,model:s.aivModel||'aiv-1'};
  if(c.p==='groq')return{...c,model:s.model||DEFAULT_GROQ};
  if(c.p==='custom'){if(!s.customModel)setupNeeded('Choose a model for your AI service in Settings (Test connection lists them).');return{...c,model:s.customModel};}
  if(c.p==='local'){if(!s.localModel)setupNeeded('Choose which local model to use in Settings (Test connection lists them).');return{...c,model:s.localModel};}
  return{...c,model:s.webllmModel||DEFAULT_WEBLLM};}
-const hasAI=()=>{const s=S.settings,p=prov();return (p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
+const hasAI=()=>{const s=S.settings,p=prov();return (p==='aiv'&&!!s.aivKey)||(p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
 function baseSystem(){const n=new Date();return `You are the AI inside a learning app with an adaptive tutor and a research-skills lab${S.tutor&&S.tutor.topic?' (current topic: '+S.tutor.topic+')':''}. Today is ${ymd(n)}. Be accurate, never invent facts, sources or quotes, and say so when you are unsure.`;}
 function parseJSON(t){try{return JSON.parse(t);}catch(e){}const s=t.replace(/```(?:json)?/g,'');const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1));}catch(e){}}throw new Error('The AI returned something unreadable — please try again'+(prov()==='browser'||prov()==='local'?' (smaller models sometimes struggle with this; a larger model helps).':'.'));}
 const errMsg=t=>{try{const j=JSON.parse(t);const e=j.error;return(e&&(e.message||(typeof e==='string'?e:'')))||j.message||'';}catch(_){return String(t||'').slice(0,300);}};
@@ -372,11 +422,22 @@ const llmReady=()=>!!llm.engine&&llm.model===(S.settings.webllmModel||DEFAULT_WE
 function gateShow({title,text,btns=[]}){const g=$('#gate');$('#gateHide').hidden=true;$('#gateTitle').textContent=title;$('#gateText').textContent=text;$('#gateStatus').textContent='';$('#gateFill').style.width='0%';$('#gateTrack').hidden=!!btns.length;const bw=$('#gateBtns');bw.innerHTML='';btns.forEach(([label,cls,fn])=>{const b=document.createElement('button');b.className='btn '+cls;b.textContent=label;b.onclick=fn;bw.appendChild(b);});if(!g.open)g.showModal();}
 function gateClose(){const g=$('#gate');if(g.open)g.close();}
 function askDownload(model){if(dlAsk)return dlAsk;dlAsk=new Promise(res=>{$('#gate').addEventListener('close',()=>res(false),{once:true});gateShow({title:'Download the AI model',text:`Your AI tutor runs privately on this device. Before you can use it, it needs a one-time download of about ${modelSize(model)} (Wi-Fi recommended). After that it works offline and nothing you type leaves this device.`,btns:[['Not now','ghost',()=>{gateClose();res(false);}],['Use a different AI','ghost',()=>{gateClose();res(false);go('settings');}],['Download now','primary',()=>res(true)]]});}).finally(()=>{dlAsk=null;});return dlAsk;}
+
+/* ---------- AI Verse: AIV key promo + one-click on-device AI ---------- */
+let skipAsk=false;
+function promo(){const el=$('#aivPromo');if(!el)return;let hid=false;try{hid=sessionStorage.getItem('aivPromoHide')==='1';}catch(e){}el.hidden=hid||(prov()==='aiv'&&!!S.settings.aivKey);}
+async function aiBadgeClick(){const p=prov(),m=S.settings.webllmModel||DEFAULT_WEBLLM,need=p==='browser'&&S.settings.llmReady!==m&&!llmReady();
+ if(hasAI()&&!need){go('settings');return;}
+ if(!navigator.gpu){toast('The free on-device AI needs WebGPU (Chrome or Edge on a computer). Add an AIV key or a free Groq key in Settings instead.',{err:true});go('settings');return;}
+ S.settings.provider='browser';save();try{badge();}catch(e){}skipAsk=true;
+ try{await ensureBrowserModel(m);}catch(e){toast(e.message||String(e),{err:true});}finally{skipAsk=false;try{badge();}catch(e){}}}
+document.addEventListener('click',e=>{if(e.target.closest('#aivPromoX')){try{sessionStorage.setItem('aivPromoHide','1');}catch(_){}promo();}else if(e.target.closest('#aivPromoAdd')){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=$('#setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},120);}});
+
 async function ensureBrowserModel(model){
  if(llm.engine&&llm.model===model)return;
  if(!navigator.gpu)setupNeeded('This browser can\'t run on-device AI (it needs WebGPU — Chrome or Edge on a computer). Choose another AI provider in Settings.');
  const cached=S.settings.llmReady===model;
- if(!cached&&!llm.loading){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
+ if(!cached&&!llm.loading&&!skipAsk){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
  if(!cached)gateShow({title:'Downloading the AI model',text:`One-time download of about ${modelSize(model)}. Keep this tab open — you can keep using the rest of the app.`});
  const hide=$('#gateHide');if(hide)hide.hidden=cached;
  try{await getEngine(model);S.settings.llmReady=model;save();refresh();if(!cached)toast('AI is ready — running on this device');}
@@ -469,7 +530,7 @@ function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document
 /* ---------- storage ---------- */
 const KEY='learnintel.v1';
 const freshTutor=()=>({topic:'',lvl:'Beginner',nodes:[],hist:[],sel:null});
-const DEF=()=>({profile:{name:''},settings:{provider:'',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:''},tutor:freshTutor(),lab:{lvl:'Undergraduate',hist:[],ptitle:'',ptext:''},chat:[],mchat:[],setupDone:false});
+const DEF=()=>({profile:{name:''},settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:''},tutor:freshTutor(),lab:{lvl:'Undergraduate',hist:[],ptitle:'',ptext:''},chat:[],mchat:[],setupDone:false});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.tutor={...freshTutor(),...(s.tutor||{})};d.lab={...DEF().lab,...(s.lab||{})};}}catch(e){}return d;}
 let S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
@@ -488,7 +549,7 @@ const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'h
 function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
 function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
 function refresh(){(R[cur]||(()=>{}))();badge();}
-function badge(){const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';}else if(need){b.className='badge off';b.textContent='AI: download needed';}else{b.className='badge';b.textContent=p==='browser'?'On-device AI':p==='local'?'Local AI':'AI tutor on';}}
+function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI tutor on';}}
 const LABLVLS=['High school','Undergraduate','Graduate','Early-career researcher'];
 const lvlSelect=()=>`<select class="lvlsel" data-labset="lvl" aria-label="Research level">${LABLVLS.map(l=>`<option ${l===S.lab.lvl?'selected':''}>${l}</option>`).join('')}</select>`;
 document.addEventListener('change',e=>{const el=e.target;if(el.dataset&&el.dataset.labset){S.lab[el.dataset.labset]=el.value;save();$$('[data-labset]').forEach(x=>{if(x!==el)x.value=el.value;});}});
@@ -653,7 +714,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t
 
 /* ---------- init ---------- */
 function init(){icons();bindSettings();
- $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=()=>go('settings');
+ $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=aiBadgeClick;
  $('#btnExport').onclick=()=>{const data={...S,settings:{...S.settings,groqKey:'',customKey:''}};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'}));a.download=`learning-backup-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
  $('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!d.tutor)throw 0;if(!confirm('Replace your current progress with this backup?'))return;const keep={groqKey:S.settings.groqKey,customKey:S.settings.customKey};S={...DEF(),...d,tutor:{...freshTutor(),...d.tutor},lab:{...DEF().lab,...d.lab},settings:{...DEF().settings,...d.settings}};if(!S.settings.groqKey)S.settings.groqKey=keep.groqKey;if(!S.settings.customKey)S.settings.customKey=keep.customKey;save();refresh();toast('Backup restored');}catch(_){toast('That file is not a valid backup.',{err:true});}e.target.value='';};
  $('#btnWipe').onclick=()=>{if(!confirm('Erase your learning path, chats, writing scores and settings from this browser? This cannot be undone.'))return;localStorage.removeItem(KEY);location.reload();};
@@ -665,7 +726,7 @@ function init(){icons();bindSettings();
  $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
  $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
  $('#gateHide').onclick=()=>gateClose();
- $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':'model';st.textContent='Checking…';
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':'model';st.textContent='Checking…';
   try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
    if(listErr&&/rejected/.test(listErr.message))throw listErr;
    if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}
