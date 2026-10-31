@@ -6,5 +6,9 @@
 window.AIV_SITE = {
   // Your Cloudflare Worker address, for example 'https://api.aiverse.it.com'.
   // Leave it empty until the server is deployed.
-  server: ''
+  server: '',
+
+  // Your Ask AIV server address (see ask-aiv/SETUP.md),
+  // e.g. 'https://ask-aiv.YOURNAME.workers.dev'. Leave empty until it's deployed.
+  askAiv: ''
 };

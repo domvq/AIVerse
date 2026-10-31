@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="AI Verse builds AI tools for everyday tasks: learning, money, planning and fitness. Free to use with your own AI key.">
+<meta name="description" content="AI Verse builds AI tools for everyday tasks: learning, money, planning, fitness, photos and careers. Free to use with your own AI key.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -149,6 +149,11 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 .app .acts .btn.pill{white-space:normal;text-align:left;line-height:1.2}
 
+.apps-intro{margin-top:80px;padding-block:72px}
+.rowi a.k{color:var(--fg);text-decoration:none}
+.rowi a.k:hover{text-decoration:underline;text-underline-offset:3px}
+#app-list{scroll-margin-top:90px;padding-bottom:16px}
+
 /* chatbot builder promo */
 .promo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:var(--card);border-radius:22px;padding:44px;margin-bottom:16px}
 .promo-copy h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
@@ -227,7 +232,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <section class="hero">
       <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
       <h1>AI for the tasks you do every day</h1>
-      <p class="lede">AI Verse builds focused AI tools for learning, money, planning and fitness. They run in your browser, keep your data on your device, and work with your own free AI key.</p>
+      <p class="lede">AI Verse builds focused AI tools for learning, money, planning, fitness, photos and careers. They run in your browser, keep your data on your device, and work with your own free AI key.</p>
       <div class="cta">
         <a class="btn dark" href="builder.html">Build AI <svg><use href="#arrow"/></svg></a>
         <a class="btn pill" href="#apps">Explore the apps</a>
@@ -254,17 +259,33 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       </div>
     </section>
 
-    <section id="apps" aria-label="Apps">
+    <section class="split apps-intro" id="apps" aria-labelledby="appsTitle">
+      <div class="intro">
+        <h2 id="appsTitle">AI apps for everyday life</h2>
+        <p>Six focused apps for studying, money, planning, health, photos and careers. They run in your browser, keep your data on your device, and get full-strength AI from one AIV key.</p>
+        <a class="btn pill" href="#app-list">Explore the apps</a>
+      </div>
+      <div class="rows">
+        <div class="rowi"><a class="k" href="apps/learning-intelligence.html">Study and Research AI</a><div class="v">An adaptive tutor that maps any subject, finds your gaps and quizzes you, plus a lab for reading papers and practicing scientific writing.</div></div>
+        <div class="rowi"><a class="k" href="apps/financial-intelligence.html">Stock and Finance AI</a><div class="v">A live stock predictor, stock research, portfolio tracking, paper trading and budgeting from your bank statements.</div></div>
+        <div class="rowi"><a class="k" href="apps/aide.html">Aide</a><div class="v">A personal assistant for your calendar, tasks, reminders, travel plans and email. Just type or say what you need.</div></div>
+        <div class="rowi"><a class="k" href="apps/fitness-intelligence.html">Health and Fitness AI</a><div class="v">Training programs that progress automatically, body tracking, and calorie and macro counting from photos of your food.</div></div>
+        <div class="rowi"><a class="k" href="apps/photo-intelligence.html">Photo AI</a><div class="v">Edit photos by describing the change, remove backgrounds and objects, upscale, create headshots and design social posts.</div></div>
+        <div class="rowi"><a class="k" href="apps/career-intelligence.html">Career AI</a><div class="v">Job matching, tailored resumes and cover letters, interview practice and a tracker for every application.</div></div>
+      </div>
+    </section>
+
+    <section id="app-list" aria-label="All apps">
       <div class="apps">
         <article class="app" id="learning">
-          <div class="top"><h3>Learning Intelligence</h3><span class="eyebrow">Education</span></div>
+          <div class="top"><h3>Study and Research AI</h3><span class="eyebrow">Education</span></div>
           <p>An adaptive tutor for any topic. It maps the subject into concepts, finds your gaps with a quick diagnostic, then adjusts lessons, quizzes and difficulty as you improve. A research lab helps you read papers with verified citations, plan experiments and practice scientific writing.</p>
           <div class="tags"><span>Knowledge map</span><span>Adaptive quizzes</span><span>Flashcards</span><span>Paper reader</span><span>Writing scores</span></div>
           <div class="acts"><a class="btn dark sm" href="apps/learning-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="finance">
-          <div class="top"><h3>Financial Intelligence</h3><span class="eyebrow">Money</span></div>
+          <div class="top"><h3>Stock and Finance AI</h3><span class="eyebrow">Money</span></div>
           <p>Your markets and money center. Watch prices live with a stock predictor that gives the odds of a stock closing higher and its likely range, tested honestly against its own past. Analyze stocks, follow your portfolio, practice with paper trading, and budget from uploaded bank statements.</p>
           <div class="tags"><span>Live predictor</span><span>Stock analysis</span><span>Paper trading</span><span>Budgeting</span><span>Reports</span></div>
           <div class="acts"><a class="btn dark sm" href="apps/financial-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
@@ -278,10 +299,24 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         </article>
 
         <article class="app" id="fitness">
-          <div class="top"><h3>Fitness Intelligence</h3><span class="eyebrow">Health &amp; training</span></div>
+          <div class="top"><h3>Health and Fitness AI</h3><span class="eyebrow">Health &amp; training</span></div>
           <p>An AI coach for training and nutrition. It builds a program for your goal and equipment, logs every set and sets your next weights automatically, tracks measurements and progress photos, and counts calories and macros with photo food recognition.</p>
           <div class="tags"><span>Workout plans</span><span>Auto progression</span><span>Body tracking</span><span>Macros</span><span>Meal plans</span></div>
           <div class="acts"><a class="btn dark sm" href="apps/fitness-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+        </article>
+
+        <article class="app" id="photo">
+          <div class="top"><h3>Photo AI</h3><span class="eyebrow">Creative</span></div>
+          <p>An AI photo editor you can talk to. Describe an edit in plain words, remove backgrounds and objects, enhance and upscale, generate new images and professional headshots, read text in photos, and design social posts, with a before-and-after view and a history of everything you create.</p>
+          <div class="tags"><span>Prompt editing</span><span>Background removal</span><span>Upscaling</span><span>Headshots</span><span>Social posts</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/photo-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+        </article>
+
+        <article class="app" id="career">
+          <div class="top"><h3>Career AI</h3><span class="eyebrow">Careers</span></div>
+          <p>An AI career coach and job application assistant. Upload your resume and goals, and it finds matching jobs, explains where you fit and where you fall short, tailors your resume and cover letter, prepares you for interviews, and tracks every application. It only fills in applications with your approval.</p>
+          <div class="tags"><span>Job matching</span><span>Resume tailoring</span><span>Cover letters</span><span>Interview prep</span><span>Application tracker</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/career-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
       </div>
     </section>
