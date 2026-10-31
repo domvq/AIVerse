@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Ask AIV</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Chat with AIV, the AI Verse assistant.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,10 +109,11 @@ main{flex:1;min-height:0;display:flex;flex-direction:column}
 header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
-.sitehead .brand svg{height:22px;width:auto;display:block}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
 .sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
-.sitehead .tabs{display:flex;justify-content:center;gap:4px;min-width:0}
-.sitehead .tabs a{flex:0 0 auto;min-width:84px;text-align:center;padding:9px 12px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
 .sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
 .sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
 .sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
@@ -117,7 +122,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
 .sitehead .hb svg{width:15px;height:15px}
 .sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
-@media (max-width:1060px){
+@media (max-width:1180px){
  .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
  .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
  .sitehead .tabs::-webkit-scrollbar{display:none}
@@ -136,17 +141,18 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 <header class="sitehead">
   <div class="bar">
-    <a class="brand" href="index.html" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <a class="brand" href="index.html" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
     <nav class="tabs" aria-label="Main">
       <a href="index.html">Home</a>
-      <a href="index.html#apps">Apps</a>
+      <a href="chat.html" aria-current="page">Ask AIV</a>
+      <a href="builder.html">Build AI</a>
       <a href="business.html">Business</a>
       <a href="data.html">Data</a>
+      <a href="index.html#apps">Apps</a>
       <a href="api.html">API</a>
-      <a href="chat.html" aria-current="page">Ask AIV</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <div class="acts"><button class="hb line" id="newChat" type="button" hidden><svg><use href="#new"/></svg>New chat</button><a class="hb solid" href="https://console.groq.com/keys" target="_blank" rel="noopener">Free Groq key</a></div>
+    <div class="acts"><button class="hb line" id="newChat" type="button" hidden><svg><use href="#new"/></svg>New chat</button><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
   </div>
 </header>
 
@@ -179,6 +185,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
   </form>
 </template>
 
+<script src="config.js"></script>
 <script>
 /* ============================================================
    AIV SETTINGS — edit these two lines before uploading
@@ -187,9 +194,9 @@ const AIV_CONFIG = {
   // Option A (simple): paste your Groq key. Anyone can see it in the page source,
   // so use a key from a Groq account with NO payment method attached.
   groqKey: 'PASTE_YOUR_GROQ_KEY_HERE',
-  // Option B (private, recommended): your AIV API Worker's /site/chat address,
-  // e.g. 'https://api.aiverse.it.com/site/chat'. When set, groqKey is ignored. See server/SETUP.md.
-  proxyUrl: '',
+  // Option B (private, recommended): set your server address in config.js and AIV
+  // uses it automatically. When it's set, groqKey is ignored. See server/SETUP.md.
+  proxyUrl: (window.AIV_SITE&&window.AIV_SITE.server)?window.AIV_SITE.server.replace(/\/+$/,'')+'/site/chat':'',
   model: 'openai/gpt-oss-120b'
 };
 
@@ -200,7 +207,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const STORE='aiv.chat.v1';
 
 const KNOWLEDGE=`ABOUT AI VERSE
-AI Verse is an organization that delivers AI solutions for everyday tasks. Email: team@aiverse.it.com. Website pages: Home (index.html), Business (business.html), Data (data.html), API (api.html), Ask AIV chat (chat.html), Contact (contact.html).
+AI Verse is an organization that delivers AI solutions for everyday tasks. Email: team@aiverse.it.com. Website pages: Home (index.html), Chatbot Builder (builder.html), Business (business.html), Data (data.html), API (api.html), Ask AIV chat (chat.html), Contact (contact.html).
 
 APPS (free to use, run in the browser, data stays on the user's device; open from the Home page):
 1. Learning Intelligence (apps/learning-intelligence.html) — adaptive AI tutor. Maps any topic into concepts, runs a diagnostic to find gaps, then adapts lessons, quizzes, flashcards, practice tests, slide decks, study guides, quick notes and expert step-by-step solutions. Research lab: summarizes pasted papers or PDFs with verified quotes, a methodology tutor (explain or Socratic mode), hypothesis and experiment planner, and scored scientific-writing practice.
@@ -214,6 +221,8 @@ AI SETUP FOR THE APPS (each app: Settings → AI provider):
 - Local model: Ollama or LM Studio on the user's computer (needs OLLAMA_ORIGINS or CORS enabled).
 - In-browser: small model downloads once (about 400 MB for the default) and runs on the graphics card in Chrome or Edge with WebGPU; works offline.
 Keys are stored only in the user's browser and sent only to the chosen provider. Apps have Export backup and Erase everything in Settings.
+
+CHATBOT BUILDER (builder.html) — AI Verse's main product: anyone can build an AI chatbot for their business by filling in a guided form (business name, description, hours, location, contact, services and prices, FAQs), adding their website address (it reads up to 6 pages), uploading files (PDF, Word .docx, TXT, MD, CSV; up to 5 files, 10 MB each) and pasting other text, then choosing a name, tone, first message and brand color. They can try it free with 3 messages. After that a purchase window appears: going live costs $150 + API billing (API billing covers the AI usage from the chatbot's conversations; rates are explained when the order is confirmed). Buying goes through the Business order form; the AI Verse team confirms details and switches the chatbot on. A live chatbot gets a chat bubble for the customer's website (one line of code) and a shareable link. There's a 'Try an example' button to see how it works.
 
 BUSINESS (business.html): slogan "Give your business superpowers." AI Verse builds custom AI tools for businesses. Price: $150 + API billing. API billing means the business pays its own AI provider directly for usage (many, including Groq, have a free tier). Included: a custom AI tool built around the request, the business's name, logo and colors, setup with the business's own AI key, works on phones, tablets and computers, files the business owns and can host anywhere. Examples: customer support assistant, inbox and document helper, booking and planning, internal staff guide, marketing content studio, reports and dashboards. To order: click Buy now on the Business page and submit email, business name, first and last name, website and request. Nothing is charged on the site; the team emails to confirm details and arrange payment before work starts.
 

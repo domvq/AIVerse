@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Verse</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="AI Verse builds AI tools for everyday tasks: learning, money, planning and fitness. Free to use with your own AI key.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,14 +139,36 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
   .subnav .r{display:none}
 }
 
+.keylink{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.keylink:hover{color:var(--fg);border-color:var(--fg)}
+.keylink svg{width:12px;height:12px}
+
+/* chatbot builder promo */
+.promo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:var(--card);border-radius:22px;padding:44px;margin-bottom:16px}
+.promo-copy h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
+.promo-copy p{color:var(--muted);max-width:44ch;margin:16px 0 0}
+.promo-copy .eyebrow{display:block;margin-bottom:14px}
+.promo-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:26px}
+.promo-price{color:var(--muted);font-size:14px}
+.promo-demo{background:var(--bg);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.07);min-width:0}
+.pd-head{display:flex;align-items:center;gap:10px;background:var(--ink-btn);color:var(--ink-btn-fg);padding:12px 14px}
+.pd-av{flex:none;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--ink-btn-fg) 20%,transparent);display:grid;place-items:center;font-weight:600}
+.pd-head b{display:block;font-weight:600;font-size:14px;line-height:1.2}.pd-head small{opacity:.8;font-size:12px}
+.pd-body{display:flex;flex-direction:column;gap:8px;padding:14px}
+.pd-b{max-width:85%;padding:8px 12px;border-radius:14px;font-size:13.5px;line-height:1.45}
+.pd-b.bot{align-self:flex-start;background:var(--pill);border-bottom-left-radius:5px}
+.pd-b.me{align-self:flex-end;background:var(--ink-btn);color:var(--ink-btn-fg);border-bottom-right-radius:5px}
+@media (max-width:900px){.promo{grid-template-columns:1fr;padding:32px 24px;gap:28px}}
+
 /* ===== shared site header (identical on every page) ===== */
 header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
-.sitehead .brand svg{height:22px;width:auto;display:block}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
 .sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
-.sitehead .tabs{display:flex;justify-content:center;gap:4px;min-width:0}
-.sitehead .tabs a{flex:0 0 auto;min-width:84px;text-align:center;padding:9px 12px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
 .sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
 .sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
 .sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
@@ -151,7 +177,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
 .sitehead .hb svg{width:15px;height:15px}
 .sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
-@media (max-width:1060px){
+@media (max-width:1180px){
  .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
  .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
  .sitehead .tabs::-webkit-scrollbar{display:none}
@@ -175,29 +201,50 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 <header class="sitehead">
   <div class="bar">
-    <a class="brand" href="#top" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <a class="brand" href="#top" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
     <nav class="tabs" aria-label="Main">
       <a href="#top" aria-current="page">Home</a>
-      <a href="#apps">Apps</a>
+      <a href="chat.html">Ask AIV</a>
+      <a href="builder.html">Build AI</a>
       <a href="business.html">Business</a>
       <a href="data.html">Data</a>
+      <a href="#apps">Apps</a>
       <a href="api.html">API</a>
-      <a href="chat.html">Ask AIV</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <div class="acts"><a class="hb solid" href="https://console.groq.com/keys" target="_blank" rel="noopener">Free Groq key</a></div>
+    <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
   </div>
 </header>
 
 <main id="top">
   <div class="wrap">
     <section class="hero">
-      <svg class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
+      <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
       <h1>AI for the tasks you do every day</h1>
       <p class="lede">AI Verse builds focused AI tools for learning, money, planning and fitness. They run in your browser, keep your data on your device, and work with your own free AI key.</p>
       <div class="cta">
-        <a class="btn dark" href="#apps">Explore the apps <svg><use href="#arrow"/></svg></a>
-        <a class="btn pill" href="#groq">Get a free AI key</a>
+        <a class="btn dark" href="builder.html">Build AI <svg><use href="#arrow"/></svg></a>
+        <a class="btn pill" href="#apps">Explore the apps</a>
+      </div>
+      <a class="keylink" href="#groq">Get a free AI key <svg><use href="#arrow"/></svg></a>
+    </section>
+
+    <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
+      <div class="promo-copy">
+        <span class="eyebrow">New · Chatbot Builder</span>
+        <h2 id="promoTitle">Build an AI chatbot for your business</h2>
+        <p>Add your business details, website or files, and get a chatbot that answers your customers' questions. Try it free with 3 messages, then go live on your website.</p>
+        <div class="promo-cta"><a class="btn dark" href="builder.html">Build your chatbot <svg><use href="#arrow"/></svg></a><span class="promo-price">Go live for $150 + API billing</span></div>
+      </div>
+      <div class="promo-demo" aria-label="Example conversation">
+        <div class="pd-head"><span class="pd-av">H</span><span><b>Harbor Light Helper</b><small>Example chatbot</small></span></div>
+        <div class="pd-body">
+          <div class="pd-b bot">Hi! Ask me about our menu, hours or catering.</div>
+          <div class="pd-b me">Are you open Sunday morning?</div>
+          <div class="pd-b bot">Yes! On weekends we're open 7:30am to 4pm.</div>
+          <div class="pd-b me">Do you have oat milk?</div>
+          <div class="pd-b bot">We do, at no extra charge. Almond milk too.</div>
+        </div>
       </div>
     </section>
 
@@ -281,9 +328,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 <footer>
   <div class="wrap">
     <div class="foot">
-      <a class="brand" href="#top"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <a class="brand" href="#top"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#top">Home</a><a href="#apps">Apps</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="chat.html">Ask AIV</a><a href="contact.html">Contact</a><a href="#groq">Groq setup</a>
+        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="#groq">Groq setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>

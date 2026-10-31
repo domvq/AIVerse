@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Verse Bot Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: internal tool — slim header, sign-in card, then a dense table of customer chatbots with inline controls. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--warn:#a15c07;--bad:#b42318;--field:#ffffff;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--warn:#f0b35a;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--warn:#f0b35a;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0}[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 14.5px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;padding-block:14px}
+.bar a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);font-weight:600}
+.bar svg{height:20px;width:auto}
+.tag{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+h1{font:500 30px/1.15 var(--body);letter-spacing:-.025em;margin:40px 0 6px}
+.muted{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:22px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+input,select{font:400 14px var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:9px 11px;min-width:0}
+input:focus,select:focus{outline:0;border-color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 16px;font:500 14px/1 var(--body);border:1px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}
+.btn.line{border-color:var(--line);background:transparent;color:var(--fg)}.btn.line:hover{background:var(--pill)}
+.btn.xs{padding:6px 11px;font-size:13px}
+.btn:disabled{opacity:.5}
+:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0}
+.stat{background:var(--card);border-radius:14px;padding:16px}
+.stat b{display:block;font:500 28px/1.1 var(--body);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th{text-align:left;font:500 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:11px 12px;border-bottom:1px solid var(--line);background:var(--card)}
+td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td small{display:block;color:var(--muted);font-size:12.5px;overflow-wrap:anywhere}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.st{display:inline-flex;align-items:center;gap:6px;font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.st::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.st.active{color:var(--good)}.st.trial{color:var(--muted)}.st.paused{color:var(--warn)}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ctl input{width:90px}
+.msg{margin:12px 0 0;font-size:13.5px}.msg.bad{color:var(--bad)}.msg.good{color:var(--good)}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;vertical-align:-1px;margin-right:6px;border:1px solid var(--line)}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar"><a href="index.html"><svg viewBox="168 188 1044 394" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></svg>AI Verse</a><span class="tag">Team only</span></div></header>
+<main class="wrap" style="padding-bottom:80px">
+  <h1>Chatbot admin</h1>
+  <p class="muted" style="margin:0 0 20px">Switch customer chatbots on after payment, pause them, and watch usage.</p>
+
+  <form class="card" id="login" autocomplete="off">
+    <label for="token" style="font-weight:500;display:block;margin-bottom:8px">Admin token</label>
+    <div class="row"><input id="token" type="password" placeholder="The ADMIN_TOKEN you set on the server" style="flex:1;min-width:220px"><button class="btn dark" type="submit">Load chatbots</button><button class="btn line" type="button" id="signout" hidden>Sign out</button></div>
+    <p class="msg" id="loginMsg" role="status"></p>
+  </form>
+
+  <section id="panel" hidden>
+    <div class="stats" id="stats"></div>
+    <div class="row" style="justify-content:space-between;margin-bottom:12px">
+      <div class="row"><input id="search" type="search" placeholder="Search name, ID or website" style="width:260px"><select id="filter" aria-label="Status filter"><option value="">All statuses</option><option value="active">Live</option><option value="trial">Trial</option><option value="paused">Paused</option></select></div>
+      <button class="btn line" type="button" id="refresh">Refresh</button>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Chatbot</th><th>Status</th><th>Trial used</th><th>This month</th><th>Info</th><th>Controls</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <p class="muted" style="font-size:13px;margin-top:12px">To find the chatbot for a paid order, search the Chatbot ID from the order email. Setting a bot to Live gives the customer their link and website code on the builder page.</p>
+  </section>
+</main>
+<script src="config.js"></script>
+<script>
+(()=>{
+'use strict';
+const SERVER=((window.AIV_SITE&&window.AIV_SITE.server)||'').replace(/\/+$/,'');
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let token='';try{token=sessionStorage.getItem('aiv.admin')||'';}catch(e){}
+let bots=[],period='';
+const msg=(t,k)=>{$('loginMsg').className='msg'+(k?' '+k:'');$('loginMsg').textContent=t;};
+async function api(path,opt={}){
+  if(!SERVER)throw new Error('Set your server address in config.js first.');
+  let r;try{r=await fetch(SERVER+path,{...opt,headers:{'Content-Type':'application/json',Authorization:'Bearer '+token,...(opt.headers||{})}});}catch(e){throw new Error('Couldn\'t reach the server.');}
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error((j.error&&j.error.message)||('Error '+r.status));return j;
+}
+async function loadBots(){
+  msg('Loading…');
+  try{const j=await api('/admin/bots');bots=j.bots;period=j.period;try{sessionStorage.setItem('aiv.admin',token);}catch(e){}$('panel').hidden=false;$('signout').hidden=false;msg(`Loaded ${bots.length} chatbot${bots.length===1?'':'s'}.`,'good');render();}
+  catch(e){msg(e.message,'bad');$('panel').hidden=true;}
+}
+const shareLink=b=>new URL('bot.html?id='+b.id,location.href).href;
+const snippet=b=>`<script src="${new URL('widget.js',location.href).href}" data-bot="${b.id}" data-color="${b.color}" defer><\/script>`;
+function render(){
+  const live=bots.filter(b=>b.status==='active'),trial=bots.filter(b=>b.status==='trial');
+  const ended=trial.filter(b=>b.trialLeft===0).length, month=live.reduce((a,b)=>a+b.monthUsed,0);
+  $('stats').innerHTML=[[bots.length,'Chatbots built'],[ended,'Trials finished (likely leads)'],[live.length,'Live chatbots'],[month.toLocaleString(),'Live messages in '+period]].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+  const q=$('search').value.trim().toLowerCase(),f=$('filter').value;
+  const list=bots.filter(b=>(!f||b.status===f)&&(!q||[b.name,b.business,b.id,b.website].join(' ').toLowerCase().includes(q)));
+  $('rows').innerHTML=list.length?list.map(b=>`<tr data-id="${b.id}">
+    <td><b style="font-weight:500"><span class="dot" style="background:${esc(b.color)}"></span>${esc(b.business)}</b><small>${esc(b.name)} · ID ${esc(b.id)}</small><small>Built ${esc(String(b.created).slice(0,10))}</small></td>
+    <td><span class="st ${b.status}">${b.status==='active'?'Live':b.status==='trial'?'Trial':'Paused'}</span></td>
+    <td class="num">${b.uses} of 3</td>
+    <td class="num">${b.monthUsed.toLocaleString()} / ${b.monthlyCap.toLocaleString()}</td>
+    <td><small>${b.website?esc(b.website):'No website'}</small><small>${b.contact?esc(b.contact):''}</small><small>${b.knowledgeChars.toLocaleString()} characters of info</small></td>
+    <td><div class="ctl">
+      ${b.status!=='active'?'<button class="btn dark xs" data-act="active">Go live</button>':'<button class="btn line xs" data-act="paused">Pause</button>'}
+      ${b.status==='trial'?'<button class="btn line xs" data-act="reset">Reset trial</button>':''}
+      <input type="number" min="0" step="100" value="${b.monthlyCap}" aria-label="Monthly message cap"><button class="btn line xs" data-act="cap">Set cap</button>
+      <button class="btn line xs" data-copy="link">Copy link</button><button class="btn line xs" data-copy="code">Copy website code</button>
+      <a class="btn line xs" href="${esc(shareLink(b))}" target="_blank" rel="noopener">Open</a>
+    </div></td></tr>`).join(''):`<tr><td colspan="6" class="muted" style="text-align:center;padding:28px">${bots.length?'No chatbots match.':'No chatbots yet. They appear here as soon as someone builds one.'}</td></tr>`;
+}
+$('rows').addEventListener('click',async e=>{
+  const tr=e.target.closest('tr[data-id]');if(!tr)return;const b=bots.find(x=>x.id===tr.dataset.id);
+  const c=e.target.closest('[data-copy]');
+  if(c){const t=c.dataset.copy==='link'?shareLink(b):snippet(b);try{await navigator.clipboard.writeText(t);const o=c.textContent;c.textContent='Copied';setTimeout(()=>c.textContent=o,1400);}catch(_){c.textContent='Copy failed';}return;}
+  const a=e.target.closest('[data-act]');if(!a)return;
+  const body=a.dataset.act==='cap'?{monthlyCap:Number(tr.querySelector('input').value)}:a.dataset.act==='reset'?{resetTrial:true}:{status:a.dataset.act};
+  a.disabled=true;
+  try{const j=await api('/admin/bots/'+b.id,{method:'POST',body:JSON.stringify(body)});Object.assign(b,j.bot);msg(`${b.business}: ${a.dataset.act==='active'?'now live':a.dataset.act==='paused'?'paused':a.dataset.act==='reset'?'trial reset':'cap updated'}.`,'good');render();}
+  catch(err){msg(err.message,'bad');a.disabled=false;}
+});
+$('login').addEventListener('submit',e=>{e.preventDefault();token=$('token').value.trim()||token;if(!token){msg('Enter your admin token.','bad');return;}loadBots();});
+$('signout').onclick=()=>{token='';try{sessionStorage.removeItem('aiv.admin');}catch(e){}bots=[];$('panel').hidden=true;$('signout').hidden=true;$('token').value='';msg('Signed out.');};
+$('refresh').onclick=loadBots;$('search').oninput=render;$('filter').onchange=render;
+if(!SERVER)msg('Set your server address in config.js, then upload the site again.','bad');else if(token)loadBots();
+})();
+</script>
+</body>
+</html>

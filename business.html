@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Verse for Business</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Custom AI for your business from AI Verse. $150 plus API billing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -134,10 +138,11 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--mute
 header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
-.sitehead .brand svg{height:22px;width:auto;display:block}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
 .sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
-.sitehead .tabs{display:flex;justify-content:center;gap:4px;min-width:0}
-.sitehead .tabs a{flex:0 0 auto;min-width:84px;text-align:center;padding:9px 12px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
 .sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
 .sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
 .sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
@@ -146,7 +151,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
 .sitehead .hb svg{width:15px;height:15px}
 .sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
-@media (max-width:1060px){
+@media (max-width:1180px){
  .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
  .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
  .sitehead .tabs::-webkit-scrollbar{display:none}
@@ -163,17 +168,18 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 <header class="sitehead">
   <div class="bar">
-    <a class="brand" href="index.html" aria-label="AI Verse home"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <a class="brand" href="index.html" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
     <nav class="tabs" aria-label="Main">
       <a href="index.html">Home</a>
-      <a href="index.html#apps">Apps</a>
+      <a href="chat.html">Ask AIV</a>
+      <a href="builder.html">Build AI</a>
       <a href="business.html" aria-current="page">Business</a>
       <a href="data.html">Data</a>
+      <a href="index.html#apps">Apps</a>
       <a href="api.html">API</a>
-      <a href="chat.html">Ask AIV</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <div class="acts"><a class="hb solid" href="https://console.groq.com/keys" target="_blank" rel="noopener">Free Groq key</a></div>
+    <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
   </div>
 </header>
 
@@ -267,7 +273,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 <main id="thanks" class="wrap" hidden>
   <section class="done" aria-live="polite">
-    <svg class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
+    <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
     <h2>Order Status Update</h2>
     <p>Your request for <b id="tBiz"></b> has been received. We'll be in touch shortly!</p>
     <p class="muted">A member of our team will reply to <span id="tEmail"></span>.</p>
@@ -278,9 +284,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 <footer>
   <div class="wrap">
     <div class="foot">
-      <a class="brand" href="index.html"><svg role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="index.html#apps">Apps</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="api.html">API</a><a href="chat.html">Ask AIV</a><a href="contact.html">Contact</a><a href="index.html#groq">Groq setup</a>
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#groq">Groq setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. API usage is billed by your AI provider and is not included in the $150 price.</p>
@@ -296,7 +302,16 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 
 function openOrder(e){if(e)e.preventDefault();const o=$('order');o.hidden=false;o.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});setTimeout(()=>$('first').focus({preventScroll:true}),400);}
 document.querySelectorAll('[data-buy]').forEach(a=>a.addEventListener('click',openOrder));
-if(location.hash==='#order')openOrder();
+let botId='';
+const qp=new URLSearchParams(location.search);
+if(/^[a-zA-Z0-9]{10,16}$/.test(qp.get('bot')||'')){
+  botId=qp.get('bot');
+  $('biz').value=qp.get('biz')||'';
+  $('site').value=qp.get('site')||'';
+  $('request').value=`Take my AI chatbot "${qp.get('name')||qp.get('biz')||'my chatbot'}" live with a website chat bubble and a shareable link.\nChatbot ID: ${botId}`;
+  const sum=document.querySelector('.summary .line span');if(sum)sum.textContent='AI chatbot go-live';
+  openOrder();
+}else if(location.hash==='#order')openOrder();
 
 const normUrl=v=>{v=v.trim();if(!v)return'';return /^https?:\/\//i.test(v)?v:'https://'+v;};
 const rules={
@@ -334,8 +349,8 @@ $('orderForm').addEventListener('submit',async e=>{
   const btn=$('sendBtn');btn.disabled=true;btn.firstChild.textContent='Submitting… ';$('status').hidden=true;
   try{
     const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({
-      _subject:`Business order: ${d.biz} (${d.first} ${d.last})`,_replyto:d.email,_template:'table',_captcha:'false',
-      'Order':'Custom AI solution — $150 + API billing','First name':d.first,'Last name':d.last,Email:d.email,Business:d.biz,Website:d.site,Request:d.request
+      _subject:`${botId?'Chatbot order':'Business order'}: ${d.biz} (${d.first} ${d.last})`,_replyto:d.email,_template:'table',_captcha:'false',
+      'Order':botId?'AI chatbot go-live — $150 + API billing':'Custom AI solution — $150 + API billing',...(botId?{'Chatbot ID':botId}:{}),'First name':d.first,'Last name':d.last,Email:d.email,Business:d.biz,Website:d.site,Request:d.request
     })});
     const j=await r.json().catch(()=>({}));
     if(r.ok&&String(j.success)==='true')showThanks(d);

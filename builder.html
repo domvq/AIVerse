@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AIV Chatbot Builder</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Build an AI chatbot for your business from your details, website or files. Try it free with 3 messages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: short thesis hero, then a two-column workbench — numbered form steps on the left, a sticky live chat widget on the right. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--bad:#b42318;--field:#ffffff;--shade:rgba(10,10,10,.55);
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;--shade:rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;--shade:rgba(0,0,0,.7);color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand svg{height:22px;width:auto;display:block}
+.brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:500 15px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn.sm{padding:9px 16px;font-size:14px}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}.btn.dark:hover{opacity:.86}
+.btn.pill{background:var(--pill);color:var(--fg)}.btn.pill:hover{background:var(--line)}
+.btn.line{border-color:var(--line);color:var(--fg);background:transparent}.btn.line:hover{background:var(--pill)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn svg{width:14px;height:14px}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+
+.hero{text-align:center;padding-block:72px 44px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:500 clamp(38px,6vw,68px)/1.02 var(--display);letter-spacing:-.04em;margin:18px auto 0;max-width:14ch;text-wrap:balance}
+.lede{color:var(--muted);font-size:clamp(16px,1.6vw,19px);max-width:36em;margin:20px auto 0;text-wrap:balance}
+.hero .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+h2{font:500 clamp(28px,3.4vw,40px)/1.1 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
+h3{font:500 19px/1.25 var(--display);letter-spacing:-.015em;margin:0}
+
+/* workbench */
+.bench{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px;align-items:start;padding-bottom:96px;scroll-margin-top:90px}
+.steps{display:flex;flex-direction:column;gap:16px;min-width:0}
+.step{background:var(--card);border-radius:18px;padding:28px 30px 30px;min-width:0}
+.step-h{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.step-h .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ink-btn);color:var(--ink-btn-fg);display:grid;place-items:center;font:500 13px/1 var(--mono)}
+.step-h p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.fields{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label,.lbl{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:500;min-width:0}
+.lt{display:block}
+.lt .hint{margin-left:4px}
+.hint{color:var(--soft);font-weight:400;font-size:12.5px}
+.req{color:var(--bad)}
+input[type=text],input[type=url],textarea{font:400 15px/1.45 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:11px 13px;width:100%;outline:0;min-width:0}
+textarea{resize:vertical;min-height:96px}
+input:focus,textarea:focus{border-color:var(--fg)}
+[aria-invalid="true"]{border-color:var(--bad)!important}
+.err{color:var(--bad);font-size:12.5px;font-weight:400}
+
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1.5px dashed var(--line);border-radius:14px;padding:22px 16px;text-align:center;background:var(--field);cursor:pointer;transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--fg)}
+.drop b{font-weight:500}
+.drop span{color:var(--muted);font-size:13px}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.files{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.files li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:9px 10px 9px 14px;font-size:14px}
+.files li .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.files li .ct{color:var(--muted);font:400 12px var(--mono);white-space:nowrap}
+.files li.bad .ct{color:var(--bad)}
+.x{border:0;background:transparent;color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1}
+.x:hover{background:var(--pill);color:var(--fg)}
+
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{flex-direction:row;font-weight:500;font-size:14px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--field);cursor:pointer}
+.seg input:checked+label{background:var(--ink-btn);color:var(--ink-btn-fg);border-color:var(--ink-btn)}
+.seg input:focus-visible+label{outline:2px solid var(--fg);outline-offset:2px}
+.swatches{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--fg)}
+.swatches input[type=color]{width:42px;height:32px;border:1px solid var(--line);border-radius:10px;background:var(--field);padding:2px;cursor:pointer}
+
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.actions .grow{flex:1}
+.statusline{font-size:14px;color:var(--muted);margin:0}
+.statusline.bad{color:var(--bad)}
+.statusline.good{color:var(--good)}
+.warns{margin:0;padding:12px 14px 12px 30px;border-radius:12px;background:color-mix(in srgb,var(--bad) 8%,var(--card));font-size:13.5px;color:var(--muted)}
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* preview widget */
+.side{position:sticky;top:96px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.widget{--accent:#111111;--on-accent:#ffffff;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--bg);box-shadow:0 1px 2px rgba(0,0,0,.04),0 18px 48px rgba(0,0,0,.08);display:flex;flex-direction:column}
+.w-head{background:var(--accent);color:var(--on-accent);display:flex;align-items:center;gap:12px;padding:14px 16px}
+.w-av{flex:none;width:36px;height:36px;border-radius:50%;background:color-mix(in srgb,var(--on-accent) 18%,transparent);display:grid;place-items:center;font:600 15px/1 var(--body)}
+.w-head b{display:block;font-weight:600;font-size:15px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.w-head small{display:block;opacity:.8;font-size:12.5px}
+.w-head .meta{min-width:0;flex:1}
+.w-body{height:clamp(340px,52vh,500px);overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;position:relative}
+.b{max-width:85%;padding:9px 13px;border-radius:16px;font-size:14.5px;line-height:1.5;overflow-wrap:anywhere}
+.b.bot{align-self:flex-start;background:var(--pill);border-bottom-left-radius:6px}
+.b.me{align-self:flex-end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:6px;white-space:pre-wrap}
+.b.err{background:color-mix(in srgb,var(--bad) 10%,var(--card));color:var(--bad)}
+.b p{margin:0 0 8px}.b p:last-child{margin:0}
+.b ul,.b ol{margin:0 0 8px;padding-left:20px}.b li{margin:2px 0}
+.b a{color:inherit}
+.dots{display:inline-flex;gap:4px;padding:4px 0}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--soft);animation:bl 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.dots i,.spin{animation:none}}
+.locked{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:24px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(2px)}
+.locked b{font-weight:500}
+.locked span{color:var(--muted);font-size:13.5px;max-width:28ch}
+.w-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
+.w-chips button{border:1px solid var(--line);background:var(--bg);color:var(--fg);font:400 13px/1 var(--body);padding:8px 12px;border-radius:999px;cursor:pointer}
+.w-chips button:hover{background:var(--pill)}
+.w-in{display:flex;gap:8px;align-items:flex-end;border-top:1px solid var(--line);padding:10px 10px 10px 14px}
+.w-in textarea{flex:1;min-height:0;height:40px;max-height:120px;resize:none;border:0;padding:9px 0;border-radius:0;background:transparent}
+.w-send{flex:none;width:38px;height:38px;border-radius:50%;border:0;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;cursor:pointer}
+.w-send:disabled{opacity:.3;cursor:not-allowed}
+.w-send svg{width:17px;height:17px}
+.w-foot{text-align:center;font-size:11.5px;color:var(--soft);padding:0 0 10px}
+.meter{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border-radius:14px;padding:12px 16px;font-size:14px}
+.meter .pips{display:flex;gap:5px}
+.meter .pips i{width:22px;height:6px;border-radius:99px;background:var(--fg)}
+.meter .pips i.used{background:var(--line)}
+.live{background:var(--card);border-radius:16px;padding:18px;display:grid;gap:12px}
+.live .pill{display:inline-flex;align-items:center;gap:6px;color:var(--good);font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.live .pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.copyrow{display:flex;gap:8px;align-items:center}
+.copyrow code{flex:1;min-width:0;font:400 12.5px/1.5 var(--mono);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:9px 11px;overflow-x:auto;white-space:nowrap;user-select:all}
+
+/* how it works */
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;padding-block:88px;border-top:1px solid var(--line)}
+.split .intro p{color:var(--muted);max-width:40ch;margin:16px 0 0}
+.rows{display:flex;flex-direction:column}
+.rowi{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding-block:18px;border-top:1px solid var(--line)}
+.rowi:first-child{border-top:0;padding-top:4px}
+.rowi .n{font:500 13px/1.6 var(--mono);color:var(--muted)}
+.rowi b{font-weight:500;display:block}
+.rowi span{color:var(--muted)}
+
+/* paywall */
+dialog.pay{border:0;padding:0;border-radius:24px;max-width:min(520px,calc(100vw - 32px));width:100%;background:var(--bg);color:var(--fg);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.pay::backdrop{background:var(--shade);backdrop-filter:blur(4px)}
+.pay-in{padding:36px 36px 30px}
+.pay-in .mark{height:26px;width:auto;display:block;color:var(--fg)}
+.pay-in h2{font-size:28px;margin-top:28px}
+.pay-in p{color:var(--muted);margin:12px 0 0}
+.price{display:flex;align-items:baseline;gap:10px;margin-top:22px}
+.price b{font:500 52px/1 var(--display);letter-spacing:-.04em}
+.price span{color:var(--muted);font-size:17px}
+.pay-in ul{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px;font-size:14.5px}
+.pay-in li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px}
+.pay-in li svg{width:15px;height:15px;margin-top:4px}
+.pay-in .buy{width:100%;margin-top:26px;padding:15px 22px;font-size:16px;border-radius:12px}
+.pay-in .fine2{font-size:12.5px;color:var(--soft);margin-top:12px}
+.pay-in .alt{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:14px}
+.pay-in .alt a{color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--muted);font-size:13.5px}
+.foot{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+.foot .brand{color:var(--fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
+.fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
+
+@media (max-width:980px){.bench{grid-template-columns:1fr}.side{position:static}.split{grid-template-columns:1fr;gap:24px;padding-block:72px}}
+@media (max-width:560px){.step{padding:22px 18px 24px}.row2{grid-template-columns:1fr}.hero{padding-block:52px 32px}.pay-in{padding:28px 22px 24px}.price b{font-size:44px}}
+
+/* ===== shared site header (identical on every page) ===== */
+header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
+.sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
+.sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
+.sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.sitehead .hb{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 16px;font:500 14px/1 var(--body);text-decoration:none;white-space:nowrap;border:1px solid transparent;cursor:pointer}
+.sitehead .hb.solid{background:var(--ink-btn);color:var(--ink-btn-fg)}.sitehead .hb.solid:hover{opacity:.86}
+.sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
+.sitehead .hb svg{width:15px;height:15px}
+.sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:1180px){
+ .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
+ .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
+ .sitehead .tabs::-webkit-scrollbar{display:none}
+ .sitehead .tabs a{min-width:0;flex:1 0 auto}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tick" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="up" viewBox="0 0 20 20"><path d="M10 16V4M5 9l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="sitehead">
+  <div class="bar">
+    <a class="brand" href="index.html" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <nav class="tabs" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="chat.html">Ask AIV</a>
+      <a href="builder.html" aria-current="page">Build AI</a>
+      <a href="business.html">Business</a>
+      <a href="data.html">Data</a>
+      <a href="index.html#apps">Apps</a>
+      <a href="api.html">API</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">AIV Chatbot Builder</span>
+    <h1>Build an AI chatbot for your business.</h1>
+    <p class="lede">Add your business details, your website or your files. In about a minute you'll have a chatbot that answers your customers' questions. Try it free with 3 messages.</p>
+    <div class="cta">
+      <a class="btn dark" href="#build">Start building <svg><use href="#arrow"/></svg></a>
+      <button class="btn pill" type="button" id="exampleBtn">Try an example</button>
+    </div>
+  </section>
+
+  <div class="bench" id="build">
+    <form class="steps" id="form" novalidate autocomplete="off">
+      <section class="step" aria-labelledby="s1">
+        <div class="step-h"><span class="n">1</span><div><h3 id="s1">Your business</h3><p>The basics your customers ask about most.</p></div></div>
+        <div class="fields">
+          <label for="business"><span class="lt">Business name <span class="req">*</span></span><input type="text" id="business" maxlength="80" placeholder="e.g. Harbor Light Coffee"><span class="err" id="business-err" hidden></span></label>
+          <label for="about">What does your business do? <textarea id="about" maxlength="3000" placeholder="Who you are, what you sell or offer, and who your customers are."></textarea><span class="err" id="about-err" hidden></span></label>
+          <div class="row2">
+            <label for="hours"><span class="lt">Hours <span class="hint">Optional</span></span><textarea id="hours" maxlength="800" style="min-height:72px" placeholder="Mon–Fri 7am–6pm&#10;Sat–Sun 8am–4pm"></textarea></label>
+            <label for="location"><span class="lt">Location or service area <span class="hint">Optional</span></span><textarea id="location" maxlength="400" style="min-height:72px" placeholder="Street address, or the areas you serve"></textarea></label>
+          </div>
+          <label for="contact"><span class="lt">How customers reach you or book <span class="hint">Optional</span></span><input type="text" id="contact" maxlength="400" placeholder="Phone, email, or booking link"></label>
+        </div>
+      </section>
+
+      <section class="step" aria-labelledby="s2">
+        <div class="step-h"><span class="n">2</span><div><h3 id="s2">What your chatbot should know</h3><p>Add as much as you like. More detail means better answers.</p></div></div>
+        <div class="fields">
+          <label for="services"><span class="lt">Services, products and prices <span class="hint">Optional</span></span><textarea id="services" maxlength="6000" placeholder="Latte – $4.75&#10;Catering for 10–50 people, from $120"></textarea></label>
+          <label for="faqs"><span class="lt">Common questions and answers <span class="hint">Optional</span></span><textarea id="faqs" maxlength="8000" placeholder="Q: Do you have parking?&#10;A: Yes, free parking behind the building."></textarea></label>
+          <label for="website"><span class="lt">Your website <span class="hint">Optional · we'll read up to 6 pages</span></span><input type="url" id="website" maxlength="300" inputmode="url" placeholder="yourbusiness.com"><span class="err" id="website-err" hidden></span></label>
+          <div class="lbl">
+            <span>Upload files <span class="hint">Optional · menus, price lists, policies, handbooks</span></span>
+            <label class="drop" id="drop" for="fileIn">
+              <b>Drop files here or choose files</b>
+              <span>PDF, Word (.docx), TXT, MD, CSV · up to 5 files, 10 MB each</span>
+              <input type="file" id="fileIn" multiple accept=".pdf,.docx,.txt,.md,.csv,.html,.htm,.json,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+            </label>
+            <ul class="files" id="fileList"></ul>
+          </div>
+          <label for="notes"><span class="lt">Anything else <span class="hint">Optional · paste policies, notes or any text</span></span><textarea id="notes" maxlength="30000" placeholder="Return policy, delivery areas, staff bios, specials…"></textarea></label>
+        </div>
+      </section>
+
+      <section class="step" aria-labelledby="s3">
+        <div class="step-h"><span class="n">3</span><div><h3 id="s3">Personality</h3><p>How your chatbot looks and sounds.</p></div></div>
+        <div class="fields">
+          <div class="row2">
+            <label for="botName"><span class="lt">Chatbot name <span class="hint">Optional</span></span><input type="text" id="botName" maxlength="60" placeholder="e.g. Harbor Light Assistant"></label>
+            <label for="greeting"><span class="lt">First message <span class="hint">Optional</span></span><input type="text" id="greeting" maxlength="240" placeholder="Hi! How can I help you today?"></label>
+          </div>
+          <div class="lbl"><span>Tone</span>
+            <div class="seg" role="radiogroup" aria-label="Tone">
+              <input type="radio" name="tone" id="t-friendly" value="friendly" checked><label for="t-friendly">Friendly</label>
+              <input type="radio" name="tone" id="t-professional" value="professional"><label for="t-professional">Professional</label>
+              <input type="radio" name="tone" id="t-playful" value="playful"><label for="t-playful">Playful</label>
+              <input type="radio" name="tone" id="t-concise" value="concise"><label for="t-concise">Concise</label>
+            </div>
+          </div>
+          <div class="lbl"><span>Brand color</span>
+            <div class="swatches" id="swatches">
+              <button type="button" class="sw" data-c="#111111" style="background:#111111" aria-label="Black"></button>
+              <button type="button" class="sw" data-c="#1d4ed8" style="background:#1d4ed8" aria-label="Blue"></button>
+              <button type="button" class="sw" data-c="#0f766e" style="background:#0f766e" aria-label="Teal"></button>
+              <button type="button" class="sw" data-c="#15803d" style="background:#15803d" aria-label="Green"></button>
+              <button type="button" class="sw" data-c="#c2410c" style="background:#c2410c" aria-label="Orange"></button>
+              <button type="button" class="sw" data-c="#be185d" style="background:#be185d" aria-label="Pink"></button>
+              <button type="button" class="sw" data-c="#6d28d9" style="background:#6d28d9" aria-label="Purple"></button>
+              <input type="color" id="color" value="#111111" aria-label="Custom color">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn dark" type="submit" id="buildBtn">Build my chatbot <svg><use href="#arrow"/></svg></button>
+        <button class="btn line" type="button" id="resetBtn" hidden>Start over</button>
+        <p class="statusline grow" id="status" role="status" aria-live="polite"></p>
+      </div>
+      <ul class="warns" id="warns" hidden></ul>
+    </form>
+
+    <aside class="side" aria-label="Your chatbot">
+      <div class="widget" id="widget">
+        <div class="w-head">
+          <div class="w-av" id="wAv" aria-hidden="true">Y</div>
+          <div class="meta"><b id="wName">Your Business Assistant</b><small id="wSub">Preview</small></div>
+        </div>
+        <div class="w-body" id="wBody" aria-live="polite">
+          <div class="b bot" id="wGreet">Hi! How can I help you today?</div>
+          <div class="locked" id="wLock"><b>Your chatbot will appear here</b><span>Fill in your business details and press Build to start chatting.</span></div>
+        </div>
+        <div class="w-chips" id="wChips"></div>
+        <form class="w-in" id="wForm">
+          <label for="wInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Message your chatbot</label>
+          <textarea id="wInput" rows="1" maxlength="2000" placeholder="Ask your chatbot a question" disabled></textarea>
+          <button class="w-send" id="wSend" type="submit" aria-label="Send" disabled><svg><use href="#up"/></svg></button>
+        </form>
+        <div class="w-foot">Powered by AI Verse</div>
+      </div>
+      <div class="meter" id="meter" hidden><span id="meterText">3 free messages left</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="live" id="livePanel" hidden>
+        <span class="pill">Live</span>
+        <div><b style="font-weight:500">Shareable link</b>
+          <div class="copyrow" style="margin-top:8px"><code id="shareLink"></code><button class="btn line sm" type="button" data-copy="shareLink">Copy</button></div></div>
+        <div><b style="font-weight:500">Website chat bubble</b><p class="statusline" style="margin:4px 0 0;font-size:13px">Paste this before &lt;/body&gt; on your website.</p>
+          <div class="copyrow" style="margin-top:8px"><code id="snippet"></code><button class="btn line sm" type="button" data-copy="snippet">Copy</button></div></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="split" aria-label="How it works">
+    <div class="intro">
+      <h2>From your info to a live chatbot</h2>
+      <p>Test it here for free. When it sounds right, go live on your website for $150 + API billing.</p>
+    </div>
+    <div class="rows">
+      <div class="rowi"><span class="n">01</span><div><b>Build</b><span>Tell us about your business, link your website or upload files. Your chatbot learns from everything you add.</span></div></div>
+      <div class="rowi"><span class="n">02</span><div><b>Try 3 free messages</b><span>Ask the questions your customers ask. Update your info and rebuild as often as you like.</span></div></div>
+      <div class="rowi"><span class="n">03</span><div><b>Go live</b><span>After purchase, our team switches your chatbot on. You get a chat bubble for your website and a link you can share anywhere.</span></div></div>
+    </div>
+  </section>
+</main>
+
+<dialog class="pay" id="paywall" aria-labelledby="payTitle">
+  <div class="pay-in">
+    <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
+    <h2 id="payTitle">Your free messages are used up</h2>
+    <p><b id="payName" style="color:var(--fg);font-weight:500">Your chatbot</b> is ready to work for your business. Purchase to keep using it and put it in front of your customers.</p>
+    <div class="price"><b>$150</b><span>+ API billing</span></div>
+    <ul>
+      <li><svg><use href="#tick"/></svg><span>Chat bubble for your website, added with one line of code</span></li>
+      <li><svg><use href="#tick"/></svg><span>A shareable link to your chatbot</span></li>
+      <li><svg><use href="#tick"/></svg><span>Our team confirms your details and switches it on</span></li>
+      <li><svg><use href="#tick"/></svg><span>Keep updating what your chatbot knows</span></li>
+    </ul>
+    <a class="btn dark buy" id="payBuy" href="business.html#order">Buy now <svg><use href="#arrow"/></svg></a>
+    <p class="fine2">API billing covers the AI usage from your chatbot's conversations. We'll explain the rates when we confirm your order. Nothing is charged until then.</p>
+    <div class="alt"><a href="contact.html">Questions? Contact us</a><a href="index.html">Back to home</a></div>
+  </div>
+</dialog>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#groq">Groq setup</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Chatbot answers are generated by AI and may be wrong. Information you add is used only to build and run your chatbot.</p>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script>
+(()=>{
+'use strict';
+const SERVER=((window.AIV_SITE&&window.AIV_SITE.server)||'').replace(/\/+$/,'');
+const STORE='aiv.builder.v1', TRIAL=3;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const FIELDS=['business','about','hours','location','contact','services','faqs','website','notes','botName','greeting'];
+const load=()=>{try{return JSON.parse(localStorage.getItem(STORE)||'{}')||{};}catch(e){return{};}};
+let S=Object.assign({form:{},docs:[],bot:null,ownerToken:null,chat:[]},load());
+const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(S));}catch(e){try{localStorage.setItem(STORE,JSON.stringify({...S,docs:[]}));}catch(_){}}};
+let busy=false,saveT=0;
+
+/* ---------- form state ---------- */
+function readForm(){const f={};FIELDS.forEach(k=>f[k]=$(k).value);f.tone=(document.querySelector('input[name=tone]:checked')||{}).value||'friendly';f.color=$('color').value;return f;}
+function writeForm(f){FIELDS.forEach(k=>{if(f[k]!=null)$(k).value=f[k];});const t=document.getElementById('t-'+(f.tone||'friendly'));if(t)t.checked=true;if(/^#[0-9a-f]{6}$/i.test(f.color||''))$('color').value=f.color;}
+function onFormChange(){S.form=readForm();clearTimeout(saveT);saveT=setTimeout(save,300);paintWidget();}
+$('form').addEventListener('input',onFormChange);$('form').addEventListener('change',onFormChange);
+
+/* ---------- colors / preview ---------- */
+function onColor(hex){const n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255;const L=[r,g,b].map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4;});return (.2126*L[0]+.7152*L[1]+.0722*L[2])>.4?'#111111':'#ffffff';}
+function paintWidget(){
+  const f=S.form, w=$('widget'), c=/^#[0-9a-f]{6}$/i.test(f.color||'')?f.color:'#111111';
+  w.style.setProperty('--accent',c);w.style.setProperty('--on-accent',onColor(c));
+  const name=(f.botName||'').trim()||((f.business||'').trim()?f.business.trim()+' Assistant':'Your Business Assistant');
+  $('wName').textContent=name;$('wAv').textContent=(name.trim()[0]||'A').toUpperCase();
+  $('wGreet').textContent=(f.greeting||'').trim()||'Hi! How can I help you today?';
+  document.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.c.toLowerCase()===c.toLowerCase())));
+}
+$('swatches').addEventListener('click',e=>{const b=e.target.closest('.sw');if(!b)return;$('color').value=b.dataset.c;onFormChange();});
+
+/* ---------- files ---------- */
+const MAX_FILES=5, MAX_BYTES=10*1024*1024, MAX_DOC_CHARS=30000;
+const libs={};
+function loadScript(src){return libs[src]||(libs[src]=new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>{delete libs[src];rej(new Error('Couldn\'t load the file reader. Check your connection.'));};document.head.appendChild(s);}));}
+async function pdfText(file){
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+  const lib=window.pdfjsLib;lib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const doc=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;let out='';
+  for(let i=1;i<=Math.min(doc.numPages,80)&&out.length<MAX_DOC_CHARS;i++){const pg=await doc.getPage(i);const tc=await pg.getTextContent();let line='';for(const it of tc.items){line+=it.str+(it.hasEOL?'\n':' ');}out+=line.replace(/[ \t]+\n/g,'\n')+'\n';}
+  return out;
+}
+async function docxText(file){await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');const r=await window.mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});return r.value;}
+async function extract(file){
+  const n=file.name.toLowerCase();
+  if(file.size>MAX_BYTES)throw new Error('Larger than 10 MB');
+  let t;
+  if(n.endsWith('.pdf')||file.type==='application/pdf')t=await pdfText(file);
+  else if(n.endsWith('.docx'))t=await docxText(file);
+  else if(/\.(txt|md|csv|json)$/.test(n)||file.type.startsWith('text/plain'))t=await file.text();
+  else if(/\.html?$/.test(n)){const d=new DOMParser().parseFromString(await file.text(),'text/html');d.querySelectorAll('script,style,noscript').forEach(x=>x.remove());t=d.body?d.body.innerText||d.body.textContent:'';}
+  else if(n.endsWith('.doc'))throw new Error('Old .doc files aren\'t supported. Save it as .docx or PDF.');
+  else throw new Error('Unsupported file type');
+  t=(t||'').replace(/\u0000/g,'').replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+  if(!t)throw new Error('No readable text found (scanned PDFs aren\'t supported)');
+  return t.slice(0,MAX_DOC_CHARS);
+}
+function renderFiles(){
+  $('fileList').innerHTML=S.docs.map((d,i)=>`<li class="${d.error?'bad':''}"><span class="nm" title="${esc(d.name)}">${esc(d.name)}</span><span class="ct">${d.error?esc(d.error):d.reading?'Reading…':(d.text.length.toLocaleString()+' characters')}</span><button type="button" class="x" data-rm="${i}" aria-label="Remove ${esc(d.name)}">×</button></li>`).join('');
+}
+async function addFiles(list){
+  for(const file of list){
+    if(S.docs.filter(d=>!d.error).length>=MAX_FILES){S.docs.push({name:file.name,text:'',error:'Limit is 5 files'});continue;}
+    const d={name:file.name,text:'',reading:true};S.docs.push(d);renderFiles();
+    try{d.text=await extract(file);}catch(e){d.error=e.message||'Couldn\'t read this file';}
+    d.reading=false;renderFiles();
+  }
+  S.docs=S.docs.filter((d,i,a)=>!d.error||a.indexOf(d)===i);save();renderFiles();
+}
+$('fileIn').addEventListener('change',e=>{addFiles([...e.target.files]);e.target.value='';});
+$('fileList').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;S.docs.splice(+b.dataset.rm,1);save();renderFiles();});
+const drop=$('drop');
+['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{if(e.dataTransfer&&e.dataTransfer.files.length)addFiles([...e.dataTransfer.files]);});
+
+/* ---------- validation ---------- */
+function setErr(id,msg){const e=$(id+'-err');if(!e)return;e.textContent=msg||'';e.hidden=!msg;$(id).setAttribute('aria-invalid',msg?'true':'false');}
+function validate(){
+  const f=readForm();let first=null;
+  setErr('business','');setErr('about','');setErr('website','');
+  if(!f.business.trim()){setErr('business','Enter your business name.');first=first||'business';}
+  const docs=S.docs.filter(d=>!d.error&&d.text);
+  if(!(f.about.trim()||f.services.trim()||f.faqs.trim()||f.notes.trim()||f.website.trim()||docs.length)){setErr('about','Describe your business, or add your website, a file, or other information below.');first=first||'about';}
+  if(f.website.trim()){let ok=false;try{const u=new URL(/^https?:\/\//i.test(f.website.trim())?f.website.trim():'https://'+f.website.trim());ok=u.hostname.includes('.');}catch(e){}if(!ok){setErr('website','Check the website address, for example yourbusiness.com.');first=first||'website';}}
+  if(S.docs.some(d=>d.reading)){status('Wait for your files to finish reading.','bad');return false;}
+  if(first){$(first).focus();return false;}
+  return true;
+}
+function status(msg,kind){const s=$('status');s.className='statusline grow'+(kind?' '+kind:'');s.innerHTML=msg;}
+
+/* ---------- server ---------- */
+async function call(path,opt={}){
+  if(!SERVER)throw Object.assign(new Error('The chatbot builder isn\'t connected yet. Please check back soon or email team@aiverse.it.com.'),{status:0});
+  let r;try{r=await fetch(SERVER+path,opt);}catch(e){throw Object.assign(new Error('Couldn\'t reach the AI Verse server. Check your connection and try again.'),{status:0});}
+  return r;
+}
+async function jsonOrThrow(r){const j=await r.json().catch(()=>({}));if(!r.ok){throw Object.assign(new Error((j.error&&j.error.message)||('Something went wrong (error '+r.status+').')),{status:r.status,type:j.error&&j.error.type});}return j;}
+
+/* ---------- build ---------- */
+$('form').addEventListener('submit',async e=>{
+  e.preventDefault();if(busy)return;
+  if(!validate())return;
+  const f=readForm();S.form=f;save();
+  const body={...f,documents:S.docs.filter(d=>!d.error&&d.text).map(d=>({name:d.name,text:d.text}))};
+  const updating=!!(S.bot&&S.ownerToken);
+  busy=true;$('buildBtn').disabled=true;$('warns').hidden=true;
+  status(`<span style="display:inline-flex;align-items:center;gap:8px"><span class="spin"></span>${f.website.trim()?'Reading your website and building your chatbot…':'Building your chatbot…'}</span>`);
+  try{
+    let r=await call(updating?'/bots/'+S.bot.id:'/bots',{method:updating?'PUT':'POST',headers:{'Content-Type':'application/json',...(updating?{Authorization:'Bearer '+S.ownerToken}:{})},body:JSON.stringify(body)});
+    if(updating&&(r.status===404||r.status===403)){S.bot=null;S.ownerToken=null;r=await call('/bots',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});}
+    const j=await jsonOrThrow(r);
+    if(j.ownerToken)S.ownerToken=j.ownerToken;
+    S.bot={id:j.id,name:j.name,business:j.business,status:j.status,trialLeft:j.trialLeft,greeting:j.greeting,color:j.color};
+    S.chat=[];save();
+    const src=[];if(j.sources){if(j.sources.websitePages)src.push(`${j.sources.websitePages} website page${j.sources.websitePages>1?'s':''}`);if(j.sources.documents)src.push(`${j.sources.documents} file${j.sources.documents>1?'s':''}`);}
+    status(`${updating?'Chatbot updated':'Your chatbot is ready'}${src.length?' · learned from '+src.join(' and ')+' plus your details':''}. Try it on the right.`,'good');
+    const w=j.warnings||[];$('warns').innerHTML=w.map(x=>`<li>${esc(x)}</li>`).join('');$('warns').hidden=!w.length;
+    renderChat();
+    if(matchMedia('(max-width:980px)').matches)$('widget').scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(()=>{if(!$('wInput').disabled)$('wInput').focus({preventScroll:true});},300);
+    if(S.bot.status==='trial'&&S.bot.trialLeft===0)showPaywall();
+  }catch(err){status(esc(err.message),'bad');}
+  finally{busy=false;$('buildBtn').disabled=false;}
+});
+
+/* ---------- chat ---------- */
+function inline(s){return s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>').replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g,'$1<a href="$2" target="_blank" rel="noopener">$2</a>');}
+function md(t){let h='',L=null;const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of esc(t).split('\n')){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inline(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inline(m[1])}</li>`;continue;}close();if(l.trim())h+=`<p>${inline(l.replace(/^#+\s*/,''))}</p>`;}close();return h;}
+function chipsFor(f){const c=[];if(f.hours&&f.hours.trim())c.push('What are your hours?');if((f.services&&f.services.trim())||S.docs.length)c.push('What do you offer, and how much does it cost?');if(f.location&&f.location.trim())c.push('Where are you located?');if(f.contact&&f.contact.trim())c.push('How do I book or get in touch?');if(c.length<3)c.push('What makes you different?');return c.slice(0,3);}
+function renderChat(){
+  const built=!!S.bot, live=built&&S.bot.status==='active', left=built&&S.bot.status==='trial'?S.bot.trialLeft:null;
+  $('wLock').hidden=built;
+  $('wBody').querySelectorAll('.b:not(#wGreet)').forEach(n=>n.remove());
+  for(const m of S.chat){const d=document.createElement('div');d.className='b '+(m.role==='user'?'me':m.error?'bot err':'bot');if(m.role==='user')d.textContent=m.content;else d.innerHTML=md(m.content);$('wBody').appendChild(d);}
+  const blocked=!built||(left!==null&&left<=0)||S.bot.status==='paused';
+  $('wInput').disabled=blocked||busy;$('wSend').disabled=blocked||busy||!$('wInput').value.trim();
+  $('wInput').placeholder=!built?'Build your chatbot to start':left===0?'Free messages used up':'Ask your chatbot a question';
+  $('wSub').textContent=!built?'Preview':live?'Online':S.bot.status==='paused'?'Paused':`Free trial · ${left} message${left===1?'':'s'} left`;
+  $('wChips').innerHTML=built&&!blocked&&!S.chat.length?chipsFor(S.form).map(c=>`<button type="button">${esc(c)}</button>`).join(''):'';
+  $('meter').hidden=!(built&&S.bot.status==='trial');
+  if(left!==null){$('meterText').textContent=left>0?`${left} free message${left===1?'':'s'} left`:'Free messages used up';document.querySelectorAll('#meter .pips i').forEach((p,i)=>p.classList.toggle('used',i>=left));}
+  $('livePanel').hidden=!live;
+  if(live){const link=new URL('bot.html?id='+encodeURIComponent(S.bot.id),location.href).href;$('shareLink').textContent=link;$('snippet').textContent=`<script src="${new URL('widget.js',location.href).href}" data-bot="${S.bot.id}" data-color="${S.bot.color||S.form.color||'#111111'}" defer><\/script>`;}
+  $('resetBtn').hidden=!built;$('buildBtn').firstChild.textContent=built?'Update chatbot ':'Build my chatbot ';
+  const b=$('wBody');b.scrollTop=b.scrollHeight;
+}
+$('wChips').addEventListener('click',e=>{const b=e.target.closest('button');if(b)send(b.textContent);});
+$('wInput').addEventListener('input',()=>{const t=$('wInput');t.style.height='auto';t.style.height=Math.min(t.scrollHeight,120)+'px';$('wSend').disabled=busy||!t.value.trim();});
+$('wInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();send($('wInput').value);}});
+$('wForm').addEventListener('submit',e=>{e.preventDefault();send($('wInput').value);});
+
+async function send(text){
+  text=String(text||'').trim();if(!text||busy||!S.bot)return;
+  if(S.bot.status==='trial'&&S.bot.trialLeft<=0){showPaywall();return;}
+  S.chat=S.chat.filter(m=>!m.error);S.chat.push({role:'user',content:text});$('wInput').value='';$('wInput').style.height='';
+  busy=true;renderChat();
+  const el=document.createElement('div');el.className='b bot';el.innerHTML='<span class="dots" aria-label="Typing"><i></i><i></i><i></i></span>';$('wBody').appendChild(el);$('wBody').scrollTop=$('wBody').scrollHeight;
+  let out='',remaining=null;
+  try{
+    const r=await call(`/bots/${S.bot.id}/chat`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+S.ownerToken},body:JSON.stringify({stream:true,messages:S.chat.slice(-12)})});
+    if(!r.ok){const j=await r.json().catch(()=>({}));const err=Object.assign(new Error((j.error&&j.error.message)||'Something went wrong.'),{type:j.error&&j.error.type,status:r.status});throw err;}
+    const h=r.headers.get('X-Trial-Remaining');if(h!==null&&h!=='')remaining=Number(h);
+    if(remaining!==null){S.bot.trialLeft=remaining;}
+    const reader=r.body.getReader(),dec=new TextDecoder();let buf='';
+    outer:for(;;){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i).trim();buf=buf.slice(i+1);if(!line.startsWith('data:'))continue;const d=line.slice(5).trim();if(d==='[DONE]')break outer;try{const t=JSON.parse(d).choices?.[0]?.delta?.content;if(t){out+=t;el.innerHTML=md(out);$('wBody').scrollTop=$('wBody').scrollHeight;}}catch(_){}}}
+    S.chat.push({role:'assistant',content:out.trim()||'Sorry, I don\'t have an answer for that.'});
+  }catch(err){
+    if(err.type==='trial_ended'){S.bot.trialLeft=0;S.chat.pop();showPaywall();}
+    else{S.chat.push({role:'assistant',content:err.message,error:true});if(err.type==='not_found'){S.bot=null;S.ownerToken=null;}}
+  }finally{
+    busy=false;el.remove();save();renderChat();
+    if(S.bot&&S.bot.status==='trial'&&S.bot.trialLeft===0&&!$('paywall').open)setTimeout(showPaywall,1800);
+    else if(!$('wInput').disabled)$('wInput').focus({preventScroll:true});
+  }
+}
+
+/* ---------- paywall ---------- */
+function showPaywall(){
+  const d=$('paywall');if(d.open||!S.bot)return;
+  $('payName').textContent=S.bot.name||'Your chatbot';
+  const q=new URLSearchParams({bot:S.bot.id,biz:S.form.business||'',site:S.form.website||'',name:S.bot.name||''});
+  $('payBuy').href='business.html?'+q.toString()+'#order';
+  try{d.showModal();}catch(e){d.setAttribute('open','');}
+  $('payBuy').focus();
+}
+$('paywall').addEventListener('cancel',e=>e.preventDefault());
+$('paywall').addEventListener('close',()=>{if(S.bot&&S.bot.status==='trial'&&S.bot.trialLeft<=0)setTimeout(showPaywall,0);});
+
+/* ---------- other controls ---------- */
+let resetArmed=false;
+$('resetBtn').addEventListener('click',()=>{
+  if(!resetArmed){resetArmed=true;$('resetBtn').textContent='Click again to start over';setTimeout(()=>{resetArmed=false;$('resetBtn').textContent='Start over';},3500);return;}
+  S={form:{},docs:[],bot:null,ownerToken:null,chat:[]};save();$('form').reset();$('color').value='#111111';renderFiles();paintWidget();renderChat();status('');$('warns').hidden=true;resetArmed=false;$('resetBtn').textContent='Start over';$('business').focus();
+});
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;const t=$(b.dataset.copy).textContent;try{await navigator.clipboard.writeText(t);b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500);}catch(_){const r=document.createRange();r.selectNodeContents($(b.dataset.copy));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent='Press Ctrl+C';}});
+$('exampleBtn').addEventListener('click',()=>{
+  writeForm({business:'Harbor Light Coffee',about:'A neighborhood coffee shop and bakery on the waterfront. We roast our own beans and bake pastries fresh every morning. Example business for trying the builder.',hours:'Mon–Fri 6:30am–5pm\nSat–Sun 7:30am–4pm',location:'214 Pier Street, Bayview',contact:'(555) 014-2290 · hello@harborlight.example',services:'Drip coffee – $3.25\nLatte – $4.75\nCold brew – $4.50\nAlmond croissant – $4.25\nCatering boxes for 10–50 people, from $120',faqs:'Q: Do you have oat milk?\nA: Yes, oat and almond milk at no extra charge.\nQ: Is there Wi-Fi?\nA: Yes, free Wi-Fi. Ask for the password at the counter.\nQ: Are dogs allowed?\nA: Dogs are welcome on the patio.',website:'',notes:'',botName:'Harbor Light Helper',greeting:'Hi! Ask me about our menu, hours or catering.',tone:'friendly',color:'#0f766e'});
+  onFormChange();$('build').scrollIntoView({behavior:'smooth'});status('Example filled in. Press Build my chatbot to try it.');
+});
+
+/* ---------- start ---------- */
+writeForm(S.form||{});S.form=readForm();renderFiles();paintWidget();renderChat();
+if(S.bot&&SERVER){
+  call('/bots/'+S.bot.id).then(jsonOrThrow).then(j=>{Object.assign(S.bot,{status:j.status,trialLeft:j.trialLeft,name:j.name,color:j.color});save();renderChat();if(j.status==='trial'&&j.trialLeft===0)showPaywall();})
+  .catch(err=>{if(err.status===404){S.bot=null;S.ownerToken=null;S.chat=[];save();renderChat();status('Your previous chatbot was removed. Build a new one below.');}});
+}else if(S.bot&&S.bot.status==='trial'&&S.bot.trialLeft===0)showPaywall();
+})();
+</script>
+</body>
+</html>
