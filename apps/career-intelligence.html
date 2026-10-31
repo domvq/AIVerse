@@ -235,6 +235,18 @@ nav.tabs .side-brand,nav.tabs .side-home{display:none}
 }
 .grid>.soft,.grid>.box,.grid3>.soft,.grid3>.box{margin-top:0}
 @media (min-width:900px) and (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* AI Verse free AI limit dialog */
+dialog.freedlg{border:0;padding:0;border-radius:20px;max-width:min(440px,calc(100vw - 32px));width:100%;background:var(--bg);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
+.freedlg .fd-in{padding:28px 26px 22px}
+.freedlg .fd-t{display:block;font-size:20px;line-height:1.25;letter-spacing:-.01em}
+.freedlg p{color:var(--muted);margin:10px 0 0;font-size:14.5px;line-height:1.5}
+.freedlg .fd-go{display:block;text-align:center;margin-top:20px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;padding:13px 18px;border-radius:12px}
+.freedlg .fd-go:hover{opacity:.9}
+.freedlg .fd-alt{display:flex;justify-content:center;gap:18px;margin-top:12px}
+.freedlg .fd-alt button{background:none;border:0;color:var(--muted);font:inherit;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.freedlg a:focus-visible,.freedlg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -273,7 +285,10 @@ nav.tabs .side-brand,nav.tabs .side-home{display:none}
   <div class="box" id="aiCard" style="margin-top:10px">
    <h3>AI provider</h3>
    <p class="sub">Choose where your AI career coach runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
-   <div class="seg" id="provSeg"><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div class="seg" id="provSeg"><button type="button" data-p="free">Free</button><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div data-prov="free">
+    <p class="sub">Free AI from AI Verse, ready to use with no key. Everyone gets 8 free AI requests in this app each day. For unlimited, full-strength AI, <a href="../api.html#plans" target="_blank" rel="noopener">get an AIV key</a>.</p>
+   </div>
    <div data-prov="aiv">
     <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
     <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
@@ -549,24 +564,38 @@ const DEFAULT_WEBLLM='Qwen3-0.6B-q4f16_1-MLC';
 const WEBLLM_URL='https://esm.run/@mlc-ai/web-llm@0.2.83';
 const WEBLLM_MODELS=[['Qwen3-0.6B-q4f16_1-MLC','Qwen3 0.6B — about 400 MB, fastest (default)','400 MB'],['Qwen3-1.7B-q4f16_1-MLC','Qwen3 1.7B — about 1 GB, smarter','1 GB'],['Llama-3.2-3B-Instruct-q4f16_1-MLC','Llama 3.2 3B — about 2 GB','2 GB'],['Qwen3-4B-q4f16_1-MLC','Qwen3 4B — about 2.5 GB, best quality, needs a strong GPU','2.5 GB']];
 const modelSize=id=>(WEBLLM_MODELS.find(m=>m[0]===id)||[])[2]||'several hundred MB';
+const APP_SLUG='career',APP_TITLE='Career AI';
+/* AI Verse free AI: this app's own Groq key lives on the AI Verse server; 8 free requests per visitor per day */
+const FREE_BASE=(()=>{const b=((window.AIV_SITE&&window.AIV_SITE.server)||'').replace(/\/+$/,'');return b?b+'/apps/'+APP_SLUG+'/v1':'';})();
+function freeLeft(){const d=new Date().toDateString(),f=S.freeLeft,l=(f&&f.limit)||8;return f&&f.date===d?{n:f.n,limit:l}:{n:l,limit:l};}
+function freeSeen(r){const n=r.headers.get('X-Free-Remaining');if(n===null)return;S.freeLeft={date:new Date().toDateString(),n:Number(n),limit:Number(r.headers.get('X-Free-Limit'))||8};save();try{badge();}catch(e){}}
+function freeLimitHit(){const L=freeLeft().limit;S.freeLeft={date:new Date().toDateString(),n:0,limit:L};save();try{badge();}catch(e){}
+ let d=document.getElementById('freeDlg');
+ if(!d){d=document.createElement('dialog');d.id='freeDlg';d.className='freedlg';d.setAttribute('aria-labelledby','freeDlgT');
+  d.innerHTML=`<div class="fd-in"><b class="fd-t" id="freeDlgT">You've used today's free AI</b><p>Everyone gets ${L} free AI requests a day in ${APP_TITLE}, and you've used yours. Get an AIV key for unlimited, full-strength AI in every AI Verse app.</p><a class="fd-go" href="../api.html#plans" target="_top">Get AIV key</a><div class="fd-alt"><button type="button" data-fd="key">I have a key</button><button type="button" data-fd="close">Come back tomorrow</button></div></div>`;
+  document.body.appendChild(d);
+  d.addEventListener('click',e=>{const b=e.target.closest('[data-fd]');if(!b)return;d.close();if(b.dataset.fd==='key'){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=document.getElementById('setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},150);}});}
+ if(!d.open){try{d.showModal();}catch(e){d.setAttribute('open','');}}}
 const AIV_BASE=((window.AIV_SITE&&window.AIV_SITE.server)||'https://api.aiverse.it.com').replace(/\/+$/,'')+'/v1';
 const PRESETS={openai:['OpenAI','https://api.openai.com/v1'],anthropic:['Anthropic Claude','https://api.anthropic.com/v1'],openrouter:['OpenRouter','https://openrouter.ai/api/v1'],gemini:['Google Gemini','https://generativelanguage.googleapis.com/v1beta/openai'],mistral:['Mistral','https://api.mistral.ai/v1'],together:['Together AI','https://api.together.xyz/v1'],deepseek:['DeepSeek','https://api.deepseek.com/v1'],other:['Other (OpenAI-compatible)','']};
-const PROV_NAMES={aiv:'your AIV key',groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
-const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.aivKey)return'aiv';if(S.settings.groqKey)return'groq';return navigator.gpu?'browser':'groq';};
+const PROV_NAMES={free:'AI Verse free AI',aiv:'your AIV key',groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
+const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.aivKey)return'aiv';if(S.settings.groqKey)return'groq';if(FREE_BASE)return'free';return navigator.gpu?'browser':'groq';};
 function setupNeeded(msg){go('settings');throw new Error(msg);}
 function aiConn(){const s=S.settings,p=prov();
+ if(p==='free'){if(!FREE_BASE)setupNeeded('Free AI isn\'t available on this copy of the app. Choose another AI provider in Settings.');return{p,base:FREE_BASE,headers:{}};}
  if(p==='aiv'){if(!s.aivKey)setupNeeded('Add your AIV API key in Settings (AI provider → AIV key), or choose another AI provider.');return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey}};}
  if(p==='groq'){if(!s.groqKey)setupNeeded('Add a free Groq API key in Settings, or choose another AI provider.');return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey}};}
  if(p==='custom'){if(!s.customBase)setupNeeded('Add your AI service\'s URL in Settings.');return{p,base:s.customBase.replace(/\/+$/,''),headers:s.customKey?{Authorization:'Bearer '+s.customKey}:{}};}
  if(p==='local')return{p,base:(s.localBase||'http://localhost:11434/v1').replace(/\/+$/,''),headers:{}};
  return{p:'browser'};}
 function aiTarget(){const c=aiConn(),s=S.settings;
+ if(c.p==='free')return{...c,model:'free'};
  if(c.p==='aiv')return{...c,model:s.aivModel||'aiv-1'};
  if(c.p==='groq')return{...c,model:s.model||DEFAULT_GROQ};
  if(c.p==='custom'){if(!s.customModel)setupNeeded('Choose a model for your AI service in Settings (Test connection lists them).');return{...c,model:s.customModel};}
  if(c.p==='local'){if(!s.localModel)setupNeeded('Choose which local model to use in Settings (Test connection lists them).');return{...c,model:s.localModel};}
  return{...c,model:s.webllmModel||DEFAULT_WEBLLM};}
-const hasAI=()=>{const s=S.settings,p=prov();return (p==='aiv'&&!!s.aivKey)||(p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
+const hasAI=()=>{const s=S.settings,p=prov();return (p==='free'&&!!FREE_BASE)||(p==='aiv'&&!!s.aivKey)||(p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
 function baseSystem(){const n=new Date();return `You are the AI career coach inside a job-search app${S.profile&&S.profile.name?' for '+S.profile.name:''}. Today is ${ymd(n)}. Use only the data provided about the user (resume, goals, jobs, applications); never invent experience, credentials, employers, dates or numbers they did not give. Be specific, honest and encouraging.`;}
 function parseJSON(t){try{return JSON.parse(t);}catch(e){}const s=t.replace(/```(?:json)?/g,'');const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1));}catch(e){}}throw new Error('The AI returned something unreadable — please try again'+(prov()==='browser'||prov()==='local'?' (smaller models sometimes struggle with this; a larger model helps).':'.'));}
 const errMsg=t=>{try{const j=JSON.parse(t);const e=j.error;return(e&&(e.message||(typeof e==='string'?e:'')))||j.message||'';}catch(_){return String(t||'').slice(0,300);}};
@@ -588,6 +617,7 @@ async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
  let r,tries=0;
  for(;;){
   try{r=await fetch(T.base+'/chat/completions',{method:'POST',signal,headers:{'Content-Type':'application/json',...T.headers},body:JSON.stringify(body)});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+  if(T.p==='free'){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free AI requests in this app.');}if(r.status===503||r.status===403||r.status===400){let m='';try{m=errMsg(await r.clone().text());}catch(_){}throw new Error(m||'Free AI is unavailable right now. Please try again.');}}
   if(r.status===429&&tries<3){tries++;await sleep(1500*tries);continue;}
   if((r.status===400||r.status===422)&&tries<5){const t=await r.text();tries++;
    if(body.response_format&&/json|response_format/i.test(t)){delete body.response_format;continue;}
@@ -711,7 +741,7 @@ const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'h
 function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
 function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
 function refresh(){(R[cur]||(()=>{}))();badge();}
-function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI coach on';}}
+function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='free'?`Free AI · ${freeLeft().n} left today`:p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI coach on';}}
 const hasResume=()=>!!(S.resume.text||S.resume.summary||(S.resume.experience||[]).length);
 let ctl=null;
 const aiJ=(p,o={})=>{ctl=new AbortController();return ai(p,{json:true,temp:o.temp??.3,max:o.max??3000,system:o.system||'',signal:ctl.signal});};
@@ -1107,7 +1137,7 @@ function init(){icons();bindSettings();
  $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
  $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
  $('#gateHide').onclick=()=>gateClose();
- $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':'model';st.textContent='Checking…';
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':p==='free'?'freeModel':'model';st.textContent='Checking…';if(p==='free'){let r;try{r=await fetch(FREE_BASE+'/models');}catch(_){st.textContent='Couldn\'t reach AI Verse free AI. Check your connection.';return;}freeSeen(r);st.textContent=r.ok?`Connected · ${freeLeft().n} of ${freeLeft().limit} free AI requests left today`:'Free AI isn\'t available right now.';return;}
   try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
    if(listErr&&/rejected/.test(listErr.message))throw listErr;
    if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}
