@@ -1,14 +1,12 @@
 /* ============================================================
    AI VERSE SITE SETTINGS
-   Edit this one file after deploying the server (see server/SETUP.md).
-   Used by: Chatbot Builder, live chatbots, admin, API page and Ask AIV.
+   Your one AI Verse server (Cloudflare Worker) runs Ask AIV, the Chatbot Builder,
+   live chatbots, the admin page and AIV API keys.
    ============================================================ */
 window.AIV_SITE = {
-  // Your Cloudflare Worker address, for example 'https://api.aiverse.it.com'.
-  // Leave it empty until the server is deployed.
-  server: '',
+  // Chatbot Builder, live chatbots, admin page and API page
+  server: 'https://ask-aiv.domhasaball.workers.dev',
 
-  // Your Ask AIV server address (see ask-aiv/SETUP.md),
-  // e.g. 'https://ask-aiv.YOURNAME.workers.dev'. Leave empty until it's deployed.
+  // Ask AIV (the same server)
   askAiv: 'https://ask-aiv.domhasaball.workers.dev'
 };
