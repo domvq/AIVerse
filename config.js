@@ -12,7 +12,7 @@ window.AIV_SITE = {
 
   // Stripe payment link for buying an AI on the Build AI page ($150, one-time).
   // Leave empty to send buyers to the Business order form instead.
-  aiCheckout: '',
+  aiCheckout: 'https://buy.stripe.com/test_8x2dRaehH9DU5aJ9pu1Fe03',   // TEST mode link: replace with the live link when going live
 
   // The API address shown to customers (self-host kit and API examples).
   // Set it to 'https://api.aiverse.it.com' once that custom domain is added to the ask-aiv worker.
