@@ -269,11 +269,12 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     </div>
   </section>
 
-  <section class="sec" id="docs" style="scroll-margin-top:100px">
+  
+
+<section class="sec" id="docs" style="scroll-margin-top:100px">
     <div class="head"><span class="eyebrow">Quickstart</span><h2>Your first request</h2></div>
     <div class="tabs" role="tablist" aria-label="Code language">
-      <button role="tab" aria-selected="true" data-lang="curl" id="tab-curl">curl</button>
-      <button role="tab" aria-selected="false" data-lang="js" id="tab-js">JavaScript</button>
+            <button role="tab" aria-selected="true" data-lang="js" id="tab-js">JavaScript</button>
       <button role="tab" aria-selected="false" data-lang="py" id="tab-py">Python</button>
     </div>
     <div class="code"><button class="btn line sm cp" type="button" id="copyCode">Copy</button><pre id="codeBlock"></pre></div>
@@ -329,7 +330,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#groq">Groq setup</a>
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Payments are processed by Stripe. AIV models are served by third-party model providers.</p>
@@ -363,20 +364,14 @@ async function api(path,opt={}){let r;try{r=await fetch(base+path,opt);}catch(e)
 document.querySelectorAll('[data-plan]').forEach(a=>{const url=C.paymentLinks[a.dataset.plan];if(url){a.href=url;a.rel='noopener';}else a.addEventListener('click',e=>{e.preventDefault();$('planNotice').innerHTML='<b>Checkout isn\'t open yet.</b> Plans go on sale soon. Email team@aiverse.it.com to be notified.';});});
 const portal=$('portalBtn');if(C.portalUrl){portal.href=C.portalUrl;portal.target='_blank';portal.rel='noopener';}else portal.addEventListener('click',e=>{e.preventDefault();portal.firstChild.textContent='Billing portal opens soon ';});
 
-/* code samples */
+/* code samples — use the public, branded API address so the Cloudflare account name isn't shown */
+const DOC_BASE='https://api.aiverse.it.com';
 const SAMPLES={
- curl:`curl ${base}/v1/chat/completions \\
-  -H "Authorization: Bearer $AIV_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "model": "aiv-1",
-    "messages": [{"role": "user", "content": "Write a 3-item packing list for a beach day."}]
-  }'`,
  js:`import OpenAI from "openai";
 
 const aiv = new OpenAI({
   apiKey: process.env.AIV_API_KEY,
-  baseURL: "${base}/v1",
+  baseURL: "${DOC_BASE}/v1",
 });
 
 const res = await aiv.chat.completions.create({
@@ -387,17 +382,17 @@ console.log(res.choices[0].message.content);`,
  py:`from openai import OpenAI
 import os
 
-aiv = OpenAI(api_key=os.environ["AIV_API_KEY"], base_url="${base}/v1")
+aiv = OpenAI(api_key=os.environ["AIV_API_KEY"], base_url="${DOC_BASE}/v1")
 
 res = aiv.chat.completions.create(
     model="aiv-1",
     messages=[{"role": "user", "content": "Draft a friendly appointment reminder text."}],
 )
 print(res.choices[0].message.content)`};
-let lang='curl';
+let lang='js';
 function showCode(l){lang=l;$('codeBlock').textContent=SAMPLES[l];document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.lang===l)));}
 document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>showCode(b.dataset.lang));
-$('copyCode').onclick=e=>copyText(SAMPLES[lang],e.currentTarget);showCode('curl');
+$('copyCode').onclick=e=>copyText(SAMPLES[lang],e.currentTarget);showCode('js');
 
 /* show a new key */
 function keyCard(title,key,sub){

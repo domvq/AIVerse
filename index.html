@@ -107,8 +107,8 @@ h3{font:500 24px/1.2 var(--display);letter-spacing:-.02em;margin:0}
 .rowi .v b{color:var(--fg);font-weight:500}
 .rec{display:inline-block;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--good);border:1px solid currentColor;border-radius:999px;padding:4px 8px;margin-left:8px;vertical-align:2px}
 
-/* groq steps */
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:8px}
+/* key setup steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:8px}
 .step{background:var(--card);border-radius:16px;padding:26px 26px 28px;min-width:0}
 .step .n{font:500 13px/1 var(--mono);color:var(--muted)}
 .step h4{font:500 18px/1.3 var(--display);letter-spacing:-.01em;margin:16px 0 8px}
@@ -126,6 +126,7 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 .foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
 .fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
 
+@media (max-width:1100px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:900px){
   .links{display:none}
   .apps,.steps{grid-template-columns:1fr}
@@ -237,7 +238,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         <a class="btn dark" href="builder.html">Build AI <svg><use href="#arrow"/></svg></a>
         <a class="btn pill" href="#apps">Explore the apps</a>
       </div>
-      <a class="keylink" href="#groq">Get a free AI key <svg><use href="#arrow"/></svg></a>
+      <a class="keylink" href="#setup">Set up your AIV key <svg><use href="#arrow"/></svg></a>
     </section>
 
     <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
@@ -324,31 +325,31 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <section class="split" id="access" style="margin-top:96px">
       <div class="intro">
         <h2>Bring your own AI</h2>
-        <p>Every AI Verse app lets you choose where the AI runs. Start free with a Groq key for testing, or get an AIV API key for full use: one key runs every app at full strength.</p>
-        <div class="cta-row"><a class="btn dark" href="api.html#plans">Get AIV key <svg><use href="#arrow"/></svg></a><a class="btn pill" href="#groq">Free Groq setup guide</a></div>
+        <p>Every AI Verse app lets you choose where the AI runs. Start with the free AI built into every app, or get an AIV API key for full use: one key runs every app at full strength.</p>
+        <div class="cta-row"><a class="btn dark" href="api.html#plans">Get AIV key <svg><use href="#arrow"/></svg></a><a class="btn pill" href="#setup">AIV key setup guide</a></div>
       </div>
       <div class="rows">
         <div class="rowi"><div class="k">AIV API key<span class="rec full">Recommended for full use</span></div><div class="v"><b>Full-strength AI, one key for every app.</b> Monthly plans from $9. Buy a key on the <a href="api.html#plans">API page</a> and paste it into any app's Settings → AI provider → AIV key.</div></div>
-        <div class="rowi"><div class="k">Groq key<span class="rec">Recommended for testing</span></div><div class="v"><b>Free tier, very fast.</b> Create a key at console.groq.com and paste it into any app's Settings. Also unlocks voice transcription and photo analysis.</div></div>
         <div class="rowi"><div class="k">Other API key</div><div class="v">Use a key you already have from OpenAI, OpenRouter, Google Gemini, Mistral, Together AI or DeepSeek.</div></div>
         <div class="rowi"><div class="k">Local model</div><div class="v">Run a model on your own computer with Ollama or LM Studio. Nothing leaves your machine.</div></div>
         <div class="rowi"><div class="k">In-browser</div><div class="v">A small model downloads once (about 400 MB) and runs on your graphics card in Chrome or Edge. Private and works offline.</div></div>
       </div>
     </section>
 
-    <section id="groq" style="padding-block:24px 96px">
+    <section id="setup" style="padding-block:24px 96px">
       <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px">
         <span class="eyebrow">Setup guide</span>
-        <h2>Get your free Groq key</h2>
+        <h2>Set up your AIV key</h2>
       </div>
       <div class="steps">
-        <div class="step"><span class="n">Step 1</span><h4>Create a Groq account</h4><p>Go to <a href="https://console.groq.com" target="_blank" rel="noopener">console.groq.com</a> and sign in with Google, GitHub or email. No credit card is needed for the free tier.</p></div>
-        <div class="step"><span class="n">Step 2</span><h4>Create an API key</h4><p>Open <b>API Keys</b> and choose <b>Create API Key</b>. Copy it right away, since Groq shows it only once. It starts with <code>gsk_</code>.</p></div>
-        <div class="step"><span class="n">Step 3</span><h4>Paste it into the app</h4><p>In any AI Verse app, open <b>Settings → AI provider → Groq key</b>, paste the key, then press <b>Test connection</b>.</p></div>
+        <div class="step"><span class="n">Step 1</span><h4>Choose a plan</h4><p>Go to the <a href="api.html#plans">API page</a>, pick Starter, Pro or Business, and pay securely through Stripe. AI Verse never sees your card details.</p></div>
+        <div class="step"><span class="n">Step 2</span><h4>Copy your key</h4><p>After checkout you return to the API page and your key is shown once. It starts with <code>aiv_live_</code>. Save it somewhere safe, like a password manager.</p></div>
+        <div class="step"><span class="n">Step 3</span><h4>Paste it into the app</h4><p>In any AI Verse app, open <b>Settings → AI provider → AIV key</b>, paste the key, then press <b>Test connection</b>.</p></div>
+        <div class="step"><span class="n">Step 4</span><h4>Use it everywhere</h4><p>The same key works in every AI Verse app. Check your usage or replace a lost key anytime under <a href="api.html#key">My key</a>.</p></div>
       </div>
       <div class="keybar">
-        <p>Your key is saved only in your browser and sent only to Groq. You can delete it or create a new one at any time.</p>
-        <a class="btn" href="https://console.groq.com/keys" target="_blank" rel="noopener">Open Groq console <svg><use href="#arrow"/></svg></a>
+        <p>Your key is saved only in your browser and sent only to AI Verse. Keep it private, and replace it from My key if it is ever shared.</p>
+        <a class="btn" href="api.html#plans">Get AIV key <svg><use href="#arrow"/></svg></a>
       </div>
     </section>
 
@@ -358,7 +359,6 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         <p>The apps are single pages that open instantly. There are no accounts to create and no servers holding your information.</p>
       </div>
       <div class="rows">
-        <div class="rowi"><div class="k">Your data stays with you</div><div class="v">Tasks, workouts, budgets and notes are stored in your browser. Export a backup or erase everything from Settings.</div></div>
         <div class="rowi"><div class="k">You approve the actions</div><div class="v">The finance advisor queues changes for your approval and never places real trades. Aide saves email drafts but never sends on its own.</div></div>
         <div class="rowi"><div class="k">Free to use</div><div class="v">The apps cost nothing. You only pay your AI provider if you go beyond its free tier.</div></div>
         <div class="rowi"><div class="k">Works on any device</div><div class="v">Phone, tablet or computer. Voice input works in Chrome, Edge and Safari.</div></div>
@@ -372,7 +372,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="#top"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="#groq">Groq setup</a>
+        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
