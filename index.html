@@ -161,18 +161,6 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 .rowi a.k:hover{text-decoration:underline;text-underline-offset:3px}
 #app-list{scroll-margin-top:90px;padding-bottom:16px}
 
-/* what we do */
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.offer{margin-bottom:16px}
-.offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.offer-c{display:flex;flex-direction:column;gap:10px;background:var(--card);border-radius:20px;padding:28px 26px 26px;color:inherit;text-decoration:none;min-width:0;transition:background .15s}
-.offer-c:hover{background:var(--pill)}
-.offer-c:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
-.offer-c h3{font:500 22px/1.2 var(--display);letter-spacing:-.02em;margin:4px 0 0}
-.offer-c p{color:var(--muted);margin:0;font-size:15px;flex:1}
-.offer-c .go{display:inline-flex;align-items:center;gap:6px;font-weight:500;font-size:14px;margin-top:6px}
-.offer-c .go svg{width:12px;height:12px}
-@media (max-width:900px){.offers{grid-template-columns:1fr}}
 /* chatbot builder promo */
 .promo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:var(--card);border-radius:22px;padding:44px;margin-bottom:16px}
 .promo-copy h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
@@ -251,22 +239,14 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <section class="hero">
       <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
       <h1>Free AI apps for everyday life</h1>
-      <p class="lede">Use free AI apps for studying, money, planning, fitness, photos and careers, with 20 free daily uses in every app. Build your own AI in minutes, or let our team build an AI tool just for you.</p>
+      <p class="lede">Use free AI apps for studying, money, planning, fitness, photos and careers. Build your own AI in minutes, or let our team build an AI tool just for you.</p>
       <div class="cta">
         <a class="btn dark" href="#apps">Explore free apps <svg><use href="#arrow"/></svg></a>
         <a class="btn pill" href="builder.html">Build your own AI</a>
       </div>
-      <a class="keylink" href="business.html">Have us build an AI tool for you <svg><use href="#arrow"/></svg></a>
+      <a class="keylink" href="business.html">We build your AI <svg><use href="#arrow"/></svg></a>
     </section>
 
-    <section class="offer" aria-labelledby="offerTitle">
-      <h2 id="offerTitle" class="vh">What AI Verse does</h2>
-      <div class="offers">
-        <a class="offer-c" href="#apps"><span class="eyebrow">Use</span><h3>Free everyday AI apps</h3><p>Six AI apps for studying, money, planning, fitness, photos and careers. Every app includes 20 free daily uses, with no account needed.</p><span class="go">Explore the apps <svg><use href="#arrow"/></svg></span></a>
-        <a class="offer-c" href="builder.html"><span class="eyebrow">Build</span><h3>Build your own AI</h3><p>Make a personal AI that knows your notes, goals and routine in about a minute. No coding, free to try.</p><span class="go">Start building <svg><use href="#arrow"/></svg></span></a>
-        <a class="offer-c" href="business.html"><span class="eyebrow">Made for you</span><h3>AI tools built for you</h3><p>Tell us what you need and our team builds a custom AI tool around it, for you, your family or your business.</p><span class="go">Request a tool <svg><use href="#arrow"/></svg></span></a>
-      </div>
-    </section>
 
     <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
       <div class="promo-copy">
