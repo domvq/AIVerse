@@ -193,6 +193,10 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--mute
 .foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
 .fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
 
+/* closing call to action */
+.endcta{text-align:center;padding-block:88px 96px;border-top:1px solid var(--line)}
+.endcta p{color:var(--muted);max-width:52ch;margin:16px auto 0;text-wrap:balance}
+.endcta .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
 /* deploy section */
 .deploy{padding-block:72px 88px;border-top:1px solid var(--line);scroll-margin-top:80px}
 .deploy-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
@@ -289,6 +293,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="cta">
       <a class="btn dark" href="#build">Start building <svg><use href="#arrow"/></svg></a>
       <button class="btn pill" type="button" id="exampleBtn">Try an example</button>
+      <button class="btn line" type="button" data-buy-ai>Buy AI</button>
     </div>
   </section>
 
@@ -462,6 +467,15 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <div class="rowi"><span class="n">01</span><div><b>Build</b><span data-k="how1">Say what you want help with and add your notes, files or a website. Your AI learns from everything you add.</span></div></div>
       <div class="rowi"><span class="n">02</span><div><b>Try 3 free messages</b><span data-k="how2">Ask it real questions from your day. Change your info and rebuild as often as you like.</span></div></div>
       <div class="rowi"><span class="n">03</span><div><b data-k="how3T">Keep it</b><span data-k="how3">After purchase, our team switches your AI on. You get your own link that works on your phone and computer, and you can share it with family or friends.</span></div></div>
+    </div>
+  </section>
+  <section class="endcta" aria-labelledby="endTitle">
+    <h2 id="endTitle">Ready to make your own AI?</h2>
+    <p>Build it free and try 3 messages. When it's helping, buy it to keep it running and use it anywhere: a share link, your website, your own server or your app.</p>
+    <div class="cta">
+      <a class="btn dark" href="#build">Start building <svg><use href="#arrow"/></svg></a>
+      <button class="btn pill" type="button" data-example>Try an example</button>
+      <button class="btn line" type="button" data-buy-ai>Buy AI</button>
     </div>
   </section>
 </main>
@@ -700,6 +714,7 @@ async function send(text){
 function showPaywall(){
   const d=$('paywall');if(d.open||!S.bot)return;
   $('payName').textContent=S.bot.name||('Your '+W());
+  $('payTitle').textContent=S.bot.trialLeft>0?'Buy your '+W():'Your free messages are used up';
   const q=new URLSearchParams({bot:S.bot.id,biz:S.form.business||'',site:S.form.website||'',name:S.bot.name||'',kind:kind()});
   $('payBuy').href=CHECKOUT?CHECKOUT+(CHECKOUT.includes('?')?'&':'?')+'client_reference_id='+encodeURIComponent(S.bot.id):'business.html?'+q.toString()+'#order';
   try{d.showModal();}catch(e){d.setAttribute('open','');}
@@ -731,6 +746,15 @@ function useExample(key){
 }
 $('exampleBtn').addEventListener('click',()=>{if(isBiz())return useExample('coffee');const k=['meal','study','trip','budget','workout','family'];useExample(k[Math.floor(Math.random()*k.length)]);});
 document.querySelectorAll('[data-ex]').forEach(b=>b.addEventListener('click',()=>useExample(b.dataset.ex)));
+document.querySelectorAll('[data-example]').forEach(b=>b.addEventListener('click',()=>$('exampleBtn').click()));
+/* Buy AI: checkout for the AI built on this page */
+document.querySelectorAll('[data-buy-ai]').forEach(b=>b.addEventListener('click',()=>{
+  if(S.bot&&S.bot.status==='active'){$('deploy').scrollIntoView({behavior:'smooth'});status('Your AI is already live. Everything you need is in Deploy below.','good');return;}
+  if(S.bot){showPaywall();return;}
+  $('build').scrollIntoView({behavior:'smooth'});
+  status(`Build your ${W()} first. It's free to try with 3 messages. Then press <b>Buy AI</b> to keep it.`);
+  setTimeout(()=>$('business').focus({preventScroll:true}),500);
+}));
 
 /* ---------- deploy ---------- */
 const CFG=window.AIV_SITE||{};const CHECKOUT=(CFG.aiCheckout||'').trim();
