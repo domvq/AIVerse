@@ -94,13 +94,13 @@ function render(){
   b.scrollTop=b.scrollHeight;$('send').disabled=busy||!$('input').value.trim();
 }
 async function start(){
-  if(!SERVER||!/^[a-zA-Z0-9]{10,16}$/.test(id)){$('name').textContent='Chat';stateMsg('This chat isn\'t available','Check the link you were given, or contact the business directly.');return;}
+  if(!SERVER||!/^[a-zA-Z0-9]{10,16}$/.test(id)){$('name').textContent='Chat';stateMsg('This chat isn\'t available','Check the link you were given, or ask the person who shared it.');return;}
   try{const r=await fetch(`${SERVER}/bots/${encodeURIComponent(id)}`);if(!r.ok)throw new Error(String(r.status));bot=await r.json();}
-  catch(e){$('name').textContent='Chat';stateMsg('This chat isn\'t available','Check the link you were given, or contact the business directly.');return;}
+  catch(e){$('name').textContent='Chat';stateMsg('This chat isn\'t available','Check the link you were given, or ask the person who shared it.');return;}
   const c=/^#[0-9a-f]{6}$/i.test(bot.color||'')?bot.color:'#111111';
   document.documentElement.style.setProperty('--accent',c);document.documentElement.style.setProperty('--on-accent',onColor(c));
   $('name').textContent=bot.name;$('av').textContent=(bot.name.trim()[0]||'A').toUpperCase();document.title=bot.name;
-  if(bot.status!=='active'){$('sub').textContent='Offline';stateMsg('This chatbot isn\'t live yet',`${bot.business||'This business'} hasn't switched it on. Please contact them directly.`);return;}
+  if(bot.status!=='active'){$('sub').textContent='Offline';stateMsg('This chatbot isn\'t live yet',bot.kind==='personal'?'It hasn\'t been switched on yet. Please check back soon.':`${bot.business||'This business'} hasn't switched it on. Please contact them directly.`);return;}
   $('sub').textContent='Online';$('form').hidden=false;render();if(!embed)$('input').focus();
 }
 async function send(text){

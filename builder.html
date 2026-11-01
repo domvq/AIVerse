@@ -3,13 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AIV Chatbot Builder</title>
+<title>Build Your Own AI Assistant, Free to Try | AI Verse</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Build an AI chatbot for your business from your details, website or files. Try it free with 3 messages.">
+<meta name="description" content="Build your own personal AI in about a minute, no coding. Make a meal planner, study buddy, trip planner or budget helper that knows your notes and goals. Try it free with 3 messages.">
+<link rel="canonical" href="https://aiverse.it.com/builder.html">
+<meta property="og:title" content="Build your own AI | AI Verse">
+<meta property="og:description" content="Make a personal AI that knows your notes, goals and routine. No coding. Try it free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aiverse.it.com/builder.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -188,6 +193,20 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--mute
 .foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
 .fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
 
+/* who-it's-for switch and idea cards */
+.modebar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border-radius:18px;padding:16px 20px}
+.modebar>span{font-weight:500}
+.ideas-sec{padding-block:88px;border-top:1px solid var(--line)}
+.ideas-sec>p{color:var(--muted);max-width:52ch;margin:16px 0 0}
+.ideas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
+.idea{background:var(--card);border-radius:18px;padding:24px 24px 22px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.idea h3{font:500 19px/1.25 var(--display);letter-spacing:-.01em;margin:0}
+.idea p{color:var(--muted);margin:0;font-size:14.5px;flex:1}
+.idea button{align-self:flex-start;margin-top:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 13.5px/1 var(--body);padding:9px 14px;border-radius:999px;cursor:pointer}
+.idea button:hover{background:var(--pill)}
+.idea button:focus-visible,.modebar input:focus-visible+label{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:900px){.ideas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.ideas{grid-template-columns:1fr}}
 @media (max-width:980px){.bench{grid-template-columns:1fr}.side{position:static}.split{grid-template-columns:1fr;gap:24px;padding-block:72px}}
 @media (max-width:560px){.step{padding:22px 18px 24px}.row2{grid-template-columns:1fr}.hero{padding-block:52px 32px}.pay-in{padding:28px 22px 24px}.price b{font-size:44px}}
 
@@ -243,9 +262,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 <main class="wrap">
   <section class="hero">
-    <span class="eyebrow">AIV Chatbot Builder</span>
-    <h1>Build an AI chatbot for your business.</h1>
-    <p class="lede">Add your business details, your website or your files. In about a minute you'll have a chatbot that answers your customers' questions. Try it free with 3 messages.</p>
+    <span class="eyebrow" data-k="eyebrow">Build AI</span>
+    <h1 data-k="h1">Build your own AI.</h1>
+    <p class="lede" data-k="lede">Make a personal AI that knows your goals, notes and routine. A meal planner, a study buddy, a trip planner, a budget helper: whatever you need help with every day. No coding, ready in about a minute. Try it free with 3 messages.</p>
     <div class="cta">
       <a class="btn dark" href="#build">Start building <svg><use href="#arrow"/></svg></a>
       <button class="btn pill" type="button" id="exampleBtn">Try an example</button>
@@ -254,27 +273,34 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
   <div class="bench" id="build">
     <form class="steps" id="form" novalidate autocomplete="off">
+      <div class="modebar">
+        <span id="kindLbl">Who is it for?</span>
+        <div class="seg" role="radiogroup" aria-labelledby="kindLbl">
+          <input type="radio" name="kind" id="k-personal" value="personal" checked><label for="k-personal">For me</label>
+          <input type="radio" name="kind" id="k-business" value="business"><label for="k-business">For my business</label>
+        </div>
+      </div>
       <section class="step" aria-labelledby="s1">
-        <div class="step-h"><span class="n">1</span><div><h3 id="s1">Your business</h3><p>The basics your customers ask about most.</p></div></div>
+        <div class="step-h"><span class="n">1</span><div><h3 id="s1" data-k="s1">What your AI is for</h3><p data-k="s1p">Tell it the job you want help with.</p></div></div>
         <div class="fields">
-          <label for="business"><span class="lt">Business name <span class="req">*</span></span><input type="text" id="business" maxlength="80" placeholder="e.g. Harbor Light Coffee"><span class="err" id="business-err" hidden></span></label>
-          <label for="about">What does your business do? <textarea id="about" maxlength="3000" placeholder="Who you are, what you sell or offer, and who your customers are."></textarea><span class="err" id="about-err" hidden></span></label>
+          <label for="business"><span class="lt"><span data-k="lt-business">What is your AI for?</span> <span class="req">*</span></span><input type="text" id="business" maxlength="80" placeholder="e.g. Weeknight meal planner"><span class="err" id="business-err" hidden></span></label>
+          <label for="about"><span class="lt" data-k="lt-about">What should it help you with?</span><textarea id="about" maxlength="3000" placeholder="e.g. Plan easy dinners for a family of four, use what's already in my fridge and make a grocery list."></textarea><span class="err" id="about-err" hidden></span></label>
           <div class="row2">
-            <label for="hours"><span class="lt">Hours <span class="hint">Optional</span></span><textarea id="hours" maxlength="800" style="min-height:72px" placeholder="Mon–Fri 7am–6pm&#10;Sat–Sun 8am–4pm"></textarea></label>
-            <label for="location"><span class="lt">Location or service area <span class="hint">Optional</span></span><textarea id="location" maxlength="400" style="min-height:72px" placeholder="Street address, or the areas you serve"></textarea></label>
+            <label for="hours"><span class="lt"><span data-k="lt-hours">Your schedule or routine</span> <span class="hint">Optional</span></span><textarea id="hours" maxlength="800" style="min-height:72px" placeholder="Work Mon–Fri 9–5&#10;Gym Tue and Thu evenings"></textarea></label>
+            <label for="location"><span class="lt"><span data-k="lt-location">Where you live</span> <span class="hint">Optional</span></span><textarea id="location" maxlength="400" style="min-height:72px" placeholder="City or area, for local tips"></textarea></label>
           </div>
-          <label for="contact"><span class="lt">How customers reach you or book <span class="hint">Optional</span></span><input type="text" id="contact" maxlength="400" placeholder="Phone, email, or booking link"></label>
+          <label for="contact" id="contactRow" hidden><span class="lt">How customers reach you or book <span class="hint">Optional</span></span><input type="text" id="contact" maxlength="400" placeholder="Phone, email, or booking link"></label>
         </div>
       </section>
 
       <section class="step" aria-labelledby="s2">
-        <div class="step-h"><span class="n">2</span><div><h3 id="s2">What your chatbot should know</h3><p>Add as much as you like. More detail means better answers.</p></div></div>
+        <div class="step-h"><span class="n">2</span><div><h3 id="s2" data-k="s2">What your AI should know</h3><p data-k="s2p">Add as much as you like. The more it knows, the more personal its help.</p></div></div>
         <div class="fields">
-          <label for="services"><span class="lt">Services, products and prices <span class="hint">Optional</span></span><textarea id="services" maxlength="6000" placeholder="Latte – $4.75&#10;Catering for 10–50 people, from $120"></textarea></label>
-          <label for="faqs"><span class="lt">Common questions and answers <span class="hint">Optional</span></span><textarea id="faqs" maxlength="8000" placeholder="Q: Do you have parking?&#10;A: Yes, free parking behind the building."></textarea></label>
-          <label for="website"><span class="lt">Your website <span class="hint">Optional · we'll read up to 6 pages</span></span><input type="url" id="website" maxlength="300" inputmode="url" placeholder="yourbusiness.com"><span class="err" id="website-err" hidden></span></label>
+          <label for="services"><span class="lt"><span data-k="lt-services">About you</span> <span class="hint">Optional</span></span><textarea id="services" maxlength="6000" placeholder="Goals, likes and dislikes, people in your home, classes you're taking…"></textarea></label>
+          <label for="faqs"><span class="lt"><span data-k="lt-faqs">How you want help</span> <span class="hint">Optional</span></span><textarea id="faqs" maxlength="8000" placeholder="Keep recipes under 30 minutes.&#10;Explain things simply, then quiz me."></textarea></label>
+          <label for="website"><span class="lt"><span data-k="lt-website">A website to learn from</span> <span class="hint">Optional · we'll read up to 6 pages</span></span><input type="url" id="website" maxlength="300" inputmode="url" placeholder="e.g. your class page or a favorite recipe site"><span class="err" id="website-err" hidden></span></label>
           <div class="lbl">
-            <span>Upload files <span class="hint">Optional · menus, price lists, policies, handbooks</span></span>
+            <span>Upload files <span class="hint" data-k="hint-files">Optional · notes, study guides, plans, lists</span></span>
             <label class="drop" id="drop" for="fileIn">
               <b>Drop files here or choose files</b>
               <span>PDF, Word (.docx), TXT, MD, CSV · up to 5 files, 10 MB each</span>
@@ -282,15 +308,15 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
             </label>
             <ul class="files" id="fileList"></ul>
           </div>
-          <label for="notes"><span class="lt">Anything else <span class="hint">Optional · paste policies, notes or any text</span></span><textarea id="notes" maxlength="30000" placeholder="Return policy, delivery areas, staff bios, specials…"></textarea></label>
+          <label for="notes"><span class="lt">Anything else <span class="hint" data-k="hint-notes">Optional · paste notes, lists or any text</span></span><textarea id="notes" maxlength="30000" placeholder="Favorite recipes, a packing list, class notes…"></textarea></label>
         </div>
       </section>
 
       <section class="step" aria-labelledby="s3">
-        <div class="step-h"><span class="n">3</span><div><h3 id="s3">Personality</h3><p>How your chatbot looks and sounds.</p></div></div>
+        <div class="step-h"><span class="n">3</span><div><h3 id="s3">Personality</h3><p data-k="s3p">How your AI looks and sounds.</p></div></div>
         <div class="fields">
           <div class="row2">
-            <label for="botName"><span class="lt">Chatbot name <span class="hint">Optional</span></span><input type="text" id="botName" maxlength="60" placeholder="e.g. Harbor Light Assistant"></label>
+            <label for="botName"><span class="lt"><span data-k="lt-botName">Name your AI</span> <span class="hint">Optional</span></span><input type="text" id="botName" maxlength="60" placeholder="e.g. Dinner Buddy"></label>
             <label for="greeting"><span class="lt">First message <span class="hint">Optional</span></span><input type="text" id="greeting" maxlength="240" placeholder="Hi! How can I help you today?"></label>
           </div>
           <div class="lbl"><span>Tone</span>
@@ -301,7 +327,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
               <input type="radio" name="tone" id="t-concise" value="concise"><label for="t-concise">Concise</label>
             </div>
           </div>
-          <div class="lbl"><span>Brand color</span>
+          <div class="lbl"><span data-k="lt-color">Color</span>
             <div class="swatches" id="swatches">
               <button type="button" class="sw" data-c="#111111" style="background:#111111" aria-label="Black"></button>
               <button type="button" class="sw" data-c="#1d4ed8" style="background:#1d4ed8" aria-label="Blue"></button>
@@ -317,7 +343,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       </section>
 
       <div class="actions">
-        <button class="btn dark" type="submit" id="buildBtn">Build my chatbot <svg><use href="#arrow"/></svg></button>
+        <button class="btn dark" type="submit" id="buildBtn">Build my AI <svg><use href="#arrow"/></svg></button>
         <button class="btn line" type="button" id="resetBtn" hidden>Start over</button>
         <p class="statusline grow" id="status" role="status" aria-live="polite"></p>
       </div>
@@ -328,16 +354,16 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <div class="widget" id="widget">
         <div class="w-head">
           <div class="w-av" id="wAv" aria-hidden="true">Y</div>
-          <div class="meta"><b id="wName">Your Business Assistant</b><small id="wSub">Preview</small></div>
+          <div class="meta"><b id="wName">My AI</b><small id="wSub">Preview</small></div>
         </div>
         <div class="w-body" id="wBody" aria-live="polite">
           <div class="b bot" id="wGreet">Hi! How can I help you today?</div>
-          <div class="locked" id="wLock"><b>Your chatbot will appear here</b><span>Fill in your business details and press Build to start chatting.</span></div>
+          <div class="locked" id="wLock"><b data-k="lockT">Your AI will appear here</b><span data-k="lockP">Say what your AI is for and press Build to start chatting.</span></div>
         </div>
         <div class="w-chips" id="wChips"></div>
         <form class="w-in" id="wForm">
-          <label for="wInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Message your chatbot</label>
-          <textarea id="wInput" rows="1" maxlength="2000" placeholder="Ask your chatbot a question" disabled></textarea>
+          <label for="wInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Message your AI</label>
+          <textarea id="wInput" rows="1" maxlength="2000" placeholder="Ask your AI anything" disabled></textarea>
           <button class="w-send" id="wSend" type="submit" aria-label="Send" disabled><svg><use href="#up"/></svg></button>
         </form>
         <div class="w-foot">Powered by AI Verse</div>
@@ -347,21 +373,34 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         <span class="pill">Live</span>
         <div><b style="font-weight:500">Shareable link</b>
           <div class="copyrow" style="margin-top:8px"><code id="shareLink"></code><button class="btn line sm" type="button" data-copy="shareLink">Copy</button></div></div>
-        <div><b style="font-weight:500">Website chat bubble</b><p class="statusline" style="margin:4px 0 0;font-size:13px">Paste this before &lt;/body&gt; on your website.</p>
+        <div><b style="font-weight:500" id="bubbleRow">Website chat bubble</b><p class="statusline" style="margin:4px 0 0;font-size:13px">Paste this before &lt;/body&gt; on your website.</p>
           <div class="copyrow" style="margin-top:8px"><code id="snippet"></code><button class="btn line sm" type="button" data-copy="snippet">Copy</button></div></div>
       </div>
     </aside>
   </div>
 
+  <section class="ideas-sec" aria-labelledby="ideasTitle">
+    <h2 id="ideasTitle">What you can build</h2>
+    <p>Pick an idea to fill in the form, then make it your own. Every AI uses what you tell it plus its general knowledge.</p>
+    <div class="ideas">
+      <article class="idea"><h3>Meal planner</h3><p>Plans weeknight dinners around your diet, budget and what's in your fridge, then writes the grocery list.</p><button type="button" data-ex="meal">Try this</button></article>
+      <article class="idea"><h3>Study buddy</h3><p>Learns your class notes, explains the hard parts simply and quizzes you before the test.</p><button type="button" data-ex="study">Try this</button></article>
+      <article class="idea"><h3>Trip planner</h3><p>Builds day-by-day plans around your dates, budget and the things you love to do.</p><button type="button" data-ex="trip">Try this</button></article>
+      <article class="idea"><h3>Budget helper</h3><p>Knows your income, bills and goals, and helps you plan spending and saving each month.</p><button type="button" data-ex="budget">Try this</button></article>
+      <article class="idea"><h3>Workout coach</h3><p>Makes workouts that fit your schedule, equipment and goals, and adjusts as you get stronger.</p><button type="button" data-ex="workout">Try this</button></article>
+      <article class="idea"><h3>Family organizer</h3><p>Keeps track of everyone's activities and chores, and helps plan the week ahead.</p><button type="button" data-ex="family">Try this</button></article>
+    </div>
+  </section>
+
   <section class="split" aria-label="How it works">
     <div class="intro">
-      <h2>From your info to a live chatbot</h2>
-      <p>Test it here for free. When it sounds right, go live on your website for $150 + API billing.</p>
+      <h2 data-k="howT">From your notes to your own AI</h2>
+      <p data-k="howP">Test it here for free. When it's helping, keep it running for $150 + API billing.</p>
     </div>
     <div class="rows">
-      <div class="rowi"><span class="n">01</span><div><b>Build</b><span>Tell us about your business, link your website or upload files. Your chatbot learns from everything you add.</span></div></div>
-      <div class="rowi"><span class="n">02</span><div><b>Try 3 free messages</b><span>Ask the questions your customers ask. Update your info and rebuild as often as you like.</span></div></div>
-      <div class="rowi"><span class="n">03</span><div><b>Go live</b><span>After purchase, our team switches your chatbot on. You get a chat bubble for your website and a link you can share anywhere.</span></div></div>
+      <div class="rowi"><span class="n">01</span><div><b>Build</b><span data-k="how1">Say what you want help with and add your notes, files or a website. Your AI learns from everything you add.</span></div></div>
+      <div class="rowi"><span class="n">02</span><div><b>Try 3 free messages</b><span data-k="how2">Ask it real questions from your day. Change your info and rebuild as often as you like.</span></div></div>
+      <div class="rowi"><span class="n">03</span><div><b data-k="how3T">Keep it</b><span data-k="how3">After purchase, our team switches your AI on. You get your own link that works on your phone and computer, and you can share it with family or friends.</span></div></div>
     </div>
   </section>
 </main>
@@ -370,16 +409,16 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
   <div class="pay-in">
     <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
     <h2 id="payTitle">Your free messages are used up</h2>
-    <p><b id="payName" style="color:var(--fg);font-weight:500">Your chatbot</b> is ready to work for your business. Purchase to keep using it and put it in front of your customers.</p>
+    <p><b id="payName" style="color:var(--fg);font-weight:500">Your AI</b> <span data-k="payP">is ready to help you every day. Purchase to keep using it on your phone and computer.</span></p>
     <div class="price"><b>$150</b><span>+ API billing</span></div>
     <ul>
-      <li><svg><use href="#tick"/></svg><span>Chat bubble for your website, added with one line of code</span></li>
-      <li><svg><use href="#tick"/></svg><span>A shareable link to your chatbot</span></li>
+      <li><svg><use href="#tick"/></svg><span data-k="pay1">Your own link that works on any phone or computer</span></li>
+      <li><svg><use href="#tick"/></svg><span data-k="pay2">Share it with family or friends</span></li>
       <li><svg><use href="#tick"/></svg><span>Our team confirms your details and switches it on</span></li>
-      <li><svg><use href="#tick"/></svg><span>Keep updating what your chatbot knows</span></li>
+      <li><svg><use href="#tick"/></svg><span data-k="pay4">Keep updating what your AI knows</span></li>
     </ul>
     <a class="btn dark buy" id="payBuy" href="business.html#order">Buy now <svg><use href="#arrow"/></svg></a>
-    <p class="fine2">API billing covers the AI usage from your chatbot's conversations. We'll explain the rates when we confirm your order. Nothing is charged until then.</p>
+    <p class="fine2">API billing covers the AI usage from your conversations. We'll explain the rates when we confirm your order. Nothing is charged until then.</p>
     <div class="alt"><a href="contact.html">Questions? Contact us</a><a href="index.html">Back to home</a></div>
   </div>
 </dialog>
@@ -392,7 +431,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#setup">Key setup</a>
       </nav>
     </div>
-    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Chatbot answers are generated by AI and may be wrong. Information you add is used only to build and run your chatbot.</p>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. AI answers are generated by AI and may be wrong. Information you add is used only to build and run your AI.</p>
   </div>
 </footer>
 
@@ -410,9 +449,32 @@ let S=Object.assign({form:{},docs:[],bot:null,ownerToken:null,chat:[]},load());
 const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(S));}catch(e){try{localStorage.setItem(STORE,JSON.stringify({...S,docs:[]}));}catch(_){}}};
 let busy=false,saveT=0;
 
+/* ---------- for me / for my business ---------- */
+const BIZ={eyebrow:'Chatbot Builder',h1:'Build an AI chatbot for your business.',lede:'Add your business details, your website or your files. In about a minute you\'ll have a chatbot that answers your customers\' questions. Try it free with 3 messages.',
+ s1:'Your business',s1p:'The basics your customers ask about most.','lt-business':'Business name','lt-about':'What does your business do?','lt-hours':'Hours','lt-location':'Location or service area',
+ s2:'What your chatbot should know',s2p:'Add as much as you like. More detail means better answers.','lt-services':'Services, products and prices','lt-faqs':'Common questions and answers','lt-website':'Your website',
+ 'hint-files':'Optional · menus, price lists, policies, handbooks','hint-notes':'Optional · paste policies, notes or any text',s3p:'How your chatbot looks and sounds.','lt-botName':'Chatbot name','lt-color':'Brand color',
+ lockT:'Your chatbot will appear here',lockP:'Fill in your business details and press Build to start chatting.',
+ howT:'From your info to a live chatbot',howP:'Test it here for free. When it sounds right, go live on your website for $150 + API billing.',
+ how1:'Tell us about your business, link your website or upload files. Your chatbot learns from everything you add.',how2:'Ask the questions your customers ask. Update your info and rebuild as often as you like.',how3T:'Go live',how3:'After purchase, our team switches your chatbot on. You get a chat bubble for your website and a link you can share anywhere.',
+ payP:'is ready to work for your business. Purchase to keep using it and put it in front of your customers.',pay1:'Chat bubble for your website, added with one line of code',pay2:'A shareable link to your chatbot',pay4:'Keep updating what your chatbot knows'};
+const BIZ_PH={business:'e.g. Harbor Light Coffee',about:'Who you are, what you sell or offer, and who your customers are.',hours:'Mon–Fri 7am–6pm\nSat–Sun 8am–4pm',location:'Street address, or the areas you serve',services:'Latte – $4.75\nCatering for 10–50 people, from $120',faqs:'Q: Do you have parking?\nA: Yes, free parking behind the building.',website:'yourbusiness.com',notes:'Return policy, delivery areas, staff bios, specials…',botName:'e.g. Harbor Light Assistant'};
+const ME={},ME_PH={};document.querySelectorAll('[data-k]').forEach(el=>ME[el.dataset.k]=el.textContent);Object.keys(BIZ_PH).forEach(id=>ME_PH[id]=$(id).placeholder);
+const ME_TITLE=document.title, BIZ_TITLE='Build an AI Chatbot for Your Business | AI Verse';
+const kind=()=>($('k-business').checked?'business':'personal'), isBiz=()=>kind()==='business';
+const W=()=>isBiz()?'chatbot':'AI';
+function setKind(k){$(k==='business'?'k-business':'k-personal').checked=true;applyKind();}
+function applyKind(){
+  const T=isBiz()?BIZ:ME,P=isBiz()?BIZ_PH:ME_PH;
+  document.querySelectorAll('[data-k]').forEach(el=>{if(T[el.dataset.k]!=null)el.textContent=T[el.dataset.k];});
+  Object.keys(P).forEach(id=>$(id).placeholder=P[id]);
+  $('contactRow').hidden=!isBiz();document.title=isBiz()?BIZ_TITLE:ME_TITLE;
+}
+document.querySelectorAll('input[name=kind]').forEach(r=>r.addEventListener('change',()=>{applyKind();onFormChange();renderChat();}));
+
 /* ---------- form state ---------- */
-function readForm(){const f={};FIELDS.forEach(k=>f[k]=$(k).value);f.tone=(document.querySelector('input[name=tone]:checked')||{}).value||'friendly';f.color=$('color').value;return f;}
-function writeForm(f){FIELDS.forEach(k=>{if(f[k]!=null)$(k).value=f[k];});const t=document.getElementById('t-'+(f.tone||'friendly'));if(t)t.checked=true;if(/^#[0-9a-f]{6}$/i.test(f.color||''))$('color').value=f.color;}
+function readForm(){const f={};FIELDS.forEach(k=>f[k]=$(k).value);f.kind=kind();f.tone=(document.querySelector('input[name=tone]:checked')||{}).value||'friendly';f.color=$('color').value;return f;}
+function writeForm(f){FIELDS.forEach(k=>{if(f[k]!=null)$(k).value=f[k];});if(f.kind)setKind(f.kind);const t=document.getElementById('t-'+(f.tone||'friendly'));if(t)t.checked=true;if(/^#[0-9a-f]{6}$/i.test(f.color||''))$('color').value=f.color;}
 function onFormChange(){S.form=readForm();clearTimeout(saveT);saveT=setTimeout(save,300);paintWidget();}
 $('form').addEventListener('input',onFormChange);$('form').addEventListener('change',onFormChange);
 
@@ -421,7 +483,7 @@ function onColor(hex){const n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b
 function paintWidget(){
   const f=S.form, w=$('widget'), c=/^#[0-9a-f]{6}$/i.test(f.color||'')?f.color:'#111111';
   w.style.setProperty('--accent',c);w.style.setProperty('--on-accent',onColor(c));
-  const name=(f.botName||'').trim()||((f.business||'').trim()?f.business.trim()+' Assistant':'Your Business Assistant');
+  const name=(f.botName||'').trim()||(isBiz()?((f.business||'').trim()?f.business.trim()+' Assistant':'Your Business Assistant'):'My AI');
   $('wName').textContent=name;$('wAv').textContent=(name.trim()[0]||'A').toUpperCase();
   $('wGreet').textContent=(f.greeting||'').trim()||'Hi! How can I help you today?';
   document.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.c.toLowerCase()===c.toLowerCase())));
@@ -478,10 +540,10 @@ function setErr(id,msg){const e=$(id+'-err');if(!e)return;e.textContent=msg||'';
 function validate(){
   const f=readForm();let first=null;
   setErr('business','');setErr('about','');setErr('website','');
-  if(!f.business.trim()){setErr('business','Enter your business name.');first=first||'business';}
+  if(!f.business.trim()){setErr('business',isBiz()?'Enter your business name.':'Tell us what your AI is for, like "meal planner" or "study buddy".');first=first||'business';}
   const docs=S.docs.filter(d=>!d.error&&d.text);
-  if(!(f.about.trim()||f.services.trim()||f.faqs.trim()||f.notes.trim()||f.website.trim()||docs.length)){setErr('about','Describe your business, or add your website, a file, or other information below.');first=first||'about';}
-  if(f.website.trim()){let ok=false;try{const u=new URL(/^https?:\/\//i.test(f.website.trim())?f.website.trim():'https://'+f.website.trim());ok=u.hostname.includes('.');}catch(e){}if(!ok){setErr('website','Check the website address, for example yourbusiness.com.');first=first||'website';}}
+  if(!(f.about.trim()||f.services.trim()||f.faqs.trim()||f.notes.trim()||f.website.trim()||docs.length)){setErr('about',isBiz()?'Describe your business, or add your website, a file, or other information below.':'Describe what it should help with, or add a file, a website or notes below.');first=first||'about';}
+  if(f.website.trim()){let ok=false;try{const u=new URL(/^https?:\/\//i.test(f.website.trim())?f.website.trim():'https://'+f.website.trim());ok=u.hostname.includes('.');}catch(e){}if(!ok){setErr('website','Check the website address, for example example.com.');first=first||'website';}}
   if(S.docs.some(d=>d.reading)){status('Wait for your files to finish reading.','bad');return false;}
   if(first){$(first).focus();return false;}
   return true;
@@ -504,7 +566,7 @@ $('form').addEventListener('submit',async e=>{
   const body={...f,documents:S.docs.filter(d=>!d.error&&d.text).map(d=>({name:d.name,text:d.text}))};
   const updating=!!(S.bot&&S.ownerToken);
   busy=true;$('buildBtn').disabled=true;$('warns').hidden=true;
-  status(`<span style="display:inline-flex;align-items:center;gap:8px"><span class="spin"></span>${f.website.trim()?'Reading your website and building your chatbot…':'Building your chatbot…'}</span>`);
+  status(`<span style="display:inline-flex;align-items:center;gap:8px"><span class="spin"></span>${f.website.trim()?'Reading the website and building your '+W()+'…':'Building your '+W()+'…'}</span>`);
   try{
     let r=await call(updating?'/bots/'+S.bot.id:'/bots',{method:updating?'PUT':'POST',headers:{'Content-Type':'application/json',...(updating?{Authorization:'Bearer '+S.ownerToken}:{})},body:JSON.stringify(body)});
     if(updating&&(r.status===404||r.status===403)){S.bot=null;S.ownerToken=null;r=await call('/bots',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});}
@@ -513,7 +575,7 @@ $('form').addEventListener('submit',async e=>{
     S.bot={id:j.id,name:j.name,business:j.business,status:j.status,trialLeft:j.trialLeft,greeting:j.greeting,color:j.color};
     S.chat=[];save();
     const src=[];if(j.sources){if(j.sources.websitePages)src.push(`${j.sources.websitePages} website page${j.sources.websitePages>1?'s':''}`);if(j.sources.documents)src.push(`${j.sources.documents} file${j.sources.documents>1?'s':''}`);}
-    status(`${updating?'Chatbot updated':'Your chatbot is ready'}${src.length?' · learned from '+src.join(' and ')+' plus your details':''}. Try it on the right.`,'good');
+    status(`${updating?(isBiz()?'Chatbot updated':'Your AI is updated'):'Your '+W()+' is ready'}${src.length?' · learned from '+src.join(' and ')+' plus your details':''}. Try it on the right.`,'good');
     const w=j.warnings||[];$('warns').innerHTML=w.map(x=>`<li>${esc(x)}</li>`).join('');$('warns').hidden=!w.length;
     renderChat();
     if(matchMedia('(max-width:980px)').matches)$('widget').scrollIntoView({behavior:'smooth',block:'start'});
@@ -526,7 +588,7 @@ $('form').addEventListener('submit',async e=>{
 /* ---------- chat ---------- */
 function inline(s){return s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>').replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g,'$1<a href="$2" target="_blank" rel="noopener">$2</a>');}
 function md(t){let h='',L=null;const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of esc(t).split('\n')){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inline(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inline(m[1])}</li>`;continue;}close();if(l.trim())h+=`<p>${inline(l.replace(/^#+\s*/,''))}</p>`;}close();return h;}
-function chipsFor(f){const c=[];if(f.hours&&f.hours.trim())c.push('What are your hours?');if((f.services&&f.services.trim())||S.docs.length)c.push('What do you offer, and how much does it cost?');if(f.location&&f.location.trim())c.push('Where are you located?');if(f.contact&&f.contact.trim())c.push('How do I book or get in touch?');if(c.length<3)c.push('What makes you different?');return c.slice(0,3);}
+function chipsFor(f){if(!isBiz())return['What can you help me with?','Make me a plan for this week','Where should I start?'];const c=[];if(f.hours&&f.hours.trim())c.push('What are your hours?');if((f.services&&f.services.trim())||S.docs.length)c.push('What do you offer, and how much does it cost?');if(f.location&&f.location.trim())c.push('Where are you located?');if(f.contact&&f.contact.trim())c.push('How do I book or get in touch?');if(c.length<3)c.push('What makes you different?');return c.slice(0,3);}
 function renderChat(){
   const built=!!S.bot, live=built&&S.bot.status==='active', left=built&&S.bot.status==='trial'?S.bot.trialLeft:null;
   $('wLock').hidden=built;
@@ -534,14 +596,14 @@ function renderChat(){
   for(const m of S.chat){const d=document.createElement('div');d.className='b '+(m.role==='user'?'me':m.error?'bot err':'bot');if(m.role==='user')d.textContent=m.content;else d.innerHTML=md(m.content);$('wBody').appendChild(d);}
   const blocked=!built||(left!==null&&left<=0)||S.bot.status==='paused';
   $('wInput').disabled=blocked||busy;$('wSend').disabled=blocked||busy||!$('wInput').value.trim();
-  $('wInput').placeholder=!built?'Build your chatbot to start':left===0?'Free messages used up':'Ask your chatbot a question';
+  $('wInput').placeholder=!built?'Build your '+W()+' to start':left===0?'Free messages used up':isBiz()?'Ask your chatbot a question':'Ask your AI anything';
   $('wSub').textContent=!built?'Preview':live?'Online':S.bot.status==='paused'?'Paused':`Free trial · ${left} message${left===1?'':'s'} left`;
   $('wChips').innerHTML=built&&!blocked&&!S.chat.length?chipsFor(S.form).map(c=>`<button type="button">${esc(c)}</button>`).join(''):'';
   $('meter').hidden=!(built&&S.bot.status==='trial');
   if(left!==null){$('meterText').textContent=left>0?`${left} free message${left===1?'':'s'} left`:'Free messages used up';document.querySelectorAll('#meter .pips i').forEach((p,i)=>p.classList.toggle('used',i>=left));}
-  $('livePanel').hidden=!live;
+  $('livePanel').hidden=!live;$('bubbleRow').parentElement.hidden=!isBiz();
   if(live){const link=new URL('bot.html?id='+encodeURIComponent(S.bot.id),location.href).href;$('shareLink').textContent=link;$('snippet').textContent=`<script src="${new URL('widget.js',location.href).href}" data-bot="${S.bot.id}" data-color="${S.bot.color||S.form.color||'#111111'}" defer><\/script>`;}
-  $('resetBtn').hidden=!built;$('buildBtn').firstChild.textContent=built?'Update chatbot ':'Build my chatbot ';
+  $('resetBtn').hidden=!built;$('buildBtn').firstChild.textContent=built?(isBiz()?'Update chatbot ':'Update my AI '):(isBiz()?'Build my chatbot ':'Build my AI ');
   const b=$('wBody');b.scrollTop=b.scrollHeight;
 }
 $('wChips').addEventListener('click',e=>{const b=e.target.closest('button');if(b)send(b.textContent);});
@@ -577,8 +639,8 @@ async function send(text){
 /* ---------- paywall ---------- */
 function showPaywall(){
   const d=$('paywall');if(d.open||!S.bot)return;
-  $('payName').textContent=S.bot.name||'Your chatbot';
-  const q=new URLSearchParams({bot:S.bot.id,biz:S.form.business||'',site:S.form.website||'',name:S.bot.name||''});
+  $('payName').textContent=S.bot.name||('Your '+W());
+  const q=new URLSearchParams({bot:S.bot.id,biz:S.form.business||'',site:S.form.website||'',name:S.bot.name||'',kind:kind()});
   $('payBuy').href='business.html?'+q.toString()+'#order';
   try{d.showModal();}catch(e){d.setAttribute('open','');}
   $('payBuy').focus();
@@ -590,16 +652,31 @@ $('paywall').addEventListener('close',()=>{if(S.bot&&S.bot.status==='trial'&&S.b
 let resetArmed=false;
 $('resetBtn').addEventListener('click',()=>{
   if(!resetArmed){resetArmed=true;$('resetBtn').textContent='Click again to start over';setTimeout(()=>{resetArmed=false;$('resetBtn').textContent='Start over';},3500);return;}
-  S={form:{},docs:[],bot:null,ownerToken:null,chat:[]};save();$('form').reset();$('color').value='#111111';renderFiles();paintWidget();renderChat();status('');$('warns').hidden=true;resetArmed=false;$('resetBtn').textContent='Start over';$('business').focus();
+  const k0=kind();S={form:{},docs:[],bot:null,ownerToken:null,chat:[]};save();$('form').reset();setKind(k0);$('color').value='#111111';renderFiles();paintWidget();renderChat();status('');$('warns').hidden=true;resetArmed=false;$('resetBtn').textContent='Start over';$('business').focus();
 });
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;const t=$(b.dataset.copy).textContent;try{await navigator.clipboard.writeText(t);b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500);}catch(_){const r=document.createRange();r.selectNodeContents($(b.dataset.copy));getSelection().removeAllRanges();getSelection().addRange(r);b.textContent='Press Ctrl+C';}});
-$('exampleBtn').addEventListener('click',()=>{
-  writeForm({business:'Harbor Light Coffee',about:'A neighborhood coffee shop and bakery on the waterfront. We roast our own beans and bake pastries fresh every morning. Example business for trying the builder.',hours:'Mon–Fri 6:30am–5pm\nSat–Sun 7:30am–4pm',location:'214 Pier Street, Bayview',contact:'(555) 014-2290 · hello@harborlight.example',services:'Drip coffee – $3.25\nLatte – $4.75\nCold brew – $4.50\nAlmond croissant – $4.25\nCatering boxes for 10–50 people, from $120',faqs:'Q: Do you have oat milk?\nA: Yes, oat and almond milk at no extra charge.\nQ: Is there Wi-Fi?\nA: Yes, free Wi-Fi. Ask for the password at the counter.\nQ: Are dogs allowed?\nA: Dogs are welcome on the patio.',website:'',notes:'',botName:'Harbor Light Helper',greeting:'Hi! Ask me about our menu, hours or catering.',tone:'friendly',color:'#0f766e'});
-  onFormChange();$('build').scrollIntoView({behavior:'smooth'});status('Example filled in. Press Build my chatbot to try it.');
-});
+const EX={
+ coffee:{kind:'business',business:'Harbor Light Coffee',about:'A neighborhood coffee shop and bakery on the waterfront. We roast our own beans and bake pastries fresh every morning. Example business for trying the builder.',hours:'Mon–Fri 6:30am–5pm\nSat–Sun 7:30am–4pm',location:'214 Pier Street, Bayview',contact:'(555) 014-2290 · hello@harborlight.example',services:'Drip coffee – $3.25\nLatte – $4.75\nCold brew – $4.50\nAlmond croissant – $4.25\nCatering boxes for 10–50 people, from $120',faqs:'Q: Do you have oat milk?\nA: Yes, oat and almond milk at no extra charge.\nQ: Is there Wi-Fi?\nA: Yes, free Wi-Fi. Ask for the password at the counter.\nQ: Are dogs allowed?\nA: Dogs are welcome on the patio.',botName:'Harbor Light Helper',greeting:'Hi! Ask me about our menu, hours or catering.',tone:'friendly',color:'#0f766e'},
+ meal:{kind:'personal',business:'Weeknight meal planner',about:'Plan easy dinners for my family of four, use what is already in the fridge, and make a grocery list for the week.',hours:'Home by 6pm on weekdays\nGrocery shopping on Sundays',location:'',services:'Two adults and two kids (ages 7 and 10).\nOne of us is vegetarian.\nThe kids don\'t like spicy food or mushrooms.\nGrocery budget is about $150 a week.',faqs:'Dinners should take 30 minutes or less.\nSuggest leftovers for lunch when you can.\nGroup the grocery list by store aisle.',botName:'Dinner Buddy',greeting:'Hi! Tell me what\'s in your fridge and I\'ll plan dinner.',tone:'friendly',color:'#c2410c'},
+ study:{kind:'personal',business:'Biology study buddy',about:'Help me understand my intro biology class, explain hard topics simply and quiz me before exams.',hours:'Exam 2 is in three weeks\nI study weeknights after 8pm',location:'',services:'First-year college student.\nI understand things best with everyday examples.\nCurrent unit: cells, mitosis and meiosis.',faqs:'Explain simply first, then go deeper if I ask.\nEnd explanations with one quick question to check I understood.\nDon\'t just give me homework answers; walk me through them.',notes:'Tip: upload your class notes or study guide above so your study buddy learns them.',botName:'Bio Buddy',greeting:'Ready to study? Ask me anything or say "quiz me".',tone:'playful',color:'#15803d'},
+ trip:{kind:'personal',business:'Trip planner',about:'Plan a 5-day trip to Portland, Oregon with daily plans, food spots and a rough budget.',hours:'Trip dates: June 12–16',location:'Flying in from Denver',services:'Two adults in our 30s.\nWe love food, coffee, hiking and bookstores.\nWe don\'t want to rent a car.\nBudget: about $1,500 not counting flights.',faqs:'Keep each day relaxed: no more than 3 main stops.\nGroup stops by neighborhood to cut travel time.\nSuggest a backup plan for rainy days.',botName:'Trip Planner',greeting:'Where are we going? I\'ll plan it around what you love.',tone:'friendly',color:'#1d4ed8'},
+ budget:{kind:'personal',business:'Monthly budget helper',about:'Help me plan my monthly spending, keep track of bills and save for an emergency fund.',hours:'Paid every other Friday',location:'',services:'Take-home pay: about $3,400 a month.\nRent $1,250, car payment $310, phone $60, internet $55.\nGoal: save $3,000 for emergencies by December.',faqs:'Use simple numbers and short tables.\nPoint out where I can cut back, but don\'t lecture me.\nCheck in on the savings goal when we talk.',botName:'Budget Buddy',greeting:'Hi! Want to plan this month or check a purchase?',tone:'concise',color:'#0f766e'},
+ workout:{kind:'personal',business:'Home workout coach',about:'Make workouts I can do at home, help me build strength and adjust them as I improve.',hours:'Mornings Mon, Wed and Fri for 30 minutes',location:'',services:'Equipment: two adjustable dumbbells (up to 25 lb) and a yoga mat.\nGoal: get stronger and have more energy.\nBeginner. My lower back gets sore sometimes.',faqs:'Give sets, reps and rest times.\nSuggest an easier and a harder version of each move.\nRemind me to warm up.',botName:'Coach',greeting:'Ready to train? Tell me how you\'re feeling today.',tone:'friendly',color:'#be185d'},
+ family:{kind:'personal',business:'Family organizer',about:'Keep track of our family schedule, plan the week, split chores fairly and remember birthdays.',hours:'Soccer Tue/Thu 5pm (Maya)\nPiano Wed 4pm (Leo)\nTrash goes out Sunday night',location:'',services:'Family: me, my partner Sam, Maya (11) and Leo (8).\nWe both work weekdays until 5:30.\nGrandma\'s birthday is March 3.',faqs:'Make chore lists kids can follow.\nWhen I ask "what\'s this week", list each day in order.\nKeep it short and practical.',botName:'Home Base',greeting:'Hi! Want to plan the week or sort out chores?',tone:'friendly',color:'#6d28d9'}};
+function useExample(key){
+  const e=EX[key];if(!e)return;
+  writeForm({business:'',about:'',hours:'',location:'',contact:'',services:'',faqs:'',website:'',notes:'',botName:'',greeting:'',...e});
+  onFormChange();renderChat();$('build').scrollIntoView({behavior:'smooth'});
+  status(`Example filled in. Change anything you like, then press ${isBiz()?'Build my chatbot':'Build my AI'}.`);
+}
+$('exampleBtn').addEventListener('click',()=>{if(isBiz())return useExample('coffee');const k=['meal','study','trip','budget','workout','family'];useExample(k[Math.floor(Math.random()*k.length)]);});
+document.querySelectorAll('[data-ex]').forEach(b=>b.addEventListener('click',()=>useExample(b.dataset.ex)));
 
 /* ---------- start ---------- */
-writeForm(S.form||{});S.form=readForm();renderFiles();paintWidget();renderChat();
+function want0(f){const w=new URLSearchParams(location.search).get('for');return w?{...f,kind:w==='business'?'business':'personal'}:f;}
+{const want=new URLSearchParams(location.search).get('for');
+ setKind(want==='business'?'business':want==='me'?'personal':(S.form&&S.form.kind)||(S.bot?'business':'personal'));}
+writeForm(want0(S.form||{}));S.form=readForm();renderFiles();paintWidget();renderChat();
 if(S.bot&&SERVER){
   call('/bots/'+S.bot.id).then(jsonOrThrow).then(j=>{Object.assign(S.bot,{status:j.status,trialLeft:j.trialLeft,name:j.name,color:j.color});save();renderChat();if(j.status==='trial'&&j.trialLeft===0)showPaywall();})
   .catch(err=>{if(err.status===404){S.bot=null;S.ownerToken=null;S.chat=[];save();renderChat();status('Your previous chatbot was removed. Build a new one below.');}});

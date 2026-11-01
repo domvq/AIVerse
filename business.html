@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Verse for Business</title>
+<title>AI for Business: AI Chatbots and Custom AI Tools | AI Verse</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Custom AI for your business from AI Verse. $150 plus API billing.">
+<meta name="description" content="Build an AI chatbot that answers your customers from your business details, website or files, or have AI Verse build a custom AI tool for your team. Try the chatbot free with 3 messages.">
+<link rel="canonical" href="https://aiverse.it.com/business.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -157,6 +158,24 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
  .sitehead .tabs::-webkit-scrollbar{display:none}
  .sitehead .tabs a{min-width:0;flex:1 0 auto}
 }
+/* business chatbot section (same design as the home page promo) */
+
+.promo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:var(--card);border-radius:22px;padding:44px;margin-bottom:16px}
+.promo-copy h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
+.promo-copy p{color:var(--muted);max-width:44ch;margin:16px 0 0}
+.promo-copy .eyebrow{display:block;margin-bottom:14px}
+.promo-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:26px}
+.promo-price{color:var(--muted);font-size:14px}
+.promo-demo{background:var(--bg);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.07);min-width:0}
+.pd-head{display:flex;align-items:center;gap:10px;background:var(--ink-btn);color:var(--ink-btn-fg);padding:12px 14px}
+.pd-av{flex:none;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--ink-btn-fg) 20%,transparent);display:grid;place-items:center;font-weight:600}
+.pd-head b{display:block;font-weight:600;font-size:14px;line-height:1.2}.pd-head small{opacity:.8;font-size:12px}
+.pd-body{display:flex;flex-direction:column;gap:8px;padding:14px}
+.pd-b{max-width:85%;padding:8px 12px;border-radius:14px;font-size:13.5px;line-height:1.45}
+.pd-b.bot{align-self:flex-start;background:var(--pill);border-bottom-left-radius:5px}
+.pd-b.me{align-self:flex-end;background:var(--ink-btn);color:var(--ink-btn-fg);border-bottom-right-radius:5px}
+@media (max-width:900px){.promo{grid-template-columns:1fr;padding:32px 24px;gap:28px}}
+.promo{margin-bottom:56px}
 </style>
 </head>
 <body>
@@ -191,6 +210,25 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="cta">
       <a class="btn dark" href="#order" data-buy>Buy now · $150 <svg><use href="#arrow"/></svg></a>
       <a class="btn pill" href="#pricing">See what's included</a>
+    </div>
+  </section>
+
+  <section class="promo" id="chatbot" aria-labelledby="promoTitle">
+    <div class="promo-copy">
+      <span class="eyebrow">Chatbot Builder</span>
+      <h2 id="promoTitle">Build an AI chatbot for your business</h2>
+      <p>Add your business details, website or files, and get a chatbot that answers your customers' questions. Try it free with 3 messages, then go live on your website.</p>
+      <div class="promo-cta"><a class="btn dark" href="builder.html?for=business">Build your chatbot <svg><use href="#arrow"/></svg></a><span class="promo-price">Go live for $150 + API billing</span></div>
+    </div>
+    <div class="promo-demo" aria-label="Example conversation">
+      <div class="pd-head"><span class="pd-av">H</span><span><b>Harbor Light Helper</b><small>Example chatbot</small></span></div>
+      <div class="pd-body">
+        <div class="pd-b bot">Hi! Ask me about our menu, hours or catering.</div>
+        <div class="pd-b me">Are you open Sunday morning?</div>
+        <div class="pd-b bot">Yes! On weekends we're open 7:30am to 4pm.</div>
+        <div class="pd-b me">Do you have oat milk?</div>
+        <div class="pd-b bot">We do, at no extra charge. Almond milk too.</div>
+      </div>
     </div>
   </section>
 

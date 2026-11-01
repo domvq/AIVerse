@@ -3,13 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Verse</title>
+<title>AI Verse: Free AI Apps, Custom AI Tools and Build Your Own AI</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="icons/site.webmanifest">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="AI Verse builds AI tools for everyday tasks: learning, money, planning, fitness, photos and careers. Free to use with your own AI key.">
+<meta name="description" content="Free AI apps for studying, money, planning, fitness, photos and careers, each with 20 free daily uses. Build your own AI in minutes, or have AI Verse build a custom AI tool for you.">
+<link rel="canonical" href="https://aiverse.it.com/">
+<meta property="og:title" content="AI Verse: free everyday AI apps, and AI built for you">
+<meta property="og:description" content="Free AI apps for everyday life, a builder to make your own AI, and custom AI tools made for you.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aiverse.it.com/">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"AI Verse","alternateName":"AIV","url":"https://aiverse.it.com/","email":"team@aiverse.it.com","description":"AI Verse offers free everyday AI apps, a builder to make your own AI, and custom AI tools built for people and businesses."},{"@type":"WebSite","name":"AI Verse","url":"https://aiverse.it.com/"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -155,6 +161,18 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 .rowi a.k:hover{text-decoration:underline;text-underline-offset:3px}
 #app-list{scroll-margin-top:90px;padding-bottom:16px}
 
+/* what we do */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.offer{margin-bottom:16px}
+.offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.offer-c{display:flex;flex-direction:column;gap:10px;background:var(--card);border-radius:20px;padding:28px 26px 26px;color:inherit;text-decoration:none;min-width:0;transition:background .15s}
+.offer-c:hover{background:var(--pill)}
+.offer-c:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.offer-c h3{font:500 22px/1.2 var(--display);letter-spacing:-.02em;margin:4px 0 0}
+.offer-c p{color:var(--muted);margin:0;font-size:15px;flex:1}
+.offer-c .go{display:inline-flex;align-items:center;gap:6px;font-weight:500;font-size:14px;margin-top:6px}
+.offer-c .go svg{width:12px;height:12px}
+@media (max-width:900px){.offers{grid-template-columns:1fr}}
 /* chatbot builder promo */
 .promo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:var(--card);border-radius:22px;padding:44px;margin-bottom:16px}
 .promo-copy h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;text-wrap:balance}
@@ -232,30 +250,39 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
   <div class="wrap">
     <section class="hero">
       <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
-      <h1>AI for the tasks you do every day</h1>
-      <p class="lede">AI Verse builds focused AI tools for learning, money, planning, fitness, photos and careers. They run in your browser, keep your data on your device, and work with your own free AI key.</p>
+      <h1>Free AI apps for everyday life</h1>
+      <p class="lede">Use free AI apps for studying, money, planning, fitness, photos and careers, with 20 free daily uses in every app. Build your own AI in minutes, or let our team build an AI tool just for you.</p>
       <div class="cta">
-        <a class="btn dark" href="builder.html">Build AI <svg><use href="#arrow"/></svg></a>
-        <a class="btn pill" href="#apps">Explore the apps</a>
+        <a class="btn dark" href="#apps">Explore free apps <svg><use href="#arrow"/></svg></a>
+        <a class="btn pill" href="builder.html">Build your own AI</a>
       </div>
-      <a class="keylink" href="#setup">Set up your AIV key <svg><use href="#arrow"/></svg></a>
+      <a class="keylink" href="business.html">Have us build an AI tool for you <svg><use href="#arrow"/></svg></a>
+    </section>
+
+    <section class="offer" aria-labelledby="offerTitle">
+      <h2 id="offerTitle" class="vh">What AI Verse does</h2>
+      <div class="offers">
+        <a class="offer-c" href="#apps"><span class="eyebrow">Use</span><h3>Free everyday AI apps</h3><p>Six AI apps for studying, money, planning, fitness, photos and careers. Every app includes 20 free daily uses, with no account needed.</p><span class="go">Explore the apps <svg><use href="#arrow"/></svg></span></a>
+        <a class="offer-c" href="builder.html"><span class="eyebrow">Build</span><h3>Build your own AI</h3><p>Make a personal AI that knows your notes, goals and routine in about a minute. No coding, free to try.</p><span class="go">Start building <svg><use href="#arrow"/></svg></span></a>
+        <a class="offer-c" href="business.html"><span class="eyebrow">Made for you</span><h3>AI tools built for you</h3><p>Tell us what you need and our team builds a custom AI tool around it, for you, your family or your business.</p><span class="go">Request a tool <svg><use href="#arrow"/></svg></span></a>
+      </div>
     </section>
 
     <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
       <div class="promo-copy">
-        <span class="eyebrow">New · Chatbot Builder</span>
-        <h2 id="promoTitle">Build an AI chatbot for your business</h2>
-        <p>Add your business details, website or files, and get a chatbot that answers your customers' questions. Try it free with 3 messages, then go live on your website.</p>
-        <div class="promo-cta"><a class="btn dark" href="builder.html">Build your chatbot <svg><use href="#arrow"/></svg></a><span class="promo-price">Go live for $150 + API billing</span></div>
+        <span class="eyebrow">New · Build AI</span>
+        <h2 id="promoTitle">Build your own AI in minutes</h2>
+        <p>Turn your notes, goals and routine into a personal AI: a meal planner, a study buddy, a trip planner or a budget helper. No coding needed. Try it free with 3 messages.</p>
+        <div class="promo-cta"><a class="btn dark" href="builder.html">Build your AI <svg><use href="#arrow"/></svg></a><span class="promo-price">Free to try · no coding</span></div>
       </div>
       <div class="promo-demo" aria-label="Example conversation">
-        <div class="pd-head"><span class="pd-av">H</span><span><b>Harbor Light Helper</b><small>Example chatbot</small></span></div>
+        <div class="pd-head"><span class="pd-av">D</span><span><b>Dinner Buddy</b><small>Example personal AI</small></span></div>
         <div class="pd-body">
-          <div class="pd-b bot">Hi! Ask me about our menu, hours or catering.</div>
-          <div class="pd-b me">Are you open Sunday morning?</div>
-          <div class="pd-b bot">Yes! On weekends we're open 7:30am to 4pm.</div>
-          <div class="pd-b me">Do you have oat milk?</div>
-          <div class="pd-b bot">We do, at no extra charge. Almond milk too.</div>
+          <div class="pd-b bot">Hi! Tell me what's in your fridge and I'll plan dinner.</div>
+          <div class="pd-b me">Chicken, rice and broccoli. 30 minutes?</div>
+          <div class="pd-b bot">Try a teriyaki chicken bowl. It takes 25 minutes, and I added soy sauce to your list.</div>
+          <div class="pd-b me">Can you make it kid-friendly?</div>
+          <div class="pd-b bot">Sure. Keep the sauce on the side and steam the broccoli soft.</div>
         </div>
       </div>
     </section>
@@ -263,16 +290,16 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <section class="split apps-intro" id="apps" aria-labelledby="appsTitle">
       <div class="intro">
         <h2 id="appsTitle">AI apps for everyday life</h2>
-        <p>Six focused apps for studying, money, planning, health, photos and careers. They run in your browser, keep your data on your device, and get full-strength AI from one AIV key.</p>
+        <p>Six focused apps for studying, money, planning, health, photos and careers. Every app includes 20 free daily uses of AI, no key or account needed. For unlimited use, one AIV key runs every app at full strength.</p>
         <a class="btn pill" href="#app-list">Explore the apps</a>
       </div>
       <div class="rows">
-        <div class="rowi"><a class="k" href="apps/learning-intelligence.html">Study and Research AI</a><div class="v">An adaptive tutor that maps any subject, finds your gaps and quizzes you, plus a lab for reading papers and practicing scientific writing.</div></div>
-        <div class="rowi"><a class="k" href="apps/financial-intelligence.html">Stock and Finance AI</a><div class="v">A live stock predictor, stock research, portfolio tracking, paper trading and budgeting from your bank statements.</div></div>
+        <div class="rowi"><a class="k" href="apps/study-and-research-ai.html">Study and Research AI</a><div class="v">An adaptive tutor that maps any subject, finds your gaps and quizzes you, plus a lab for reading papers and practicing scientific writing.</div></div>
+        <div class="rowi"><a class="k" href="apps/stock-and-finance-ai.html">Stock and Finance AI</a><div class="v">A live stock predictor, stock research, portfolio tracking, paper trading and budgeting from your bank statements.</div></div>
         <div class="rowi"><a class="k" href="apps/aide.html">Aide</a><div class="v">A personal assistant for your calendar, tasks, reminders, travel plans and email. Just type or say what you need.</div></div>
-        <div class="rowi"><a class="k" href="apps/fitness-intelligence.html">Health and Fitness AI</a><div class="v">Training programs that progress automatically, body tracking, and calorie and macro counting from photos of your food.</div></div>
-        <div class="rowi"><a class="k" href="apps/photo-intelligence.html">Photo AI</a><div class="v">Edit photos by describing the change, remove backgrounds and objects, upscale, create headshots and design social posts.</div></div>
-        <div class="rowi"><a class="k" href="apps/career-intelligence.html">Career AI</a><div class="v">Job matching, tailored resumes and cover letters, interview practice and a tracker for every application.</div></div>
+        <div class="rowi"><a class="k" href="apps/health-and-fitness-ai.html">Health and Fitness AI</a><div class="v">Training programs that progress automatically, body tracking, and calorie and macro counting from photos of your food.</div></div>
+        <div class="rowi"><a class="k" href="apps/photo-ai.html">Photo AI</a><div class="v">Edit photos by describing the change, remove backgrounds and objects, upscale, create headshots and design social posts.</div></div>
+        <div class="rowi"><a class="k" href="apps/career-ai.html">Career AI</a><div class="v">Job matching, tailored resumes and cover letters, interview practice and a tracker for every application.</div></div>
       </div>
     </section>
 
@@ -281,43 +308,43 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         <article class="app" id="learning">
           <div class="top"><h3>Study and Research AI</h3><span class="eyebrow">Education</span></div>
           <p>An adaptive tutor for any topic. It maps the subject into concepts, finds your gaps with a quick diagnostic, then adjusts lessons, quizzes and difficulty as you improve. A research lab helps you read papers with verified citations, plan experiments and practice scientific writing.</p>
-          <div class="tags"><span>Knowledge map</span><span>Adaptive quizzes</span><span>Flashcards</span><span>Paper reader</span><span>Writing scores</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/learning-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+          <div class="tags"><span>20 free daily uses</span><span>Knowledge map</span><span>Adaptive quizzes</span><span>Flashcards</span><span>Paper reader</span><span>Writing scores</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/study-and-research-ai.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="finance">
           <div class="top"><h3>Stock and Finance AI</h3><span class="eyebrow">Money</span></div>
           <p>Your markets and money center. Watch prices live with a stock predictor that gives the odds of a stock closing higher and its likely range, tested honestly against its own past. Analyze stocks, follow your portfolio, practice with paper trading, and budget from uploaded bank statements.</p>
-          <div class="tags"><span>Live predictor</span><span>Stock analysis</span><span>Paper trading</span><span>Budgeting</span><span>Reports</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/financial-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+          <div class="tags"><span>20 free daily uses</span><span>Live predictor</span><span>Stock analysis</span><span>Paper trading</span><span>Budgeting</span><span>Reports</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/stock-and-finance-ai.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="aide">
           <div class="top"><h3>Aide</h3><span class="eyebrow">Personal assistant</span></div>
           <p>A personal assistant that plans your day around fixed events and deadlines. It keeps your calendar, tasks, reminders and birthdays in one place, plans trips, writes and translates messages, summarizes meetings, and triages Gmail. Just type or say what you need.</p>
-          <div class="tags"><span>Daily planner</span><span>Calendar</span><span>Voice commands</span><span>Inbox triage</span><span>Travel plans</span></div>
+          <div class="tags"><span>20 free daily uses</span><span>Daily planner</span><span>Calendar</span><span>Voice commands</span><span>Inbox triage</span><span>Travel plans</span></div>
           <div class="acts"><a class="btn dark sm" href="apps/aide.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="fitness">
           <div class="top"><h3>Health and Fitness AI</h3><span class="eyebrow">Health &amp; training</span></div>
           <p>An AI coach for training and nutrition. It builds a program for your goal and equipment, logs every set and sets your next weights automatically, tracks measurements and progress photos, and counts calories and macros with photo food recognition.</p>
-          <div class="tags"><span>Workout plans</span><span>Auto progression</span><span>Body tracking</span><span>Macros</span><span>Meal plans</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/fitness-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+          <div class="tags"><span>20 free daily uses</span><span>Workout plans</span><span>Auto progression</span><span>Body tracking</span><span>Macros</span><span>Meal plans</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/health-and-fitness-ai.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="photo">
           <div class="top"><h3>Photo AI</h3><span class="eyebrow">Creative</span></div>
           <p>An AI photo editor you can talk to. Describe an edit in plain words, remove backgrounds and objects, enhance and upscale, generate new images and professional headshots, read text in photos, and design social posts, with a before-and-after view and a history of everything you create.</p>
-          <div class="tags"><span>Prompt editing</span><span>Background removal</span><span>Upscaling</span><span>Headshots</span><span>Social posts</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/photo-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+          <div class="tags"><span>20 free daily uses</span><span>Prompt editing</span><span>Background removal</span><span>Upscaling</span><span>Headshots</span><span>Social posts</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/photo-ai.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
 
         <article class="app" id="career">
           <div class="top"><h3>Career AI</h3><span class="eyebrow">Careers</span></div>
           <p>An AI career coach and job application assistant. Upload your resume and goals, and it finds matching jobs, explains where you fit and where you fall short, tailors your resume and cover letter, prepares you for interviews, and tracks every application. It only fills in applications with your approval.</p>
-          <div class="tags"><span>Job matching</span><span>Resume tailoring</span><span>Cover letters</span><span>Interview prep</span><span>Application tracker</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/career-intelligence.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
+          <div class="tags"><span>20 free daily uses</span><span>Job matching</span><span>Resume tailoring</span><span>Cover letters</span><span>Interview prep</span><span>Application tracker</span></div>
+          <div class="acts"><a class="btn dark sm" href="apps/career-ai.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
         </article>
       </div>
     </section>
@@ -325,7 +352,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <section class="split" id="access" style="margin-top:96px">
       <div class="intro">
         <h2>Bring your own AI</h2>
-        <p>Every AI Verse app lets you choose where the AI runs. Start with the free AI built into every app, or get an AIV API key for full use: one key runs every app at full strength.</p>
+        <p>Every AI Verse app lets you choose where the AI runs. Start with 20 free daily uses built into every app, or get an AIV API key for full use: one key runs every app at full strength.</p>
         <div class="cta-row"><a class="btn dark" href="api.html#plans">Get AIV key <svg><use href="#arrow"/></svg></a><a class="btn pill" href="#setup">AIV key setup guide</a></div>
       </div>
       <div class="rows">
@@ -360,7 +387,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       </div>
       <div class="rows">
         <div class="rowi"><div class="k">You approve the actions</div><div class="v">The finance advisor queues changes for your approval and never places real trades. Aide saves email drafts but never sends on its own.</div></div>
-        <div class="rowi"><div class="k">Free to use</div><div class="v">The apps cost nothing. You only pay your AI provider if you go beyond its free tier.</div></div>
+        <div class="rowi"><div class="k">20 free daily uses</div><div class="v">Every app includes 20 free daily uses of AI, with no key or account needed. Your free uses reset each day.</div></div>
         <div class="rowi"><div class="k">Works on any device</div><div class="v">Phone, tablet or computer. Voice input works in Chrome, Edge and Safari.</div></div>
       </div>
     </section>
