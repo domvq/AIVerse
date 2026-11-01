@@ -1,12 +1,20 @@
 /* ============================================================
    AI VERSE SITE SETTINGS
-   Your one AI Verse server (Cloudflare Worker) runs Ask AIV, the Chatbot Builder,
-   live chatbots, the admin page and AIV API keys.
+   Your one AI Verse server (Cloudflare Worker) runs Ask AIV, Build AI, live AIs,
+   the admin page, the free app AI and AIV API keys.
    ============================================================ */
 window.AIV_SITE = {
-  // Chatbot Builder, live chatbots, admin page and API page
+  // Build AI, live AIs, the admin page, the apps and the API page
   server: 'https://ask-aiv.domhasaball.workers.dev',
 
   // Ask AIV (the same server)
-  askAiv: 'https://ask-aiv.domhasaball.workers.dev'
+  askAiv: 'https://ask-aiv.domhasaball.workers.dev',
+
+  // Stripe payment link for buying an AI on the Build AI page ($150, one-time).
+  // Leave empty to send buyers to the Business order form instead.
+  aiCheckout: '',
+
+  // The API address shown to customers (self-host kit and API examples).
+  // Set it to 'https://api.aiverse.it.com' once that custom domain is added to the ask-aiv worker.
+  apiPublic: ''
 };

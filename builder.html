@@ -193,6 +193,27 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--mute
 .foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
 .fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
 
+/* deploy section */
+.deploy{padding-block:72px 88px;border-top:1px solid var(--line);scroll-margin-top:80px}
+.deploy-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.deploy-h p{color:var(--muted);margin:12px 0 0;max-width:56ch}
+.apinote{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:var(--card);border-radius:18px;padding:18px 22px;margin-top:28px}
+.apinote b{font-weight:500}.apinote p{margin:4px 0 0;color:var(--muted);font-size:14.5px;max-width:62ch}
+.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.dcard{background:var(--card);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dcard h3{font:500 19px/1.25 var(--display);letter-spacing:-.01em;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.dcard>p{color:var(--muted);margin:0;font-size:14.5px}
+.dcard .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.dcard details{font-size:14px}.dcard summary{cursor:pointer;font-weight:500;padding:4px 0}
+.dcard ol{margin:6px 0 0;padding-left:20px;color:var(--muted)}.dcard ol li{margin:3px 0}
+.tag{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:5px 9px}
+.tag.ok{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+.tag.api{background:color-mix(in srgb,#c2410c 14%,transparent);color:#c2410c}
+.qr{background:#fff;border-radius:12px;padding:10px;align-self:flex-start;line-height:0}
+.qr img,.qr canvas{width:132px;height:132px}
+.dcode{font:400 12.5px/1.55 var(--mono);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px;white-space:pre-wrap;word-break:break-all;margin:0;max-height:220px;overflow:auto}
+.upl{display:inline-flex;align-items:center;gap:6px}
+@media (max-width:900px){.dgrid{grid-template-columns:1fr}}
 /* who-it's-for switch and idea cards */
 .modebar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;background:var(--card);border-radius:18px;padding:16px 20px}
 .modebar>span{font-weight:500}
@@ -275,6 +296,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <form class="steps" id="form" novalidate autocomplete="off">
       <div class="modebar">
         <span id="kindLbl">Who is it for?</span>
+        <label class="btn line sm upl" for="aivIn" title="Upload an AI file (.aiv) you downloaded from AI Verse">Upload AI file<input type="file" id="aivIn" accept=".aiv,.json,application/json" hidden></label>
         <div class="seg" role="radiogroup" aria-labelledby="kindLbl">
           <input type="radio" name="kind" id="k-personal" value="personal" checked><label for="k-personal">For me</label>
           <input type="radio" name="kind" id="k-business" value="business"><label for="k-business">For my business</label>
@@ -371,13 +393,52 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <div class="meter" id="meter" hidden><span id="meterText">3 free messages left</span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span></div>
       <div class="live" id="livePanel" hidden>
         <span class="pill">Live</span>
-        <div><b style="font-weight:500">Shareable link</b>
-          <div class="copyrow" style="margin-top:8px"><code id="shareLink"></code><button class="btn line sm" type="button" data-copy="shareLink">Copy</button></div></div>
-        <div><b style="font-weight:500" id="bubbleRow">Website chat bubble</b><p class="statusline" style="margin:4px 0 0;font-size:13px">Paste this before &lt;/body&gt; on your website.</p>
-          <div class="copyrow" style="margin-top:8px"><code id="snippet"></code><button class="btn line sm" type="button" data-copy="snippet">Copy</button></div></div>
+        <p class="statusline" style="margin:0">Your AI is live. Every way to use it is in <a href="#deploy">Deploy</a> below, and the setup guide was emailed to you.</p>
+        <a class="btn dark sm" href="#deploy" style="justify-self:start">Go to Deploy</a>
       </div>
     </aside>
   </div>
+
+  <section class="deploy" id="deploy" hidden aria-labelledby="deployTitle">
+    <div class="deploy-h">
+      <div><span class="eyebrow">Deploy</span><h2 id="deployTitle" style="margin-top:12px">Use <span id="dName">your AI</span> anywhere</h2>
+      <p>Six ways to use it. The first four run on AI Verse and are ready now. Hosting it yourself or using it in an app needs an AI API key.</p></div>
+      <button class="btn line sm" type="button" id="dGuide">Download setup guide</button>
+    </div>
+    <div class="dgrid">
+      <article class="dcard"><h3>1. Share link <span class="tag ok">Ready now</span></h3><p>A page anyone can open to chat with your AI. Send it, post it, or print the QR code.</p>
+        <div class="copyrow"><code id="shareLink"></code><button class="btn line sm" type="button" data-copy="shareLink">Copy</button></div>
+        <div class="qr" id="qrBox" aria-label="QR code for your share link"></div>
+        <div class="acts"><a class="btn line sm" id="shareOpen" target="_blank" rel="noopener">Open</a><button class="btn line sm" type="button" id="qrDl">Download QR code</button></div>
+        <details><summary>Add it to a phone like an app</summary><ol><li>iPhone: open the link in Safari, tap Share, then Add to Home Screen.</li><li>Android: open it in Chrome, tap the ⋮ menu, then Add to Home screen.</li></ol></details></article>
+      <article class="dcard"><h3>2. Chat bubble on your website <span class="tag ok">Ready now</span></h3><p>A chat button in the corner of every page. Paste this just before &lt;/body&gt;.</p>
+        <div class="copyrow"><code id="snippet"></code><button class="btn line sm" type="button" data-copy="snippet">Copy</button></div>
+        <details><summary>Step-by-step for WordPress, Wix, Squarespace and Shopify</summary><ol>
+          <li><b>WordPress:</b> install the free WPCode plugin, open Code Snippets → Header &amp; Footer, paste into Footer and save.</li>
+          <li><b>Wix:</b> Settings → Custom Code → + Add Custom Code, paste, choose All pages and Body - end, apply and publish.</li>
+          <li><b>Squarespace:</b> Settings → Developer Tools → Code Injection, paste into Footer and save (paid plans).</li>
+          <li><b>Shopify:</b> Online Store → Themes → ⋯ → Edit code → theme.liquid, paste before &lt;/body&gt; and save.</li>
+          <li><b>Your own HTML site:</b> paste before &lt;/body&gt; on each page and upload.</li></ol></details></article>
+      <article class="dcard"><h3>3. Chat inside a page <span class="tag ok">Ready now</span></h3><p>The full chat inside one page, like a Help or Contact page.</p>
+        <div class="copyrow"><code id="frameCode"></code><button class="btn line sm" type="button" data-copy="frameCode">Copy</button></div>
+        <details><summary>Where to paste it</summary><ol><li><b>WordPress:</b> add a Custom HTML block to the page.</li><li><b>Wix:</b> Add → Embed Code → Embed HTML, then resize the box.</li><li><b>Squarespace:</b> add a Code block.</li><li><b>Shopify:</b> edit the page, press Show HTML (&lt;&gt;), paste.</li><li><b>Your own HTML site:</b> paste where the chat should appear.</li></ol></details></article>
+      <article class="dcard"><h3>4. Download your AI file <span class="tag ok">Ready now</span></h3><p>One .aiv file with everything your AI knows: instructions, knowledge, files and personality. Keep it as a backup, or upload it again with <b>Upload AI file</b> at the top of the builder to restore or copy it.</p>
+        <div class="acts"><button class="btn dark sm" type="button" id="dAiv">Download AI file</button></div></article>
+      <article class="dcard"><h3>5. Self-host kit <span class="tag api">Needs an AI API key</span></h3><p>Run your AI on your own server and address. One file gives you a chat page, a chat bubble and the AI connection. Free to host on Cloudflare.</p>
+        <div class="acts"><button class="btn dark sm" type="button" id="dKit">Download self-host kit</button></div>
+        <details><summary>How to set it up</summary><ol><li>Get an AI API key. We recommend an <a href="api.html#plans">AIV API key</a>.</li><li>Unzip the kit. In Cloudflare: Workers &amp; Pages → Create → Create Worker → Deploy → Edit code.</li><li>Paste worker.js, press Deploy.</li><li>Settings → Variables and Secrets → add a Secret named AI_API_KEY with your key → Deploy.</li><li>Open your worker's address. For a bubble, paste &lt;script src="https://YOUR-WORKER-ADDRESS/widget.js" defer&gt;&lt;/script&gt; on your site.</li></ol></details></article>
+      <article class="dcard"><h3>6. Use it in your app (API) <span class="tag api">Needs an AI API key</span></h3><p>Use your AI in apps and tools with any OpenAI-compatible library and an AIV API key. Keep the key on your server.</p>
+        <pre class="dcode" id="apiCode"></pre>
+        <div class="acts"><button class="btn line sm" type="button" data-copy="apiCode">Copy code</button></div></article>
+      <article class="dcard" style="grid-column:1/-1"><h3>Change your AI's settings</h3>
+        <p>Update what your AI knows or how it sounds anytime: edit the form above (description, knowledge, website, files, name, first message, tone and color), then press <b>Update my AI</b>. Changes show up right away on your share link, bubble, page embed and API. If you self-host with another AI company, download the kit again; if you change the color, copy the new bubble code.</p>
+        <div class="acts"><a class="btn line sm" href="#build">Edit my AI</a></div></article>
+    </div>
+    <div class="apinote">
+      <div><b>Running your AI anywhere else needs an AI API</b><p>Your share link, bubble and page embed run on AI Verse. To host it yourself or use it in your own app, it needs an AI API key to answer. An AIV API key runs your AI exactly as you built it and stays up to date when you change it. Plans from $9 a month.</p></div>
+      <a class="btn dark" href="api.html#plans">Get an AIV API key <svg><use href="#arrow"/></svg></a>
+    </div>
+  </section>
 
   <section class="ideas-sec" aria-labelledby="ideasTitle">
     <h2 id="ideasTitle">What you can build</h2>
@@ -414,11 +475,11 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <ul>
       <li><svg><use href="#tick"/></svg><span data-k="pay1">Your own link that works on any phone or computer</span></li>
       <li><svg><use href="#tick"/></svg><span data-k="pay2">Share it with family or friends</span></li>
-      <li><svg><use href="#tick"/></svg><span>Our team confirms your details and switches it on</span></li>
+      <li><svg><use href="#tick"/></svg><span>Goes live as soon as you pay, with every deploy option and a setup guide emailed to you</span></li>
       <li><svg><use href="#tick"/></svg><span data-k="pay4">Keep updating what your AI knows</span></li>
     </ul>
     <a class="btn dark buy" id="payBuy" href="business.html#order">Buy now <svg><use href="#arrow"/></svg></a>
-    <p class="fine2">API billing covers the AI usage from your conversations. We'll explain the rates when we confirm your order. Nothing is charged until then.</p>
+    <p class="fine2" id="payFine">Includes hosting on AI Verse. Hosting it yourself or using it in your own app needs an AI API key, such as an <a href="api.html#plans">AIV API key</a>.</p>
     <div class="alt"><a href="contact.html">Questions? Contact us</a><a href="index.html">Back to home</a></div>
   </div>
 </dialog>
@@ -601,8 +662,7 @@ function renderChat(){
   $('wChips').innerHTML=built&&!blocked&&!S.chat.length?chipsFor(S.form).map(c=>`<button type="button">${esc(c)}</button>`).join(''):'';
   $('meter').hidden=!(built&&S.bot.status==='trial');
   if(left!==null){$('meterText').textContent=left>0?`${left} free message${left===1?'':'s'} left`:'Free messages used up';document.querySelectorAll('#meter .pips i').forEach((p,i)=>p.classList.toggle('used',i>=left));}
-  $('livePanel').hidden=!live;$('bubbleRow').parentElement.hidden=!isBiz();
-  if(live){const link=new URL('bot.html?id='+encodeURIComponent(S.bot.id),location.href).href;$('shareLink').textContent=link;$('snippet').textContent=`<script src="${new URL('widget.js',location.href).href}" data-bot="${S.bot.id}" data-color="${S.bot.color||S.form.color||'#111111'}" defer><\/script>`;}
+  $('livePanel').hidden=!live;renderDeploy(live);
   $('resetBtn').hidden=!built;$('buildBtn').firstChild.textContent=built?(isBiz()?'Update chatbot ':'Update my AI '):(isBiz()?'Build my chatbot ':'Build my AI ');
   const b=$('wBody');b.scrollTop=b.scrollHeight;
 }
@@ -641,7 +701,7 @@ function showPaywall(){
   const d=$('paywall');if(d.open||!S.bot)return;
   $('payName').textContent=S.bot.name||('Your '+W());
   const q=new URLSearchParams({bot:S.bot.id,biz:S.form.business||'',site:S.form.website||'',name:S.bot.name||'',kind:kind()});
-  $('payBuy').href='business.html?'+q.toString()+'#order';
+  $('payBuy').href=CHECKOUT?CHECKOUT+(CHECKOUT.includes('?')?'&':'?')+'client_reference_id='+encodeURIComponent(S.bot.id):'business.html?'+q.toString()+'#order';
   try{d.showModal();}catch(e){d.setAttribute('open','');}
   $('payBuy').focus();
 }
@@ -672,15 +732,84 @@ function useExample(key){
 $('exampleBtn').addEventListener('click',()=>{if(isBiz())return useExample('coffee');const k=['meal','study','trip','budget','workout','family'];useExample(k[Math.floor(Math.random()*k.length)]);});
 document.querySelectorAll('[data-ex]').forEach(b=>b.addEventListener('click',()=>useExample(b.dataset.ex)));
 
+/* ---------- deploy ---------- */
+const CFG=window.AIV_SITE||{};const CHECKOUT=(CFG.aiCheckout||'').trim();
+const API_PUBLIC=((CFG.apiPublic||CFG.server||'')+'').replace(/\/+$/,'');
+const KIT_TPL="// AI Verse self-host kit for \"__NAME__\"\n// Everything your AI needs in one file: a chat page, a chat bubble for any website, and the connection to the AI.\n//\n// SETUP (full steps in README.md)\n//  1. Cloudflare (free account) -> Workers & Pages -> Create -> Create Worker -> Deploy -> Edit code.\n//  2. Delete everything there, paste this whole file, press Deploy.\n//  3. Settings -> Variables and Secrets -> + Add -> type Secret, name AI_API_KEY, value = your AI API key -> Deploy.\n//     An AIV API key is recommended (__PLANS__): it runs your AI exactly as you built it.\n//  4. Open your worker's address. That's your AI's chat page.\n//  5. Chat bubble on any website: \u003cscript src=\"https://YOUR-WORKER-ADDRESS/widget.js\" defer>\u003c/script>\n//\n// OPTIONAL SETTINGS (Settings -> Variables and Secrets, type Text)\n//  AI_BASE_URL      another OpenAI-compatible AI service, e.g. https://api.openai.com/v1 or https://api.groq.com/openai/v1\n//  AI_MODEL         the model to use with that service, e.g. gpt-4o-mini or openai/gpt-oss-120b\n//  ALLOWED_ORIGINS  only let these websites use the bubble, e.g. https://yourbusiness.com,https://www.yourbusiness.com\n\nconst CONFIG = __CONFIG__;\n\n// Your AI's instructions and knowledge. Used when AI_MODEL is not an AIV \"bot-\" model\n// (with an AIV key and the bot- model, AI Verse adds the latest version of these for you).\nconst SYSTEM_PROMPT = __SYSTEM__;\n\nconst MAX_MESSAGES = 12, MAX_CHARS = 4000;\n\nexport default {\n  async fetch(req, env) {\n    const url = new URL(req.url);\n    const origin = req.headers.get('Origin') || '';\n    const allowed = String(env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);\n    const cors = { 'Access-Control-Allow-Origin': origin || '*', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Vary': 'Origin' };\n    if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });\n\n    if (url.pathname === '/widget.js') return new Response(widgetJs(url.origin), { headers: { 'Content-Type': 'application/javascript; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });\n\n    if (url.pathname === '/chat' && req.method === 'POST') {\n      if (allowed.length && origin && origin !== url.origin && !allowed.includes(origin)) return jsonErr(403, 'This website is not allowed to use this AI.', cors);\n      if (!env.AI_API_KEY) return jsonErr(503, 'This AI needs an AI API key. Add a Secret named AI_API_KEY in the worker settings (an AIV API key is recommended).', cors);\n      let body;\n      try { body = await req.json(); } catch (e) { return jsonErr(400, 'Send JSON.', cors); }\n      const msgs = (Array.isArray(body.messages) ? body.messages : []).slice(-MAX_MESSAGES)\n        .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())\n        .map(m => ({ role: m.role, content: m.content.slice(0, MAX_CHARS) }));\n      if (!msgs.length || msgs[msgs.length - 1].role !== 'user') return jsonErr(400, 'There is no message to answer.', cors);\n      const base = String(env.AI_BASE_URL || CONFIG.apiBase).replace(/\\/+$/, '');\n      const model = env.AI_MODEL || (env.AI_BASE_URL ? '' : CONFIG.model);\n      if (!model) return jsonErr(503, 'Add a Text variable named AI_MODEL with the model to use on your AI service.', cors);\n      const messages = /^bot-/.test(model) ? msgs : [{ role: 'system', content: SYSTEM_PROMPT }, ...msgs];\n      let r;\n      try {\n        r = await fetch(base + '/chat/completions', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + env.AI_API_KEY },\n          body: JSON.stringify({ model, messages, stream: true, temperature: 0.4, max_tokens: 700 }) });\n      } catch (e) { return jsonErr(502, 'Could not reach the AI service. Check AI_BASE_URL.', cors); }\n      if (!r.ok) {\n        let m = ''; try { m = (await r.json()).error.message; } catch (e) {}\n        if (r.status === 401 || r.status === 403) return jsonErr(502, 'The AI API key was rejected. Check the AI_API_KEY secret.' + (m ? ' (' + m + ')' : ''), cors);\n        return jsonErr(r.status === 429 ? 429 : 502, m || 'The AI service had a problem. Please try again.', cors);\n      }\n      return new Response(r.body, { headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', ...cors } });\n    }\n\n    if (url.pathname === '/' || url.pathname === '/index.html') return new Response(page(), { headers: { 'Content-Type': 'text/html; charset=utf-8' } });\n    return new Response('Not found', { status: 404 });\n  },\n};\n\nfunction jsonErr(status, message, cors) {\n  return new Response(JSON.stringify({ error: { message } }), { status, headers: { 'Content-Type': 'application/json', ...cors } });\n}\nconst esc = s => String(s).replace(/[&\u003c>\"']/g, c => ({ '&': '&amp;', '\u003c': '&lt;', '>': '&gt;', '\"': '&quot;', \"'\": '&#39;' }[c]));\nfunction onColor(hex) {\n  const n = parseInt(String(hex).slice(1), 16), L = [n >> 16 & 255, n >> 8 & 255, n & 255].map(v => { v /= 255; return v \u003c= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });\n  return (.2126 * L[0] + .7152 * L[1] + .0722 * L[2]) > .4 ? '#111111' : '#ffffff';\n}\n\nfunction page() {\n  const c = CONFIG.color, fg = onColor(c);\n  return '\u003c!doctype html>\u003chtml lang=\"en\">\u003chead>\u003cmeta charset=\"utf-8\">\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\">'\n    + '\u003ctitle>' + esc(CONFIG.name) + '\u003c/title>\u003cstyle>'\n    + ':root{--accent:' + c + ';--on:' + fg + ';--bg:#fff;--fg:#111;--muted:#6e6c68;--bub:#f1f0ee;--line:#e7e5e1}'\n    + '@media (prefers-color-scheme:dark){:root{--bg:#121212;--fg:#f2f1ee;--muted:#a3a09a;--bub:#232220;--line:#2c2b29}}'\n    + '*{box-sizing:border-box}html,body{height:100%;margin:0}body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);display:flex;flex-direction:column}'\n    + 'header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--accent);color:var(--on)}'\n    + '.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:600;background:color-mix(in srgb,var(--on) 20%,transparent)}'\n    + 'header b{display:block;font-size:16px}header small{opacity:.8;font-size:12.5px}'\n    + 'main{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;max-width:760px;width:100%;margin:0 auto}'\n    + '.m{max-width:85%;padding:10px 14px;border-radius:16px;white-space:pre-wrap;word-wrap:break-word}'\n    + '.bot{align-self:flex-start;background:var(--bub);border-bottom-left-radius:5px}.me{align-self:flex-end;background:var(--accent);color:var(--on);border-bottom-right-radius:5px}.err{color:#b42318}'\n    + 'form{display:flex;gap:8px;padding:12px 18px 16px;border-top:1px solid var(--line);max-width:760px;width:100%;margin:0 auto}'\n    + 'textarea{flex:1;resize:none;font:inherit;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);max-height:120px}'\n    + 'button{border:0;border-radius:14px;padding:0 18px;font:600 15px system-ui,sans-serif;background:var(--accent);color:var(--on);cursor:pointer}button:disabled{opacity:.5;cursor:default}'\n    + 'textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}'\n    + '.foot{text-align:center;font-size:11.5px;color:var(--muted);padding:0 0 10px}'\n    + '\u003c/style>\u003c/head>\u003cbody>'\n    + '\u003cheader>\u003cdiv class=\"av\" aria-hidden=\"true\">' + esc((CONFIG.name.trim()[0] || 'A').toUpperCase()) + '\u003c/div>\u003cdiv>\u003cb>' + esc(CONFIG.name) + '\u003c/b>\u003csmall>AI assistant\u003c/small>\u003c/div>\u003c/header>'\n    + '\u003cmain id=\"log\" aria-live=\"polite\">\u003cdiv class=\"m bot\">' + esc(CONFIG.greeting) + '\u003c/div>\u003c/main>'\n    + '\u003cform id=\"f\">\u003clabel for=\"q\" style=\"position:absolute;left:-9999px\">Message\u003c/label>\u003ctextarea id=\"q\" rows=\"1\" maxlength=\"2000\" placeholder=\"Type a message\">\u003c/textarea>\u003cbutton id=\"s\" type=\"submit\">Send\u003c/button>\u003c/form>'\n    + '\u003cdiv class=\"foot\">AI answers can be wrong. Built with AI Verse.\u003c/div>'\n    + '\u003cscript>(function(){var log=document.getElementById(\"log\"),f=document.getElementById(\"f\"),q=document.getElementById(\"q\"),s=document.getElementById(\"s\"),hist=[],busy=false;'\n    + 'function add(cls,t){var d=document.createElement(\"div\");d.className=\"m \"+cls;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}'\n    + 'q.addEventListener(\"keydown\",function(e){if(e.key===\"Enter\"&&!e.shiftKey){e.preventDefault();f.requestSubmit();}});'\n    + 'f.addEventListener(\"submit\",async function(e){e.preventDefault();var t=q.value.trim();if(!t||busy)return;busy=true;s.disabled=true;q.value=\"\";add(\"me\",t);hist.push({role:\"user\",content:t});var d=add(\"bot\",\"\u2026\"),out=\"\";'\n    + 'try{var r=await fetch(\"/chat\",{method:\"POST\",headers:{\"Content-Type\":\"application/json\"},body:JSON.stringify({messages:hist.slice(-12)})});'\n    + 'if(!r.ok){var j={};try{j=await r.json();}catch(x){}throw new Error((j.error&&j.error.message)||\"Something went wrong.\");}'\n    + 'var rd=r.body.getReader(),dec=new TextDecoder(),buf=\"\";for(;;){var c=await rd.read();if(c.done)break;buf+=dec.decode(c.value,{stream:true});var i;while((i=buf.indexOf(\"\\\\n\"))>=0){var line=buf.slice(0,i).trim();buf=buf.slice(i+1);if(line.indexOf(\"data:\")!==0)continue;var p=line.slice(5).trim();if(p===\"[DONE]\")continue;try{var x=JSON.parse(p).choices[0].delta.content;if(x){out+=x;d.textContent=out;log.scrollTop=log.scrollHeight;}}catch(z){}}}'\n    + 'if(!out)d.textContent=out=\"Sorry, I don\\'t have an answer for that.\";hist.push({role:\"assistant\",content:out});}'\n    + 'catch(err){d.textContent=err.message;d.className=\"m bot err\";hist.pop();}busy=false;s.disabled=false;q.focus();});})();\u003c\\/script>\u003c/body>\u003c/html>';\n}\n\nfunction widgetJs(origin) {\n  const c = CONFIG.color, fg = onColor(c);\n  return '(function(){if(window.__aivKit)return;window.__aivKit=1;var o=' + JSON.stringify(origin) + ',c=' + JSON.stringify(c) + ',fg=' + JSON.stringify(fg) + ',n=' + JSON.stringify(CONFIG.name) + ';'\n    + 'var b=document.createElement(\"button\");b.type=\"button\";b.setAttribute(\"aria-label\",\"Chat with \"+n);b.innerHTML=\"\u003csvg width=\\\\\"26\\\\\" height=\\\\\"26\\\\\" viewBox=\\\\\"0 0 24 24\\\\\" fill=\\\\\"none\\\\\" stroke=\\\\\"currentColor\\\\\" stroke-width=\\\\\"2\\\\\" stroke-linecap=\\\\\"round\\\\\" stroke-linejoin=\\\\\"round\\\\\" aria-hidden=\\\\\"true\\\\\">\u003cpath d=\\\\\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\\\\\"/>\u003c/svg>\";'\n    + 'b.style.cssText=\"position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:0;cursor:pointer;z-index:2147483646;box-shadow:0 8px 24px rgba(0,0,0,.25);display:grid;place-items:center;background:\"+c+\";color:\"+fg;'\n    + 'var f=null;b.onclick=function(){if(!f){f=document.createElement(\"iframe\");f.src=o+\"/\";f.title=\"Chat with \"+n;f.style.cssText=\"position:fixed;right:20px;bottom:90px;width:min(380px,calc(100vw - 40px));height:min(600px,calc(100vh - 120px));border:0;border-radius:18px;box-shadow:0 16px 48px rgba(0,0,0,.25);z-index:2147483647;background:#fff\";document.body.appendChild(f);}else f.style.display=f.style.display===\"none\"?\"\":\"none\";};'\n    + 'document.body.appendChild(b);})();';\n}\n";
+const siteUrl=p=>new URL(p,location.href).href;
+const slug=n=>String(n||'my-ai').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'my-ai';
+function dl(name,data,type){const b=data instanceof Blob?data:new Blob([data],{type});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}
+let qrFor='';
+function renderDeploy(live){
+  $('deploy').hidden=!live;if(!live)return;
+  const id=S.bot.id,name=S.bot.name||'your AI',color=S.form.color||S.bot.color||'#111111',share=siteUrl('bot.html?id='+encodeURIComponent(id));
+  $('dName').textContent=name;$('shareLink').textContent=share;$('shareOpen').href=share;
+  $('snippet').textContent=`<script src="${siteUrl('widget.js')}" data-bot="${id}" data-color="${color}" defer><\/script>`;
+  $('frameCode').textContent=`<iframe src="${share}" title="${name.replace(/"/g,'')}" style="width:100%;height:620px;border:0;border-radius:16px"></iframe>`;
+  $('apiCode').textContent=`import OpenAI from "openai";\n\nconst client = new OpenAI({\n  apiKey: process.env.AIV_API_KEY, // your AIV API key, kept on your server\n  baseURL: "${API_PUBLIC}/v1",\n});\n\nconst reply = await client.chat.completions.create({\n  model: "bot-${id}",\n  messages: [{ role: "user", content: "Hi!" }],\n});\nconsole.log(reply.choices[0].message.content);`;
+  if(qrFor!==share){qrFor=share;loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js').then(()=>{$('qrBox').innerHTML='';new window.QRCode($('qrBox'),{text:share,width:264,height:264,correctLevel:window.QRCode.CorrectLevel.M});}).catch(()=>{$('qrBox').textContent='QR code unavailable offline';qrFor='';});}
+}
+async function ownerGet(path){const r=await call('/bots/'+S.bot.id+path,{headers:{Authorization:'Bearer '+S.ownerToken}});return jsonOrThrow(r);}
+async function withBtn(b,fn){const t=b.textContent;b.disabled=true;b.textContent='Preparing…';try{await fn();}catch(e){status(esc(e.message),'bad');}finally{b.disabled=false;b.textContent=t;}}
+$('dAiv').addEventListener('click',e=>withBtn(e.currentTarget,async()=>{const x=await ownerGet('/export');dl(slug(x.name)+'.aiv',JSON.stringify(x,null,2),'application/json');}));
+$('dGuide').addEventListener('click',e=>withBtn(e.currentTarget,async()=>{const g=await ownerGet('/guide');dl(slug(S.bot.name)+'-setup-guide.html',g.html,'text/html');}));
+$('qrDl').addEventListener('click',()=>{const c=$('qrBox').querySelector('canvas'),i=$('qrBox').querySelector('img');const u=c?c.toDataURL('image/png'):i&&i.src;if(!u)return;const a=document.createElement('a');a.href=u;a.download=slug(S.bot.name)+'-qr.png';a.click();});
+function kitReadme(x){const base=API_PUBLIC+'/v1';return `# ${x.name}: self-host kit\n\nThis kit runs your AI on your own server with your own address. It's one file, worker.js, that gives you:\n\n- a chat page (your worker's address)\n- a chat bubble for any website (/widget.js)\n- the connection to the AI (/chat), with your API key kept secret on the server\n\n## You need an AI API key\n\nYour AI needs an AI API key to answer. We recommend an AIV API key: it runs your AI exactly as you built it and stays up to date when you change it in AI Verse. Plans start at $9 a month: ${siteUrl('api.html#plans')}\n\n## Set it up on Cloudflare (free)\n\n1. Create a free account at https://dash.cloudflare.com and open Workers & Pages.\n2. Press Create, then Create Worker. Give it a name (for example "${slug(x.name)}") and press Deploy.\n3. Press Edit code. Delete everything in the editor, paste all of worker.js, and press Deploy.\n4. Go to Settings, Variables and Secrets, + Add. Choose type Secret, name it AI_API_KEY, paste your API key, and press Deploy.\n5. Open your worker's address (shown at the top of its page, ending in .workers.dev). That's your AI's chat page.\n6. To add a chat bubble to a website, paste this just before </body>:\n\n   <script src="https://YOUR-WORKER-ADDRESS/widget.js" defer><\/script>\n\n7. Optional: under Settings, Domains & Routes, add your own address such as chat.yourbusiness.com.\n\n## Settings (Settings, Variables and Secrets)\n\n| Name | Type | What it does |\n|---|---|---|\n| AI_API_KEY | Secret | Required. Your AI API key. |\n| AI_BASE_URL | Text | Optional. Use another OpenAI-compatible AI service, e.g. https://api.openai.com/v1 or https://api.groq.com/openai/v1. Default: ${base} |\n| AI_MODEL | Text | Needed with AI_BASE_URL. The model to use, e.g. gpt-4o-mini. Default with AIV: bot-${x.id} |\n| ALLOWED_ORIGINS | Text | Optional. Only let these websites use the bubble, e.g. https://yourbusiness.com |\n\n## Changing your AI\n\n- With an AIV key (model bot-${x.id}): change your AI in AI Verse and press Update. The kit uses the new version right away.\n- With another AI company: after changing your AI in AI Verse, download the kit again and paste the new worker.js.\n\n## Also in this kit\n\n- ${slug(x.name)}.aiv: your AI file. Upload it on AI Verse (Build AI, Upload AI file) to restore or copy your AI.\n\nQuestions? team@aiverse.it.com\n`;}
+$('dKit').addEventListener('click',e=>withBtn(e.currentTarget,async()=>{
+  const x=await ownerGet('/export');await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
+  const cfg={name:x.name,greeting:x.form.greeting||'Hi! How can I help you today?',color:/^#[0-9a-f]{6}$/i.test(x.form.color||'')?x.form.color:'#111111',apiBase:API_PUBLIC+'/v1',model:x.api.model};
+  const code=KIT_TPL.split('__CONFIG__').join(JSON.stringify(cfg,null,2)).split('__SYSTEM__').join(JSON.stringify(x.system_prompt)).split('__NAME__').join(String(x.name).replace(/[\r\n]/g,' ')).split('__PLANS__').join(siteUrl('api.html#plans'));
+  const z=new window.JSZip();const f=z.folder(slug(x.name)+'-self-host-kit');f.file('worker.js',code);f.file('README.md',kitReadme(x));f.file(slug(x.name)+'.aiv',JSON.stringify(x,null,2));
+  dl(slug(x.name)+'-self-host-kit.zip',await z.generateAsync({type:'blob'}));
+  status('Self-host kit downloaded. Open README.md for setup. It needs an AI API key; we recommend an <a href="api.html#plans">AIV API key</a>.','good');
+}));
+/* upload an .aiv file */
+$('aivIn').addEventListener('change',async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  let x;try{x=JSON.parse(await f.text());}catch(_){status('That file isn\'t an AI Verse AI file (.aiv).','bad');return;}
+  if(!x||x.format!=='aiv-ai'||!x.form){status('That file isn\'t an AI Verse AI file (.aiv).','bad');return;}
+  if(S.bot&&!confirm('Load "'+(x.name||'this AI')+'" into the builder? You\'ll build it as a new AI. Your current AI stays live, and you can still open it with its manage link.'))return;
+  S.bot=null;S.ownerToken=null;S.chat=[];
+  writeForm({business:'',about:'',hours:'',location:'',contact:'',services:'',faqs:'',website:'',notes:'',botName:'',greeting:'',...x.form});
+  S.docs=(Array.isArray(x.documents)?x.documents:[]).slice(0,5).map(d=>({name:String(d.name||'Document'),text:String(d.text||'').slice(0,30000)})).filter(d=>d.text);
+  onFormChange();renderFiles();renderChat();save();$('build').scrollIntoView({behavior:'smooth'});
+  status(`Loaded <b>${esc(x.name||'your AI')}</b>. Check the details, then press ${isBiz()?'Build my chatbot':'Build my AI'}.`,'good');
+});
+/* manage link (from the purchase email) and return from checkout */
+async function fromLinks(){
+  const q=new URLSearchParams(location.search);const bid=q.get('bot'),tok=(location.hash.match(/own_[A-Za-z0-9]+/)||[])[0];
+  if(bid&&tok&&SERVER){
+    history.replaceState(null,'',location.pathname+'#build');
+    try{
+      const r=await call('/bots/'+encodeURIComponent(bid)+'/export',{headers:{Authorization:'Bearer '+tok}});const x=await jsonOrThrow(r);
+      const pub=await jsonOrThrow(await call('/bots/'+encodeURIComponent(bid)));
+      S.bot={id:pub.id,name:pub.name,business:pub.business,status:pub.status,trialLeft:pub.trialLeft,greeting:pub.greeting,color:pub.color};S.ownerToken=tok;S.chat=[];
+      writeForm({business:'',about:'',hours:'',location:'',contact:'',services:'',faqs:'',website:'',notes:'',botName:'',greeting:'',...x.form});
+      S.docs=(x.documents||[]).map(d=>({name:d.name,text:d.text}));S.form=readForm();save();renderFiles();paintWidget();renderChat();
+      status(`Welcome back. You're managing <b>${esc(pub.name)}</b>. Change anything and press Update, or use <a href="#deploy">Deploy</a>.`,'good');
+    }catch(err){status('This manage link didn\'t work: '+esc(err.message)+' Email team@aiverse.it.com for a new one.','bad');}
+    return true;
+  }
+  if(q.has('paid')&&S.bot&&SERVER){
+    history.replaceState(null,'',location.pathname);
+    status('<span style="display:inline-flex;align-items:center;gap:8px"><span class="spin"></span>Payment received. Switching your AI on…</span>');
+    for(let i=0;i<20;i++){try{const j=await jsonOrThrow(await call('/bots/'+S.bot.id));Object.assign(S.bot,{status:j.status,trialLeft:j.trialLeft,name:j.name,color:j.color});if(j.status==='active'){save();renderChat();const d=$('paywall');if(d.open)d.close();status('Your AI is live. Every way to use it is in <a href="#deploy">Deploy</a>, and we emailed you a setup guide.','good');$('deploy').scrollIntoView({behavior:'smooth'});return true;}}catch(_){}await new Promise(r=>setTimeout(r,2500));}
+    status('Your payment went through, but your AI is taking a moment to switch on. Refresh in a minute, or check your email for your links.','bad');return true;
+  }
+  return false;
+}
+
 /* ---------- start ---------- */
 function want0(f){const w=new URLSearchParams(location.search).get('for');return w?{...f,kind:w==='business'?'business':'personal'}:f;}
 {const want=new URLSearchParams(location.search).get('for');
  setKind(want==='business'?'business':want==='me'?'personal':(S.form&&S.form.kind)||(S.bot?'business':'personal'));}
 writeForm(want0(S.form||{}));S.form=readForm();renderFiles();paintWidget();renderChat();
+fromLinks().then(handled=>{if(handled)return;
 if(S.bot&&SERVER){
   call('/bots/'+S.bot.id).then(jsonOrThrow).then(j=>{Object.assign(S.bot,{status:j.status,trialLeft:j.trialLeft,name:j.name,color:j.color});save();renderChat();if(j.status==='trial'&&j.trialLeft===0)showPaywall();})
   .catch(err=>{if(err.status===404){S.bot=null;S.ownerToken=null;S.chat=[];save();renderChat();status('Your previous chatbot was removed. Build a new one below.');}});
 }else if(S.bot&&S.bot.status==='trial'&&S.bot.trialLeft===0)showPaywall();
+});
 })();
 </script>
 </body>
