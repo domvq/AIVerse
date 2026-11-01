@@ -680,18 +680,22 @@ async function browserChat(model,sys,prompt,{json,temp,max,signal}){
 }
 /* speech-to-text (Whisper) — only where the provider offers it */
 function whisperTarget(){const s=S.settings,p=prov();
+ if(p==='free'&&FREE_BASE)return{url:FREE_BASE+'/audio/transcriptions',headers:{},model:'whisper-large-v3-turbo',free:true};
+ if(p==='aiv'&&s.aivKey)return{url:AIV_BASE+'/audio/transcriptions',headers:{Authorization:'Bearer '+s.aivKey},model:'whisper'};
  if(p==='groq'&&s.groqKey)return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.groqKey},model:'whisper-large-v3'};
  if(p==='custom'&&s.customKey&&/api\.openai\.com/.test(s.customBase))return{url:'https://api.openai.com/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-1'};
  if(p==='custom'&&s.customKey&&/groq\.com/.test(s.customBase))return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-large-v3'};
  return null;}
 const canWhisper=()=>!!whisperTarget();
-async function transcribe(blob){const W=whisperTarget();if(!W)throw new Error('Recorded-audio transcription needs a Groq or OpenAI key. With '+PROV_NAMES[prov()]+', use live dictation in Chrome, Edge or Safari.');if(blob.size>24.5e6)throw new Error('Recording is larger than the 25 MB limit — record shorter segments.');const ext=/mp4|aac|m4a/.test(blob.type)?'m4a':(/ogg/.test(blob.type)?'ogg':'webm');const fd=new FormData();fd.append('file',blob,'audio.'+ext);fd.append('model',W.model);fd.append('response_format','json');let r;try{r=await fetch(W.url,{method:'POST',headers:W.headers,body:fd});}catch(e){throw new Error('Could not reach the transcription service.');}if(!r.ok){const m=errMsg(await r.text().catch(()=>''));throw new Error('Transcription failed'+(m?': '+m:''));}return((await r.json()).text||'').trim();}
+async function transcribe(blob){const W=whisperTarget();if(!W)throw new Error('Recorded-audio transcription needs a Groq or OpenAI key. With '+PROV_NAMES[prov()]+', use live dictation in Chrome, Edge or Safari.');if(blob.size>24.5e6)throw new Error('Recording is larger than the 25 MB limit — record shorter segments.');const ext=/mp4|aac|m4a/.test(blob.type)?'m4a':(/ogg/.test(blob.type)?'ogg':'webm');const fd=new FormData();fd.append('file',blob,'audio.'+ext);fd.append('model',W.model);fd.append('response_format','json');let r;try{r=await fetch(W.url,{method:'POST',headers:W.headers,body:fd});}catch(e){throw new Error('Could not reach the transcription service.');}if(W.free){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free daily uses in this app.');}}if(!r.ok){const m=errMsg(await r.text().catch(()=>''));throw new Error('Transcription failed'+(m?': '+m:''));}return((await r.json()).text||'').trim();}
 async function listModels(){const T=aiConn();if(T.p==='browser')return WEBLLM_MODELS.map(m=>m[0]);if(/api\.anthropic\.com/.test(T.base)){const r=await fetch('https://api.anthropic.com/v1/models',{headers:anthropicHeaders()}).catch(()=>{throw new Error(netErr(T));});if(!r.ok)throw new Error(r.status===401?'The service rejected the API key.':'Could not list models ('+r.status+').');return((await r.json()).data||[]).map(m=>m.id);}let r;try{r=await fetch(T.base+'/models',{headers:T.headers});}catch(e){throw new Error(netErr(T));}if(!r.ok)throw new Error(r.status===401||r.status===403?'The service rejected the API key.':'Could not list models ('+r.status+').');const d=await r.json();const arr=d.data||d.models||[];return arr.map(m=>m.id||m.name||m.model).filter(Boolean).filter(id=>!/whisper|tts|embed|guard|orpheus|playai|moderation|dall-e|image|audio|transcribe/i.test(id)).sort();}
 
 
 /* ---------- vision AI (photos) ---------- */
 const DEFAULT_VISION='qwen/qwen3.8-27b';
 function visionTarget(){const s=S.settings,p=prov();
+ if(p==='free'&&FREE_BASE)return{p,base:FREE_BASE,headers:{},model:'free'};
+ if(p==='aiv'&&s.aivKey)return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey},model:s.aivModel||'aiv-1'};
  if(p==='groq'&&s.groqKey)return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey},model:s.visionModel||DEFAULT_VISION};
  if(p==='custom'&&s.customBase&&(s.customVision||s.customModel))return{...aiConn(),model:s.customVision||s.customModel};
  if(p==='local'&&s.localVision)return{...aiConn(),model:s.localVision};
