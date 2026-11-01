@@ -1,0 +1,9 @@
+# AI Verse — aiverse.it.com
+User-agent: *
+Allow: /
+
+# Private and utility pages
+Disallow: /admin.html
+Disallow: /bot.html
+
+Sitemap: https://aiverse.it.com/sitemap.xml
