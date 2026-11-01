@@ -345,11 +345,11 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 const AIV_API_CONFIG = {
   apiBase: (window.AIV_SITE&&window.AIV_SITE.server)||'https://api.aiverse.it.com',  // set in config.js
   paymentLinks: {                                // Stripe payment links (buy.stripe.com/…)
-    starter:  '',
-    pro:      '',
-    business: ''
+    starter:  'https://buy.stripe.com/test_28EaEY5Lb7vM5aJ59e1Fe00',   // TEST mode links: swap for live links when going live
+    pro:      'https://buy.stripe.com/test_14AaEY7Tj4jA32B45a1Fe01',
+    business: 'https://buy.stripe.com/test_9B6bJ28XnbM232B9pu1Fe02'
   },
-  portalUrl: ''                                  // Stripe customer portal link
+  portalUrl: 'https://billing.stripe.com/p/login/test_28EaEY5Lb7vM5aJ59e1Fe00'                                  // Stripe customer portal link
 };
 
 (()=>{
