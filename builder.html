@@ -408,8 +408,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="deploy-h">
       <div><span class="eyebrow">Deploy</span><h2 id="deployTitle" style="margin-top:12px">Use <span id="dName">your AI</span> anywhere</h2>
       <p>Six ways to use it. The first four run on AI Verse and are ready now. Hosting it yourself or using it in an app needs an AI API key.</p></div>
-      <button class="btn line sm" type="button" id="dGuide">Download setup guide</button>
+      <div class="acts" style="display:flex;flex-wrap:wrap;gap:8px"><button class="btn dark sm" type="button" id="dEmail">Email me my setup info</button><button class="btn line sm" type="button" id="dGuide">Download setup guide</button></div>
     </div>
+    <p class="statusline" id="emailNote" role="status" aria-live="polite" style="margin-top:14px"></p>
     <div class="dgrid">
       <article class="dcard"><h3>1. Share link <span class="tag ok">Ready now</span></h3><p>A page anyone can open to chat with your AI. Send it, post it, or print the QR code.</p>
         <div class="copyrow"><code id="shareLink"></code><button class="btn line sm" type="button" data-copy="shareLink">Copy</button></div>
@@ -765,10 +766,15 @@ const KIT_TPL="// AI Verse self-host kit for \"__NAME__\"\n// Everything your AI
 const siteUrl=p=>new URL(p,location.href).href;
 const slug=n=>String(n||'my-ai').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'my-ai';
 function dl(name,data,type){const b=data instanceof Blob?data:new Blob([data],{type});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}
-let qrFor='';
+let qrFor='',emailChecked='';
+async function checkEmail(){const id=S.bot&&S.bot.id;if(!id||emailChecked===id||!S.ownerToken)return;emailChecked=id;
+  try{const x=await ownerGet('/export');const pz=x.purchase;const n=$('emailNote');if(!pz){n.textContent='';return;}
+    if(pz.emailed){n.className='statusline good';n.innerHTML=`We emailed your setup info to <b>${esc(pz.email)}</b>. Not there? Check spam, or press <b>Email me my setup info</b>.`;}
+    else{n.className='statusline bad';n.innerHTML=`We couldn't email your setup info yet${pz.emailError?' ('+esc(pz.emailError)+')':''}. Press <b>Email me my setup info</b> to try again. Everything is also on this page.`;}}catch(_){emailChecked='';}}
 function renderDeploy(live){
   $('deploy').hidden=!live;if(!live)return;
   const id=S.bot.id,name=S.bot.name||'your AI',color=S.form.color||S.bot.color||'#111111',share=siteUrl('bot.html?id='+encodeURIComponent(id));
+  checkEmail();
   $('dName').textContent=name;$('shareLink').textContent=share;$('shareOpen').href=share;
   $('snippet').textContent=`<script src="${siteUrl('widget.js')}" data-bot="${id}" data-color="${color}" defer><\/script>`;
   $('frameCode').textContent=`<iframe src="${share}" title="${name.replace(/"/g,'')}" style="width:100%;height:620px;border:0;border-radius:16px"></iframe>`;
@@ -778,6 +784,10 @@ function renderDeploy(live){
 async function ownerGet(path){const r=await call('/bots/'+S.bot.id+path,{headers:{Authorization:'Bearer '+S.ownerToken}});return jsonOrThrow(r);}
 async function withBtn(b,fn){const t=b.textContent;b.disabled=true;b.textContent='Preparing…';try{await fn();}catch(e){status(esc(e.message),'bad');}finally{b.disabled=false;b.textContent=t;}}
 $('dAiv').addEventListener('click',e=>withBtn(e.currentTarget,async()=>{const x=await ownerGet('/export');dl(slug(x.name)+'.aiv',JSON.stringify(x,null,2),'application/json');}));
+$('dEmail').addEventListener('click',e=>withBtn(e.currentTarget,async()=>{const n=$('emailNote');
+  const r=await call('/bots/'+S.bot.id+'/email',{method:'POST',headers:{Authorization:'Bearer '+S.ownerToken}});
+  try{const j=await jsonOrThrow(r);n.className='statusline good';n.innerHTML=`Sent to <b>${esc(j.sentTo)}</b>. It can take a minute; check spam too.`+(j.testSender?' (Sent from Resend\'s test address because aiverse.it.com isn\'t verified in Resend yet.)':'');}
+  catch(err){n.className='statusline bad';n.textContent='Couldn\'t send the email: '+err.message;}}));
 $('dGuide').addEventListener('click',e=>withBtn(e.currentTarget,async()=>{const g=await ownerGet('/guide');dl(slug(S.bot.name)+'-setup-guide.html',g.html,'text/html');}));
 $('qrDl').addEventListener('click',()=>{const c=$('qrBox').querySelector('canvas'),i=$('qrBox').querySelector('img');const u=c?c.toDataURL('image/png'):i&&i.src;if(!u)return;const a=document.createElement('a');a.href=u;a.download=slug(S.bot.name)+'-qr.png';a.click();});
 function kitReadme(x){const base=API_PUBLIC+'/v1';return `# ${x.name}: self-host kit\n\nThis kit runs your AI on your own server with your own address. It's one file, worker.js, that gives you:\n\n- a chat page (your worker's address)\n- a chat bubble for any website (/widget.js)\n- the connection to the AI (/chat), with your API key kept secret on the server\n\n## You need an AI API key\n\nYour AI needs an AI API key to answer. We recommend an AIV API key: it runs your AI exactly as you built it and stays up to date when you change it in AI Verse. Plans start at $9 a month: ${siteUrl('api.html#plans')}\n\n## Set it up on Cloudflare (free)\n\n1. Create a free account at https://dash.cloudflare.com and open Workers & Pages.\n2. Press Create, then Create Worker. Give it a name (for example "${slug(x.name)}") and press Deploy.\n3. Press Edit code. Delete everything in the editor, paste all of worker.js, and press Deploy.\n4. Go to Settings, Variables and Secrets, + Add. Choose type Secret, name it AI_API_KEY, paste your API key, and press Deploy.\n5. Open your worker's address (shown at the top of its page, ending in .workers.dev). That's your AI's chat page.\n6. To add a chat bubble to a website, paste this just before </body>:\n\n   <script src="https://YOUR-WORKER-ADDRESS/widget.js" defer><\/script>\n\n7. Optional: under Settings, Domains & Routes, add your own address such as chat.yourbusiness.com.\n\n## Settings (Settings, Variables and Secrets)\n\n| Name | Type | What it does |\n|---|---|---|\n| AI_API_KEY | Secret | Required. Your AI API key. |\n| AI_BASE_URL | Text | Optional. Use another OpenAI-compatible AI service, e.g. https://api.openai.com/v1 or https://api.groq.com/openai/v1. Default: ${base} |\n| AI_MODEL | Text | Needed with AI_BASE_URL. The model to use, e.g. gpt-4o-mini. Default with AIV: bot-${x.id} |\n| ALLOWED_ORIGINS | Text | Optional. Only let these websites use the bubble, e.g. https://yourbusiness.com |\n\n## Changing your AI\n\n- With an AIV key (model bot-${x.id}): change your AI in AI Verse and press Update. The kit uses the new version right away.\n- With another AI company: after changing your AI in AI Verse, download the kit again and paste the new worker.js.\n\n## Also in this kit\n\n- ${slug(x.name)}.aiv: your AI file. Upload it on AI Verse (Build AI, Upload AI file) to restore or copy your AI.\n\nQuestions? team@aiverse.it.com\n`;}
