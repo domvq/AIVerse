@@ -181,7 +181,12 @@ dialog.pay::backdrop{background:var(--shade);backdrop-filter:blur(4px)}
 .pay-in ul{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px;font-size:14.5px}
 .pay-in li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px}
 .pay-in li svg{width:15px;height:15px;margin-top:4px}
-.pay-in .buy{width:100%;margin-top:26px;padding:15px 22px;font-size:16px;border-radius:12px}
+.pay-in .bemail{display:grid;gap:6px;margin-top:22px;font-weight:500;font-size:14.5px}
+.pay-in .bemail input{font:400 16px var(--body);padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--field);color:var(--fg);width:100%;box-sizing:border-box}
+.pay-in .bemail input:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.pay-in .bemail small{font-weight:400;color:var(--muted);font-size:13px}
+.pay-in .bemail .err{color:var(--bad);font-weight:400;font-size:13px}
+.pay-in .buy{width:100%;margin-top:16px;padding:15px 22px;font-size:16px;border-radius:12px}
 .pay-in .fine2{font-size:12.5px;color:var(--soft);margin-top:12px}
 .pay-in .alt{display:flex;justify-content:center;gap:18px;margin-top:16px;font-size:14px}
 .pay-in .alt a{color:var(--muted)}
@@ -493,6 +498,10 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <li><svg><use href="#tick"/></svg><span>Goes live as soon as you pay, with every deploy option and a setup guide emailed to you</span></li>
       <li><svg><use href="#tick"/></svg><span data-k="pay4">Keep updating what your AI knows</span></li>
     </ul>
+    <label class="bemail" for="buyEmail"><span>Your email <span class="req" aria-hidden="true">*</span></span>
+      <input type="email" id="buyEmail" autocomplete="email" inputmode="email" required placeholder="you@example.com" aria-describedby="buyEmailHelp buyEmailErr">
+      <small id="buyEmailHelp">We'll send your AI's links, setup guide and AI file here.</small>
+      <span class="err" id="buyEmailErr" hidden></span></label>
     <a class="btn dark buy" id="payBuy" href="https://buy.stripe.com/test_8x2dRaehH9DU5aJ9pu1Fe03">Buy now <svg><use href="#arrow"/></svg></a>
     <p class="fine2" id="payFine">Includes hosting on AI Verse. Hosting it yourself or using it in your own app needs an AI API key, such as an <a href="api.html#plans">AIV API key</a>.</p>
     <div class="alt"><a href="contact.html">Questions? Contact us</a><a href="index.html">Back to home</a></div>
@@ -718,10 +727,23 @@ function showPaywall(){
   $('payTitle').textContent=S.bot.trialLeft>0?'Buy your '+W():'Your free messages are used up';
   const q=new URLSearchParams({bot:S.bot.id,biz:S.form.business||'',site:S.form.website||'',name:S.bot.name||'',kind:kind()});
   $('payBuy').href=CHECKOUT+(CHECKOUT.includes('?')?'&':'?')+'client_reference_id='+encodeURIComponent(S.bot.id);
+  if(S.buyerEmail&&!$('buyEmail').value)$('buyEmail').value=S.buyerEmail;
   try{d.showModal();}catch(e){d.setAttribute('open','');}
-  $('payBuy').focus();
+  ($('buyEmail').value?$('payBuy'):$('buyEmail')).focus();
 }
 $('paywall').addEventListener('cancel',e=>e.preventDefault());
+/* Buy now: require an email, save it to the AI, then open Stripe with it pre-filled */
+$('payBuy').addEventListener('click',async e=>{
+  e.preventDefault();const a=$('payBuy'),inp=$('buyEmail'),er=$('buyEmailErr');if(a.dataset.busy)return;
+  const em=inp.value.trim();er.hidden=true;inp.removeAttribute('aria-invalid');
+  if(!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em)){er.textContent='Enter your email so we can send your setup info.';er.hidden=false;inp.setAttribute('aria-invalid','true');inp.focus();return;}
+  a.dataset.busy='1';const label=a.firstChild.textContent;a.firstChild.textContent='Opening checkout… ';
+  try{const r=await call('/bots/'+S.bot.id+'/contact',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+S.ownerToken},body:JSON.stringify({email:em})});await jsonOrThrow(r);
+    S.buyerEmail=em;save();location.href=a.href+'&prefilled_email='+encodeURIComponent(em);}
+  catch(err){er.textContent=err.message;er.hidden=false;a.firstChild.textContent=label;delete a.dataset.busy;}
+});
+$('buyEmail').addEventListener('input',()=>{$('buyEmailErr').hidden=true;$('buyEmail').removeAttribute('aria-invalid');});
+$('buyEmail').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('payBuy').click();}});
 $('paywall').addEventListener('close',()=>{if(S.bot&&S.bot.status==='trial'&&S.bot.trialLeft<=0)setTimeout(showPaywall,0);});
 
 /* ---------- other controls ---------- */
