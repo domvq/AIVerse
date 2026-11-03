@@ -417,7 +417,7 @@ function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document
 const KEY='careerintel.v1';
 const emptyResume=()=>({contact:{name:'',email:'',phone:'',location:'',linkedin:'',website:''},headline:'',summary:'',experience:[],education:[],skills:[],certifications:[],projects:[],text:'',updated:0});
 const DEF=()=>({
- profile:{name:'',targetRoles:'',locations:'',remote:'any',salary:'',industries:'',years:'',authorized:'Yes',sponsorship:'No',start:'2 weeks notice',relocate:'Open to discussion',goalsText:''},
+ profile:{name:'',targetRoles:'',locations:'',remote:'any',salary:'',industries:'',years:'',authorized:'',sponsorship:'',start:'',relocate:'',goalsText:''},
  settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',srcRemotive:true,srcArbeitnow:true,adzunaId:'',adzunaKey:'',adzunaCountry:'us',useDemo:false},
  resume:emptyResume(),jobs:{},searchCache:{},apps:[],pending:[],chat:[],agent:null,practice:[],linkedin:null,gap:null,paths:null,transition:null,network:null,portfolio:null,lastQuery:'',setupDone:false,insight:null});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.resume={...emptyResume(),...(s.resume||{})};d.resume.contact={...emptyResume().contact,...((s.resume||{}).contact||{})};}}catch(e){}return d;}
