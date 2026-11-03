@@ -163,7 +163,8 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 
 /* AIV-X promo */
 .xpromo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:#000;color:#f2f2f2;border-radius:22px;padding:44px;margin-bottom:16px;background-image:radial-gradient(ellipse 60% 70% at 85% 20%,rgba(122,184,255,.18),transparent 70%)}
-.xpromo .eyebrow{color:#7ab8ff;display:block;margin-bottom:14px}
+.xpromo .xlogo{display:block;font-size:44px;line-height:0;color:#fff;margin-bottom:22px}
+.xpromo .btn.ghost{background:transparent;color:#fff;border:1px solid #ffffff40}.xpromo .btn.ghost:hover{background:#ffffff14}
 .xpromo h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;color:#fff}
 .xpromo p{color:#c8c8ce;max-width:46ch;margin:16px 0 0}
 .xpromo .btn{background:#fff;color:#000}.xpromo .btn:hover{opacity:.9}
@@ -235,7 +236,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <a href="#top" aria-current="page">Home</a>
       <a href="chat.html">Ask AIV</a>
       <a href="builder.html">Build AI</a>
-      <a href="introducing-aiv-x.html">AIV-X</a>
+      <a href="introducing-aiv-x.html">AIV X</a>
       <a href="business.html">Business</a>
       <a href="data.html">Data</a>
       <a href="#apps">Apps</a>
@@ -281,16 +282,16 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
     <section class="xpromo" id="aivx" aria-labelledby="xTitle">
       <div>
-        <span class="eyebrow">Introducing AIV-X</span>
-        <h2 id="xTitle">The AI that builds AI</h2>
-        <p>Describe any AI assistant or AI app you want. AIV-X asks the right questions, builds it, and lets you train it and put it anywhere. Your first build is free.</p>
-        <div class="promo-cta"><a class="btn" href="introducing-aiv-x.html">Meet AIV-X <svg><use href="#arrow"/></svg></a><span class="promo-price">$50/month, including AIV API credits</span></div>
+        <span class="xlogo" data-aivx-logo="AIV X"></span>
+        <h2 id="xTitle">Your everyday AI, from AI Verse</h2>
+        <p>Chat, search, research, create images, read your files and build AI assistants and apps, then turn AIV X into any AI Verse app in one tap. One account works on AI Verse and AIV X.</p>
+        <div class="promo-cta"><a class="btn" href="https://aiv-x.com" target="_blank" rel="noopener">Open AIV X <svg><use href="#arrow"/></svg></a><a class="btn ghost" href="introducing-aiv-x.html">Learn more</a></div>
       </div>
       <ul>
-        <li>AI assistants: tutors, coaches, support agents</li>
-        <li>AI apps: quiz makers, planners, generators</li>
-        <li>Train with your files, websites and examples</li>
-        <li>Share links, website widget and downloads</li>
+        <li>Chat, voice, files and photos</li>
+        <li>Web search and deep research</li>
+        <li>Image creation and building AI apps</li>
+        <li>Memory, and every AI Verse app built in</li>
       </ul>
     </section>
 
@@ -406,12 +407,13 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="#top"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV-X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="#setup">Key setup</a>
+        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
   </div>
 </footer>
 
+<script src="auth.js" defer></script>
 </body>
 </html>

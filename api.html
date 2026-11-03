@@ -218,7 +218,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <a href="index.html">Home</a>
       <a href="chat.html">Ask AIV</a>
       <a href="builder.html">Build AI</a>
-      <a href="introducing-aiv-x.html">AIV-X</a>
+      <a href="introducing-aiv-x.html">AIV X</a>
       <a href="business.html">Business</a>
       <a href="data.html">Data</a>
       <a href="index.html#apps">Apps</a>
@@ -331,7 +331,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV-X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#setup">Key setup</a>
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="index.html#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Payments are processed by Stripe. AIV models are served by third-party model providers.</p>
@@ -429,5 +429,6 @@ $('rotateNo').onclick=()=>{$('rotateConfirm').hidden=true;};
 $('rotateYes').onclick=()=>{const k=validKey();if(!k)return;run($('rotateYes'),async()=>{const j=await api('/v1/keys/rotate',{method:'POST',headers:{Authorization:'Bearer '+k}});$('rotateConfirm').hidden=true;$('myKey').value='';keyCard('Your new API key',j.key,'Your old key has stopped working. Update it in your apps.');});};
 })();
 </script>
+<script src="auth.js" defer></script>
 </body>
 </html>
