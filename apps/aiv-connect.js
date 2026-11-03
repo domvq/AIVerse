@@ -214,6 +214,30 @@
     return seq.then(function () { return wait(400); }).then(function () { return { results: results, context: context() }; });
   }
 
+  /* ---------- "Back to ..." link: return to wherever the app was opened from ---------- */
+  var BACK_OK = /^https?:\/\/(www\.)?aiv-x\.com(\/|$)|^https:\/\/domvq\.github\.io\/|^http:\/\/(localhost|127\.0\.0\.1):8000(\/|$)/;
+  function backLinks() {
+    return Array.prototype.filter.call(document.querySelectorAll("a[href]"), function (a) { return /back to ai ?verse/i.test(a.textContent || ""); });
+  }
+  function aivxBackUrl() {
+    var url = "";
+    try {
+      var q = new URLSearchParams(location.search);
+      if (q.get("from") === "aivx") url = q.get("back") || "https://aiv-x.com/";
+      if (!url && document.referrer && BACK_OK.test(document.referrer)) url = document.referrer;
+      if (url && BACK_OK.test(url)) sessionStorage.setItem("aivx.back", url);
+      else url = sessionStorage.getItem("aivx.back") || "";
+    } catch (e) {}
+    return url && BACK_OK.test(url) ? url : "";
+  }
+  function setBackLinks(onClick, href) {
+    backLinks().forEach(function (a) {
+      a.textContent = "\u2190 Back to AIV X";
+      if (href) a.href = href;
+      if (onClick) a.addEventListener("click", function (e) { e.preventDefault(); onClick(); });
+    });
+  }
+
   /* =====================================================================
      MODE A — running inside AIV X
      ===================================================================== */
@@ -253,6 +277,7 @@
       if (d.type === "context") send({ type: "answer", id: d.id, result: context() });
       if (d.type === "act") runActions(d.actions).then(function (r) { send({ type: "answer", id: d.id, result: r }); });
     });
+    setBackLinks(function () { send({ type: "close" }); });
     send({ type: "hello", v: 1, title: document.title, screens: context().screens });
     window.addEventListener("hashchange", function () { send({ type: "screen", screen: location.hash.replace("#", "") }); });
     return;
@@ -261,6 +286,8 @@
   /* =====================================================================
      MODE B — opened directly on aiverse.it.com
      ===================================================================== */
+  var backUrl = aivxBackUrl();
+  if (backUrl) setBackLinks(null, backUrl);
   if (!OK) return;
   var fbReady = null;
   function loadScript(src) {
