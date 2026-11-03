@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIV — The AI That Builds AI | AI Verse</title>
+<meta name="description" content="Describe the AI you want. AIV designs it, builds it, and hands it to you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;--panel:#0b0b0c;--panel2:#141416;--line:#26262a;--text:#f2f2f2;--muted:#9a9aa2;
+  --accent:#fff;--glow:#7ab8ff;--lock:#c9a24a;--danger:#ff6b6b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',system-ui,sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.cond{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+button{font-family:inherit;cursor:pointer}
+.btn{display:inline-block;border:2px solid var(--accent);background:transparent;color:var(--accent);padding:12px 26px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:15px;text-decoration:none;transition:.2s}
+.btn:hover{background:var(--accent);color:#000}
+.btn.solid{background:var(--accent);color:#000}
+.btn.solid:hover{background:transparent;color:var(--accent)}
+.btn.sm{padding:7px 14px;font-size:13px;border-width:1px}
+.btn:disabled{opacity:.35;cursor:not-allowed;background:transparent;color:var(--accent)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(#000,rgba(0,0,0,.7) 70%,transparent)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:'Barlow Condensed';font-weight:600;font-size:28px;letter-spacing:.28em;text-decoration:none}
+.navlinks{display:flex;gap:26px}
+.navlinks a{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em;font-size:14px;text-decoration:none;color:var(--muted)}
+.navlinks a:hover{color:#fff}
+@media(max-width:640px){.navlinks{gap:14px}.navlinks a.hide-sm{display:none}}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;align-items:flex-end;padding-bottom:9vh;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 70% 35%,rgba(122,184,255,.16),transparent 70%),
+  radial-gradient(ellipse 40% 30% at 20% 80%,rgba(255,255,255,.05),transparent 70%);}
+.stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 80% 20%,#fff6,transparent),radial-gradient(1px 1px at 60% 70%,#fff5,transparent),radial-gradient(1px 1px at 35% 85%,#fff4,transparent),radial-gradient(1px 1px at 90% 60%,#fff6,transparent),radial-gradient(1.5px 1.5px at 10% 55%,#fff7,transparent),radial-gradient(1px 1px at 50% 15%,#fff5,transparent)}
+.hero .wrap{position:relative;width:100%}
+.eyebrow{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.3em;font-size:13px;color:var(--glow);margin-bottom:14px}
+.hero h1{font-size:clamp(44px,8vw,96px);line-height:.95;font-weight:500;max-width:900px}
+.hero p{max-width:560px;color:#cfcfd4;font-size:18px;margin:22px 0 32px}
+.hero .note{font-size:13px;color:var(--muted);margin-top:14px}
+
+section{padding:90px 0;border-top:1px solid #111}
+.sec-head{margin-bottom:34px}
+.sec-head h2{font-size:clamp(30px,4.5vw,48px)}
+.sec-head p{color:var(--muted);max-width:620px;margin-top:8px}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.step{background:#000;padding:28px}
+.step .n{font-family:'Barlow Condensed';font-size:42px;color:#333}
+.step h3{font-size:20px;margin:6px 0}
+.step p{color:var(--muted);font-size:15px}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+
+/* STUDIO */
+.studio{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.studio{grid-template-columns:1fr}}
+.pane{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;min-height:560px;max-height:680px}
+.pane-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);gap:10px}
+.pane-head .t{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em;font-size:15px}
+.badge{font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.badge.free{border-color:var(--glow);color:var(--glow)}
+.badge.pro{border-color:var(--lock);color:var(--lock)}
+.msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:88%;padding:11px 14px;font-size:15px;white-space:pre-wrap;word-wrap:break-word}
+.msg.user{align-self:flex-end;background:#fff;color:#000}
+.msg.bot{align-self:flex-start;background:var(--panel2);border:1px solid var(--line)}
+.msg.sys{align-self:center;font-size:13px;color:var(--muted);text-align:center;background:none;max-width:100%}
+.msg .who{display:block;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--muted);margin-bottom:3px}
+.typing span{display:inline-block;width:6px;height:6px;margin:0 2px;background:var(--muted);border-radius:50%;animation:b 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.composer{display:flex;border-top:1px solid var(--line)}
+.composer textarea{flex:1;background:transparent;border:0;color:var(--text);padding:14px 16px;font:inherit;font-size:15px;resize:none;height:56px;outline:none}
+.composer button{background:#fff;color:#000;border:0;padding:0 22px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em}
+.composer button:disabled{background:#333;color:#777;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 14px}
+.chip{background:transparent;border:1px solid var(--line);color:#ccc;padding:6px 11px;font-size:13px}
+.chip:hover{border-color:#fff;color:#fff}
+
+/* AI card */
+.ai-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted);padding:30px;gap:10px}
+.ai-empty .ring{width:84px;height:84px;border:1px dashed #444;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';letter-spacing:.2em;color:#555}
+.ai-card{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:center}
+.ai-card .av{width:52px;height:52px;flex:none;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--panel2)}
+.ai-card h3{font-size:22px;line-height:1.1}
+.ai-card p{color:var(--muted);font-size:14px}
+.hidden{display:none!important}
+
+/* PRO TOOLS */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto}
+.tab{background:none;border:0;color:var(--muted);padding:12px 20px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em;font-size:15px;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.on{color:#fff;border-color:#fff}
+.tool{background:var(--panel);border:1px solid var(--line);padding:24px;position:relative}
+.locked-over{position:absolute;inset:0;background:rgba(0,0,0,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;z-index:2}
+.locked-over .cond{color:var(--lock);letter-spacing:.2em}
+label.f{display:block;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--muted);margin:14px 0 6px}
+.input,textarea.input{width:100%;background:#000;border:1px solid var(--line);color:var(--text);padding:11px 12px;font:inherit;font-size:15px;outline:none}
+.input:focus{border-color:#666}
+textarea.input{min-height:140px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.kb-list{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.kb-item{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);padding:8px 12px;font-size:14px}
+.kb-item button{background:none;border:0;color:var(--danger);font-size:13px}
+.deploy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.deploy-grid{grid-template-columns:1fr}}
+.deploy-grid .d{border:1px solid var(--line);padding:18px}
+.deploy-grid h3{font-size:18px;margin-bottom:6px}
+.deploy-grid p{color:var(--muted);font-size:14px;margin-bottom:14px}
+pre.code{background:#000;border:1px solid var(--line);padding:12px;font-size:12px;overflow-x:auto;color:#bcd;margin-top:10px;white-space:pre-wrap;word-break:break-all}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.lib .item{border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:8px}
+.lib .item h3{font-size:18px}
+.lib .item p{color:var(--muted);font-size:13px;flex:1}
+.muted{color:var(--muted)}
+
+/* PRICING */
+.price-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+@media(max-width:900px){.price-wrap{grid-template-columns:1fr}}
+.plan{border:1px solid #fff;padding:34px;background:linear-gradient(160deg,#0d0d10,#000)}
+.plan .amt{font-family:'Barlow Condensed';font-size:72px;line-height:1}
+.plan .amt small{font-size:22px;color:var(--muted);letter-spacing:.08em}
+.plan .plus{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.14em;color:var(--glow);margin:6px 0 22px}
+.plan ul{list-style:none;margin-bottom:28px}
+.plan li{padding:9px 0;border-bottom:1px solid #1d1d20;font-size:15px}
+.plan li::before{content:"—  ";color:var(--muted)}
+.side{border:1px solid var(--line);padding:28px;background:var(--panel)}
+.side h3{font-size:20px;margin-bottom:8px}
+.side p{color:var(--muted);font-size:14px}
+.status{margin-top:12px;font-size:14px}
+.status.ok{color:#7fe0a0}.status.err{color:var(--danger)}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal .box{max-width:460px;width:100%;border:1px solid #fff;background:#000;padding:34px;text-align:center}
+.modal h3{font-size:30px;margin-bottom:10px}
+.modal p{color:#c8c8ce;margin-bottom:24px}
+footer{border-top:1px solid #111;padding:34px 0;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="index.html" class="logo">AIV</a>
+    <div class="navlinks">
+      <a href="index.html" class="hide-sm">Home</a>
+      <a href="#studio">Create</a>
+      <a href="#tools" class="hide-sm">Studio</a>
+      <a href="#buy">Pricing</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="stars"></div>
+  <div class="wrap">
+    <div class="eyebrow">AI Verse presents</div>
+    <h1>The AI that<br>builds AI.</h1>
+    <p>Tell AIV what you want. It asks the right questions, designs your AI's personality and rules, and builds it — ready to train, test, and deploy.</p>
+    <a href="#studio" class="btn solid">Build your AI</a>
+    <div class="note">Your first build and first conversation are free.</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><h2>How it works</h2></div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Describe it</h3><p>Chat with AIV about the AI you need — a tutor, a coach, a support agent, a writing partner, anything.</p></div>
+      <div class="step"><div class="n">02</div><h3>AIV builds it</h3><p>AIV writes your AI's identity, instructions, tone, and guardrails, then brings it to life.</p></div>
+      <div class="step"><div class="n">03</div><h3>Train &amp; deploy</h3><p>Feed it your knowledge, refine it, save it to your library, and put it on your website.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="studio">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Create with AIV</h2>
+      <p>Start by telling AIV what you want your AI to do.</p>
+    </div>
+    <div class="studio">
+      <!-- AIV builder -->
+      <div class="pane">
+        <div class="pane-head"><span class="t">AIV · Builder</span><span class="badge" id="buildBadge">1 free build</span></div>
+        <div class="msgs" id="aivMsgs"></div>
+        <div class="chips" id="aivChips">
+          <button class="chip">A study tutor for nursing students</button>
+          <button class="chip">A customer support bot for my bakery</button>
+          <button class="chip">A workout coach that keeps me accountable</button>
+        </div>
+        <div class="composer">
+          <textarea id="aivInput" placeholder="Describe the AI you want..."></textarea>
+          <button id="aivSend">Send</button>
+        </div>
+      </div>
+      <!-- Generated AI -->
+      <div class="pane">
+        <div class="pane-head"><span class="t">Your AI</span><span class="badge" id="testBadge">1 free message</span></div>
+        <div class="ai-empty" id="aiEmpty"><div class="ring">AI</div><div>Your AI will appear here once AIV builds it.</div></div>
+        <div id="aiLive" class="hidden" style="display:flex;flex-direction:column;flex:1;min-height:0">
+          <div class="ai-card"><div class="av" id="aiAv">✦</div><div><h3 id="aiName"></h3><p id="aiTag"></p></div></div>
+          <div class="msgs" id="aiMsgs"></div>
+          <div class="chips" id="aiChips"></div>
+          <div class="composer">
+            <textarea id="aiInput" placeholder="Talk to your AI..."></textarea>
+            <button id="aiSend">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="wrap">
+    <div class="sec-head"><h2>AIV Studio</h2><p>Train your AI with your own knowledge, deploy it anywhere, and keep every AI you create.</p></div>
+    <div class="tabs">
+      <button class="tab on" data-tab="train">Train</button>
+      <button class="tab" data-tab="deploy">Deploy</button>
+      <button class="tab" data-tab="library">Library</button>
+    </div>
+    <div class="tool">
+      <div class="locked-over" id="lockOver">
+        <div class="cond">AIV Pro</div>
+        <div>Training, deploying, and your AI library are included with AIV Pro.</div>
+        <a href="#buy" class="btn solid sm">See pricing</a>
+      </div>
+
+      <div data-panel="train">
+        <p class="muted">Add knowledge your AI should know — FAQs, product info, notes, policies. It will answer from this first.</p>
+        <label class="f">Paste text</label>
+        <textarea class="input" id="kbText" placeholder="Paste anything your AI should know..."></textarea>
+        <div class="row">
+          <button class="btn sm" id="kbAddText">Add text</button>
+          <label class="btn sm" style="cursor:pointer">Upload files<input type="file" id="kbFile" multiple accept=".txt,.md,.csv,.json,.html" hidden></label>
+          <input class="input" id="kbUrl" placeholder="Or paste a website URL" style="flex:1;min-width:200px">
+          <button class="btn sm" id="kbAddUrl">Add site</button>
+        </div>
+        <label class="f">Example Q&amp;A (teach by example)</label>
+        <div class="row" style="margin-top:0">
+          <input class="input" id="exQ" placeholder="Question" style="flex:1;min-width:180px">
+          <input class="input" id="exA" placeholder="Ideal answer" style="flex:2;min-width:200px">
+          <button class="btn sm" id="exAdd">Add</button>
+        </div>
+        <div class="kb-list" id="kbList"></div>
+      </div>
+
+      <div data-panel="deploy" class="hidden">
+        <div class="deploy-grid">
+          <div class="d"><h3>Download</h3><p>A complete single HTML file of your AI. Host it anywhere.</p><button class="btn sm" id="dlHtml">Download HTML</button></div>
+          <div class="d"><h3>Website widget</h3><p>Paste this before &lt;/body&gt; on your site to add a chat bubble.</p><button class="btn sm" id="cpWidget">Copy code</button></div>
+          <div class="d"><h3>Settings file</h3><p>Your AI's full blueprint as JSON — re-upload it here anytime.</p><button class="btn sm" id="dlJson">Download JSON</button></div>
+        </div>
+        <pre class="code hidden" id="widgetCode"></pre>
+        <p class="muted" style="margin-top:14px;font-size:13px">Deployed AIs run on your AIV API key and are billed by usage.</p>
+      </div>
+
+      <div data-panel="library" class="hidden">
+        <div class="row" style="margin:0 0 16px"><button class="btn sm" id="newAi">+ New AI</button><label class="btn sm" style="cursor:pointer">Import JSON<input type="file" id="importJson" accept=".json" hidden></label></div>
+        <div class="lib" id="libGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="buy">
+  <div class="wrap">
+    <div class="sec-head"><h2>AIV Pro</h2><p>Keep building. Unlimited AIs, unlimited conversations, full training and deployment.</p></div>
+    <div class="price-wrap">
+      <div class="plan">
+        <div class="amt">$25 <small>/ month</small></div>
+        <div class="plus">+ API usage billing</div>
+        <ul>
+          <li>Unlimited AI builds with AIV</li>
+          <li>Unlimited conversations with your AIs</li>
+          <li>Refine any AI just by asking AIV</li>
+          <li>Train with files, websites, text, and examples</li>
+          <li>Download, website widget, and shareable deploys</li>
+          <li>Personal library of every AI you create</li>
+          <li>Your own AIV API key</li>
+        </ul>
+        <a class="btn solid" id="subscribeBtn" href="mailto:team@aiverse.it.com?subject=AIV%20Pro%20Subscription&body=Hi%20AI%20Verse%2C%0A%0AI'd%20like%20to%20subscribe%20to%20AIV%20Pro%20(%2425%2Fmonth%20%2B%20API%20billing).%0A%0AName%3A%0AEmail%3A%0AWhat%20I%20want%20to%20build%3A">Subscribe to AIV Pro</a>
+      </div>
+      <div class="side">
+        <h3>Already a member?</h3>
+        <p>Enter the AIV key you received after subscribing to unlock everything.</p>
+        <input class="input" id="subKey" placeholder="aiv-xxxxxxxx" style="margin-top:14px">
+        <div class="row"><button class="btn sm" id="subUnlock">Unlock</button><button class="btn sm hidden" id="subLogout">Sign out</button></div>
+        <div class="status" id="subStatus"></div>
+        <h3 style="margin-top:28px">About API billing</h3>
+        <p>Your AIs run on the AIV API. You pay only for what your AIs actually use, on top of the monthly plan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><div>© <span id="yr"></span> AI Verse · AIV</div><div><a href="mailto:team@aiverse.it.com">team@aiverse.it.com</a></div></div></footer>
+
+<div class="modal hidden" id="modal">
+  <div class="box">
+    <h3 id="modalTitle">You've used your free AIV</h3>
+    <p id="modalText">Subscribe to AIV Pro to keep building and talking to your AIs.</p>
+    <a href="#buy" class="btn solid" id="modalGo">See AIV Pro</a>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+// Your Cloudflare Worker URL (see aiv-worker.js)
+const AIV_API_URL = "https://aiv-api.YOUR-SUBDOMAIN.workers.dev";
+
+/* ================= STATE ================= */
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const S = {
+  buildUsed: LS.get("aiv_build_used", false),
+  testUsed:  LS.get("aiv_test_used", false),
+  subKey:    LS.get("aiv_sub_key", ""),
+  pro:       false,
+  library:   LS.get("aiv_library", []),
+  current:   LS.get("aiv_current", null),   // spec of AI in studio
+  aivHistory: [],
+  aiHistory:  [],
+  busy: false
+};
+const $ = id => document.getElementById(id);
+
+const AIV_SYSTEM = `You are AIV, the AI that builds AI, made by AI Verse. A user describes an AI they want you to create.
+
+How you work:
+- If the request is unclear, ask at most 2 short rounds of follow-up questions (purpose, who will use it, tone, things it must or must never do). Ask 2-3 questions at a time, numbered. If the request is already clear, skip questions and build right away.
+- When you build, write ONE short excited sentence, then output the AI blueprint exactly in this format:
+<AI_SPEC>{"name":"short memorable name","tagline":"one line describing it","avatar":"one emoji","greeting":"the first thing it says to users","starters":["example question 1","example question 2","example question 3"],"instructions":"a detailed system prompt of 150-400 words written to the AI in second person: who it is, what it does, who it serves, its tone and style, step-by-step behaviors, rules, and limits"}</AI_SPEC>
+- The JSON must be valid: double quotes, no line breaks inside strings (use \\n).
+- If the user asks to change an AI you already built, output the full updated <AI_SPEC> with the changes.
+- Never build an AI meant to deceive people, impersonate a real person, harass, or give dangerous or illegal instructions. Offer a safe version instead.
+- Keep everything outside the blueprint short and friendly.`;
+
+/* ================= API ================= */
+async function callAPI(messages){
+  const res = await fetch(AIV_API_URL + "/chat", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ messages, key: S.subKey || undefined })
+  });
+  const data = await res.json().catch(() => ({}));
+  if(!res.ok) throw new Error(data.error || ("Request failed (" + res.status + ")"));
+  return data.reply || "";
+}
+
+/* ================= UI HELPERS ================= */
+function addMsg(box, role, text, who){
+  const el = document.createElement("div");
+  el.className = "msg " + role;
+  if(who){ const w = document.createElement("span"); w.className = "who"; w.textContent = who; el.appendChild(w); }
+  el.appendChild(document.createTextNode(text));
+  $(box).appendChild(el);
+  $(box).scrollTop = $(box).scrollHeight;
+  return el;
+}
+function typing(box){
+  const el = document.createElement("div");
+  el.className = "msg bot typing";
+  el.innerHTML = "<span></span><span></span><span></span>";
+  $(box).appendChild(el); $(box).scrollTop = $(box).scrollHeight;
+  return el;
+}
+function showModal(title, text){
+  $("modalTitle").textContent = title; $("modalText").textContent = text;
+  $("modal").classList.remove("hidden");
+}
+$("modalGo").onclick = () => $("modal").classList.add("hidden");
+$("modal").onclick = e => { if(e.target.id === "modal") $("modal").classList.add("hidden"); };
+function goBuy(title, text){
+  showModal(title, text);
+  setTimeout(() => $("buy").scrollIntoView({behavior:"smooth"}), 2200);
+}
+function refreshBadges(){
+  const b = $("buildBadge"), t = $("testBadge");
+  if(S.pro){ b.textContent = "Pro · unlimited"; t.textContent = "Pro · unlimited"; b.className = t.className = "badge pro"; }
+  else{
+    b.textContent = S.buildUsed ? "Free build used" : "1 free build";
+    t.textContent = S.testUsed ? "Free message used" : "1 free message";
+    b.className = "badge" + (S.buildUsed ? "" : " free");
+    t.className = "badge" + (S.testUsed ? "" : " free");
+  }
+  $("lockOver").classList.toggle("hidden", S.pro);
+  $("subLogout").classList.toggle("hidden", !S.pro);
+}
+
+/* ================= AIV BUILDER ================= */
+function parseSpec(text){
+  const m = text.match(/<AI_SPEC>([\s\S]*?)(<\/AI_SPEC>|$)/);
+  if(!m) return null;
+  let raw = m[1].trim();
+  const s = raw.indexOf("{"), e = raw.lastIndexOf("}");
+  if(s < 0 || e < 0) return null;
+  raw = raw.slice(s, e + 1);
+  try{
+    const spec = JSON.parse(raw);
+    if(!spec.name || !spec.instructions) return null;
+    spec.starters = Array.isArray(spec.starters) ? spec.starters.slice(0,3) : [];
+    return spec;
+  }catch(err){ return null; }
+}
+
+async function sendAIV(text){
+  text = (text || "").trim();
+  if(!text || S.busy) return;
+  if(!S.pro && S.buildUsed){
+    goBuy("You've used your free build", "Subscribe to AIV Pro to build unlimited AIs and refine them anytime.");
+    return;
+  }
+  $("aivChips").classList.add("hidden");
+  addMsg("aivMsgs", "user", text);
+  $("aivInput").value = "";
+  S.aivHistory.push({role:"user", content:text});
+
+  // Keep free builds focused: after 3 user turns, tell AIV to build now
+  const userTurns = S.aivHistory.filter(m => m.role === "user").length;
+  let system = AIV_SYSTEM;
+  if(S.current) system += "\n\nThe AI currently built is:\n" + JSON.stringify(stripSpec(S.current));
+  if(!S.pro && userTurns >= 3) system += "\n\nDo not ask any more questions. Build the AI now using your best judgment.";
+
+  S.busy = true; $("aivSend").disabled = true;
+  const t = typing("aivMsgs");
+  try{
+    const reply = await callAPI([{role:"system", content:system}, ...S.aivHistory.slice(-12)]);
+    t.remove();
+    S.aivHistory.push({role:"assistant", content:reply});
+    const spec = parseSpec(reply);
+    const visible = reply.replace(/<AI_SPEC>[\s\S]*?(<\/AI_SPEC>|$)/, "").trim();
+    if(visible) addMsg("aivMsgs", "bot", visible, "AIV");
+    if(spec){
+      const keep = S.current ? {id:S.current.id, knowledge:S.current.knowledge, examples:S.current.examples} : {};
+      loadAI(Object.assign({id: "ai_" + Date.now(), knowledge: [], examples: []}, spec, keep));
+      addMsg("aivMsgs", "sys", S.pro ? "✦ " + spec.name + " is ready. Ask me for any changes." : "✦ " + spec.name + " is ready — try it on the right.");
+      if(!S.pro){ S.buildUsed = true; LS.set("aiv_build_used", true); refreshBadges(); }
+      else saveToLibrary();
+    }
+  }catch(err){
+    t.remove();
+    S.aivHistory.pop();
+    addMsg("aivMsgs", "sys", "AIV couldn't respond: " + err.message);
+  }finally{
+    S.busy = false; $("aivSend").disabled = false;
+  }
+}
+function stripSpec(spec){ const {id, knowledge, examples, ...rest} = spec; return rest; }
+
+/* ================= GENERATED AI ================= */
+function loadAI(spec){
+  S.current = spec; LS.set("aiv_current", spec);
+  S.aiHistory = [];
+  $("aiEmpty").classList.add("hidden");
+  $("aiLive").classList.remove("hidden");
+  $("aiAv").textContent = spec.avatar || "✦";
+  $("aiName").textContent = spec.name;
+  $("aiTag").textContent = spec.tagline || "";
+  $("aiMsgs").innerHTML = "";
+  if(spec.greeting) addMsg("aiMsgs", "bot", spec.greeting, spec.name);
+  const chips = $("aiChips"); chips.innerHTML = ""; chips.classList.remove("hidden");
+  (spec.starters || []).forEach(q => {
+    const c = document.createElement("button"); c.className = "chip"; c.textContent = q;
+    c.onclick = () => sendAI(q); chips.appendChild(c);
+  });
+  renderKB();
+}
+
+function buildSystem(spec){
+  let sys = spec.instructions;
+  const kb = (spec.knowledge || []).map(k => "### " + k.title + "\n" + k.text).join("\n\n");
+  if(kb) sys += "\n\nKNOWLEDGE (answer from this first; if the answer isn't here, say so honestly):\n" + kb.slice(0, 14000);
+  const ex = (spec.examples || []).map(e => "Q: " + e.q + "\nA: " + e.a).join("\n\n");
+  if(ex) sys += "\n\nEXAMPLE ANSWERS (match this style):\n" + ex.slice(0, 4000);
+  return sys;
+}
+
+async function sendAI(text){
+  text = (text || "").trim();
+  if(!text || S.busy || !S.current) return;
+  if(!S.pro && S.testUsed){
+    goBuy("You've used your free message", "Subscribe to AIV Pro for unlimited conversations with " + S.current.name + ".");
+    return;
+  }
+  $("aiChips").classList.add("hidden");
+  addMsg("aiMsgs", "user", text);
+  $("aiInput").value = "";
+  S.aiHistory.push({role:"user", content:text});
+  S.busy = true; $("aiSend").disabled = true;
+  const t = typing("aiMsgs");
+  try{
+    const reply = await callAPI([{role:"system", content:buildSystem(S.current)}, ...S.aiHistory.slice(-16)]);
+    t.remove();
+    S.aiHistory.push({role:"assistant", content:reply});
+    addMsg("aiMsgs", "bot", reply, S.current.name);
+    if(!S.pro){
+      S.testUsed = true; LS.set("aiv_test_used", true); refreshBadges();
+      setTimeout(() => goBuy(S.current.name + " is ready for more", "That was your free message. Subscribe to AIV Pro for $25/month + API billing to keep using, training, and deploying your AI."), 1800);
+    }
+  }catch(err){
+    t.remove(); S.aiHistory.pop();
+    addMsg("aiMsgs", "sys", "Couldn't respond: " + err.message);
+  }finally{
+    S.busy = false; $("aiSend").disabled = false;
+  }
+}
+
+/* ================= TRAIN ================= */
+function needPro(){ if(!S.pro){ goBuy("AIV Pro feature", "Training, deploying, and your library are part of AIV Pro."); return true; } return false; }
+function needAI(){ if(!S.current){ alert("Build an AI with AIV first."); return true; } return false; }
+function persist(){ LS.set("aiv_current", S.current); if(S.pro) saveToLibrary(); }
+
+function renderKB(){
+  const list = $("kbList"); list.innerHTML = "";
+  if(!S.current) return;
+  (S.current.knowledge || []).forEach((k, i) => list.appendChild(kbRow("📄 " + k.title + " · " + k.text.length.toLocaleString() + " chars", () => { S.current.knowledge.splice(i,1); persist(); renderKB(); })));
+  (S.current.examples || []).forEach((e, i) => list.appendChild(kbRow("💬 " + e.q, () => { S.current.examples.splice(i,1); persist(); renderKB(); })));
+}
+function kbRow(label, onRemove){
+  const r = document.createElement("div"); r.className = "kb-item";
+  const s = document.createElement("span"); s.textContent = label;
+  const b = document.createElement("button"); b.textContent = "Remove"; b.onclick = onRemove;
+  r.append(s, b); return r;
+}
+$("kbAddText").onclick = () => {
+  if(needPro() || needAI()) return;
+  const t = $("kbText").value.trim(); if(!t) return;
+  S.current.knowledge.push({title: t.slice(0, 40) + (t.length > 40 ? "…" : ""), text: t});
+  $("kbText").value = ""; persist(); renderKB();
+};
+$("kbFile").onchange = async e => {
+  if(needPro() || needAI()) { e.target.value = ""; return; }
+  for(const f of e.target.files){
+    const text = await f.text();
+    S.current.knowledge.push({title: f.name, text: text.slice(0, 20000)});
+  }
+  e.target.value = ""; persist(); renderKB();
+};
+$("kbAddUrl").onclick = async () => {
+  if(needPro() || needAI()) return;
+  const url = $("kbUrl").value.trim(); if(!/^https?:\/\//.test(url)) { alert("Enter a full URL starting with https://"); return; }
+  $("kbAddUrl").disabled = true; $("kbAddUrl").textContent = "Reading…";
+  try{
+    const res = await fetch(AIV_API_URL + "/fetch", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({url, key:S.subKey})});
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || "Couldn't read that site");
+    S.current.knowledge.push({title: url, text: data.text.slice(0, 20000)});
+    $("kbUrl").value = ""; persist(); renderKB();
+  }catch(err){ alert(err.message); }
+  finally{ $("kbAddUrl").disabled = false; $("kbAddUrl").textContent = "Add site"; }
+};
+$("exAdd").onclick = () => {
+  if(needPro() || needAI()) return;
+  const q = $("exQ").value.trim(), a = $("exA").value.trim(); if(!q || !a) return;
+  S.current.examples.push({q, a}); $("exQ").value = $("exA").value = ""; persist(); renderKB();
+};
+
+/* ================= DEPLOY ================= */
+function safeJSON(o){ return JSON.stringify(o).replace(/</g, "\\u003c"); }
+function download(name, content, type){
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([content], {type}));
+  a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function slug(s){ return (s || "my-ai").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "my-ai"; }
+
+function exportHTML(spec){
+  const cfg = {name:spec.name, tagline:spec.tagline||"", avatar:spec.avatar||"✦", greeting:spec.greeting||"", starters:spec.starters||[], system:buildSystem(spec), api:AIV_API_URL, key:S.subKey};
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${spec.name.replace(/</g,"")}</title><style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:#0b0b0c;color:#eee;display:flex;flex-direction:column;height:100vh}
+header{padding:16px;border-bottom:1px solid #222;display:flex;gap:12px;align-items:center}header .av{font-size:28px}header h1{font-size:18px}header p{font-size:13px;color:#999}
+#m{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}.b{max-width:85%;padding:10px 13px;white-space:pre-wrap;border-radius:10px;font-size:15px}
+.u{align-self:flex-end;background:#fff;color:#000}.a{align-self:flex-start;background:#1a1a1d}#c{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}#c button{background:none;border:1px solid #333;color:#ccc;padding:6px 10px;border-radius:14px;cursor:pointer}
+form{display:flex;border-top:1px solid #222}input{flex:1;background:none;border:0;color:#eee;padding:16px;font-size:15px;outline:none}form button{background:#fff;color:#000;border:0;padding:0 20px;cursor:pointer}
+small{display:block;text-align:center;color:#666;font-size:11px;padding:6px}</style></head><body>
+<header><div class="av" id="av"></div><div><h1 id="n"></h1><p id="t"></p></div></header><div id="m"></div><div id="c"></div>
+<form id="f"><input id="i" placeholder="Type a message..." autocomplete="off"><button>Send</button></form><small>Built with AIV · AI Verse</small>
+<script>
+const C=${safeJSON(cfg)};const H=[];const $=i=>document.getElementById(i);
+$("av").textContent=C.avatar;$("n").textContent=C.name;$("t").textContent=C.tagline;document.title=C.name;
+function add(r,t){const d=document.createElement("div");d.className="b "+r;d.textContent=t;$("m").appendChild(d);$("m").scrollTop=1e9;return d}
+if(C.greeting)add("a",C.greeting);C.starters.forEach(s=>{const b=document.createElement("button");b.textContent=s;b.onclick=()=>send(s);$("c").appendChild(b)});
+async function send(t){t=t.trim();if(!t)return;$("c").innerHTML="";add("u",t);H.push({role:"user",content:t});const w=add("a","…");
+try{const r=await fetch(C.api+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:C.key,messages:[{role:"system",content:C.system},...H.slice(-16)]})});
+const d=await r.json();if(!r.ok)throw new Error(d.error||"Error");w.textContent=d.reply;H.push({role:"assistant",content:d.reply})}catch(e){w.textContent="Sorry, I couldn't respond right now."}}
+$("f").onsubmit=e=>{e.preventDefault();send($("i").value);$("i").value=""};
+<\/script></body></html>`;
+}
+
+function widgetCode(spec){
+  const cfg = {name:spec.name, avatar:spec.avatar||"✦", greeting:spec.greeting||"", system:buildSystem(spec), api:AIV_API_URL, key:S.subKey};
+  return `<!-- ${spec.name.replace(/-->/g,"")} · Built with AIV -->
+<script>(function(){var C=${safeJSON(cfg)},H=[];
+var s=document.createElement("style");s.textContent="#aivw-b{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:#000;color:#fff;font-size:26px;border:2px solid #fff;cursor:pointer;z-index:99999}#aivw{position:fixed;right:20px;bottom:90px;width:340px;max-width:calc(100vw - 40px);height:460px;background:#0b0b0c;color:#eee;border:1px solid #333;border-radius:12px;display:none;flex-direction:column;z-index:99999;font-family:system-ui,sans-serif}#aivw h4{padding:12px 14px;border-bottom:1px solid #222;font-size:15px}#aivw-m{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}#aivw-m div{max-width:85%;padding:8px 11px;border-radius:9px;font-size:14px;white-space:pre-wrap}#aivw-m .u{align-self:flex-end;background:#fff;color:#000}#aivw-m .a{background:#1c1c1f}#aivw form{display:flex;border-top:1px solid #222}#aivw input{flex:1;background:none;border:0;color:#eee;padding:12px;outline:none}#aivw form button{background:#fff;border:0;padding:0 14px;cursor:pointer}";
+document.head.appendChild(s);var b=document.createElement("button");b.id="aivw-b";b.textContent=C.avatar;var w=document.createElement("div");w.id="aivw";
+w.innerHTML='<h4></h4><div id="aivw-m"></div><form><input placeholder="Type a message..."><button>Send</button></form>';w.querySelector("h4").textContent=C.name;
+document.body.append(b,w);var m=w.querySelector("#aivw-m");function add(r,t){var d=document.createElement("div");d.className=r;d.textContent=t;m.appendChild(d);m.scrollTop=1e9;return d}
+if(C.greeting)add("a",C.greeting);b.onclick=function(){w.style.display=w.style.display==="flex"?"none":"flex"};
+w.querySelector("form").onsubmit=function(e){e.preventDefault();var i=w.querySelector("input"),t=i.value.trim();if(!t)return;i.value="";add("u",t);H.push({role:"user",content:t});var x=add("a","…");
+fetch(C.api+"/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:C.key,messages:[{role:"system",content:C.system}].concat(H.slice(-16))})}).then(function(r){return r.json()}).then(function(d){x.textContent=d.reply||"Sorry, I couldn't respond.";if(d.reply)H.push({role:"assistant",content:d.reply})}).catch(function(){x.textContent="Sorry, I couldn't respond."})};})();<\/script>`;
+}
+
+$("dlHtml").onclick = () => { if(needPro() || needAI()) return; download(slug(S.current.name) + ".html", exportHTML(S.current), "text/html"); };
+$("dlJson").onclick = () => { if(needPro() || needAI()) return; download(slug(S.current.name) + ".aiv.json", JSON.stringify(S.current, null, 2), "application/json"); };
+$("cpWidget").onclick = async () => {
+  if(needPro() || needAI()) return;
+  const code = widgetCode(S.current);
+  $("widgetCode").textContent = code; $("widgetCode").classList.remove("hidden");
+  try{ await navigator.clipboard.writeText(code); $("cpWidget").textContent = "Copied ✓"; setTimeout(() => $("cpWidget").textContent = "Copy code", 2000); }catch(e){}
+};
+
+/* ================= LIBRARY ================= */
+function saveToLibrary(){
+  if(!S.current) return;
+  const i = S.library.findIndex(a => a.id === S.current.id);
+  const copy = JSON.parse(JSON.stringify(S.current)); copy.updated = Date.now();
+  if(i >= 0) S.library[i] = copy; else S.library.unshift(copy);
+  LS.set("aiv_library", S.library); renderLibrary();
+}
+function renderLibrary(){
+  const g = $("libGrid"); g.innerHTML = "";
+  if(!S.library.length){ g.innerHTML = '<p class="muted">Your AIs will be saved here.</p>'; return; }
+  S.library.forEach((a, i) => {
+    const d = document.createElement("div"); d.className = "item";
+    const h = document.createElement("h3"); h.textContent = (a.avatar || "✦") + " " + a.name;
+    const p = document.createElement("p"); p.textContent = a.tagline || "";
+    const r = document.createElement("div"); r.className = "row"; r.style.marginTop = "0";
+    const open = document.createElement("button"); open.className = "btn sm"; open.textContent = "Open";
+    open.onclick = () => { if(needPro()) return; loadAI(JSON.parse(JSON.stringify(a))); S.aivHistory = []; addMsg("aivMsgs","sys","Editing " + a.name + " — tell AIV what to change."); $("studio").scrollIntoView({behavior:"smooth"}); };
+    const del = document.createElement("button"); del.className = "btn sm"; del.textContent = "Delete";
+    del.onclick = () => { if(!confirm("Delete " + a.name + "?")) return; S.library.splice(i,1); LS.set("aiv_library", S.library); renderLibrary(); };
+    r.append(open, del); d.append(h, p, r); g.appendChild(d);
+  });
+}
+$("newAi").onclick = () => {
+  if(needPro()) return;
+  S.current = null; LS.set("aiv_current", null); S.aivHistory = []; S.aiHistory = [];
+  $("aivMsgs").innerHTML = ""; aivWelcome();
+  $("aiLive").classList.add("hidden"); $("aiEmpty").classList.remove("hidden"); renderKB();
+  $("studio").scrollIntoView({behavior:"smooth"});
+};
+$("importJson").onchange = async e => {
+  if(needPro()) { e.target.value = ""; return; }
+  try{
+    const spec = JSON.parse(await e.target.files[0].text());
+    if(!spec.name || !spec.instructions) throw new Error();
+    spec.id = spec.id || "ai_" + Date.now(); spec.knowledge = spec.knowledge || []; spec.examples = spec.examples || [];
+    loadAI(spec); saveToLibrary();
+  }catch(err){ alert("That isn't a valid AIV settings file."); }
+  e.target.value = "";
+};
+
+/* ================= SUBSCRIPTION ================= */
+async function verifyKey(key){
+  try{
+    const res = await fetch(AIV_API_URL + "/verify", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({key})});
+    const d = await res.json(); return !!d.valid;
+  }catch(e){ return false; }
+}
+$("subUnlock").onclick = async () => {
+  const key = $("subKey").value.trim(); if(!key) return;
+  $("subStatus").className = "status"; $("subStatus").textContent = "Checking…";
+  if(await verifyKey(key)){
+    S.subKey = key; S.pro = true; LS.set("aiv_sub_key", key);
+    $("subStatus").className = "status ok"; $("subStatus").textContent = "AIV Pro unlocked. Welcome aboard.";
+    refreshBadges(); renderLibrary(); if(S.current) saveToLibrary();
+  }else{
+    $("subStatus").className = "status err"; $("subStatus").textContent = "That key isn't active. Contact team@aiverse.it.com if this is a mistake.";
+  }
+};
+$("subLogout").onclick = () => { S.subKey = ""; S.pro = false; LS.set("aiv_sub_key", ""); $("subKey").value = ""; $("subStatus").textContent = ""; refreshBadges(); };
+
+/* ================= WIRING ================= */
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === t));
+  document.querySelectorAll("[data-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.panel !== t.dataset.tab));
+});
+$("aivSend").onclick = () => sendAIV($("aivInput").value);
+$("aiSend").onclick = () => sendAI($("aiInput").value);
+[["aivInput", sendAIV], ["aiInput", sendAI]].forEach(([id, fn]) => $(id).addEventListener("keydown", e => {
+  if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); fn($(id).value); }
+}));
+document.querySelectorAll("#aivChips .chip").forEach(c => c.onclick = () => sendAIV(c.textContent));
+
+function aivWelcome(){
+  addMsg("aivMsgs", "bot", "Hi, I'm AIV. Tell me about the AI you want to create — what should it do, and who is it for?", "AIV");
+  $("aivChips").classList.remove("hidden");
+}
+
+(async function init(){
+  $("yr").textContent = new Date().getFullYear();
+  aivWelcome();
+  if(S.current) loadAI(S.current);
+  refreshBadges(); renderLibrary();
+  if(S.subKey){
+    $("subKey").value = S.subKey;
+    S.pro = await verifyKey(S.subKey);
+    refreshBadges(); renderLibrary();
+  }
+})();
+</script>
+</body>
+</html>
