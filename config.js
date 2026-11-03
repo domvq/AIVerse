@@ -14,6 +14,9 @@ window.AIV_SITE = {
   // Leave empty to send buyers to the Business order form instead.
   aiCheckout: 'https://buy.stripe.com/test_8x2dRaehH9DU5aJ9pu1Fe03',   // TEST mode link: replace with the live link when going live
 
+  // Stripe payment link for AIV-X ($50/month). TEST mode link: replace with the live link when going live.
+  aivxCheckout: 'https://buy.stripe.com/test_00w3cwddD03kcDb9pu1Fe04',
+
   // The API address shown to customers (self-host kit and API examples).
   // Set it to 'https://api.aiverse.it.com' once that custom domain is added to the ask-aiv worker.
   apiPublic: ''
