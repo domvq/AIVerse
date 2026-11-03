@@ -207,6 +207,17 @@ code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
 .dbar::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--line)}
 .dbar i{position:absolute;top:0;bottom:0;border-radius:9px}
 
+/* demo-data notice */
+.demobar{background:var(--warn-bg);color:var(--ink);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:14px;padding:14px 16px;margin:0 0 14px}
+.demobar .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700;font-size:14.5px}
+.demobar p{margin:6px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink)}
+.demobar ol{margin:8px 0 0;padding-left:20px;font-size:13.5px;line-height:1.6}
+.demobar a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.demobar .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.demobar .acts a.lk{display:inline-flex;align-items:center;gap:6px;background:var(--box);border:1px solid var(--line);border-radius:99px;padding:7px 13px;text-decoration:none;font-size:13px}
+.demobar .acts button{font:inherit;font-size:13px;font-weight:600;border-radius:99px;padding:7px 14px;cursor:pointer;border:1px solid var(--btn,#111214);background:var(--btn,#111214);color:var(--btn-ink,#fff)}
+.demobar .acts .hide{background:transparent;border-color:transparent;color:var(--muted);font-weight:500}
+.demobar a:focus-visible,.demobar button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 /* AI Verse promo + AIV key */
 .aivpromo{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 12px 12px 16px;margin:0 0 14px}
 .aivpromo .t{flex:1;min-width:200px;font-size:13px;line-height:1.4}
@@ -265,6 +276,17 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <div><h1>Stock and Finance AI</h1><p class="sub">Your AI markets &amp; money center</p></div>
   <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
  </header>
+ <div class="demobar" id="demoBar" role="region" aria-label="Demo data notice" hidden>
+  <div class="h"><span class="demo">DEMO</span> You're seeing practice data, not real market prices</div>
+  <p>Prices, charts and news in this app are simulated until you connect a free market-data key. It takes about 2 minutes, and your key stays in this browser.</p>
+  <ol>
+   <li>Get a free key from <a href="https://finnhub.io/register" target="_blank" rel="noopener">Finnhub</a> for live prices, news and company data. After you sign up, copy the API key from your dashboard.</li>
+   <li>Optional: get a free key from <a href="https://twelvedata.com/register" target="_blank" rel="noopener">Twelve Data</a> for charts, price history and forecasts.</li>
+   <li>Paste the key(s) in <b>Settings → Market data</b> and press <b>Test market data</b>.</li>
+  </ol>
+  <div class="acts"><button type="button" id="demoGo">Add my keys</button><a class="lk" href="https://finnhub.io/register" target="_blank" rel="noopener">Get Finnhub key ↗</a><a class="lk" href="https://twelvedata.com/register" target="_blank" rel="noopener">Get Twelve Data key ↗</a><button type="button" class="hide" id="demoHide">Hide for now</button></div>
+  <p style="font-size:12.5px;color:var(--muted);margin-top:10px">Free keys are for personal use. Quotes may be delayed. Information only, not financial advice.</p>
+ </div>
  <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of Stock and Finance AI</b><span>An AIV API key runs every AI Verse app on full-strength AI. One key, every app, no extra setup.</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
 
  <section class="view" id="v-home"></section>
@@ -282,7 +304,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
    <label>Financial goals<textarea data-prof="goalsText" rows="2" placeholder="e.g. Build a 6-month emergency fund, pay off my car loan, retire by 55, save for a house down payment"></textarea></label>
   </div>
   <div class="box" style="margin-top:10px">
-   <h3>Market data</h3><p class="sub">Free keys, used only from your browser. Without them the app shows <span class="demo">DEMO</span> data so you can explore every feature.</p><br>
+   <h3 id="mdHead" tabindex="-1">Market data</h3><p class="sub">Free keys, used only from your browser. Without them the app shows <span class="demo">DEMO</span> data so you can explore every feature.</p><ol class="sub" style="margin:8px 0 0;padding-left:20px;line-height:1.6"><li>Sign up at <a href="https://finnhub.io/register" target="_blank" rel="noopener">finnhub.io/register</a> and copy the API key from your dashboard.</li><li>Optional: sign up at <a href="https://twelvedata.com/register" target="_blank" rel="noopener">twelvedata.com/register</a> and copy your API key.</li><li>Paste them below, then press <b>Test market data</b>.</li></ol><br>
    <label>Finnhub API key — quotes, news, company data (<a href="https://finnhub.io/register" target="_blank" rel="noopener">get a free key</a>)<span class="row"><input type="password" data-set="finnhubKey" id="fhKey" autocomplete="off" placeholder="paste key"><button class="btn ghost sm" type="button" data-show="#fhKey">Show</button></span></label>
    <label>Twelve Data API key — price history fallback (<a href="https://twelvedata.com/register" target="_blank" rel="noopener">optional</a>)<span class="row"><input type="password" data-set="twelveKey" id="tdKey" autocomplete="off" placeholder="optional"><button class="btn ghost sm" type="button" data-show="#tdKey">Show</button></span></label>
    <div class="row wrap"><button class="btn sm" id="btnTestData">Test market data</button><span class="hint" id="dataStatus"></span></div>
@@ -443,7 +465,7 @@ const DEF=()=>({
  setupDone:false,watchlist:['AAPL','MSFT','NVDA','AMZN','SPY'],holdings:[],paper:{cash:100000,start:100000,positions:{},orders:[]},
  tx:[],budgets:{},accounts:[],goals:[],alerts:[],chat:[],pending:[],reports:[],statements:[],lastSym:'AAPL',insight:null,tickets:[],predLog:[]});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.paper={...DEF().paper,...(s.paper||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+let S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 const isDemo=()=>!S.settings.finnhubKey;
 const demoTag=()=>isDemo()?' <span class="demo" title="Simulated data — add a free Finnhub key in Settings for live data">DEMO</span>':'';
@@ -757,8 +779,11 @@ function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)r
 const VIEWS=['home','markets','research','predict','portfolio','budget','settings'];
 let cur='home';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
-function show(v){if(cur==='predict'&&v!=='predict')predStop();cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
+function demoBar(){const b=document.getElementById('demoBar');if(!b)return;let hid=false;try{hid=sessionStorage.getItem('sfai_demo_hide')==='1';}catch(e){}b.hidden=!isDemo()||hid||cur==='settings';}
+function show(v){if(cur==='predict'&&v!=='predict')predStop();cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();demoBar();window.scrollTo(0,0);}
 function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
+document.getElementById('demoGo').addEventListener('click',()=>{go('settings');setTimeout(()=>{const h=document.getElementById('mdHead');if(h){h.scrollIntoView({block:'start'});h.focus({preventScroll:true});}const k=document.getElementById('fhKey');if(k)setTimeout(()=>k.focus({preventScroll:true}),50);},120);});
+document.getElementById('demoHide').addEventListener('click',()=>{try{sessionStorage.setItem('sfai_demo_hide','1');}catch(e){}demoBar();});
 function refresh(){(R[cur]||(()=>{}))();badge();}
 function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='free'?`${freeLeft().n} of ${freeLeft().limit} free daily uses left`:p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI advisor on';}}
 const fail=(el,e)=>{if(el)el.innerHTML=`<p class="small" style="color:var(--bad);margin:0">${esc(e.message||String(e))}</p>`;};
@@ -1298,6 +1323,5 @@ function init(){
 init();
 })();
 </script>
-<script src="aiv-connect.js"></script>
 </body>
 </html>
