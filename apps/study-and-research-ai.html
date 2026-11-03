@@ -269,18 +269,18 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
    </div>
    <div data-prov="aiv">
     <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
-    <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
+    <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
     <label>Model<select data-set="aivModel" id="aivModel"><option value="aiv-1">aiv-1: best quality</option><option value="aiv-1-mini">aiv-1-mini: fastest</option></select></label>
    </div>
    <div data-prov="groq">
     <p class="sub">Free tier, recommended for testing. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
-    <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
+    <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
     <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
    </div>
    <div data-prov="custom">
     <p class="sub">Use your own key from any OpenAI-compatible service. A few services block requests from web pages — Test connection will tell you.</p><br>
     <div class="form-row"><label>Service<select data-set="customPreset" id="customPreset"></select></label><label>API URL<input data-set="customBase" id="customBase" placeholder="https://api.example.com/v1" autocomplete="off"></label></div>
-    <label>API key<span class="row"><input type="password" data-set="customKey" id="customKey" placeholder="sk-…" autocomplete="off"><button class="btn ghost sm" type="button" data-show="#customKey">Show</button></span></label>
+    <label>API key<span class="row"><input type="password" data-set="customKey" id="customKey" placeholder="sk-…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#customKey">Show</button></span></label>
     <label>Model<input data-set="customModel" list="modelList" placeholder="Click Test connection to list models" autocomplete="off"></label>
    </div>
    <div data-prov="local">
