@@ -443,7 +443,7 @@ const DEF=()=>({
  setupDone:false,watchlist:['AAPL','MSFT','NVDA','AMZN','SPY'],holdings:[],paper:{cash:100000,start:100000,positions:{},orders:[]},
  tx:[],budgets:{},accounts:[],goals:[],alerts:[],chat:[],pending:[],reports:[],statements:[],lastSym:'AAPL',insight:null,tickets:[],predLog:[]});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.paper={...DEF().paper,...(s.paper||{})};}}catch(e){}return d;}
-let S=load();
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 const isDemo=()=>!S.settings.finnhubKey;
 const demoTag=()=>isDemo()?' <span class="demo" title="Simulated data — add a free Finnhub key in Settings for live data">DEMO</span>':'';
@@ -1298,5 +1298,6 @@ function init(){
 init();
 })();
 </script>
+<script src="aiv-connect.js"></script>
 </body>
 </html>
