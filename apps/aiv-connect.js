@@ -332,6 +332,9 @@
   var AIVX_APP_KEY = "aivx_iGsNWk4eHXokoW8awHmMVZpm";
   var FREE_DAILY_LIMIT = 20;
   var UPGRADE_URL = "https://aiv-x.com/";
+  var TERMS_VERSION = "2026-11-04";
+  var TERMS_URL = "https://aiv-x.com/terms.html", PRIVACY_URL = "https://aiv-x.com/privacy.html";
+  var AGREE_HTML = '<label class="ag"><input type="checkbox" class="agc"><span>I\'m 18 or older and agree to the <a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms of Use</a> and <a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>';
   var APP_NAMES = { aide: "Aide", study: "Study and Research AI", finance: "Stock and Finance AI", fitness: "Health and Fitness AI", photo: "Photo AI", career: "Career AI" };
   var STARTERS = {
     aide: ["Add “call the dentist Friday” to my tasks", "What's on my calendar this week?", "Plan my day"],
@@ -411,8 +414,9 @@
       '.si{padding:22px 16px}.si h3{font-size:18px;margin-bottom:6px}.si p{font-size:13px;color:#71717a;margin-bottom:14px}' +
       '.si button,.si input{width:100%;font-size:14px;padding:10px 12px;border-radius:11px;border:1px solid #d4d4d8;background:#fff;color:#18181b;margin-bottom:8px;cursor:pointer}' +
       '.si input{cursor:text}.si .pr{background:#0a0a0b;color:#fff;border-color:#0a0a0b}.si .lk{border:0;background:none;color:#2563eb;padding:4px;width:auto}.si .or{text-align:center;color:#a1a1aa;font-size:12px;margin:4px 0 10px}' +
+      '.ag{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#52525b;margin:6px 0 12px;cursor:pointer;line-height:1.4}.ag input{width:16px!important;height:16px;margin:1px 0 0!important;padding:0!important;flex:none}.ag a{color:#2563eb}.ag.need{outline:1px solid #dc2626;border-radius:6px;padding:4px}' +
       '.lim{margin:0 16px 10px;padding:10px 12px;border-radius:10px;background:#fef3c7;color:#7c4a03;font-size:13px}.lim a{color:#7c4a03;font-weight:600}' +
-      '@media (prefers-color-scheme: dark){.pn{background:#0f0f11;color:#f4f4f5;border-color:#26262b}.hd{border-color:#26262b}.u{background:#1f1f23}.st,.src a,.ch button{border-color:#2a2a30;color:#c4c4c8;background:transparent}.cp{border-color:#1f1f23}.cp textarea,.si input,.si button{background:#141416;color:#f4f4f5;border-color:#2a2a30}.cp button,.si .pr{background:#f4f4f5;color:#0a0a0b}.ib{color:#c4c4c8}.ib:hover{background:#1b1b1f}.a code{background:#1b1b1f}.lim{background:#3a2a07;color:#fcd98a}.lim a{color:#fcd98a}}' +
+      '@media (prefers-color-scheme: dark){.pn{background:#0f0f11;color:#f4f4f5;border-color:#26262b}.hd{border-color:#26262b}.u{background:#1f1f23}.st,.src a,.ch button{border-color:#2a2a30;color:#c4c4c8;background:transparent}.cp{border-color:#1f1f23}.cp textarea,.si input,.si button{background:#141416;color:#f4f4f5;border-color:#2a2a30}.cp button,.si .pr{background:#f4f4f5;color:#0a0a0b}.ib{color:#c4c4c8}.ib:hover{background:#1b1b1f}.a code{background:#1b1b1f}.lim{background:#3a2a07;color:#fcd98a}.lim a{color:#fcd98a}.ag{color:#c4c4c8}.ag a{color:#93c5fd}}' +
       '@media (max-width:820px){.fab{bottom:84px}.pn{width:100vw;border-left:0}}' +
       '</style>' +
       '<button class="fab" part="fab" title="Ask AIV"><i></i>AIV</button>' +
@@ -437,19 +441,39 @@
     $p(".fab").title = on ? "Ask AIV — synced with " + (email || "AIV X") : "Ask AIV";
     $p(".sub").textContent = on ? "in " + APP_LABEL + " · synced" : "in " + APP_LABEL;
   }
-  function render() { if (!P.user) renderSignIn(); else renderChat(); }
+  function needsConsent() { return P.user && P.profile && !(P.profile.consent && P.profile.consent.version === TERMS_VERSION); }
+  function render() { if (!P.user) renderSignIn(); else if (needsConsent()) renderConsent(); else renderChat(); }
+  function renderConsent() {
+    var b = $p(".body");
+    b.innerHTML = '<div class="si"><h3>One quick step</h3><p>To use AIV, please review and agree to the AIV X Terms of Use and Privacy Policy.</p>' + AGREE_HTML + '<button class="pr ok" disabled>Agree and continue</button></div>';
+    var c = b.querySelector(".agc"), ok = b.querySelector(".ok");
+    c.onchange = function () { ok.disabled = !c.checked; };
+    ok.onclick = function () { recordConsent().then(render); };
+  }
+  function recordConsent() {
+    P.profile.consent = { version: TERMS_VERSION, at: Date.now(), age18: true, from: "aiv-panel" };
+    return P.ctx.db.collection("users").doc(P.user.uid).set({ consent: P.profile.consent }, { merge: true }).catch(function () {});
+  }
 
   function renderSignIn() {
     var b = $p(".body"), mode = "in";
     b.innerHTML = '<div class="si"><h3>Sign in to use AIV</h3><p>Use your AIV X account. AIV can see ' + APP_LABEL + ', search the web, and do things here for you — and your data syncs with AIV X.</p>' +
       '<button class="g">Continue with Google</button><div class="or">or</div>' +
       '<input class="em" type="email" placeholder="Email" autocomplete="email"><input class="pw" type="password" placeholder="Password" autocomplete="current-password">' +
-      '<button class="pr go">Sign in</button><div class="er"></div><button class="lk sw">New to AIV X? Create an account</button></div>';
+      '<button class="pr go">Sign in</button>' + AGREE_HTML + '<div class="er"></div><button class="lk sw">New to AIV X? Create an account</button></div>';
     var err = function (e) { b.querySelector(".er").textContent = (e && e.code ? e.code.replace("auth/", "").replace(/-/g, " ") : (e && e.message) || "Something went wrong"); };
     b.querySelector(".sw").onclick = function () { mode = mode === "in" ? "up" : "in"; b.querySelector(".go").textContent = mode === "in" ? "Sign in" : "Create account"; b.querySelector(".sw").textContent = mode === "in" ? "New to AIV X? Create an account" : "Have an account? Sign in"; };
     if (!P.ctx) { b.querySelector(".er").textContent = "Connecting…"; return; }
-    b.querySelector(".g").onclick = function () { P.ctx.auth.signInWithPopup(new P.ctx.fb.auth.GoogleAuthProvider()).catch(err); };
+    var agreeOk = function () {
+      var c = b.querySelector(".agc");
+      if (c.checked) { P.agreedNow = true; return true; }
+      b.querySelector(".ag").classList.add("need");
+      b.querySelector(".er").textContent = "Please confirm you're 18 or older and agree to the Terms of Use and Privacy Policy.";
+      return false;
+    };
+    b.querySelector(".g").onclick = function () { if (agreeOk()) P.ctx.auth.signInWithPopup(new P.ctx.fb.auth.GoogleAuthProvider()).catch(err); };
     b.querySelector(".go").onclick = function () {
+      if (!agreeOk()) return;
       var em = b.querySelector(".em").value.trim(), pw = b.querySelector(".pw").value;
       (mode === "in" ? P.ctx.auth.signInWithEmailAndPassword(em, pw) : P.ctx.auth.createUserWithEmailAndPassword(em, pw)).catch(err);
     };
@@ -606,7 +630,9 @@
       ctx.auth.onAuthStateChanged(function (u) {
         P.user = u || null;
         if (!u) { pusher = null; P.profile = null; P.pro = false; setSynced(false); if (P.open) render(); return; }
-        loadProfile(u).then(function () { if (P.open) render(); });
+        loadProfile(u).then(function () {
+          if (needsConsent() && P.agreedNow) return recordConsent();
+        }).then(function () { if (P.open) render(); });
         pusher = function () { var at = localAt(); cloudPut(ctx.db, u.uid, at, localData()).catch(function () {}); };
         reconcile(function () { return cloudGet(ctx.db, u.uid); }, function (at, data) { return cloudPut(ctx.db, u.uid, at, data); })
           .then(function () { setSynced(true, u.email); })
