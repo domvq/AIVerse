@@ -152,7 +152,7 @@
       if (t === want) s = 3; else if (t.indexOf(want) >= 0) s = 2; else if (want.indexOf(t) >= 0 && t.length > 2) s = 1;
       if (s > bs) { bs = s; best = el; }
     });
-    if (!best && els.length === 1) best = els[0];
+    if (!best && !want && els.length === 1) best = els[0];   // only guess when no field name was given
     return best;
   }
   function setValue(el, v) {
