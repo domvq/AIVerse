@@ -71,7 +71,7 @@ body:not(.embed) .app{border-inline:1px solid var(--line)}
     <textarea id="input" rows="1" maxlength="2000" placeholder="Type your question"></textarea>
     <button class="send" id="send" type="submit" aria-label="Send" disabled><svg viewBox="0 0 20 20"><path d="M10 16V4M5 9l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </form>
-  <div class="foot">Powered by <a href="index.html" target="_blank" rel="noopener">AI Verse</a> · AI answers may be wrong</div>
+  <div class="foot">You're chatting with an AI. Answers may be wrong · Powered by <a href="index.html" target="_blank" rel="noopener">AI Verse</a> · <a href="privacy.html" target="_blank" rel="noopener">Privacy</a></div>
 </main>
 <script src="config.js"></script>
 <script>
@@ -101,7 +101,7 @@ async function start(){
   document.documentElement.style.setProperty('--accent',c);document.documentElement.style.setProperty('--on-accent',onColor(c));
   $('name').textContent=bot.name;$('av').textContent=(bot.name.trim()[0]||'A').toUpperCase();document.title=bot.name;
   if(bot.status!=='active'){$('sub').textContent='Offline';stateMsg('This chatbot isn\'t live yet',bot.kind==='personal'?'It hasn\'t been switched on yet. Please check back soon.':`${bot.business||'This business'} hasn't switched it on. Please contact them directly.`);return;}
-  $('sub').textContent='Online';$('form').hidden=false;render();if(!embed)$('input').focus();
+  $('sub').textContent='AI assistant · Online';$('form').hidden=false;render();if(!embed)$('input').focus();
 }
 async function send(text){
   text=text.trim();if(!text||busy||!bot)return;

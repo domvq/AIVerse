@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terms of Service — AI Verse</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="The terms for using AI Verse, its apps, AIV X, the AIV API and AI chatbots, including refunds and disclaimers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: same system as the home page — centered heading, then a two-up of a quiet info card and the form card. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--bad:#b42318;--field:#ffffff;
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand svg{height:22px;width:auto;display:block}
+.brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.links{display:flex;gap:26px;font-size:14px}
+.links a{text-decoration:none;opacity:.85}.links a:hover,.links a[aria-current]{opacity:1}
+.links a[aria-current]{font-weight:500}
+.nav .right{margin-left:auto;display:flex;gap:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:500 15px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn.sm{padding:9px 18px;font-size:14px}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}.btn.dark:hover{opacity:.86}
+.btn.pill{background:var(--pill);color:var(--fg)}.btn.pill:hover{background:var(--line)}
+.btn.line{border-color:var(--line);color:var(--fg);background:transparent}.btn.line:hover{background:var(--pill)}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.btn svg{width:14px;height:14px}
+
+.hero{text-align:center;padding-block:80px 52px}
+h1{font:500 clamp(40px,6vw,68px)/1.03 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.lede{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:32em;margin:20px auto 0;text-wrap:balance}
+
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start;padding-bottom:96px}
+.card{background:var(--card);border-radius:18px;padding:36px 38px;min-width:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h2{font:500 24px/1.2 var(--display);letter-spacing:-.02em;margin:0}
+.info p{color:var(--muted);margin:12px 0 0;max-width:40ch}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
+.mail .addr{font:500 clamp(18px,2vw,22px)/1.2 var(--display);letter-spacing:-.01em;user-select:all;overflow-wrap:anywhere}
+.topics{margin-top:30px;border-top:1px solid var(--line)}
+.topics div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding-block:14px;border-bottom:1px solid var(--line);font-size:14px}
+.topics b{font-weight:500}
+.topics span{color:var(--muted)}
+
+form{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:500}
+label .opt{color:var(--soft);font-weight:400}
+input,select,textarea{font:400 15px/1.4 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:0;min-width:0}
+textarea{resize:vertical;min-height:150px}
+input:focus,select:focus,textarea:focus{border-color:var(--fg)}
+input[aria-invalid="true"],textarea[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;font-weight:400}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.foot-form{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.note{color:var(--muted);font-size:12.5px;margin:0;max-width:42ch}
+.count{color:var(--soft);font:400 12px var(--mono);text-align:right}
+
+.status{border-radius:14px;padding:18px 20px;margin-top:4px}
+.status.ok{background:color-mix(in srgb,var(--good) 12%,var(--card));}
+.status.ok b{color:var(--good)}
+.status.fail{background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.status.fail b{color:var(--bad)}
+.status p{margin:6px 0 0;color:var(--muted)}
+.status .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--muted);font-size:13.5px}
+.foot{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+.foot .brand{color:var(--fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
+.fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
+
+@media (max-width:900px){.links{display:none}.grid{grid-template-columns:1fr}}
+@media (max-width:560px){.nav .right .pill{display:none}.card{padding:28px 22px}.row2{grid-template-columns:1fr}.topics div{grid-template-columns:1fr;gap:2px}.hero{padding-block:56px 40px}}
+
+/* ===== shared site header (identical on every page) ===== */
+header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
+.sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
+.sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
+.sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.sitehead .hb{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 16px;font:500 14px/1 var(--body);text-decoration:none;white-space:nowrap;border:1px solid transparent;cursor:pointer}
+.sitehead .hb.solid{background:var(--ink-btn);color:var(--ink-btn-fg)}.sitehead .hb.solid:hover{opacity:.86}
+.sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
+.sitehead .hb svg{width:15px;height:15px}
+.sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:1180px){
+ .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
+ .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
+ .sitehead .tabs::-webkit-scrollbar{display:none}
+ .sitehead .tabs a{min-width:0;flex:1 0 auto}
+}
+
+/* legal pages */
+.legal .hero{padding-block:72px 36px}
+.legal .upd{color:var(--soft);font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:18px 0 0}
+.doc{display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;align-items:start;padding-bottom:96px}
+.toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:2px;font-size:13.5px;border-left:1px solid var(--line);padding-left:14px;max-height:calc(100vh - 110px);overflow:auto}
+.toc a{text-decoration:none;color:var(--muted);padding:4px 0}.toc a:hover{color:var(--fg)}
+.legal article{max-width:72ch}
+.legal article h2{font:500 21px/1.25 var(--display);letter-spacing:-.015em;margin:40px 0 10px;scroll-margin-top:84px}
+.legal article h2:first-child{margin-top:0}
+.legal article p,.legal article li{color:var(--fg);opacity:.9;font-size:15.5px;line-height:1.65}
+.legal article ul{padding-left:20px;margin:10px 0}.legal article li{margin:6px 0}
+.legal article a{text-underline-offset:2px}
+.legal .caps{font-size:14px!important;text-transform:uppercase;letter-spacing:.01em;line-height:1.6}
+@media (max-width:860px){.doc{grid-template-columns:1fr;gap:24px}.toc{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:6px 14px;border-left:0;padding-left:0;border-bottom:1px solid var(--line);padding-bottom:16px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="sitehead">
+  <div class="bar">
+    <a class="brand" href="index.html" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <nav class="tabs" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="chat.html">Ask AIV</a>
+      <a href="builder.html">Build AI</a>
+      <a href="introducing-aiv-x.html">AIV X</a>
+      <a href="business.html">Business</a>
+      <a href="data.html">Data</a>
+      <a href="index.html#apps">Apps</a>
+      <a href="api.html">API</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
+  </div>
+</header>
+
+<main class="wrap legal">
+  <section class="hero">
+    <h1>Terms of Service</h1>
+    <p class="lede">The rules for using AI Verse, our apps, AIV X, the AIV API and the AIs we build.</p>
+    <p class="upd">Effective November 4, 2026</p>
+  </section>
+  <div class="doc">
+  <nav class="toc" aria-label="On this page">
+    <a href="#t1">Agreement</a><a href="#t2">Who can use AI Verse</a><a href="#t3">AI answers can be wrong</a><a href="#t4">Not professional advice</a><a href="#t5">Finance tools</a><a href="#t6">Health and fitness tools</a><a href="#t7">Career tools</a><a href="#t8">Photos and images</a><a href="#t9">Acceptable use</a><a href="#t10">Accounts and keys</a><a href="#t11">Purchases and subscriptions</a><a href="#refunds">Refunds</a><a href="#t13">AIs you buy for your business</a><a href="#t14">Your content</a><a href="#t15">Third-party services</a><a href="#t16">Our property</a><a href="#t17">Disclaimer of warranties</a><a href="#t18">Limitation of liability</a><a href="#t19">Indemnity</a><a href="#t20">Suspension and ending</a><a href="#t23">Governing law</a><a href="#t21">Changes</a><a href="#t22">Contact</a>
+  </nav>
+  <article>
+  <h2 id="t1">1. Agreement</h2>
+  <p>These terms are an agreement between you and AI Verse ("AI Verse", "we", "us"). They cover aiverse.it.com, aiv-x.com, the AI Verse apps (Aide, Study and Research AI, Stock and Finance AI, Health and Fitness AI, Photo AI and Career AI), Ask AIV, Build AI, AIV X, the AIV API and any AI we build or host for you (together, the "Services"). By using the Services you agree to these terms and to our <a href="privacy.html">Privacy Policy</a>. If you don't agree, don't use the Services.</p>
+
+  <h2 id="t2">2. Who can use AI Verse</h2>
+  <p>You must be at least 13 years old to use the Services. If you are under 18, you may use them only with the permission of a parent or guardian, who agrees to these terms for you. You must be 18 or older to buy anything. If you use the Services for a business, you confirm you can accept these terms for it.</p>
+
+  <h2 id="t3">3. AI answers can be wrong</h2>
+  <p>The Services use artificial intelligence. AI can produce answers that are inaccurate, incomplete, out of date or offensive, and can state wrong information confidently. Check anything important against a reliable source before you rely on it. You are responsible for how you use what the Services produce.</p>
+
+  <h2 id="t4">4. Not professional advice</h2>
+  <p>Everything the Services provide is general information and education. It is <b>not</b> financial, investment, tax, legal, medical, mental-health, nutrition or career advice, and it is not a substitute for a licensed professional who knows your situation. Using the Services does not create a professional relationship of any kind between you and AI Verse.</p>
+
+  <h2 id="t5">5. Finance tools</h2>
+  <ul>
+    <li>AI Verse is not a broker-dealer, investment adviser, financial planner or tax adviser, and is not registered as any of these. Nothing in the Services is a recommendation or offer to buy or sell any security or asset.</li>
+    <li>Forecasts, predictions, scores and AI reports are estimates based on past data. They are probabilities, not promises. Past performance does not guarantee future results. You can lose money investing.</li>
+    <li>Paper trading is a simulation with pretend money. The Services never connect to a brokerage, never place real trades and never move your money.</li>
+    <li>Without your own market-data key, prices and charts are simulated demo data, not real prices. With your own key, data comes from that provider (such as Finnhub or Twelve Data), may be delayed or wrong, and is subject to the provider's terms, including any personal-use limits. You are responsible for following them.</li>
+    <li>Make your own decisions and talk to a licensed professional before acting.</li>
+  </ul>
+
+  <h2 id="t6">6. Health and fitness tools</h2>
+  <ul>
+    <li><b>In an emergency, call 911 or your local emergency number.</b> The Services cannot respond to emergencies.</li>
+    <li>The Services do not diagnose, treat, cure or prevent any condition. Calorie, protein, water and workout targets are general estimates from standard formulas and can be wrong for you.</li>
+    <li>Talk to a doctor before starting any diet or exercise program, especially if you are pregnant or breastfeeding, under 18, have a medical condition, take medication, or have a history of disordered eating. Stop exercising and get medical help if you feel pain, dizziness or shortness of breath.</li>
+    <li>You exercise at your own risk.</li>
+  </ul>
+
+  <h2 id="t7">7. Career tools</h2>
+  <p>Career AI helps you write and organize. You are responsible for reviewing everything before it is sent and for making sure your resume, applications and answers are true. Nothing is ever submitted without your approval. We don't guarantee interviews, offers or any outcome. Job postings come from third-party sites; we don't verify them, and you should watch for scams. Follow the terms of any job site you use.</p>
+
+  <h2 id="t8">8. Photos and images</h2>
+  <p>Only upload images you own or have permission to use. Don't use Photo AI or any image feature to create images of a real person without their consent, sexual or nude images of anyone without consent, any sexual content involving a minor, or images meant to deceive, impersonate, harass or defame. AI-made or AI-edited images may resemble existing works or people by chance; check before you publish or use them commercially.</p>
+
+  <h2 id="t9">9. Acceptable use</h2>
+  <p>Don't use the Services to:</p>
+  <ul>
+    <li>break any law or anyone's rights, including privacy, copyright and trademark rights;</li>
+    <li>harass, threaten, defame or harm anyone, or create content that sexualizes minors;</li>
+    <li>create malware, phishing, spam or scams, or impersonate a real person or organization;</li>
+    <li>make decisions that legally or significantly affect someone (such as credit, housing, employment or insurance) based on AI output without human review;</li>
+    <li>attack, overload, scrape or reverse engineer the Services, get around usage limits, or share or resell access without our written permission.</li>
+  </ul>
+
+  <h2 id="t10">10. Accounts and keys</h2>
+  <p>Keep your password, sign-in and API keys secret. You are responsible for all activity and charges on your account and keys. If you think a key is exposed, replace it right away on the <a href="api.html">API page</a> and tell us. The free daily uses in our apps are offered as-is and we may change or end them at any time.</p>
+
+  <h2 id="t11">11. Purchases and subscriptions</h2>
+  <ul>
+    <li>Payments are processed by Stripe. We never see or store your full card number. Prices are in US dollars and are shown before you pay. You are responsible for any taxes.</li>
+    <li><b>AI chatbot:</b> a one-time payment of $150 per AI. It includes hosting on AI Verse while the Services operate.</li>
+    <li><b>Custom AI:</b> starts at $200. The price, scope and timeline are agreed in writing with you before work begins, and that written agreement controls if it differs from these terms.</li>
+    <li><b>AIV X ($50 a month) and AIV API plans renew automatically every month and charge your payment method until you cancel.</b> Cancel anytime in the Stripe billing portal linked on the <a href="api.html">API page</a> and the <a href="introducing-aiv-x.html">AIV X page</a>, or by emailing us. Cancellation takes effect at the end of the period you've paid for, and your access continues until then.</li>
+    <li>Included credits reset each billing month, don't roll over and have no cash value.</li>
+    <li>We may change prices for future billing periods. We'll tell you by email at least 14 days before a change to a subscription you have, and you can cancel before it takes effect.</li>
+  </ul>
+
+  <h2 id="refunds">12. Refunds</h2>
+  <ul>
+    <li><b>AI chatbot ($150):</b> if you're not satisfied, email us within 14 days of purchase for a full refund. After a refund, the AI's link and hosting stop working.</li>
+    <li><b>Subscriptions (AIV X and API plans):</b> you can cancel anytime to stop future charges. Payments already made aren't refunded for partly used periods, except where the law requires it. If you were charged by mistake, email us within 30 days and we'll make it right.</li>
+    <li><b>Custom AI:</b> refunds follow the written agreement for your project.</li>
+    <li>To ask for a refund, email <a href="mailto:team@aiverse.it.com">team@aiverse.it.com</a> with the email you paid with. Refunds go back to the original payment method through Stripe.</li>
+  </ul>
+
+  <h2 id="t13">13. AIs you buy for your business</h2>
+  <p>If you deploy an AI we build or host on your own website or with your customers, you are responsible for:</p>
+  <ul>
+    <li>the information you give it and for checking that its answers about your business are accurate;</li>
+    <li>telling your visitors they are talking to an AI, and offering a way to reach a human for important matters;</li>
+    <li>your own privacy notice to your visitors, and following the laws that apply to your business;</li>
+    <li>not using it to give regulated advice (such as medical, legal or financial advice) or to make decisions about people without human review.</li>
+  </ul>
+  <p>We may pause an AI that is used against these terms or that puts people at risk.</p>
+
+  <h2 id="t14">14. Your content</h2>
+  <p>You keep ownership of what you put into the Services and, as between you and us, of what the Services create for you, subject to the rights of others. You give us permission to store, process and transmit your content only as needed to run, secure and support the Services for you. We don't sell your content, and we don't use it to train AI models. You confirm you have the rights to everything you upload.</p>
+
+  <h2 id="t15">15. Third-party services</h2>
+  <p>The Services rely on other companies, including AI model providers (such as Groq and Cloudflare), Firebase for sign-in, Stripe for payments, and market-data, job and image providers you choose. Their services have their own terms and privacy policies. We aren't responsible for third-party services, websites or content, including outages or errors on their side. Product names such as Groq, Finnhub and Twelve Data are trademarks of their owners. AI Verse is not affiliated with or endorsed by them.</p>
+
+  <h2 id="t16">16. Our property</h2>
+  <p>The Services, including our software, design, logos, the AI Verse, AIV and AIV X names, and our datasets, belong to AI Verse and are protected by law. These terms don't give you any rights to them except to use the Services as allowed here. If you think something on the Services infringes your copyright, email us with details and we'll review it promptly.</p>
+
+  <h2 id="t17">17. Disclaimer of warranties</h2>
+  <p class="caps">The Services are provided "as is" and "as available", without warranties of any kind, express or implied, including warranties of merchantability, fitness for a particular purpose, accuracy, non-infringement and uninterrupted or error-free operation. We don't warrant that AI output is correct, complete or suitable for any purpose.</p>
+
+  <h2 id="t18">18. Limitation of liability</h2>
+  <p class="caps">To the fullest extent allowed by law, AI Verse and its team will not be liable for any indirect, incidental, special, consequential, exemplary or punitive damages, or for any lost profits, investment or trading losses, lost data, health outcomes or decisions made based on the Services, even if we were told they were possible. Our total liability for any claim relating to the Services is limited to the greater of the amount you paid us in the 12 months before the claim or $50.</p>
+  <p>Some places don't allow some of these limits, so they may not all apply to you. Nothing in these terms limits liability that can't be limited by law.</p>
+
+  <h2 id="t19">19. Indemnity</h2>
+  <p>If you use the Services in a way that breaks these terms or the law, or that infringes someone's rights, and that leads to a claim against AI Verse, you agree to cover our reasonable costs from that claim, including legal fees, to the extent allowed by law.</p>
+
+  <h2 id="t20">20. Suspension and ending</h2>
+  <p>You can stop using the Services at any time. We may suspend or end your access if you break these terms, if required by law, or to protect people or the Services. Sections that by their nature should survive (such as 3–5, 14, 16–19 and 21) continue after access ends.</p>
+
+  <h2 id="t23">21. Governing law and disputes</h2>
+  <p>AI Verse is based in California. These terms are governed by the laws of the State of California and the United States, without regard to conflict-of-law rules. Before filing any claim, please email us at <a href="mailto:team@aiverse.it.com">team@aiverse.it.com</a> so we can try to resolve it informally; we'll respond within 30 days. If we can't resolve it, any dispute will be decided only in the state or federal courts located in California, and you and AI Verse agree to their jurisdiction. Either of us may bring a qualifying claim in small claims court instead. If you are a consumer, nothing here takes away rights you have under the laws of where you live.</p>
+
+  <h2 id="t21">22. Changes</h2>
+  <p>We may update these terms. We'll change the effective date above and, for important changes, tell account holders by email or on the site before they take effect. Continuing to use the Services after that means you accept the updated terms.</p>
+
+  <h2 id="t22">23. Contact</h2>
+  <p>Questions about these terms, refunds or copyright: <a href="mailto:team@aiverse.it.com">team@aiverse.it.com</a> or our <a href="contact.html">contact page</a>.</p>
+  </article>
+  </div>
+</main>
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice.</p>
+  </div>
+</footer>
+<script src="auth.js" defer></script>
+</body>
+</html>
