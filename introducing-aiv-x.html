@@ -15,6 +15,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 .logo{line-height:0}.logo [data-aivx-logo]{display:block;font-size:30px;color:#fff}
@@ -187,26 +188,58 @@ pre.code{background:#000;border:1px solid var(--line);padding:12px;font-size:12p
 footer{border-top:1px solid #111;padding:34px 0;color:var(--muted);font-size:13px}
 footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 footer nav{display:flex;gap:16px;flex-wrap:wrap}footer a{text-decoration:none}footer a:hover{color:#fff}
+
+/* site navigation bar (same as the other AI Verse pages) */
+.sitehead{--sh-font:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.sitehead,.sitehead *{font-family:var(--sh-font)!important;text-transform:none;letter-spacing:normal}
+header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
+.sitehead .brand span{font:600 15px/1 var(--sh-font);letter-spacing:-.01em}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--sh-font);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
+.sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
+.sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.sitehead .hb{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 16px;font:500 14px/1 var(--sh-font);text-decoration:none;white-space:nowrap;border:1px solid transparent;cursor:pointer}
+.sitehead .hb.solid{background:var(--ink-btn);color:var(--ink-btn-fg)}.sitehead .hb.solid:hover{opacity:.86}
+.sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
+.sitehead .hb svg{width:15px;height:15px}
+.sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:1180px){
+ .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
+ .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
+ .sitehead .tabs::-webkit-scrollbar{display:none}
+ .sitehead .tabs a{min-width:0;flex:1 0 auto}
+}
+
+.sitehead .brand span{letter-spacing:-.01em}
+.sitehead .tabs{border-bottom:0;margin:0;overflow:visible}
+@media (max-width:1180px){.sitehead .tabs{overflow-x:auto;margin-inline:-6px}}
 </style>
 </head>
 <body>
 
-<nav class="top" aria-label="Main">
-  <div class="wrap">
-    <a href="introducing-aiv-x.html" class="logo" aria-label="AIV X"><span data-aivx-logo="AIV X"></span></a>
-    <div class="navlinks">
-      <a href="index.html" class="site">AI Verse</a>
-      <a href="builder.html" class="site">Build AI</a>
-      <a href="index.html#apps" class="site">Apps</a>
-      <span class="sep" aria-hidden="true"></span>
-      <a href="#studio">Create</a>
-      <a href="#tools">Studio</a>
-      <a href="#buy">Pricing</a>
-      <a href="https://aiv-x.com" class="openx" target="_blank" rel="noopener">Open AIV X</a>
-      <span data-auth-slot class="authslot"></span>
-    </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol></svg>
+<header class="sitehead">
+  <div class="bar">
+    <a class="brand" href="index.html" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <nav class="tabs" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="chat.html">Ask AIV</a>
+      <a href="builder.html">Build AI</a>
+      <a href="introducing-aiv-x.html" aria-current="page">AIV X</a>
+      <a href="business.html">Business</a>
+      <a href="data.html">Data</a>
+      <a href="index.html#apps">Apps</a>
+      <a href="api.html">API</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
   </div>
-</nav>
+</header>
 
 <header class="hero">
   <div class="stars"></div>
