@@ -62,10 +62,19 @@
 
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
+  var GUIDES = {
+    'stock-and-finance-ai': ['ai-finance-and-career-tools.html', 'Guide: AI finance and career tools'],
+    'career-ai': ['ai-finance-and-career-tools.html', 'Guide: AI finance and career tools'],
+    'health-and-fitness-ai': ['ai-health-and-fitness-tools.html', 'Guide: AI health and fitness tools'],
+    'study-and-research-ai': ['ai-tools-for-education-and-research.html', 'Guide: AI tools for education and research'],
+    'aide': ['build-a-personal-ai-assistant.html', 'Guide: build a personalized AI assistant'],
+    'photo-ai': ['build-an-ai-app.html', 'Guide: build an AI app without code']
+  };
   function footer() {
     var f = document.createElement('footer');
     f.className = 'aivl-foot'; f.setAttribute('role', 'contentinfo');
     f.innerHTML = (NOTES[file] ? NOTES[file] + ' ' : 'AI can be wrong. Check important information. ') +
+      '<br>' + (GUIDES[file] ? '<a href="' + base + GUIDES[file][0] + '">' + GUIDES[file][1] + '</a> · ' : '') + '<a href="' + base + 'index.html#apps">More free AI apps</a> · <a href="' + base + 'introducing-aiv-x.html">AIV X</a>' +
       '<br>© ' + new Date().getFullYear() + ' AI Verse · <a href="' + terms + '" target="_blank" rel="noopener">Terms</a> · <a href="' + privacy + '" target="_blank" rel="noopener">Privacy</a>';
     var nav = document.querySelector('nav.tabs');
     if (nav && nav.parentNode === document.body) document.body.insertBefore(f, nav); else document.body.appendChild(f);

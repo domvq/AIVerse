@@ -76,7 +76,7 @@
 .aa-go:disabled{opacity:.5;cursor:default}
 .aa-link{background:none;border:0;color:#2563eb;font:500 14px/1.3 var(--body,system-ui,sans-serif);cursor:pointer;padding:0}
 .aa-err{color:var(--bad,#b42318);font-size:14px;margin-top:10px;min-height:20px}
-.aa-legal{font-size:12px;color:var(--muted,#6e6c68);margin-top:18px;text-align:center}
+.aa-legal{font-size:12px;color:var(--muted,#6e6c68);margin-top:18px;text-align:center}.aa-legal a{color:inherit;text-decoration:underline}
 .aa-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:transparent;color:inherit;font-size:22px;line-height:1;cursor:pointer}
 .aa-x:hover{background:var(--pill,#efeeeb)}
 .aa-hide{display:none!important}
@@ -126,7 +126,7 @@
       <div id="aaRecaptcha"></div>
     </div>
     <div class="aa-err" id="aaErr" role="alert"></div>
-    <div class="aa-legal">By continuing, you agree to AI Verse's Terms and Privacy Policy. Your AI Verse account also signs you in to AIV X.</div>
+    <div class="aa-legal">By continuing, you agree to AI Verse's <a href="https://aiverse.it.com/terms.html" target="_blank" rel="noopener">Terms</a> and <a href="https://aiverse.it.com/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>, including use of your AI conversations to improve our AI models (you can opt out anytime). Your AI Verse account also signs you in to AIV X.</div>
   </div></div></div>`;
     document.body.appendChild(m);
     return m;
