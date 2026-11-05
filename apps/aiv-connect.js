@@ -27,7 +27,7 @@
   };
   var FB = "https://www.gstatic.com/firebasejs/10.12.2/";
   var FILE_TO_ID = {
-    "aide": "aide", "study-and-research-ai": "study", "stock-and-finance-ai": "finance",
+    "aide": "aide", "personal-assistant-ai": "aide", "study-and-research-ai": "study", "stock-and-finance-ai": "finance",
     "health-and-fitness-ai": "fitness", "photo-ai": "photo", "career-ai": "career"
   };
   var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "");
@@ -276,6 +276,11 @@
       if (d.type === "pulled" && OK && d.remote) { if (d.remote.at > localAt()) applyRemote(d.remote); }
       if (d.type === "context") send({ type: "answer", id: d.id, result: context() });
       if (d.type === "act") runActions(d.actions).then(function (r) { send({ type: "answer", id: d.id, result: r }); });
+      if (d.type === "addimage") {
+        var A = window.AIV_APP;
+        (A && A.addImage ? Promise.resolve().then(function () { return A.addImage(d.src, d.name, d.prompt); }) : Promise.reject(new Error("this app can't take images")))
+          .then(function () { send({ type: "answer", id: d.id, result: { ok: true } }); }, function (e) { send({ type: "answer", id: d.id, result: { ok: false, error: String(e && e.message || e) } }); });
+      }
     });
     setBackLinks(function () { send({ type: "close" }); });
     send({ type: "hello", v: 1, title: document.title, screens: context().screens });
@@ -335,7 +340,7 @@
   var TERMS_VERSION = "2026-11-04";
   var TERMS_URL = "https://aiv-x.com/terms.html", PRIVACY_URL = "https://aiv-x.com/privacy.html";
   var AGREE_HTML = '<label class="ag"><input type="checkbox" class="agc"><span>I\'m 18 or older and agree to the <a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms of Use</a> and <a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>';
-  var APP_NAMES = { aide: "Aide", study: "Study and Research AI", finance: "Stock and Finance AI", fitness: "Health and Fitness AI", photo: "Photo AI", career: "Career AI" };
+  var APP_NAMES = { aide: "Personal Assistant AI", study: "Study and Research AI", finance: "Stock and Finance AI", fitness: "Health and Fitness AI", photo: "Photo AI", career: "Career AI" };
   var STARTERS = {
     aide: ["Add “call the dentist Friday” to my tasks", "What's on my calendar this week?", "Plan my day"],
     study: ["Quiz me on what I'm studying", "Find recent research on my topic", "Make flashcards for this"],
