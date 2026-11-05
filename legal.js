@@ -2,7 +2,7 @@
    AI Verse — legal notices for the apps
    - Adds a small footer with the app's disclaimer and Terms / Privacy links
    - Shows a one-time notice that must be acknowledged in apps that give
-     money or health information (Stock and Finance AI, Health and Fitness AI)
+     money or health information (AI Stock and Finance, AI Health and Fitness)
    Add to each app:  <script src="../legal.js" defer></script>
    ===================================================================== */
 (function () {
@@ -12,6 +12,8 @@
   var base = new URL('../', document.currentScript ? document.currentScript.src : location.href).href;
   var terms = base + 'terms.html', privacy = base + 'privacy.html';
   var file = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '');
+  var ALIAS = {'ai-personal-assistant':'personal-assistant-ai','ai-study-and-research':'study-and-research-ai','ai-stock-and-finance':'stock-and-finance-ai','ai-health-and-fitness':'health-and-fitness-ai','ai-photo':'photo-ai','ai-career':'career-ai'};
+  file = ALIAS[file] || file;
 
   var NOTES = {
     'stock-and-finance-ai': 'For information and education only. Not investment, financial, tax or legal advice. AI Verse is not a broker or investment adviser. Forecasts are estimates, not promises, and you can lose money investing. Paper trading uses pretend money, and no real trades are ever placed.',
@@ -19,6 +21,7 @@
     'career-ai': 'AI can be wrong. Review everything before you send it and make sure it is true. Nothing is submitted without your approval. No job outcome is guaranteed.',
     'photo-ai': 'Only use images you have the rights to. Don\'t create images of real people without their consent or images meant to deceive. AI images can resemble existing works.',
     'study-and-research-ai': 'AI can be wrong. Check facts and sources before you rely on them, and follow your school\'s rules on AI use.',
+    'personal-assistant-ai': 'AI can be wrong. Check important dates, details and messages before relying on or sending them.',
     'aide': 'AI can be wrong. Check important dates, details and messages before relying on or sending them.'
   };
   var GATES = {
@@ -67,6 +70,7 @@
     'career-ai': ['ai-finance-and-career-tools.html', 'Guide: AI finance and career tools'],
     'health-and-fitness-ai': ['ai-health-and-fitness-tools.html', 'Guide: AI health and fitness tools'],
     'study-and-research-ai': ['ai-tools-for-education-and-research.html', 'Guide: AI tools for education and research'],
+    'personal-assistant-ai': ['build-a-personal-ai-assistant.html', 'Guide: build a personalized AI assistant'],
     'aide': ['build-a-personal-ai-assistant.html', 'Guide: build a personalized AI assistant'],
     'photo-ai': ['build-an-ai-app.html', 'Guide: build an AI app without code']
   };
