@@ -376,7 +376,7 @@
     return null;
   }
   function api(path, body, proKey) {
-    body = Object.assign({ appKey: AIVX_APP_KEY }, proKey ? { key: proKey } : {}, body);
+    body = Object.assign({ appKey: AIVX_APP_KEY, train: !(P.profile && P.profile.settings && P.profile.settings.improve === false) }, proKey ? { key: proKey } : {}, body);
     return fetch(AIV_API_URL + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) throw new Error(d.error || ("Request failed (" + r.status + ")")); return d; }); });
   }
@@ -553,7 +553,7 @@
     function loop() {
       drawAI(el, steps, shown, srcs, step ? "Working…" : "Thinking…");
       msgs[0] = { role: "system", content: systemFor(context()) };
-      return api("/chat", { messages: msgs, model: "auto", max_tokens: 1500 }, P.pro ? P.profile.proKey : null).then(function (d) {
+      return api("/chat", { messages: msgs, model: "aiv-1", max_tokens: 2000 }, P.pro ? P.profile.proKey : null).then(function (d) {
         var reply = String(d.reply || "");
         var vis = stripActs(reply);
         if (vis) shown = shown ? shown + "\n\n" + vis : vis;
