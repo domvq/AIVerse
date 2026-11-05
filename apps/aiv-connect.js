@@ -27,7 +27,7 @@
   };
   var FB = "https://www.gstatic.com/firebasejs/10.12.2/";
   var FILE_TO_ID = {
-    "aide": "aide", "personal-assistant-ai": "aide", "study-and-research-ai": "study", "stock-and-finance-ai": "finance",
+    "aide": "aide", "personal-assistant-ai": "aide", "ai-personal-assistant": "aide", "ai-study-and-research": "study", "ai-stock-and-finance": "finance", "ai-health-and-fitness": "fitness", "ai-photo": "photo", "ai-career": "career", "study-and-research-ai": "study", "stock-and-finance-ai": "finance",
     "health-and-fitness-ai": "fitness", "photo-ai": "photo", "career-ai": "career"
   };
   var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "");

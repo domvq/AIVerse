@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Photo: Free AI Photo Editor &amp; Image Generator | AI Verse</title>
+<meta name="description" content="Edit photos with AI using simple prompts. Remove backgrounds and objects, enhance and upscale, generate images and create headshots. Free to try.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://aiverse.it.com/apps/ai-photo.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Verse">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="AI Photo: AI photo editor and image generator">
+<meta property="og:description" content="Edit photos with AI using simple prompts. Remove backgrounds and objects, enhance and upscale, generate images and create headshots. Free to try.">
+<meta property="og:url" content="https://aiverse.it.com/apps/ai-photo.html">
+<meta property="og:image" content="https://aiverse.it.com/icons/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI Photo by AI Verse">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Photo: AI photo editor and image generator">
+<meta name="twitter:description" content="Edit photos with AI using simple prompts. Remove backgrounds and objects, enhance and upscale, generate images and create headshots. Free to try.">
+<meta name="twitter:image" content="https://aiverse.it.com/icons/og-image.jpg">
+<meta name="twitter:image:alt" content="AI Photo by AI Verse">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","alternateName":"AIV","url":"https://aiverse.it.com/","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"WebApplication","name":"AI Photo","url":"https://aiverse.it.com/apps/ai-photo.html","applicationCategory":"MultimediaApplication","operatingSystem":"Web browser","description":"Edit photos with AI using simple prompts. Remove backgrounds and objects, enhance and upscale, generate images and create headshots. Free to try.","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"20 free AI uses per day"},"publisher":{"@id":"https://aiverse.it.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"AI Photo","item":"https://aiverse.it.com/apps/ai-photo.html"}]}]}</script>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111'/%3E%3Crect x='14' y='18' width='36' height='28' rx='4' fill='none' stroke='white' stroke-width='4'/%3E%3Cpath d='M18 42l9-10 7 7 5-5 7 8' stroke='white' stroke-width='3.5' fill='none' stroke-linejoin='round'/%3E%3Ccircle cx='40' cy='27' r='3' fill='white'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff;--card:#f4f4f5;--box:#fff;--line:#e6e6e9;--ink:#111214;--muted:#6b6d72;--soft:#9a9ca1;--good:#15803d;--good-bg:#dcfce7;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;--kcal:#f97316;--pro:#0891b2;--carb:#d97706;--fat:#8b5cf6;--sleep:#8b5cf6;--lift:#0e7490;--water:#0284c7;--btn:#111214;--btn-ink:#fff;--r:14px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0e0f11;--card:#1a1b1e;--box:#141518;--line:#2a2c30;--ink:#ececee;--muted:#a1a3a8;--soft:#7a7c82;--good:#4ade80;--good-bg:#14321f;--warn:#fbbf24;--warn-bg:#3a2d0c;--bad:#f87171;--bad-bg:#3b1414;--kcal:#fb923c;--pro:#22d3ee;--carb:#fbbf24;--fat:#a78bfa;--sleep:#a78bfa;--lift:#22d3ee;--water:#38bdf8;--btn:#ececee;--btn-ink:#111214;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.shell{max-width:780px;margin:0 auto;padding:24px 18px 110px}
+@media (min-width:820px){.shell{margin:20px auto;border:1px solid var(--line);border-radius:22px;padding:26px 26px 110px;min-height:calc(100vh - 40px)}}
+header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+h1{font-size:30px;line-height:1.15;margin:0;font-weight:700;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px;margin:3px 0 0}
+.hdr-r{display:flex;gap:8px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:5px;background:var(--good-bg);color:var(--good);font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap;border:0;cursor:pointer;font-family:inherit}
+.badge.off{background:var(--card);color:var(--muted)}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--box);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.icon-btn:hover{background:var(--card)}
+.ic{width:20px;height:20px;flex:none}
+.view{display:none}.view.on{display:block;animation:fade .15s ease}
+@keyframes fade{from{opacity:0}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{background:var(--card);border-radius:var(--r);padding:14px 14px 12px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer;min-width:0}
+.stat:hover{filter:brightness(.98)}
+.stat .ic{width:20px;height:20px}
+.stat b{display:block;font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat b small{font-size:18px;font-weight:600;color:var(--muted)}
+.stat>span:last-child{font-size:13px;color:var(--muted)}
+.c-kcal{color:var(--kcal)}.c-lift{color:var(--lift)}.c-pro{color:var(--pro)}.c-sleep{color:var(--sleep)}.c-water{color:var(--water)}.c-carb{color:var(--carb)}.c-fat{color:var(--fat)}
+h2{font-size:15px;font-weight:600;margin:22px 0 10px}
+h3{font-size:15px;font-weight:600;margin:0}
+h4{font-size:13px;font-weight:600;margin:14px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.box{background:var(--box);border:1px solid var(--line);border-radius:var(--r);padding:14px 14px}
+.soft{background:var(--card);border-radius:var(--r);padding:14px}
+.box+.box,.soft+.soft,.box+.soft,.soft+.box{margin-top:10px}
+.row{display:flex;gap:8px;align-items:center}
+.wrap{flex-wrap:wrap}.between{justify-content:space-between}.end{justify-content:flex-end}.grow{flex:1;min-width:0}
+.pill{display:inline-block;background:var(--card);color:var(--ink);font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.box .pill{background:var(--card)}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:12px}
+.note{color:var(--muted);font-size:12.5px;margin:10px 0 0}
+ul.ex{margin:8px 0 0;padding-left:22px}ul.ex li{margin:3px 0}
+.btn{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--box);color:var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;position:relative;text-decoration:none}
+.btn:hover{background:var(--card)}
+.btn.primary{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
+.btn.primary:hover{opacity:.9}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.danger{color:var(--bad)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn .ic{width:16px;height:16px}
+.loading{color:transparent!important}.loading>*{visibility:hidden}
+.loading::after{content:"";position:absolute;inset:0;margin:auto;width:16px;height:16px;border:2px solid var(--soft);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:10px;flex:1;min-width:0}
+input,select,textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid transparent;border-radius:10px;padding:9px 11px;width:100%;outline:0;min-width:0}
+.box input,.box select,.box textarea{background:var(--card)}
+input:focus,select:focus,textarea:focus{border-color:var(--ink)}
+textarea{resize:vertical}
+label.check{flex-direction:row;align-items:center;gap:8px;font-weight:500;color:var(--ink);font-size:14px}
+label.check input{width:auto}
+.form-row{display:flex;gap:10px;flex-wrap:wrap}.form-row>label{min-width:110px}
+.seg{display:inline-flex;background:var(--card);border-radius:11px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer}
+.seg button.on{background:var(--box);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--box);color:var(--ink);font:inherit;font-size:12.5px;padding:5px 10px;border-radius:99px;cursor:pointer;text-align:left}
+.chip:hover{background:var(--card)}
+.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--ink)}
+.mrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .t{font-weight:600;font-size:14px}
+.x{border:0;background:none;color:var(--soft);cursor:pointer;font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
+.x:hover{background:var(--card);color:var(--ink)}
+.empty{color:var(--muted);font-size:14px;margin:4px 0}
+.md p{margin:0 0 8px}.md ul,.md ol{margin:0 0 8px;padding-left:20px}.md li{margin:2px 0}.md h4{text-transform:none;letter-spacing:0;color:var(--ink);font-size:14px}.md>:last-child{margin-bottom:0}
+.coach-head{display:flex;gap:8px;align-items:center;font-weight:600;margin-bottom:8px}
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.msg{padding:10px 12px;border-radius:12px;max-width:92%;font-size:14px}
+.msg.me{align-self:flex-end;background:var(--btn);color:var(--btn-ink)}
+.msg.ai{align-self:flex-start;background:var(--box);border:1px solid var(--line)}
+.askbar{display:flex;gap:6px;margin-top:10px}
+.askbar input{background:var(--box);border:1px solid var(--line)}
+/* workout logging */
+.exc{background:var(--box);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-top:10px}
+.sets{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+.sets th{font-size:11.5px;font-weight:600;color:var(--muted);text-align:left;padding:2px 4px;text-transform:uppercase;letter-spacing:.04em}
+.sets td{padding:3px 4px}
+.sets input{padding:7px 8px;text-align:center}
+.sets tr.done td{opacity:.6}
+.setchk{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--box);cursor:pointer;display:grid;place-items:center;color:var(--muted);font-size:15px}
+.setchk.on{background:var(--good);border-color:var(--good);color:#fff}
+#restBar{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:30;background:var(--btn);color:var(--btn-ink);border-radius:14px;padding:10px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);width:min(440px,92vw)}
+#restBar[hidden]{display:none}
+#restBar b{font-size:22px;font-variant-numeric:tabular-nums;min-width:64px}
+#restBar button{background:transparent;color:inherit;border:1px solid currentColor;border-radius:8px;padding:4px 9px;font:inherit;font-size:13px;cursor:pointer;opacity:.9}
+/* charts */
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart text{fill:var(--muted);font-size:11px;font-family:inherit}
+.chart .grid line{stroke:var(--line)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* photos */
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.thumb{position:relative;border-radius:10px;overflow:hidden;background:var(--card);aspect-ratio:3/4;border:0;padding:0;cursor:pointer}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb span{position:absolute;left:4px;bottom:4px;background:rgba(0,0,0,.6);color:#fff;font-size:10.5px;padding:1px 6px;border-radius:6px}
+.compare{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:70vh;margin:0 auto;user-select:none}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.compare .top{clip-path:inset(0 0 0 50%)}
+.compare .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;pointer-events:none}
+.side{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.side figure{margin:0}.side img{width:100%;border-radius:10px;display:block;background:var(--card)}
+.side figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:4px}
+.posewrap{position:relative;max-width:420px;margin:0 auto}
+.posewrap img,.posewrap canvas{width:100%;display:block;border-radius:12px}
+.posewrap canvas{position:absolute;inset:0}
+.ring{width:118px;height:118px;flex:none}
+.ring text{font-family:inherit}
+/* bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav.tabs .in{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--ink);font-size:12px;font-weight:600;padding:2px 0}
+nav.tabs a .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1.5px solid transparent}
+nav.tabs a.on .ico{border-color:var(--ink)}
+nav.tabs a:not(.on){color:var(--muted)}
+/* dialogs, toasts, ai progress */
+dialog{border:1px solid var(--line);border-radius:16px;padding:0;background:var(--bg);color:var(--ink);width:min(560px,94vw);box-shadow:0 20px 60px rgba(0,0,0,.28)}
+dialog.wide{width:min(760px,96vw)}
+dialog::backdrop{background:rgba(10,12,14,.45)}
+.dlg-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.dlg-b{padding:16px;max-height:78vh;overflow:auto}
+#toasts{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;width:min(470px,92vw)}
+.toast{background:var(--btn);color:var(--btn-ink);padding:10px 14px;border-radius:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,.22);font-size:14px;animation:fade .2s}
+.toast.err{background:var(--bad);color:#fff}
+.toast button{background:none;border:1px solid currentColor;color:inherit;border-radius:7px;padding:3px 9px;cursor:pointer;font:inherit;font-size:13px}
+#llmBar{position:fixed;top:12px;right:12px;z-index:90;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:min(340px,90vw);box-shadow:0 8px 24px rgba(0,0,0,.15);font-size:12px;color:var(--muted)}
+#llmBar[hidden]{display:none}
+.llm-track{height:4px;background:var(--line);border-radius:4px;margin-top:6px;overflow:hidden}.llm-track i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
+.llm-track.big{height:8px;margin-top:14px}#gateTrack[hidden]{display:none}
+#gate{width:min(460px,94vw)}#gate h3{font-size:20px;margin:0 0 6px}
+[data-prov][hidden]{display:none}
+#aiCard .seg{margin-bottom:12px}
+details summary{cursor:pointer;font-weight:600;font-size:14px}
+.steps{padding-left:20px;margin:6px 0}.steps li{margin:4px 0}
+code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 14px;font-size:14px}
+.kv span:nth-child(even){font-weight:600;text-align:right}
+.hint{color:var(--muted);font-size:12.5px}
+@media (max-width:520px){h1{font-size:26px}.stat b{font-size:28px}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.mrow{grid-template-columns:60px 1fr auto}}
+
+[hidden]{display:none!important}
+nav.tabs .in{grid-template-columns:repeat(6,1fr)}
+nav.tabs a{font-size:11.5px}
+.err{color:var(--bad);font-weight:600}
+.stage{position:relative;background:repeating-conic-gradient(#e9e9ec 0 25%,#f7f7f8 0 50%) 0 0/18px 18px;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:260px;max-height:68vh;touch-action:none;user-select:none}
+@media (prefers-color-scheme:dark){.stage{background:repeating-conic-gradient(#222 0 25%,#2b2b2e 0 50%) 0 0/18px 18px}}
+.stage canvas{max-width:100%;max-height:68vh;display:block}
+.stage .ov{position:absolute;pointer-events:none}
+.stage.paint .ov,.stage.crop .ov{pointer-events:auto;cursor:crosshair}
+.cmpwrap{position:relative;display:inline-block;max-width:100%}
+.cmpwrap canvas{display:block;max-width:100%;max-height:68vh}
+.cmpwrap .after{position:absolute;inset:0;width:100%;height:100%}
+.cmpline{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.3);pointer-events:none}
+.cmptag{position:absolute;top:8px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:2px 8px;border-radius:99px}
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.sl{display:grid;grid-template-columns:96px 1fr 40px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.sl input[type=range]{padding:0;background:none;border:0;accent-color:var(--ink)}
+.sl b{font-variant-numeric:tabular-nums;text-align:right;font-weight:500;color:var(--muted)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.gi{position:relative;border-radius:10px;overflow:hidden;background:var(--card);aspect-ratio:1;border:0;padding:0;cursor:pointer}
+.gi img{width:100%;height:100%;object-fit:cover;display:block}
+.gi span{position:absolute;left:4px;bottom:4px;right:4px;background:rgba(0,0,0,.55);color:#fff;font-size:10.5px;padding:1px 6px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.gi .sc{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:0 6px;border-radius:99px}
+.vers{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.vers button{flex:0 0 auto;border:2px solid transparent;border-radius:8px;padding:0;background:var(--card);cursor:pointer;width:64px}
+.vers button.on{border-color:var(--ink)}
+.vers img{width:60px;height:60px;object-fit:cover;display:block;border-radius:6px}
+.vers small{display:block;font-size:10px;color:var(--muted);padding:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.swatches{display:flex;gap:6px;flex-wrap:wrap}
+.sw{width:30px;height:30px;border-radius:8px;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw.on{border-color:var(--ink)}
+.ocrbox{position:absolute;border:1.5px solid #f59e0b;background:rgba(245,158,11,.12);pointer-events:none}
+.tool-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tile{background:var(--card);border-radius:12px;padding:12px 10px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.tile:hover{filter:brightness(.98)}.tile b{display:block;font-size:13.5px;margin-top:6px}.tile span{font-size:12px;color:var(--muted)}
+.out{overflow-wrap:anywhere}
+input[type=color]{width:46px;min-width:46px;height:34px;padding:2px;cursor:pointer;flex:0 0 auto}
+pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-size:13px;white-space:pre-wrap}
+@media (max-width:620px){.tool-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}nav.tabs a{font-size:10.5px}nav.tabs a .ico{width:30px;height:30px}}
+
+/* AI Verse promo + AIV key */
+.aivpromo{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 12px 12px 16px;margin:0 0 14px}
+.aivpromo .t{flex:1;min-width:200px;font-size:13px;line-height:1.4}
+.aivpromo .t b{display:block;font-size:14.5px;margin-bottom:1px}
+.aivpromo .t span{opacity:.72}
+.aivpromo a.go{background:var(--bg);color:var(--ink);text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:99px;white-space:nowrap}
+.aivpromo a.go:hover{opacity:.9}
+.aivpromo .add{background:none;border:0;color:inherit;opacity:.75;font:inherit;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.aivpromo .x{background:none;border:0;color:inherit;opacity:.55;font-size:20px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:8px}
+.aivpromo .x:hover{opacity:1}
+.aivpromo a:focus-visible,.aivpromo button:focus-visible{outline:2px solid var(--bg);outline-offset:2px}
+
+/* ===== responsive layout: bottom tabs on phones, sidebar on desktop ===== */
+nav.tabs .side-brand,nav.tabs .side-home{display:none}
+@media (min-width:900px){
+ body{padding-left:240px}
+ nav.tabs{top:0;bottom:0;left:0;right:auto;width:240px;display:flex;flex-direction:column;gap:14px;border-top:0;border-right:1px solid var(--line);padding:22px 14px 18px;background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;overflow-y:auto}
+ nav.tabs .side-brand{display:flex;align-items:center;gap:10px;padding:0 6px 4px;text-decoration:none;color:var(--ink)}
+ .side-brand .logo{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:16px}
+ .side-brand b{display:block;font-size:14.5px;line-height:1.2}
+ .side-brand small{display:block;color:var(--muted);font-size:12px;line-height:1.25;margin-top:1px}
+ nav.tabs .in{display:flex;flex-direction:column;gap:2px;max-width:none;margin:0}
+ nav.tabs a{flex-direction:row;justify-content:flex-start;gap:10px;font-size:14px;font-weight:500;padding:9px 10px;border-radius:10px;color:var(--muted)}
+ nav.tabs a .ico{width:auto;height:auto;border:0!important;border-radius:0}
+ nav.tabs a:hover{background:var(--card);color:var(--ink)}
+ nav.tabs a.on{background:var(--card);color:var(--ink);font-weight:600}
+ nav.tabs .side-home{display:block;margin-top:auto;padding:8px 10px;font-size:13px;color:var(--muted);text-decoration:none;border-radius:10px}
+ nav.tabs .side-home:hover{background:var(--card);color:var(--ink)}
+ .shell{max-width:1180px;margin:0 auto;border:0;border-radius:0;padding:24px 36px 60px;min-height:100vh}
+ header.top{justify-content:flex-end;margin-bottom:12px}
+ header.top>div:first-child{display:none}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .disclaimer{text-align:left}
+ svg.chart{max-height:300px}
+}
+.grid>.soft,.grid>.box,.grid3>.soft,.grid3>.box{margin-top:0}
+@media (min-width:900px) and (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* AI Verse free AI limit dialog */
+dialog.freedlg{border:0;padding:0;border-radius:20px;max-width:min(440px,calc(100vw - 32px));width:100%;background:var(--bg);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
+.freedlg .fd-in{padding:28px 26px 22px}
+.freedlg .fd-t{display:block;font-size:20px;line-height:1.25;letter-spacing:-.01em}
+.freedlg p{color:var(--muted);margin:10px 0 0;font-size:14.5px;line-height:1.5}
+.freedlg .fd-go{display:block;text-align:center;margin-top:20px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;padding:13px 18px;border-radius:12px}
+.freedlg .fd-go:hover{opacity:.9}
+.freedlg .fd-alt{display:flex;justify-content:center;gap:18px;margin-top:12px}
+.freedlg .fd-alt button{background:none;border:0;color:var(--muted);font:inherit;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.freedlg a:focus-visible,.freedlg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="top">
+  <div><h1>AI Photo</h1><p class="sub">Your AI photo editing studio</p></div>
+  <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
+ </header>
+ <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of AI Photo</b><span>An AIV API key powers this app's AI assistant, captions and smart suggestions at full strength. One key works in every AI Verse app.</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
+
+ <section class="view" id="v-home"></section>
+ <section class="view" id="v-edit"></section>
+ <section class="view" id="v-create"></section>
+ <section class="view" id="v-portrait"></section>
+ <section class="view" id="v-social"></section>
+ <section class="view" id="v-library"></section>
+ <section class="view" id="v-settings">
+  <div class="row between"><h2 style="margin-top:4px">Settings</h2><a class="btn sm" href="#home">Done</a></div>
+  <div class="box">
+   <h3>Image generation &amp; generative edits</h3><p class="sub">Used for text-to-image, generative edits ("add a sunset sky"), AI backgrounds and studio headshots. Everything else — adjustments, background and object removal, enhancement, upscaling, OCR and photo search — runs on your device.</p><br>
+   <label>Provider<select data-set="imgProvider" id="imgProvider"><option value="aiverse">AI Verse — free, no key (create and edit photos)</option><option value="pollinations">Pollinations — free, no key (text-to-image only, rate-limited)</option><option value="openai">OpenAI — your key (generate &amp; edit)</option><option value="gemini">Google Gemini — your key (generate &amp; edit)</option><option value="hf">Hugging Face — your token (text-to-image)</option><option value="local">Local Stable Diffusion — AUTOMATIC1111 / Forge (generate &amp; edit)</option></select></label>
+   <div data-ip="aiverse"><p class="note">Free with no key: each image you create or edit counts as one of your free daily uses in this app. With an AIV key (Settings → AI provider) it's unlimited.</p></div>
+   <div data-ip="pollinations"><div class="form-row"><label>Model<input data-set="pollModel" placeholder="flux"></label></div><p class="note">Anonymous use is throttled (about one image every 15 seconds) and may add a small watermark.</p></div>
+   <div data-ip="openai"><label>OpenAI API key<span class="row"><input type="password" data-set="openaiKey" id="oaKey" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" placeholder="sk-…"><button class="btn ghost sm" type="button" data-show="#oaKey">Show</button></span></label><label>Model<input data-set="openaiImgModel" placeholder="gpt-image-2"></label></div>
+   <div data-ip="gemini"><label>Gemini API key (<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">get one</a>)<span class="row"><input type="password" data-set="geminiKey" id="gmKey" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#gmKey">Show</button></span></label><label>Model<input data-set="geminiImgModel" placeholder="gemini-2.5-flash-image"></label></div>
+   <div data-ip="hf"><label>Hugging Face token<span class="row"><input type="password" data-set="hfKey" id="hfKey" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" placeholder="hf_…"><button class="btn ghost sm" type="button" data-show="#hfKey">Show</button></span></label><label>Model<input data-set="hfModel" placeholder="black-forest-labs/FLUX.1-schnell"></label></div>
+   <div data-ip="local"><label>Server URL<input data-set="sdBase" placeholder="http://127.0.0.1:7860"></label><p class="note">Start AUTOMATIC1111 or Forge with <code>--api --cors-allow-origins=*</code> (or your site's address). Runs fully on your computer.</p></div>
+   <div class="row wrap"><button class="btn sm" id="btnTestImg">Test image provider</button><span class="hint" id="imgStatus"></span></div>
+   <p class="note">Please don't create deceptive images of real people, and only make AI headshots of yourself or people who agreed.</p>
+  </div>
+  <div class="box" style="margin-top:10px">
+   <h3>On-device models</h3><p class="sub">Downloaded once on first use and cached by your browser.</p><br>
+   <label>Background removal model<select data-set="bgModel"><option value="rmbg">RMBG-1.4 — best for any subject (non-commercial license)</option><option value="modnet">MODNet — portraits and people (Apache-2.0)</option></select></label>
+   <label>OCR language<select data-set="ocrLang"><option value="eng">English</option><option value="spa">Spanish</option><option value="fra">French</option><option value="deu">German</option><option value="por">Portuguese</option><option value="ita">Italian</option><option value="chi_sim">Chinese (Simplified)</option><option value="jpn">Japanese</option><option value="kor">Korean</option><option value="ara">Arabic</option><option value="hin">Hindi</option><option value="rus">Russian</option></select></label>
+   <label class="check"><input type="checkbox" data-set="autoIndex"> Index photos for smart search automatically when saved (downloads a ~150 MB model once)</label>
+  </div>
+  <div class="box" id="aiCard" style="margin-top:10px">
+   <h3>AI assistant (text &amp; vision)</h3>
+   <p class="sub">Choose where your AI assistant runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
+   <div class="seg" id="provSeg"><button type="button" data-p="free">Free</button><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div data-prov="free">
+    <p class="sub">Free AI from AI Verse, ready to use with no key. Every app includes 20 free daily uses of AI. For unlimited, full-strength AI, <a href="../api.html#plans" target="_blank" rel="noopener">get an AIV key</a>.</p>
+   </div>
+   <div data-prov="aiv">
+    <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
+    <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
+    <label>Model<select data-set="aivModel" id="aivModel"><option value="aiv-1">aiv-1: best quality</option><option value="aiv-1-mini">aiv-1-mini: fastest</option></select></label>
+   </div>
+   <div data-prov="groq">
+    <p class="sub">Free tier, recommended for testing. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
+    <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
+    <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
+    <label>Vision model (describe photos, alt text)<input data-set="visionModel" placeholder="qwen/qwen3.8-27b" autocomplete="off"></label>
+   </div>
+   <div data-prov="custom">
+    <p class="sub">Use your own key from any OpenAI-compatible service. A few services block requests from web pages — Test connection will tell you.</p><br>
+    <div class="form-row"><label>Service<select data-set="customPreset" id="customPreset"></select></label><label>API URL<input data-set="customBase" id="customBase" placeholder="https://api.example.com/v1" autocomplete="off"></label></div>
+    <label>API key<span class="row"><input type="password" data-set="customKey" id="customKey" placeholder="sk-…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#customKey">Show</button></span></label>
+    <label>Model<input data-set="customModel" list="modelList" placeholder="Click Test connection to list models" autocomplete="off"></label>
+    <label>Vision model (optional)<input data-set="customVision" list="modelList" placeholder="leave blank to use the model above, if it reads images" autocomplete="off"></label>
+   </div>
+   <div data-prov="local">
+    <p class="sub">Run a model on your own computer with Ollama or LM Studio. Nothing leaves your machine. Works on the computer running the model.</p><br>
+    <div class="form-row"><label>Server<select id="localPreset"><option value="http://localhost:11434/v1">Ollama</option><option value="http://localhost:1234/v1">LM Studio</option><option value="">Custom address</option></select></label><label>Server URL<input data-set="localBase" id="localBase" autocomplete="off"></label></div>
+    <label>Model<input data-set="localModel" list="modelList" placeholder="e.g. qwen3:8b — click Test connection to list" autocomplete="off"></label>
+    <label>Vision model (optional)<input data-set="localVision" list="modelList" placeholder="e.g. qwen2.5vl:7b or llava" autocomplete="off"></label>
+    <details><summary>Setup</summary>
+     <p class="sub"><b>Ollama</b></p>
+     <ol class="steps"><li>Install from <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a> and download a model, e.g. <code>ollama pull qwen3:8b</code> (7–8B models or larger work best for planning and email).</li>
+     <li>Allow this site to talk to Ollama by setting <code>OLLAMA_ORIGINS</code> to <code class="originCode"></code>, then restart Ollama.<br>Mac: <code>launchctl setenv OLLAMA_ORIGINS "<span class="originCode"></span>"</code> · Windows: add it under System → Environment Variables · Linux: <code>OLLAMA_ORIGINS=<span class="originCode"></span> ollama serve</code></li></ol>
+     <p class="sub"><b>LM Studio</b></p>
+     <ol class="steps"><li>Load a model, open the Developer tab and start the server.</li><li>Turn on <b>Enable CORS</b> in the server settings.</li></ol>
+     <p class="hint">If your browser asks to let this site access devices on your local network, allow it.</p>
+    </details>
+   </div>
+   <div data-prov="browser">
+    <p class="sub">A small model downloads once into this browser and runs on your graphics card — fully private, and it works offline afterwards. Needs Chrome or Edge with WebGPU. Answers are simpler than cloud models. Food photos are still recognized on-device; AI physique reviews need a vision model from another provider.</p><br>
+    <label>Model<select data-set="webllmModel" id="webllmModel"></select></label>
+    <div class="row wrap"><button class="btn sm" type="button" id="btnLoadLLM">Download &amp; load model</button><span class="hint" id="llmStatus"></span></div>
+   </div>
+   <div class="row wrap" style="margin-top:14px"><button class="btn sm" id="btnTestKey">Test connection</button><span class="hint" id="keyStatus"></span></div>
+   <datalist id="modelList"><option value="openai/gpt-oss-120b"><option value="openai/gpt-oss-20b"></datalist>
+   <p class="hint" id="voiceNote" style="margin-top:10px"></p>
+  </div>
+
+
+  <div class="box" style="margin-top:10px">
+   <h3>Your data</h3><p class="sub">Photos, versions and settings are stored only in this browser. An image is sent to a provider only when you use a cloud feature (generation, generative edit, describe).</p><br>
+   <div class="row wrap"><span class="hint grow" id="storeInfo"></span><button class="btn sm danger" id="btnWipe">Erase everything</button></div>
+  </div>
+ </section>
+</div>
+<nav class="tabs" aria-label="Sections"><a class="side-brand" href="#home"><span class="logo">P</span><span><b>AI Photo</b><small>Your AI photo editing studio</small></span></a><div class="in">
+ <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
+ <a href="#edit" data-nav="edit"><span class="ico"><span data-ic="wand"></span></span>Edit</a>
+ <a href="#create" data-nav="create"><span class="ico"><span data-ic="spark"></span></span>Create</a>
+ <a href="#portrait" data-nav="portrait"><span class="ico"><span data-ic="user"></span></span>Portrait</a>
+ <a href="#social" data-nav="social"><span class="ico"><span data-ic="share"></span></span>Social</a>
+ <a href="#library" data-nav="library"><span class="ico"><span data-ic="grid"></span></span>Library</a>
+</div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
+<dialog id="dlg"></dialog>
+<dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
+<div id="toasts" aria-live="polite"></div>
+<div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
+
+<input type="file" id="filePick" hidden>
+<script src="../config.js"></script>
+<script>
+(()=>{
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const DAY=864e5;
+const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone;
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const today=()=>ymd(new Date());
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const sod=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+const addDays=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const parseD=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');return m?new Date(+m[1],m[2]-1,+m[3]):new Date(s);};
+const daysAgo=s=>Math.round((sod(new Date())-sod(parseD(s)))/DAY);
+const fmtD=s=>parseD(s).toLocaleDateString([],{month:'short',day:'numeric'});
+const fmtDL=s=>parseD(s).toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});
+const r0=n=>Math.round(n),r1=n=>Math.round(n*10)/10;
+const num=v=>{const n=parseFloat(v);return Number.isFinite(n)?n:null;};
+const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
+const sum=a=>a.reduce((x,y)=>x+(+y||0),0);
+const avg=a=>a.length?sum(a)/a.length:0;
+const cap=s=>String(s||'').replace(/^\w/,c=>c.toUpperCase());
+
+
+/* ---------- toasts ---------- */
+function toast(msg,{err=false,action,fn,ms=4500}={}){const el=document.createElement('div');el.className='toast'+(err?' err':'');el.innerHTML=`<span>${esc(msg)}</span>`;if(action){const b=document.createElement('button');b.textContent=action;b.onclick=()=>{el.remove();fn&&fn();};el.appendChild(b);}$('#toasts').appendChild(el);setTimeout(()=>el.remove(),action?9000:(err?7000:ms));}
+let actx;function beep(n=1){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();for(let i=0;i<n;i++){const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*.25;o.frequency.value=880;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+.22);}}catch(e){}try{navigator.vibrate&&navigator.vibrate([150,80,150]);}catch(e){}}
+async function run(btn,fn){if(btn){btn.disabled=true;btn.classList.add('loading');}try{return await fn();}catch(e){console.error(e);toast(e.message||String(e),{err:true});}finally{if(btn){btn.disabled=false;btn.classList.remove('loading');}}}
+function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
+async function copy(txt){try{await navigator.clipboard.writeText(txt);toast('Copied');}catch(e){toast('Copy failed',{err:true});}}
+
+
+
+/* ---------- icons ---------- */
+const I={
+ home:'<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/>',
+ wand:'<path d="M4 20L16 8M14 6l4 4"/><path d="M18 2v3M21 5h-3M20 12v2M21 13h-2M10 3v2M11 4H9"/>',
+ spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>',
+ share:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 15l3-3 2 2 3-4"/><circle cx="8.5" cy="8.5" r="1.5"/>',
+ grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+ image:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M5 18l5-6 4 4 2-2 3 4"/><circle cx="16" cy="9" r="1.5"/>',
+ cut:'<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5L20 18M8 16.5L20 6"/>',
+ eraser:'<path d="M16 3l5 5-11 11H5l-2-2z"/><path d="M11 8l5 5M9 21h12"/>',
+ bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+ text:'<path d="M5 6V4h14v2M12 4v16M9 20h6"/>',
+ search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+ undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>',
+ redo:'<path d="M15 14l5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/>',
+ split:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 2v20"/>',
+ upload:'<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+ save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7M8 21v-7h8v7"/>',
+ dl:'<path d="M12 4v12M7 11l5 5 5-5M4 20h16"/>',
+ crop:'<path d="M6 2v14a2 2 0 0 0 2 2h14M2 6h14a2 2 0 0 1 2 2v14"/>',
+ brain:'<path d="M9 4c-2 0-4 1.5-4 4 0 1.5.5 2.5 1 3-1 .7-1.5 2-1 3.5.5 1.2 1.5 2 2.5 2 0 2 1.5 3.5 3.5 3.5V4z"/><path d="M15 4c2 0 4 1.5 4 4 0 1.5-.5 2.5-1 3 1 .7 1.5 2 1 3.5-.5 1.2-1.5 2-2.5 2 0 2-1.5 3.5-3.5 3.5"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]||''}</svg>`;
+function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
+
+/* ---------- settings & stats ---------- */
+const KEY='photointel.v1';
+const DEF=()=>({settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',visionModel:'qwen/qwen3.8-27b',customVision:'',localVision:'',imgProvider:'aiverse',pollModel:'flux',openaiKey:'',openaiImgModel:'gpt-image-2',geminiKey:'',geminiImgModel:'gemini-2.5-flash-image',hfKey:'',hfModel:'black-forest-labs/FLUX.1-schnell',sdBase:'http://127.0.0.1:7860',bgModel:'rmbg',ocrLang:'eng',autoIndex:false},stats:{edits:0,generated:0,weekEdits:{}},chat:[],recentPrompts:[],social:null});
+function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.settings={...DEF().settings,...(s.settings||{})};d.stats={...DEF().stats,...(s.stats||{})};if(!d.settings.imgMigrated){if(d.settings.imgProvider==='pollinations')d.settings.imgProvider='aiverse';d.settings.imgMigrated=true;}}}catch(e){}return d;}
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save settings.',{err:true});}}
+const weekKey=()=>{const d=sod(new Date());return ymd(addDays(d,-((d.getDay()+6)%7)));};
+function countEdit(){S.stats.edits++;const k=weekKey();S.stats.weekEdits[k]=(S.stats.weekEdits[k]||0)+1;save();}
+function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
+
+/* ---------- library (IndexedDB) ---------- */
+const DB={db:null,open(){return this.db?Promise.resolve(this.db):new Promise((res,rej)=>{const r=indexedDB.open('photointel',1);r.onupgradeneeded=()=>{r.result.createObjectStore('items',{keyPath:'id'});};r.onsuccess=()=>{this.db=r.result;res(this.db);};r.onerror=()=>rej(r.error||new Error('Browser storage is unavailable.'));});},
+ async tx(mode,fn){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction('items',mode),st=t.objectStore('items');let out;const q=fn(st);if(q)q.onsuccess=()=>{out=q.result;};t.oncomplete=()=>res(out);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error||new Error('Storage is full — delete some photos.'));});},
+ put(it){return this.tx('readwrite',s=>s.put(it));},get(id){return this.tx('readonly',s=>s.get(id));},del(id){return this.tx('readwrite',s=>s.delete(id));},all(){return this.tx('readonly',s=>s.getAll()).then(a=>(a||[]).sort((x,y)=>y.updated-x.updated));},clear(){return this.tx('readwrite',s=>s.clear());}};
+let LIB=[];const refreshLib=async()=>{try{LIB=await DB.all();}catch(e){LIB=[];}return LIB;};
+
+/* ---------- canvas helpers ---------- */
+const MAXDIM=4096;
+const mk=(w,h)=>{const c=document.createElement('canvas');c.width=Math.max(1,Math.round(w));c.height=Math.max(1,Math.round(h));return c;};
+const cx=c=>c.getContext('2d',{willReadFrequently:true});
+const clone=c=>{const o=mk(c.width,c.height);cx(o).drawImage(c,0,0);return o;};
+function scaled(c,max){const k=Math.min(1,max/Math.max(c.width,c.height));if(k>=1)return c;const o=mk(c.width*k,c.height*k);const g=cx(o);g.imageSmoothingQuality='high';g.drawImage(c,0,0,o.width,o.height);return o;}
+async function blobToCanvas(blob){let bmp;try{bmp=await createImageBitmap(blob,{imageOrientation:'from-image'});}catch(e){const u=URL.createObjectURL(blob);try{bmp=await loadImg(u);}finally{setTimeout(()=>URL.revokeObjectURL(u),1000);}}const k=Math.min(1,MAXDIM/Math.max(bmp.width,bmp.height));const c=mk(bmp.width*k,bmp.height*k);const g=cx(c);g.imageSmoothingQuality='high';g.drawImage(bmp,0,0,c.width,c.height);return c;}
+const toBlob=(c,type='image/png',q=.92)=>new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error('Could not encode image')),type,q));
+const thumbURL=(c,m=320)=>scaled(c,m).toDataURL('image/jpeg',.82);
+const hasAlpha=c=>{const sm=scaled(c,256);const d=cx(sm).getImageData(0,0,sm.width,sm.height).data;for(let i=3;i<d.length;i+=4)if(d[i]<250)return true;return false;};
+const b64ToBlob=(b64,type='image/png')=>{const bin=atob(b64);const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new Blob([u],{type});};
+const blobToB64=b=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]);r.onerror=rej;r.readAsDataURL(b);});
+const canvasB64=(c,type='image/png',q=.92)=>c.toDataURL(type,q).split(',')[1];
+let FILTER_OK=null;function canFilter(){if(FILTER_OK===null){try{const g=mk(2,2).getContext('2d');g.filter='blur(2px)';FILTER_OK=g.filter==='blur(2px)';}catch(e){FILTER_OK=false;}}return FILTER_OK;}
+function blurCanvas(src,r){if(r<=0)return clone(src);const o=mk(src.width,src.height),g=cx(o);if(canFilter()){g.filter=`blur(${r}px)`;const pad=r*2;g.drawImage(src,-pad,-pad,src.width+2*pad,src.height+2*pad);g.filter='none';g.globalCompositeOperation='destination-over';g.drawImage(src,0,0);return o;}
+ const f=Math.max(2,Math.round(r/2));const t=mk(src.width/f,src.height/f),tg=cx(t);tg.imageSmoothingQuality='high';tg.drawImage(src,0,0,t.width,t.height);const t2=mk(t.width/2,t.height/2);cx(t2).drawImage(t,0,0,t2.width,t2.height);g.imageSmoothingQuality='high';g.drawImage(t2,0,0,o.width,o.height);return o;}
+function rotate(src,deg){const r=((deg%360)+360)%360;const o=r%180?mk(src.height,src.width):mk(src.width,src.height);const g=cx(o);g.translate(o.width/2,o.height/2);g.rotate(r*Math.PI/180);g.drawImage(src,-src.width/2,-src.height/2);return o;}
+function flip(src,axis){const o=mk(src.width,src.height),g=cx(o);if(axis==='v'){g.translate(0,o.height);g.scale(1,-1);}else{g.translate(o.width,0);g.scale(-1,1);}g.drawImage(src,0,0);return o;}
+function cropRect(src,x,y,w,h){x=clamp(Math.round(x),0,src.width-1);y=clamp(Math.round(y),0,src.height-1);w=clamp(Math.round(w),1,src.width-x);h=clamp(Math.round(h),1,src.height-y);const o=mk(w,h);cx(o).drawImage(src,x,y,w,h,0,0,w,h);return o;}
+const ASPECTS={'1:1':1,'4:5':.8,'5:4':1.25,'3:2':1.5,'2:3':2/3,'4:3':4/3,'3:4':.75,'16:9':16/9,'9:16':9/16};
+function aspectRect(w,h,ar,cxp=.5,cyp=.5){let cw=w,ch=w/ar;if(ch>h){ch=h;cw=h*ar;}return{x:clamp(cxp*w-cw/2,0,w-cw),y:clamp(cyp*h-ch/2,0,h-ch),w:cw,h:ch};}
+
+/* ---------- adjustments ---------- */
+const ADJ=[['exposure','Exposure'],['brightness','Brightness'],['contrast','Contrast'],['highlights','Highlights'],['shadows','Shadows'],['saturation','Saturation'],['vibrance','Vibrance'],['warmth','Warmth'],['tint','Tint'],['hue','Hue'],['fade','Fade'],['split','Teal & orange'],['sharpen','Sharpen'],['vignette','Vignette'],['grain','Grain']];
+const ADJ_MIN={hue:-180,fade:0,split:0,sharpen:0,vignette:0,grain:0};const ADJ_MAX={hue:180};
+const zeroAdj=()=>Object.fromEntries(ADJ.map(([k])=>[k,0]));
+const isZero=a=>ADJ.every(([k])=>!a[k]);
+const FILTERS={none:['Original',{}],auto:['Auto',null],vivid:['Vivid',{contrast:15,vibrance:40,saturation:8,sharpen:15}],warm:['Warm',{warmth:30,exposure:4,vibrance:10}],cool:['Cool',{warmth:-28,tint:-4,contrast:6}],golden:['Golden hour',{warmth:40,tint:6,highlights:-10,shadows:12,vibrance:15}],vintage:['Vintage',{warmth:22,fade:35,contrast:-10,saturation:-25,grain:22,vignette:30}],film:['Film',{fade:20,contrast:10,saturation:-10,grain:28,split:25}],cinematic:['Cinematic',{split:60,contrast:22,saturation:-12,vignette:28,shadows:-8}],bw:['B&W',{saturation:-100,contrast:18}],noir:['Noir',{saturation:-100,contrast:48,vignette:45,shadows:-20}],matte:['Matte',{fade:42,contrast:-12,saturation:-8}],pop:['Pop',{saturation:30,contrast:20,vibrance:20,sharpen:25}]};
+function adjustCanvas(src,a){const o=clone(src);if(isZero(a))return o;const g=cx(o),W=o.width,H=o.height,img=g.getImageData(0,0,W,H),d=img.data;
+ const ex=Math.pow(2,(a.exposure||0)/50),br=(a.brightness||0)*1.28,ct=(a.contrast||0)/100,cf=ct>=0?1+ct*1.5:1+ct*.9;const sat=1+(a.saturation||0)/100,vib=(a.vibrance||0)/100,wm=(a.warmth||0)*.35,tn=(a.tint||0)*.3,hl=(a.highlights||0)/100,sh=(a.shadows||0)/100,fd=(a.fade||0)/100*55,sp=(a.split||0)/100;
+ const lut=new Float32Array(256);for(let i=0;i<256;i++){let v=i*ex+br;v=(v-128)*cf+128;lut[i]=v;}
+ const hu=(a.hue||0)*Math.PI/180,cs=Math.cos(hu),sn=Math.sin(hu);const M=a.hue?[.213+cs*.787-sn*.213,.715-cs*.715-sn*.715,.072-cs*.072+sn*.928,.213-cs*.213+sn*.143,.715+cs*.285+sn*.140,.072-cs*.072-sn*.283,.213-cs*.213-sn*.787,.715-cs*.715+sn*.715,.072+cs*.928+sn*.072]:null;
+ for(let i=0;i<d.length;i+=4){let r=d[i],gg=d[i+1],b=d[i+2];r=lut[r];gg=lut[gg];b=lut[b];
+  if(hl||sh){const L=(.299*r+.587*gg+.114*b)/255;const k=(hl?hl*Math.max(0,L-.5)*2*60:0)+(sh?sh*Math.max(0,.5-L)*2*60:0);r+=k;gg+=k;b+=k;}
+  if(wm){r+=wm;b-=wm;}if(tn){gg-=tn;r+=tn*.3;b+=tn*.3;}
+  if(M){const nr=M[0]*r+M[1]*gg+M[2]*b,ng=M[3]*r+M[4]*gg+M[5]*b,nb=M[6]*r+M[7]*gg+M[8]*b;r=nr;gg=ng;b=nb;}
+  const L=.299*r+.587*gg+.114*b;let s=sat;if(vib){const mx=Math.max(r,gg,b),mn=Math.min(r,gg,b);const cur=mx>0?(mx-mn)/mx:0;s*=1+vib*(1-cur);}
+  if(s!==1){r=L+(r-L)*s;gg=L+(gg-L)*s;b=L+(b-L)*s;}
+  if(sp){const l=L/255;const t=(1-l)*sp*28,o2=l*sp*28;r+=-t*.6+o2;gg+=t*.15+o2*.35;b+=t*.8-o2*.7;}
+  if(fd){r=fd+r*(1-fd/255);gg=fd+gg*(1-fd/255);b=fd+b*(1-fd/255);}
+  d[i]=r;d[i+1]=gg;d[i+2]=b;}
+ if(a.grain){const amt=a.grain*.6;let seed=12345;const rnd=()=>{seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;};for(let i=0;i<d.length;i+=4){const n=(rnd()-.5)*amt;d[i]+=n;d[i+1]+=n;d[i+2]+=n;}}
+ if(a.vignette){const v=a.vignette/100,cxp=W/2,cyp=H/2,md=Math.hypot(cxp,cyp);for(let y=0;y<H;y++)for(let x=0;x<W;x++){const t=Math.hypot(x-cxp,y-cyp)/md;const k=1-v*Math.pow(Math.max(0,t-.35)/.65,1.6)*.85;const i=(y*W+x)*4;d[i]*=k;d[i+1]*=k;d[i+2]*=k;}}
+ g.putImageData(img,0,0);if(a.sharpen)return sharpenCanvas(o,a.sharpen/100);return o;}
+function sharpenCanvas(src,amt){const o=clone(src),g=cx(o),W=o.width,H=o.height;const s=g.getImageData(0,0,W,H),d=s.data,out=new Uint8ClampedArray(d);const k=amt*1.6;for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){const i=(y*W+x)*4;for(let c=0;c<3;c++){const v=d[i+c],bl=(d[i-4+c]+d[i+4+c]+d[i-W*4+c]+d[i+W*4+c])/4;out[i+c]=v+k*(v-bl);}}s.data.set(out);g.putImageData(s,0,0);return o;}
+function autoEnhance(src){const sm=scaled(src,600),d=cx(sm).getImageData(0,0,sm.width,sm.height).data;const hist=[0,1,2].map(()=>new Uint32Array(256));let n=0;for(let i=0;i<d.length;i+=4){if(d[i+3]<128)continue;hist[0][d[i]]++;hist[1][d[i+1]]++;hist[2][d[i+2]]++;n++;}
+ const pct=(h,p)=>{let c=0;for(let v=0;v<256;v++){c+=h[v];if(c>=n*p)return v;}return 255;};const lo=hist.map(h=>pct(h,.005)),hi=hist.map(h=>pct(h,.995));const avgLo=avg(lo),avgHi=avg(hi);
+ const o=clone(src),g=cx(o),img=g.getImageData(0,0,o.width,o.height),D=img.data;const luts=[0,1,2].map(c=>{const L=new Uint8ClampedArray(256);const l=lo[c]*.5+avgLo*.5,h=Math.max(l+20,hi[c]*.5+avgHi*.5);for(let v=0;v<256;v++)L[v]=(v-l)/(h-l)*255;return L;});
+ for(let i=0;i<D.length;i+=4){D[i]=luts[0][D[i]];D[i+1]=luts[1][D[i+1]];D[i+2]=luts[2][D[i+2]];}g.putImageData(img,0,0);return adjustCanvas(o,{...zeroAdj(),vibrance:18,contrast:6,sharpen:18});}
+
+/* ---------- masks & backgrounds ---------- */
+function maskToAlpha(src,mask){const o=clone(src),g=cx(o),img=g.getImageData(0,0,o.width,o.height),m=cx(mask).getImageData(0,0,mask.width,mask.height).data;for(let i=0;i<img.data.length;i+=4)img.data[i+3]=Math.min(img.data[i+3],m[i]);g.putImageData(img,0,0);return o;}
+function alphaBBox(c,thr=20){const d=cx(c).getImageData(0,0,c.width,c.height).data;let x0=c.width,y0=c.height,x1=-1,y1=-1;for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++)if(d[(y*c.width+x)*4+3]>thr){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}return x1<0?null:{x:x0,y:y0,w:x1-x0+1,h:y1-y0+1};}
+function fillBG(w,h,bg){const o=mk(w,h),g=cx(o);if(!bg||bg.type==='transparent')return o;if(bg.type==='color'){g.fillStyle=bg.color;g.fillRect(0,0,w,h);}else if(bg.type==='gradient'){const gr=bg.radial?g.createRadialGradient(w/2,h*.4,w*.05,w/2,h/2,Math.max(w,h)*.75):g.createLinearGradient(0,0,0,h);gr.addColorStop(0,bg.c1);gr.addColorStop(1,bg.c2);g.fillStyle=gr;g.fillRect(0,0,w,h);}else if(bg.type==='image'&&bg.canvas){const s=Math.max(w/bg.canvas.width,h/bg.canvas.height);const dw=bg.canvas.width*s,dh=bg.canvas.height*s;g.drawImage(bg.canvas,(w-dw)/2,(h-dh)/2,dw,dh);}return o;}
+function composite(fg,bg){const o=fillBG(fg.width,fg.height,bg);cx(o).drawImage(fg,0,0);return o;}
+const BG_PRESETS=[['transparent','Transparent',{type:'transparent'}],['white','White',{type:'color',color:'#ffffff'}],['studio','Studio gray',{type:'gradient',c1:'#d9dce1',c2:'#8f959e',radial:true}],['blue','Profile blue',{type:'gradient',c1:'#6a8fbf',c2:'#2f4f7a',radial:true}],['warm','Warm studio',{type:'gradient',c1:'#efe2d0',c2:'#a88f75',radial:true}],['dark','Dark studio',{type:'gradient',c1:'#4a4d52',c2:'#16171a',radial:true}],['black','Black',{type:'color',color:'#000000'}]];
+
+/* ---------- on-device models ---------- */
+const TFJS_URL='https://cdn.jsdelivr.net/npm/@huggingface/transformers@3';
+const OPENCV_URL='https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.10.0-release.1/dist/opencv.js';
+const TESS_URL='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+const MP_URL='https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14';
+const FACE_MODEL='https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite';
+const loadScript=src=>new Promise((res,rej)=>{if(document.querySelector(`script[src="${src}"]`)){res();return;}const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('Could not load '+src.split('/npm/')[1].split('/')[0]));document.head.appendChild(s);});
+const M={T:null,bg:{},up:null,clip:null,cv:null,face:null};
+const prog=(t,f)=>llmProgress(t,f);const progDone=()=>llmProgress(null);
+async function TF(){if(M.T)return M.T;M.T=await import(TFJS_URL);M.T.env.allowLocalModels=false;return M.T;}
+const dlCb=label=>p=>{if(p&&p.status==='progress'&&p.total>5e5)prog(`Downloading ${label} (one time)… ${Math.round(p.progress||0)}%`,(p.progress||0)/100);};
+async function canvasToRaw(c){const T=await TF();return T.RawImage.fromURL(c.toDataURL('image/png'));}
+async function bgModel(){const kind=S.settings.bgModel||'rmbg';if(M.bg[kind])return M.bg[kind];const T=await TF();prog('Loading background-removal model…',0);try{if(kind==='modnet'){const model=await T.AutoModel.from_pretrained('Xenova/modnet',{dtype:'fp32',progress_callback:dlCb('portrait model')});const proc=await T.AutoProcessor.from_pretrained('Xenova/modnet');M.bg[kind]={model,proc};}else{const model=await T.AutoModel.from_pretrained('briaai/RMBG-1.4',{config:{model_type:'custom'},progress_callback:dlCb('background model')});const proc=await T.AutoProcessor.from_pretrained('briaai/RMBG-1.4',{config:{do_normalize:true,do_pad:false,do_rescale:true,do_resize:true,image_mean:[.5,.5,.5],feature_extractor_type:'ImageFeatureExtractor',image_std:[1,1,1],resample:2,rescale_factor:.00392156862745098,size:{width:1024,height:1024}}});M.bg[kind]={model,proc};}return M.bg[kind];}finally{progDone();}}
+async function subjectMask(src){const{model,proc}=await bgModel();prog('Finding the subject on your device…',1);try{const T=M.T;const work=scaled(src,1536);const raw=await canvasToRaw(work);const{pixel_values}=await proc(raw);const{output}=await model({input:pixel_values});const m=await T.RawImage.fromTensor(output[0].mul(255).to('uint8')).resize(work.width,work.height);
+ const mc=mk(work.width,work.height),g=cx(mc),img=g.createImageData(mc.width,mc.height);const ch=m.channels||1;for(let i=0,j=0;i<img.data.length;i+=4,j+=ch){const v=m.data[j];img.data[i]=img.data[i+1]=img.data[i+2]=img.data[i+3]=v;}g.putImageData(img,0,0);if(work===src)return mc;const full=mk(src.width,src.height);const fg=cx(full);fg.imageSmoothingQuality='high';fg.drawImage(mc,0,0,full.width,full.height);return full;}finally{progDone();}}
+async function upscaleAI(src,scale=2){const T=await TF();if(!M.up){prog('Loading upscaler…',0);try{M.up=await T.pipeline('image-to-image','Xenova/swin2SR-classical-sr-x2-64',{progress_callback:dlCb('upscaler')});}finally{progDone();}}
+ const alpha=hasAlpha(src)?src:null;const base=composite(src,{type:'color',color:'#ffffff'});const T2=256,P=12,cols=Math.ceil(base.width/T2),rows=Math.ceil(base.height/T2);const out=mk(base.width*2,base.height*2),og=cx(out);let n=0;
+ try{for(let ty=0;ty<rows;ty++)for(let tx=0;tx<cols;tx++){prog(`Upscaling on your device… tile ${++n} of ${cols*rows}`,n/(cols*rows));const x=tx*T2,y=ty*T2,w=Math.min(T2,base.width-x),h=Math.min(T2,base.height-y);const px=Math.max(0,x-P),py=Math.max(0,y-P),pw=Math.min(base.width,x+w+P)-px,ph=Math.min(base.height,y+h+P)-py;const tile=cropRect(base,px,py,pw,ph);const r=await M.up(await canvasToRaw(tile));const rc=r.toCanvas?r.toCanvas():await rawToCanvas(r);og.drawImage(rc,(x-px)*2,(y-py)*2,w*2,h*2,x*2,y*2,w*2,h*2);await sleep(0);}}finally{progDone();}
+ let res=out;if(alpha){const am=mk(out.width,out.height);const ag=cx(am);ag.imageSmoothingQuality='high';ag.drawImage(alpha,0,0,am.width,am.height);const g2=cx(res);g2.globalCompositeOperation='destination-in';g2.drawImage(am,0,0);g2.globalCompositeOperation='source-over';}
+ if(scale>=4)res=upscaleFast(res,2);return res;}
+async function rawToCanvas(r){const c=mk(r.width,r.height),g=cx(c),img=g.createImageData(r.width,r.height);const ch=r.channels;for(let i=0,j=0;i<img.data.length;i+=4,j+=ch){img.data[i]=r.data[j];img.data[i+1]=r.data[j+1];img.data[i+2]=r.data[j+2];img.data[i+3]=ch===4?r.data[j+3]:255;}g.putImageData(img,0,0);return c;}
+function upscaleFast(src,scale){let c=src;let s=scale;while(s>1){const f=Math.min(2,s);const o=mk(c.width*f,c.height*f),g=cx(o);g.imageSmoothingQuality='high';g.drawImage(c,0,0,o.width,o.height);c=o;s/=f;}return sharpenCanvas(c,.35);}
+async function getCV(){if(M.cv)return M.cv;prog('Loading OpenCV (one time, about 10 MB)…',.3);try{await loadScript(OPENCV_URL);let c=window.cv;if(c&&typeof c.then==='function'){c=await new Promise(res=>c.then(m=>{try{delete m.then;}catch(e){}res(m);}));}else if(c&&!c.Mat){await new Promise(res=>{c.onRuntimeInitialized=res;});}M.cv=c;return c;}catch(e){throw new Error('Could not load OpenCV: '+(e.message||e));}finally{progDone();}}
+async function inpaintCV(src,mask){const cv=await getCV();const md=cx(mask).getImageData(0,0,mask.width,mask.height).data;let x0=src.width,y0=src.height,x1=-1,y1=-1;for(let y=0;y<mask.height;y++)for(let x=0;x<mask.width;x++)if(md[(y*mask.width+x)*4+3]>10){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}if(x1<0)throw new Error('Paint over what you want to remove first.');
+ const pad=Math.round(Math.max(x1-x0,y1-y0)*.6+40);const rx=Math.max(0,x0-pad),ry=Math.max(0,y0-pad),rw=Math.min(src.width,x1+pad)-rx,rh=Math.min(src.height,y1+pad)-ry;const roi=cropRect(src,rx,ry,rw,rh),mroi=cropRect(mask,rx,ry,rw,rh);
+ const s4=cv.imread(roi),s3=new cv.Mat(),mk1=new cv.Mat(rh,rw,cv.CV_8UC1),dst=new cv.Mat(),k=cv.getStructuringElement(cv.MORPH_ELLIPSE,new cv.Size(7,7));try{cv.cvtColor(s4,s3,cv.COLOR_RGBA2RGB);const mdd=cx(mroi).getImageData(0,0,rw,rh).data;for(let i=0;i<rw*rh;i++)mk1.data[i]=mdd[i*4+3]>10?255:0;cv.dilate(mk1,mk1,k);cv.inpaint(s3,mk1,dst,Math.max(3,Math.round(Math.min(rw,rh)/60)),cv.INPAINT_TELEA);cv.cvtColor(dst,s4,cv.COLOR_RGB2RGBA);const tmp=mk(rw,rh);cv.imshow(tmp,s4);const o=clone(src);cx(o).drawImage(tmp,rx,ry);return o;}finally{[s4,s3,mk1,dst,k].forEach(m=>{try{m.delete();}catch(e){}});}}
+async function denoiseCV(src){const cv=await getCV();const s4=cv.imread(src),s3=new cv.Mat(),d=new cv.Mat();try{cv.cvtColor(s4,s3,cv.COLOR_RGBA2RGB);cv.bilateralFilter(s3,d,7,45,45);cv.cvtColor(d,s4,cv.COLOR_RGB2RGBA);const o=mk(src.width,src.height);cv.imshow(o,s4);return o;}finally{[s4,s3,d].forEach(m=>m.delete());}}
+async function lightingCV(src){const cv=await getCV();const s4=cv.imread(src),s3=new cv.Mat(),lab=new cv.Mat(),ch=new cv.MatVector();try{cv.cvtColor(s4,s3,cv.COLOR_RGBA2RGB);cv.cvtColor(s3,lab,cv.COLOR_RGB2Lab);cv.split(lab,ch);const L=ch.get(0);try{const cl=new cv.CLAHE(2.0,new cv.Size(8,8));cl.apply(L,L);cl.delete();}catch(e){cv.equalizeHist(L,L);}ch.set(0,L);L.delete();cv.merge(ch,lab);cv.cvtColor(lab,s3,cv.COLOR_Lab2RGB);cv.cvtColor(s3,s4,cv.COLOR_RGB2RGBA);const o=mk(src.width,src.height);cv.imshow(o,s4);return blendCanvas(src,o,.75);}finally{[s4,s3,lab,ch].forEach(m=>{try{m.delete();}catch(e){}});}}
+function blendCanvas(a,b,t){const o=clone(a),g=cx(o);g.globalAlpha=t;g.drawImage(b,0,0);g.globalAlpha=1;return o;}
+async function ocrCanvas(src,lang){await loadScript(TESS_URL);prog('Reading text on your device…',0);try{const r=await window.Tesseract.recognize(src,lang||S.settings.ocrLang||'eng',{logger:m=>{if(m&&m.status)prog(`${cap(m.status)}…`,m.progress||0);}});return r.data;}finally{progDone();}}
+async function faceBox(src){if(!M.face){prog('Loading face detector…',.3);try{const v=await import(MP_URL+'/vision_bundle.mjs');const fs=await v.FilesetResolver.forVisionTasks(MP_URL+'/wasm');const mk2=delegate=>v.FaceDetector.createFromOptions(fs,{baseOptions:{modelAssetPath:FACE_MODEL,delegate},runningMode:'IMAGE'});try{M.face=await mk2('GPU');}catch(e){M.face=await mk2('CPU');}}finally{progDone();}}
+ const r=M.face.detect(src);const f=(r.detections||[]).sort((a,b)=>b.boundingBox.width*b.boundingBox.height-a.boundingBox.width*a.boundingBox.height)[0];return f?f.boundingBox:null;}
+/* CLIP for smart search */
+const TAGS=['person','portrait','selfie','group of people','child','baby','dog','cat','bird','animal','food','drink','dessert','landscape','mountains','beach','ocean','lake','forest','sky','sunset','night','city','street','building','architecture','interior','car','vehicle','ambulance','road','flowers','plants','tree','snow','rain','water','sports','fitness','document','text','screenshot','receipt','chart','diagram','logo','product','clothing','shoes','art','illustration','painting','drawing','computer','phone','book','office','classroom','hospital','medical','kitchen','wedding','party','concert','travel','holiday','graduation','black and white','abstract','pattern'];
+async function clipLoad(){if(M.clip)return M.clip;const T=await TF();prog('Loading the smart-search model…',0);try{const id='Xenova/clip-vit-base-patch32';const[tok,txt,proc,vis]=await Promise.all([T.AutoTokenizer.from_pretrained(id),T.CLIPTextModelWithProjection.from_pretrained(id,{progress_callback:dlCb('search model')}),T.AutoProcessor.from_pretrained(id),T.CLIPVisionModelWithProjection.from_pretrained(id,{progress_callback:dlCb('search model')})]);M.clip={tok,txt,proc,vis,tagEmb:null};return M.clip;}finally{progDone();}}
+const norm=v=>{let s=0;for(const x of v)s+=x*x;s=Math.sqrt(s)||1;return Array.from(v,x=>x/s);};
+async function textEmb(texts){const C=await clipLoad();const inp=C.tok(texts,{padding:true,truncation:true});const{text_embeds}=await C.txt(inp);const dim=text_embeds.dims[1];return texts.map((_,i)=>norm(text_embeds.data.slice(i*dim,(i+1)*dim)));}
+async function imageEmb(c){const C=await clipLoad();const raw=await canvasToRaw(scaled(c,448));const inp=await C.proc(raw);const{image_embeds}=await C.vis(inp);return norm(image_embeds.data);}
+const dot=(a,b)=>{let s=0;for(let i=0;i<a.length;i++)s+=a[i]*b[i];return s;};
+async function autoTags(emb){const C=await clipLoad();if(!C.tagEmb)C.tagEmb=await textEmb(TAGS.map(t=>'a photo of '+t));const sc=C.tagEmb.map(t=>dot(t,emb)*100);const mx=Math.max(...sc);const ex=sc.map(s=>Math.exp(s-mx));const tot=sum(ex);return TAGS.map((t,i)=>[t,ex[i]/tot]).filter(x=>x[1]>.06).sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]);}
+
+/* ---------- image generation providers ---------- */
+const IMG_NAMES={aiverse:'AI Verse',pollinations:'Pollinations',openai:'OpenAI',gemini:'Gemini',hf:'Hugging Face',local:'Local Stable Diffusion'};
+const canEditGen=()=>['aiverse','openai','gemini','local'].includes(S.settings.imgProvider);
+function imgNeeds(){const s=S.settings,p=s.imgProvider;if(p==='aiverse'&&!aivImgConn())return'AI Verse images aren\'t available on this copy of the app. Choose another image provider in Settings → Image generation.';if(p==='openai'&&!s.openaiKey)return'Add your OpenAI key in Settings → Image generation.';if(p==='gemini'&&!s.geminiKey)return'Add your Gemini key in Settings → Image generation.';if(p==='hf'&&!s.hfKey)return'Add your Hugging Face token in Settings → Image generation.';return'';}
+async function httpErr(r,name){let m='';try{const j=await r.json();m=(j.error&&(j.error.message||j.error))||j.message||j.detail||'';}catch(e){}if(r.status===401||r.status===403)return new Error(`${name} rejected the key${m?': '+m:''}.`);if(r.status===429)return new Error(`${name} rate limit — wait a moment and try again.`);if(r.status===400&&/safety|policy|moderation|blocked/i.test(String(m)))return new Error(`${name} declined this request under its content policy.`);return new Error(`${name} error ${r.status}${m?': '+String(m).slice(0,200):''}`);}
+const sizeFor=(ar)=>{const r=ASPECTS[ar]||1;return r>1.15?{w:1536,h:Math.round(1536/r/64)*64||1024,oa:'1536x1024'}:r<.87?{w:Math.round(1536*r/64)*64||1024,h:1536,oa:'1024x1536'}:{w:1024,h:1024,oa:'1024x1024'};};
+/* AI Verse images: free daily uses with no key, unlimited with an AIV key */
+function aivImgConn(){const s=S.settings;if(prov()==='aiv'&&s.aivKey)return{base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey},free:false};if(FREE_BASE)return{base:FREE_BASE,headers:{},free:true};if(s.aivKey)return{base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey},free:false};return null;}
+async function aivImage(body){const C=aivImgConn();if(!C)throw new Error(imgNeeds());let r;try{r=await fetch(C.base+'/images',{method:'POST',headers:{'Content-Type':'application/json',...C.headers},body:JSON.stringify(body)});}catch(e){throw new Error('Couldn\'t reach AI Verse. Check your connection and try again.');}
+ if(C.free){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free daily uses in this app.');}}
+ if(!r.ok)throw await httpErr(r,'AI Verse');const j=await r.json();if(!j.image)throw new Error('AI Verse returned no image. Please try again.');return blobToCanvas(await(await fetch(j.image)).blob());}
+async function generateImage(prompt,{aspect='1:1',seed=null,negative=''}={}){const need=imgNeeds();if(need)throw new Error(need);const s=S.settings,p=s.imgProvider,sz=sizeFor(aspect);let r;
+ if(p==='aiverse'){const k=Math.min(1,1280/Math.max(sz.w,sz.h));return aivImage({prompt:prompt+(negative?`. Avoid: ${negative}`:''),width:Math.round(sz.w*k),height:Math.round(sz.h*k),seed:seed??Math.floor(Math.random()*1e9)});}
+ if(p==='pollinations'){const sd=seed??Math.floor(Math.random()*1e9);const u=`https://image.pollinations.ai/prompt/${encodeURIComponent(prompt+(negative?`. Avoid: ${negative}`:''))}?width=${Math.round(sz.w*.75)}&height=${Math.round(sz.h*.75)}&seed=${sd}&model=${encodeURIComponent(s.pollModel||'flux')}&nologo=true&referrer=${encodeURIComponent(location.hostname||'photo-intelligence')}`;try{r=await fetch(u);}catch(e){throw new Error('Couldn\'t reach Pollinations (busy, rate-limited or blocked). Try again in 15 seconds, or choose another image provider.');}if(!r.ok)throw await httpErr(r,'Pollinations');return blobToCanvas(await r.blob());}
+ if(p==='openai'){const go=model=>fetch('https://api.openai.com/v1/images/generations',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.openaiKey},body:JSON.stringify({model,prompt:prompt+(negative?`\nAvoid: ${negative}`:''),size:sz.oa,n:1})});let model=s.openaiImgModel||'gpt-image-2';try{r=await go(model);}catch(e){throw new Error('Couldn\'t reach OpenAI.');}if(r.status===404||r.status===400&&model!=='gpt-image-1'){const t=await r.clone().text();if(/model/i.test(t)){model='gpt-image-1';r=await go(model);}}if(!r.ok)throw await httpErr(r,'OpenAI');const j=await r.json();const d=j.data&&j.data[0];if(d&&d.b64_json)return blobToCanvas(b64ToBlob(d.b64_json));if(d&&d.url)return blobToCanvas(await(await fetch(d.url)).blob());throw new Error('OpenAI returned no image.');}
+ if(p==='gemini')return geminiImage([{text:`Generate an image: ${prompt}${negative?`. Avoid: ${negative}`:''}. Aspect ratio ${aspect}.`}],aspect);
+ if(p==='hf'){try{r=await fetch(`https://router.huggingface.co/hf-inference/models/${s.hfModel||'black-forest-labs/FLUX.1-schnell'}`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.hfKey},body:JSON.stringify({inputs:prompt,parameters:{width:sz.w,height:sz.h,...(seed!=null?{seed}:{}),...(negative?{negative_prompt:negative}:{})}})});}catch(e){throw new Error('Couldn\'t reach Hugging Face.');}if(!r.ok)throw await httpErr(r,'Hugging Face');return blobToCanvas(await r.blob());}
+ if(p==='local'){const base=(s.sdBase||'http://127.0.0.1:7860').replace(/\/+$/,'');try{r=await fetch(base+'/sdapi/v1/txt2img',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,negative_prompt:negative,width:Math.round(sz.w/2/8)*8,height:Math.round(sz.h/2/8)*8,steps:25,seed:seed??-1,cfg_scale:6})});}catch(e){throw new Error(`Can't reach Stable Diffusion at ${base} — start it with --api --cors-allow-origins.`);}if(!r.ok)throw await httpErr(r,'Stable Diffusion');const j=await r.json();return blobToCanvas(b64ToBlob(j.images[0]));}
+ throw new Error('Choose an image provider in Settings.');}
+async function geminiImage(parts,aspect){const s=S.settings;const model=s.geminiImgModel||'gemini-2.5-flash-image';const body=g=>JSON.stringify({contents:[{parts}],generationConfig:{responseModalities:['TEXT','IMAGE'],...(g&&aspect?{imageConfig:{aspectRatio:aspect}}:{})}});const go=g=>fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':s.geminiKey},body:body(g)});let r;try{r=await go(true);if(r.status===400){const t=await r.clone().text();if(/imageConfig|aspect/i.test(t))r=await go(false);}}catch(e){throw new Error('Couldn\'t reach Gemini.');}if(!r.ok)throw await httpErr(r,'Gemini');const j=await r.json();const ps=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[];const im=ps.find(x=>x.inlineData||x.inline_data);if(!im){const why=(j.candidates&&j.candidates[0]&&j.candidates[0].finishReason)||'';const txt=ps.map(x=>x.text||'').join(' ').trim();throw new Error('Gemini returned no image'+(why&&why!=='STOP'?` (${why})`:'')+(txt?': '+txt.slice(0,160):'.'));}const d=im.inlineData||im.inline_data;return blobToCanvas(b64ToBlob(d.data,d.mimeType||d.mime_type||'image/png'));}
+async function editGenerative(src,prompt,mask=null){const need=imgNeeds();if(need)throw new Error(need);const s=S.settings,p=s.imgProvider;if(!canEditGen())throw new Error(`${IMG_NAMES[p]} can't edit existing photos — choose AI Verse, OpenAI, Gemini or Local Stable Diffusion in Settings for generative edits.`);
+ const work=scaled(src,p==='local'?1024:1536);let out;
+ if(p==='aiverse'){const small=composite(scaled(src,500),{type:'color',color:'#fff'});const imgs=[small.toDataURL('image/jpeg',.9)];
+  if(mask){const mm=composite(small,{type:'color',color:'#fff'}),g=cx(mm);g.globalAlpha=.6;const red=mk(small.width,small.height),rg=cx(red);rg.drawImage(mask,0,0,small.width,small.height);rg.globalCompositeOperation='source-in';rg.fillStyle='#ff0000';rg.fillRect(0,0,red.width,red.height);g.drawImage(red,0,0);imgs.push(mm.toDataURL('image/jpeg',.9));}
+  const k=1280/Math.max(src.width,src.height);
+  out=await aivImage({prompt:'Edit image 0: '+prompt+(mask?' Change only the area marked in red in image 1; keep everything else from image 0 identical.':' Keep everything not mentioned identical, including the person\'s identity and facial features.'),width:Math.round(src.width*k),height:Math.round(src.height*k),images:imgs});}
+ else
+ if(p==='openai'){const fd=new FormData();fd.append('model',s.openaiImgModel||'gpt-image-2');fd.append('prompt',prompt);fd.append('image',await toBlob(work),'image.png');if(mask){const mm=mk(work.width,work.height),g=cx(mm);g.drawImage(work,0,0);g.globalCompositeOperation='destination-out';g.drawImage(mask,0,0,work.width,work.height);fd.append('mask',await toBlob(mm),'mask.png');}let r;try{r=await fetch('https://api.openai.com/v1/images/edits',{method:'POST',headers:{Authorization:'Bearer '+s.openaiKey},body:fd});}catch(e){throw new Error('Couldn\'t reach OpenAI.');}if(!r.ok)throw await httpErr(r,'OpenAI');const j=await r.json();out=await blobToCanvas(b64ToBlob(j.data[0].b64_json));}
+ else if(p==='gemini'){const parts=[{text:prompt+(mask?' Change only the area marked in red in the second image; keep everything else identical.':' Keep everything not mentioned identical, including the person\'s identity and facial features.')},{inlineData:{mimeType:'image/jpeg',data:canvasB64(composite(work,{type:'color',color:'#fff'}),'image/jpeg',.92)}}];if(mask){const mm=composite(work,{type:'color',color:'#fff'}),g=cx(mm);g.globalAlpha=.6;const red=mk(work.width,work.height),rg=cx(red);rg.drawImage(mask,0,0,work.width,work.height);rg.globalCompositeOperation='source-in';rg.fillStyle='#ff0000';rg.fillRect(0,0,red.width,red.height);g.drawImage(red,0,0);parts.push({inlineData:{mimeType:'image/jpeg',data:canvasB64(mm,'image/jpeg',.9)}});}out=await geminiImage(parts,null);}
+ else{const base=(s.sdBase||'http://127.0.0.1:7860').replace(/\/+$/,'');const body={init_images:[canvasB64(composite(work,{type:'color',color:'#fff'}))],prompt,denoising_strength:mask?.85:.5,steps:28,width:Math.round(work.width/8)*8,height:Math.round(work.height/8)*8,cfg_scale:6};if(mask){const mm=mk(work.width,work.height),g=cx(mm);g.fillStyle='#000';g.fillRect(0,0,mm.width,mm.height);const w2=mk(work.width,work.height),wg=cx(w2);wg.drawImage(mask,0,0,work.width,work.height);wg.globalCompositeOperation='source-in';wg.fillStyle='#fff';wg.fillRect(0,0,w2.width,w2.height);g.drawImage(w2,0,0);Object.assign(body,{mask:canvasB64(mm),inpainting_fill:1,inpaint_full_res:true,mask_blur:6});}let r;try{r=await fetch(base+'/sdapi/v1/img2img',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});}catch(e){throw new Error(`Can't reach Stable Diffusion at ${base}.`);}if(!r.ok)throw await httpErr(r,'Stable Diffusion');out=await blobToCanvas(b64ToBlob((await r.json()).images[0]));}
+ if(out.width!==src.width||out.height!==src.height){const o=mk(src.width,src.height),g=cx(o);g.imageSmoothingQuality='high';g.drawImage(out,0,0,o.width,o.height);out=o;}return out;}
+
+/* ---------- prompt-edit planner ---------- */
+const PLAN_SYS=`Translate the user's photo-editing request into steps for a photo editor. Available steps:
+{"op":"adjust","params":{"exposure":0,"brightness":0,"contrast":0,"highlights":0,"shadows":0,"saturation":0,"vibrance":0,"warmth":0,"tint":0,"hue":0,"fade":0,"split":0,"sharpen":0,"vignette":0,"grain":0}}  (each -100..100 except hue -180..180; fade/split/sharpen/vignette/grain 0..100; include only the ones you change; subtle = 10–25, strong = 40–70)
+{"op":"filter","name":"vivid|warm|cool|golden|vintage|film|cinematic|bw|noir|matte|pop"}
+{"op":"auto_enhance"} {"op":"denoise"} {"op":"fix_lighting"} {"op":"upscale","scale":2}
+{"op":"crop","aspect":"1:1|4:5|3:2|2:3|4:3|3:4|16:9|9:16"} {"op":"rotate","deg":90} {"op":"flip","axis":"h|v"}
+{"op":"remove_background"} {"op":"blur_background","amount":40} {"op":"replace_background","color":"#hex"} or {"op":"replace_background","prompt":"scene description"}
+{"op":"generative","prompt":"instruction for an AI image editor"}  (ONLY for content changes that adjustments can't do: adding/removing/changing objects, changing clothing, style transfer, changing the sky, etc.)
+Prefer local steps over generative whenever they achieve the request. Return {"steps":[…],"note":"one short sentence describing what you'll do"}.`;
+function fallbackPlan(t){t=t.toLowerCase();const st=[],a={};const has=re=>re.test(t);const amt=has(/\b(slightly|a bit|a little|subtle)\b/)?15:has(/\b(very|much|lot|strong|really)\b/)?50:30;
+ if(has(/brighter|brighten|lighter|more light/))a.exposure=amt*.7;if(has(/darker|darken|moodier|moody/))a.exposure=-amt*.7;if(has(/more contrast|punchier|contrast up|punch/))a.contrast=amt;if(has(/less contrast|softer|flatten/))a.contrast=-amt;if(has(/warmer|warm\b|golden/))a.warmth=amt;if(has(/cooler|cool\b|colder|blue tone/))a.warmth=-amt;if(has(/more colou?r|saturat|vibrant|colorful/))a.vibrance=amt*1.2;if(has(/less colou?r|desaturat|muted/))a.saturation=-amt;if(has(/sharper|sharpen|crisp/))a.sharpen=amt*1.2;if(has(/vignette/))a.vignette=amt*1.2;if(has(/grain|film/))a.grain=amt;if(has(/shadows? (up|brighter|lift)|lift (the )?shadows/))a.shadows=amt;if(has(/highlights? (down|recover)|recover highlights/))a.highlights=-amt;
+ if(Object.keys(a).length)st.push({op:'adjust',params:a});
+ const f=Object.keys(FILTERS).find(k=>k!=='none'&&k!=='auto'&&t.includes(FILTERS[k][0].toLowerCase()));if(f)st.push({op:'filter',name:f});if(has(/black and white|b&w|monochrome|grayscale|greyscale/))st.push({op:'filter',name:'bw'});
+ if(has(/enhance|improve|fix (it|the photo|this)|make it better|auto/))st.push({op:'auto_enhance'});if(has(/denoise|noise|grainy/)&&!has(/add (some )?grain/))st.push({op:'denoise'});if(has(/lighting|underexposed|too dark/))st.push({op:'fix_lighting'});if(has(/upscale|enlarge|higher resolution|bigger/))st.push({op:'upscale',scale:2});
+ const ar=(t.match(/\b(1:1|4:5|3:2|2:3|4:3|3:4|16:9|9:16)\b/)||[])[1]||(has(/square/)?'1:1':has(/story|vertical|portrait crop/)?'9:16':has(/widescreen|landscape crop|banner/)?'16:9':null);if(ar)st.push({op:'crop',aspect:ar});
+ if(has(/rotate/))st.push({op:'rotate',deg:has(/left|counter/)?-90:90});if(has(/flip|mirror/))st.push({op:'flip',axis:has(/vertical/)?'v':'h'});
+ if(has(/blur (the )?background|bokeh|portrait mode/))st.push({op:'blur_background',amount:40});else if(has(/(remove|delete|cut out|transparent) (the )?background|no background/))st.push({op:'remove_background'});else{const m=t.match(/(white|black|gr[ae]y|blue|green|red|pink|yellow) background/);if(m)st.push({op:'replace_background',color:{white:'#ffffff',black:'#000000',gray:'#9aa0a6',grey:'#9aa0a6',blue:'#3b6fb6',green:'#3f8f5a',red:'#c0392b',pink:'#f2b8c6',yellow:'#f7d154'}[m[1]]});}
+ if(!st.length)st.push({op:'generative',prompt:t});return{steps:st,note:'Applied using built-in rules (turn on an AI provider for smarter prompt understanding).'};}
+async function planEdit(text,c){if(!hasAI())return fallbackPlan(text);try{const o=await ai(`Photo: ${c.width}×${c.height}px${hasAlpha(c)?', has a transparent background':''}.\nRequest: ${text}`,{system:PLAN_SYS,json:true,temp:.1,max:900});if(!Array.isArray(o.steps)||!o.steps.length)return fallbackPlan(text);return o;}catch(e){if(e.stopped)throw e;return fallbackPlan(text);}}
+
+/* ---------- AI providers ---------- */
+const DEFAULT_GROQ='openai/gpt-oss-120b';
+const DEFAULT_WEBLLM='Qwen3-0.6B-q4f16_1-MLC';
+const WEBLLM_URL='https://esm.run/@mlc-ai/web-llm@0.2.83';
+const WEBLLM_MODELS=[['Qwen3-0.6B-q4f16_1-MLC','Qwen3 0.6B — about 400 MB, fastest (default)','400 MB'],['Qwen3-1.7B-q4f16_1-MLC','Qwen3 1.7B — about 1 GB, smarter','1 GB'],['Llama-3.2-3B-Instruct-q4f16_1-MLC','Llama 3.2 3B — about 2 GB','2 GB'],['Qwen3-4B-q4f16_1-MLC','Qwen3 4B — about 2.5 GB, best quality, needs a strong GPU','2.5 GB']];
+const modelSize=id=>(WEBLLM_MODELS.find(m=>m[0]===id)||[])[2]||'several hundred MB';
+const APP_SLUG='photo',APP_TITLE='AI Photo';
+/* AI Verse free AI: this app's own Groq key lives on the AI Verse server; 20 free daily uses per visitor */
+const FREE_BASE=(()=>{const b=((window.AIV_SITE&&window.AIV_SITE.server)||'').replace(/\/+$/,'');return b?b+'/apps/'+APP_SLUG+'/v1':'';})();
+function freeLeft(){const d=new Date().toDateString(),f=S.freeLeft,l=(f&&f.limit)||20;return f&&f.date===d?{n:f.n,limit:l}:{n:l,limit:l};}
+function freeSeen(r){const n=r.headers.get('X-Free-Remaining');if(n===null)return;S.freeLeft={date:new Date().toDateString(),n:Number(n),limit:Number(r.headers.get('X-Free-Limit'))||20};save();try{badge();}catch(e){}}
+function freeLimitHit(){const L=freeLeft().limit;S.freeLeft={date:new Date().toDateString(),n:0,limit:L};save();try{badge();}catch(e){}
+ let d=document.getElementById('freeDlg');
+ if(!d){d=document.createElement('dialog');d.id='freeDlg';d.className='freedlg';d.setAttribute('aria-labelledby','freeDlgT');
+  d.innerHTML=`<div class="fd-in"><b class="fd-t" id="freeDlgT">You've used today's free uses</b><p>${APP_TITLE} includes ${L} free daily uses, and you've used today's. Get an AIV key for unlimited, full-strength AI in every AI Verse app.</p><a class="fd-go" href="../api.html#plans" target="_top">Get AIV key</a><div class="fd-alt"><button type="button" data-fd="key">I have a key</button><button type="button" data-fd="close">Come back tomorrow</button></div></div>`;
+  document.body.appendChild(d);
+  d.addEventListener('click',e=>{const b=e.target.closest('[data-fd]');if(!b)return;d.close();if(b.dataset.fd==='key'){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=document.getElementById('setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},150);}});}
+ if(!d.open){try{d.showModal();}catch(e){d.setAttribute('open','');}}}
+const AIV_BASE=((window.AIV_SITE&&window.AIV_SITE.server)||'https://api.aiverse.it.com').replace(/\/+$/,'')+'/v1';
+const PRESETS={openai:['OpenAI','https://api.openai.com/v1'],anthropic:['Anthropic Claude','https://api.anthropic.com/v1'],openrouter:['OpenRouter','https://openrouter.ai/api/v1'],gemini:['Google Gemini','https://generativelanguage.googleapis.com/v1beta/openai'],mistral:['Mistral','https://api.mistral.ai/v1'],together:['Together AI','https://api.together.xyz/v1'],deepseek:['DeepSeek','https://api.deepseek.com/v1'],other:['Other (OpenAI-compatible)','']};
+const PROV_NAMES={free:'AI Verse free AI',aiv:'your AIV key',groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
+const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.aivKey)return'aiv';if(S.settings.groqKey)return'groq';if(FREE_BASE)return'free';return navigator.gpu?'browser':'groq';};
+function setupNeeded(msg){go('settings');throw new Error(msg);}
+function aiConn(){const s=S.settings,p=prov();
+ if(p==='free'){if(!FREE_BASE)setupNeeded('Free AI isn\'t available on this copy of the app. Choose another AI provider in Settings.');return{p,base:FREE_BASE,headers:{}};}
+ if(p==='aiv'){if(!s.aivKey)setupNeeded('Add your AIV API key in Settings (AI provider → AIV key), or choose another AI provider.');return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey}};}
+ if(p==='groq'){if(!s.groqKey)setupNeeded('Add a free Groq API key in Settings, or choose another AI provider.');return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey}};}
+ if(p==='custom'){if(!s.customBase)setupNeeded('Add your AI service\'s URL in Settings.');return{p,base:s.customBase.replace(/\/+$/,''),headers:s.customKey?{Authorization:'Bearer '+s.customKey}:{}};}
+ if(p==='local')return{p,base:(s.localBase||'http://localhost:11434/v1').replace(/\/+$/,''),headers:{}};
+ return{p:'browser'};}
+function aiTarget(){const c=aiConn(),s=S.settings;
+ if(c.p==='free')return{...c,model:'free'};
+ if(c.p==='aiv')return{...c,model:s.aivModel||'aiv-1'};
+ if(c.p==='groq')return{...c,model:s.model||DEFAULT_GROQ};
+ if(c.p==='custom'){if(!s.customModel)setupNeeded('Choose a model for your AI service in Settings (Test connection lists them).');return{...c,model:s.customModel};}
+ if(c.p==='local'){if(!s.localModel)setupNeeded('Choose which local model to use in Settings (Test connection lists them).');return{...c,model:s.localModel};}
+ return{...c,model:s.webllmModel||DEFAULT_WEBLLM};}
+const hasAI=()=>{const s=S.settings,p=prov();return (p==='free'&&!!FREE_BASE)||(p==='aiv'&&!!s.aivKey)||(p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
+function baseSystem(){return `You are the AI assistant inside a photo editor app. Today is ${ymd(new Date())}. Be concise and practical. Never claim to have edited, seen or generated an image unless the app gave you its data.`;}
+function parseJSON(t){try{return JSON.parse(t);}catch(e){}const s=t.replace(/```(?:json)?/g,'');const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1));}catch(e){}}throw new Error('The AI returned something unreadable — please try again'+(prov()==='browser'||prov()==='local'?' (smaller models sometimes struggle with this; a larger model helps).':'.'));}
+const errMsg=t=>{try{const j=JSON.parse(t);const e=j.error;return(e&&(e.message||(typeof e==='string'?e:'')))||j.message||'';}catch(_){return String(t||'').slice(0,300);}};
+function netErr(T){if(T.p==='local')return `Can't reach your local model at ${T.base}. Make sure ${/:1234/.test(T.base)?'LM Studio\'s server is running with CORS enabled':'Ollama is running and OLLAMA_ORIGINS allows this site'}, and allow local network access if your browser asks — see Settings → Local model → Setup.`;if(T.p==='custom')return `Couldn't reach ${T.base}. Check the URL — or this service may not allow requests from web pages (CORS).`;return 'Network error — check your connection and try again.';}
+async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try{
+ const T=aiTarget();
+ const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
+ if(T.p==='browser')await ensureBrowserModel(T.model);
+ let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});
+ txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
+ return json?parseJSON(txt):txt;
+}catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
+async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
+ if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
+ const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
+ if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
+ if(json)body.response_format={type:'json_object'};
+ if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
+ let r,tries=0;
+ for(;;){
+  try{r=await fetch(T.base+'/chat/completions',{method:'POST',signal,headers:{'Content-Type':'application/json',...T.headers},body:JSON.stringify(body)});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+  if(T.p==='free'){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free daily uses in this app.');}if(r.status===503||r.status===403||r.status===400){let m='';try{m=errMsg(await r.clone().text());}catch(_){}throw new Error(m||'Free AI is unavailable right now. Please try again.');}}
+  if(r.status===429&&tries<3){tries++;await sleep(1500*tries);continue;}
+  if((r.status===400||r.status===422)&&tries<5){const t=await r.text();tries++;
+   if(body.response_format&&/json|response_format/i.test(t)){delete body.response_format;continue;}
+   if(body.reasoning_effort&&/reasoning/i.test(t)){delete body.reasoning_effort;continue;}
+   if(body.max_completion_tokens&&/max_completion_tokens/i.test(t)){body.max_tokens=body.max_completion_tokens;delete body.max_completion_tokens;continue;}
+   if(body.max_tokens&&/max_tokens/i.test(t)){body.max_completion_tokens=body.max_tokens;delete body.max_tokens;continue;}
+   if('temperature'in body&&/temperature/i.test(t)){delete body.temperature;continue;}
+   throw new Error('AI request failed: '+(errMsg(t)||'bad request'));}
+  break;
+ }
+ if(!r.ok){const m=errMsg(await r.text().catch(()=>''));
+  if(r.status===401||r.status===403)throw new Error('The AI service rejected the API key — check it in Settings.'+(m?' ('+m+')':''));if(r.status===429)throw new Error('Rate limit reached — wait a minute and try again.'+(m?' ('+m+')':''));if(r.status===404)throw new Error(T.p==='local'?`The model "${T.model}" isn't on your local server — pull or load it first.`:`Model or URL not found${m?': '+m:''}.`);
+  throw new Error(`AI request failed (${r.status})${m?': '+m:''}`);}
+ const d=await r.json();return d.choices?.[0]?.message?.content||'';
+}
+/* in-browser model (WebLLM + WebGPU) */
+const llm={lib:null,engine:null,model:'',loading:null};
+function llmProgress(text,frac){const g=$('#gate');if(g&&g.open&&text!=null){$('#gateStatus').textContent=text;$('#gateFill').style.width=Math.round((frac||0)*100)+'%';}const bar=$('#llmBar');if(!bar)return;if(g&&g.open&&text!=null){bar.hidden=true;return;}if(text==null){bar.hidden=true;const s=$('#llmStatus');if(s)s.textContent=llm.engine?`Loaded: ${llm.model}`:'';return;}bar.hidden=false;$('#llmText').textContent=text;$('#llmFill').style.width=Math.round((frac||0)*100)+'%';const s=$('#llmStatus');if(s)s.textContent=text;}
+async function getEngine(model){
+ if(llm.engine&&llm.model===model)return llm.engine;
+ if(llm.loading)return llm.loading;
+ if(!navigator.gpu)throw new Error('In-browser AI needs WebGPU — use Chrome or Edge on a computer with a recent graphics card, or choose another AI provider in Settings.');
+ llm.loading=(async()=>{try{llmProgress('Loading the AI engine…',0);llm.lib=llm.lib||await import(WEBLLM_URL);if(llm.engine){try{await llm.engine.unload();}catch(e){}llm.engine=null;}llmProgress('Preparing '+model+' (first time downloads the model)…',0);llm.engine=await llm.lib.CreateMLCEngine(model,{initProgressCallback:p=>llmProgress(p.text,p.progress)},{context_window_size:8192});llm.model=model;return llm.engine;}catch(e){llm.engine=null;throw new Error('Could not load the in-browser model: '+(e?.message||e));}finally{llm.loading=null;llmProgress(null);}})();
+ return llm.loading;
+}
+let dlAsk=null;
+const llmReady=()=>!!llm.engine&&llm.model===(S.settings.webllmModel||DEFAULT_WEBLLM);
+function gateShow({title,text,btns=[]}){const g=$('#gate');$('#gateHide').hidden=true;$('#gateTitle').textContent=title;$('#gateText').textContent=text;$('#gateStatus').textContent='';$('#gateFill').style.width='0%';$('#gateTrack').hidden=!!btns.length;const bw=$('#gateBtns');bw.innerHTML='';btns.forEach(([label,cls,fn])=>{const b=document.createElement('button');b.className='btn '+cls;b.textContent=label;b.onclick=fn;bw.appendChild(b);});if(!g.open)g.showModal();}
+function gateClose(){const g=$('#gate');if(g.open)g.close();}
+function askDownload(model){if(dlAsk)return dlAsk;dlAsk=new Promise(res=>{$('#gate').addEventListener('close',()=>res(false),{once:true});gateShow({title:'Download the AI model',text:`Your AI assistant runs privately on this device. Before you can use it, it needs a one-time download of about ${modelSize(model)} (Wi-Fi recommended). After that it works offline and nothing you type leaves this device.`,btns:[['Not now','ghost',()=>{gateClose();res(false);}],['Use a different AI','ghost',()=>{gateClose();res(false);go('settings');}],['Download now','primary',()=>res(true)]]});}).finally(()=>{dlAsk=null;});return dlAsk;}
+
+/* ---------- AI Verse: AIV key promo + one-click on-device AI ---------- */
+let skipAsk=false;
+function promo(){const el=$('#aivPromo');if(!el)return;let hid=false;try{hid=sessionStorage.getItem('aivPromoHide')==='1';}catch(e){}el.hidden=hid||(prov()==='aiv'&&!!S.settings.aivKey);}
+async function aiBadgeClick(){const p=prov(),m=S.settings.webllmModel||DEFAULT_WEBLLM,need=p==='browser'&&S.settings.llmReady!==m&&!llmReady();
+ if(hasAI()&&!need){go('settings');return;}
+ if(!navigator.gpu){toast('The free on-device AI needs WebGPU (Chrome or Edge on a computer). Add an AIV key or a free Groq key in Settings instead.',{err:true});go('settings');return;}
+ S.settings.provider='browser';save();try{badge();}catch(e){}skipAsk=true;
+ try{await ensureBrowserModel(m);}catch(e){toast(e.message||String(e),{err:true});}finally{skipAsk=false;try{badge();}catch(e){}}}
+document.addEventListener('click',e=>{if(e.target.closest('#aivPromoX')){try{sessionStorage.setItem('aivPromoHide','1');}catch(_){}promo();}else if(e.target.closest('#aivPromoAdd')){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=$('#setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},120);}});
+
+async function ensureBrowserModel(model){
+ if(llm.engine&&llm.model===model)return;
+ if(!navigator.gpu)setupNeeded('This browser can\'t run on-device AI (it needs WebGPU — Chrome or Edge on a computer). Choose another AI provider in Settings.');
+ const cached=S.settings.llmReady===model;
+ if(!cached&&!llm.loading&&!skipAsk){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
+ if(!cached)gateShow({title:'Downloading the AI model',text:`One-time download of about ${modelSize(model)}. Keep this tab open — you can keep using the rest of the app.`});
+ const hide=$('#gateHide');if(hide)hide.hidden=cached;
+ try{await getEngine(model);S.settings.llmReady=model;save();refresh();if(!cached)toast('AI is ready — running on this device');}
+ finally{gateClose();}
+}
+async function browserChat(model,sys,prompt,{json,temp,max,signal}){
+ const eng=await getEngine(model);if(signal){if(signal.aborted)throw new DOMException('Stopped','AbortError');signal.addEventListener('abort',()=>{try{eng.interruptGenerate();}catch(e){}},{once:true});}const qwen=/qwen3/i.test(model);
+ const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
+ const req={messages:[{role:'system',content:sys},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ if(json)req.response_format={type:'json_object'};
+ llmProgress('Thinking on your device…',1);
+ try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
+}
+/* speech-to-text (Whisper) — only where the provider offers it */
+function whisperTarget(){const s=S.settings,p=prov();
+ if(p==='free'&&FREE_BASE)return{url:FREE_BASE+'/audio/transcriptions',headers:{},model:'whisper-large-v3-turbo',free:true};
+ if(p==='aiv'&&s.aivKey)return{url:AIV_BASE+'/audio/transcriptions',headers:{Authorization:'Bearer '+s.aivKey},model:'whisper'};
+ if(p==='groq'&&s.groqKey)return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.groqKey},model:'whisper-large-v3'};
+ if(p==='custom'&&s.customKey&&/api\.openai\.com/.test(s.customBase))return{url:'https://api.openai.com/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-1'};
+ if(p==='custom'&&s.customKey&&/groq\.com/.test(s.customBase))return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-large-v3'};
+ return null;}
+const canWhisper=()=>!!whisperTarget();
+async function transcribe(blob){const W=whisperTarget();if(!W)throw new Error('Recorded-audio transcription needs a Groq or OpenAI key. With '+PROV_NAMES[prov()]+', use live dictation in Chrome, Edge or Safari.');if(blob.size>24.5e6)throw new Error('Recording is larger than the 25 MB limit — record shorter segments.');const ext=/mp4|aac|m4a/.test(blob.type)?'m4a':(/ogg/.test(blob.type)?'ogg':'webm');const fd=new FormData();fd.append('file',blob,'audio.'+ext);fd.append('model',W.model);fd.append('response_format','json');let r;try{r=await fetch(W.url,{method:'POST',headers:W.headers,body:fd});}catch(e){throw new Error('Could not reach the transcription service.');}if(W.free){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free daily uses in this app.');}}if(!r.ok){const m=errMsg(await r.text().catch(()=>''));throw new Error('Transcription failed'+(m?': '+m:''));}return((await r.json()).text||'').trim();}
+async function listModels(){const T=aiConn();if(T.p==='browser')return WEBLLM_MODELS.map(m=>m[0]);if(/api\.anthropic\.com/.test(T.base)){const r=await fetch('https://api.anthropic.com/v1/models',{headers:anthropicHeaders()}).catch(()=>{throw new Error(netErr(T));});if(!r.ok)throw new Error(r.status===401?'The service rejected the API key.':'Could not list models ('+r.status+').');return((await r.json()).data||[]).map(m=>m.id);}let r;try{r=await fetch(T.base+'/models',{headers:T.headers});}catch(e){throw new Error(netErr(T));}if(!r.ok)throw new Error(r.status===401||r.status===403?'The service rejected the API key.':'Could not list models ('+r.status+').');const d=await r.json();const arr=d.data||d.models||[];return arr.map(m=>m.id||m.name||m.model).filter(Boolean).filter(id=>!/whisper|tts|embed|guard|orpheus|playai|moderation|dall-e|image|audio|transcribe/i.test(id)).sort();}
+
+
+/* ---------- vision AI (photos) ---------- */
+const DEFAULT_VISION='qwen/qwen3.8-27b';
+function visionTarget(){const s=S.settings,p=prov();
+ if(p==='free'&&FREE_BASE)return{p,base:FREE_BASE,headers:{},model:'free'};
+ if(p==='aiv'&&s.aivKey)return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey},model:s.aivModel||'aiv-1'};
+ if(p==='groq'&&s.groqKey)return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey},model:s.visionModel||DEFAULT_VISION};
+ if(p==='custom'&&s.customBase&&(s.customVision||s.customModel))return{...aiConn(),model:s.customVision||s.customModel};
+ if(p==='local'&&s.localVision)return{...aiConn(),model:s.localVision};
+ return null;}
+const canVision=()=>!!visionTarget();
+async function aiVision(prompt,images,{system='',json=false,max=1600,temp=0.3}={}){
+ const T=visionTarget();if(!T)setupNeeded('AI photo analysis needs a vision-capable model: a Groq key, another API key with a vision model, or a local vision model (e.g. qwen2.5vl). Choose one in Settings → AI provider.');
+ const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
+ const content=[{type:'text',text:prompt},...images.map(u=>({type:'image_url',image_url:{url:u}}))];
+ let txt=await remoteChat(T,sys,content,{json,temp,max});txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').trim();return json?parseJSON(txt):txt;}
+
+
+const anthropicHeaders=()=>({'content-type':'application/json','x-api-key':S.settings.customKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'});
+async function anthropicChat(T,sys,prompt,{max,temp,signal}){let r;try{r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal,headers:anthropicHeaders(),body:JSON.stringify({model:T.model,max_tokens:Math.max(max,1024),temperature:Math.min(temp,1),system:sys,messages:[{role:'user',content:prompt}]})});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+ const j=await r.json().catch(()=>({}));if(!r.ok){const m=j.error&&j.error.message||'';if(r.status===401||r.status===403)throw new Error('Anthropic rejected the API key — check it in Settings.'+(m?' ('+m+')':''));if(r.status===429)throw new Error('Rate limit reached — wait a minute and try again.');throw new Error(`AI request failed (${r.status})${m?': '+m:''}`);}
+ return(j.content||[]).map(x=>x.text||'').join('');}
+
+/* ---------- images ---------- */
+function pickImage({capture=false}={}){return new Promise(res=>{const f=$('#filePick');f.value='';if(capture)f.setAttribute('capture','environment');else f.removeAttribute('capture');f.onchange=()=>res(f.files[0]||null);f.click();});}
+function fileToDataURL(file,max=1024,q=.85){return new Promise((res,rej)=>{const img=new Image();const url=URL.createObjectURL(file);img.onload=()=>{const sc=Math.min(1,max/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',q));};img.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('Could not read that image.'));};img.src=url;});}
+const loadImg=src=>new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});
+
+
+/* ---------- charts (inline SVG) ---------- */
+function lineChart(series,{h=170,yfmt=v=>r1(v),xfmt=t=>fmtD(ymd(new Date(t))),band=null,zero=false}={}){
+ const pts=series.flatMap(s=>s.points);if(pts.length<1)return'<p class="empty">Not enough data yet.</p>';
+ const W=600,L=44,Rm=10,Tm=10,B=22;let xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);if(band)ys=ys.concat(band);let x0=Math.min(...xs),x1=Math.max(...xs);if(x0===x1){x0-=DAY;x1+=DAY;}let y0=Math.min(...ys),y1=Math.max(...ys);if(zero)y0=Math.min(0,y0);const pd=(y1-y0)*.12||1;y0-=pd;y1+=pd;if(zero&&y0<0&&Math.min(...ys)>=0)y0=0;
+ const X=x=>L+(x-x0)/(x1-x0)*(W-L-Rm),Y=y=>Tm+(1-(y-y0)/(y1-y0))*(h-Tm-B);
+ let g='<g class="grid">';for(let i=0;i<=3;i++){const v=y0+(y1-y0)*i/3;g+=`<line x1="${L}" x2="${W-Rm}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${esc(yfmt(v))}</text>`;}g+='</g>';
+ if(band)g+=`<rect x="${L}" width="${W-L-Rm}" y="${Y(band[1])}" height="${Math.max(0,Y(band[0])-Y(band[1]))}" fill="currentColor" opacity=".06"/>`;
+ g+=`<text x="${L}" y="${h-4}">${esc(xfmt(x0))}</text><text x="${W-Rm}" y="${h-4}" text-anchor="end">${esc(xfmt(x1))}</text>`;
+ for(const s of series){const p=[...s.points].sort((a,b)=>a.x-b.x);if(!p.length)continue;const c=s.color||'var(--ink)';if(p.length>1)g+=`<polyline fill="none" stroke="${c}" stroke-width="${s.thin?1.5:2.5}" ${s.dash?'stroke-dasharray="5 4"':''} stroke-linejoin="round" stroke-linecap="round" points="${p.map(q=>X(q.x).toFixed(1)+','+Y(q.y).toFixed(1)).join(' ')}"/>`;if(!s.noDots&&p.length<=60)g+=p.map(q=>`<circle cx="${X(q.x).toFixed(1)}" cy="${Y(q.y).toFixed(1)}" r="3" fill="${c}"><title>${esc(xfmt(q.x))}: ${esc(yfmt(q.y))}</title></circle>`).join('');}
+ return `<svg class="chart" viewBox="0 0 ${W} ${h}" role="img">${g}</svg>`+(series.length>1?`<div class="legend">${series.filter(s=>s.label).map(s=>`<span><i style="background:${s.color}"></i>${esc(s.label)}</span>`).join('')}</div>`:'');}
+function hbars(rows,{max,band}={}){const mx=max||Math.max(1,...rows.map(r=>r.v),band?band[1]:0);return rows.map(r=>`<div class="mrow"><span>${esc(r.label)}</span><div class="bar" style="position:relative">${band?`<span style="position:absolute;left:${band[0]/mx*100}%;width:${(band[1]-band[0])/mx*100}%;top:0;bottom:0;background:var(--good);opacity:.18"></span>`:''}<i style="width:${clamp(r.v/mx*100,0,100)}%;background:${r.color||'var(--ink)'};position:relative"></i></div><span class="tiny muted" style="min-width:56px;text-align:right">${esc(r.txt??r1(r.v))}</span></div>`).join('');}
+function ring(val,max,{color='var(--kcal)',label='',sub=''}={}){const p=clamp(val/(max||1),0,1.2),C=2*Math.PI*48;return `<svg class="ring" viewBox="0 0 118 118"><circle cx="59" cy="59" r="48" fill="none" stroke="var(--line)" stroke-width="10"/><circle cx="59" cy="59" r="48" fill="none" stroke="${p>1.05?'var(--bad)':color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 59 59)"/><text x="59" y="58" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">${esc(label)}</text><text x="59" y="76" text-anchor="middle" font-size="11" fill="var(--muted)">${esc(sub)}</text></svg>`;}
+function slope(points){if(points.length<2)return 0;const n=points.length,mx=avg(points.map(p=>p.x)),my=avg(points.map(p=>p.y));let a=0,b=0;for(const p of points){a+=(p.x-mx)*(p.y-my);b+=(p.x-mx)**2;}return b?a/b:0;}
+function movingAvg(points,days=7){return points.map(p=>({x:p.x,y:avg(points.filter(q=>q.x<=p.x&&q.x>p.x-days*DAY).map(q=>q.y))}));}
+
+/* ---------- modal ---------- */
+function openModal(title,html,{onMount,wide}={}){const d=$('#dlg');d.onclick=null;d.innerHTML=`<div class="dlg-h"><h3>${esc(title)}</h3><button class="x" data-close aria-label="Close">×</button></div><div class="dlg-b">${html}</div>`;d.classList.toggle('wide',!!wide);if(!d.open)d.showModal();$$('[data-close]',d).forEach(b=>b.onclick=()=>d.close());icons(d);wireMics(d);onMount&&onMount(d);return d;}
+const closeModal=()=>{const d=$('#dlg');if(d.open)d.close();};
+
+/* ---------- voice dictation ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let activeDict=null;
+function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)return;b._w=1;if(!SR){b.hidden=true;return;}b.innerHTML=ic('mic');b.onclick=e=>{e.preventDefault();const t=root.querySelector('#'+b.dataset.dictate)||$('#'+b.dataset.dictate);if(activeDict){const same=activeDict.b===b;activeDict.rec.stop();activeDict=null;if(same)return;}const rec=new SR();rec.lang=navigator.language||'en-US';rec.interimResults=true;rec.continuous=false;const base=t.value?t.value.replace(/\s*$/,' '):'';rec.onresult=ev=>{let s='';for(const r of ev.results)s+=r[0].transcript;t.value=base+s;};rec.onend=()=>{b.classList.remove('rec');b.style.color='';activeDict=null;if(b.dataset.submit&&t.value.trim())$(b.dataset.submit).click();};rec.onerror=ev=>{if(ev.error==='not-allowed')toast('Microphone access was denied.',{err:true});};rec.start();b.style.color='var(--bad)';activeDict={b,rec};};});}
+
+
+
+/* ---------- navigation ---------- */
+const VIEWS=['home','edit','create','portrait','social','library','settings'];
+let cur='home';const R={};
+const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
+function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
+function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
+function refresh(){(R[cur]||(()=>{}))();badge();}
+function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='free'?`${freeLeft().n} of ${freeLeft().limit} free daily uses left`:p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI assistant on';}}
+const pickImg=()=>new Promise(res=>{const f=$('#filePick');f.value='';f.accept='image/*';f.onchange=()=>res(f.files[0]||null);f.click();});
+const fmtMB=b=>b>=1e9?r1(b/1e9)+' GB':b>=1e6?r1(b/1e6)+' MB':r0(b/1e3)+' KB';
+const SRC={upload:'Upload',edited:'Edited',generated:'Generated',portrait:'Portrait',social:'Social'};
+
+/* ---------- editor state ---------- */
+const ED={id:null,name:'',source:'upload',prompt:'',versions:[],idx:-1,adj:zeroAdj(),tool:'prompt',mask:null,brush:40,crop:null,cropAR:'free',cmp:false,cmpBase:'original',prev:null,ocr:null,dirty:false};
+const curC=()=>ED.versions[ED.idx]&&ED.versions[ED.idx].c;
+function loadIntoEditor(c,{id=null,name='Untitled',source='upload',prompt='',versions=null}={}){ED.id=id;ED.name=name;ED.source=source;ED.prompt=prompt;ED.versions=versions||[{c,label:'Original',ts:Date.now()}];ED.idx=ED.versions.length-1;ED.adj=zeroAdj();ED.mask=null;ED.crop=null;ED.ocr=null;ED.dirty=!id;ED.prev=null;}
+function push(c,label){ED.versions=ED.versions.slice(0,ED.idx+1);ED.versions.push({c,label,ts:Date.now()});if(ED.versions.length>25)ED.versions.splice(1,1);ED.idx=ED.versions.length-1;ED.adj=zeroAdj();ED.mask=null;ED.crop=null;ED.ocr=null;ED.dirty=true;ED.prev=null;countEdit();if(ED.source==='upload')ED.source='edited';}
+async function openFile(f){if(!f)return;if(!/^image\//.test(f.type)&&!/\.(heic|heif|avif|webp|png|jpe?g|gif|bmp)$/i.test(f.name)){toast('That isn\'t an image file.',{err:true});return;}try{const c=await blobToCanvas(f);loadIntoEditor(c,{name:f.name.replace(/\.\w+$/,''),source:'upload'});go('edit');if(cur==='edit')R.edit();}catch(e){toast('Couldn\'t open that image'+(/heic|heif/i.test(f.name)?' — HEIC isn\'t supported by this browser; export as JPEG first.':'.'),{err:true});}}
+async function openItem(id){const it=await DB.get(id);if(!it)return;const vs=[];for(const v of(it.versions||[]))vs.push({c:await blobToCanvas(v.blob),label:v.label,ts:v.ts});if(!vs.length)vs.push({c:await blobToCanvas(it.blob),label:'Original',ts:it.created});loadIntoEditor(null,{id:it.id,name:it.name,source:it.source,prompt:it.prompt||'',versions:vs});go('edit');}
+async function saveItem({c,name,source,prompt='',versions=null,id=null,extra={}}){const now=Date.now();const alpha=hasAlpha(c);const blob=await toBlob(c,alpha?'image/png':'image/jpeg',.92);const vs=[];for(const v of(versions||[{c,label:'Original',ts:now}]).slice(-12)){const a2=hasAlpha(v.c);vs.push({blob:await toBlob(scaled(v.c,2048),a2?'image/png':'image/jpeg',.9),label:v.label,ts:v.ts});}
+ const old=id?await DB.get(id):null;const it={...(old||{}),id:id||uid(),name:name||'Untitled',source,prompt,created:old?old.created:now,updated:now,w:c.width,h:c.height,blob,thumb:thumbURL(c),versions:vs,size:blob.size+sum(vs.map(v=>v.blob.size)),...extra};
+ if(old&&old.emb&&old.updated&&!extra.emb){delete it.emb;it.tags=old.tags&&old.tagsManual?old.tags:[];}
+ await DB.put(it);await refreshLib();if(S.settings.autoIndex&&!it.emb)indexItem(it).catch(()=>{});return it;}
+async function saveEditor(){const c=curC();if(!c)return;await run($('#edSave'),async()=>{if(!isZero(ED.adj))push(adjustCanvas(c,ED.adj),'Adjustments');const it=await saveItem({c:curC(),name:ED.name,source:ED.source,prompt:ED.prompt,versions:ED.versions,id:ED.id});ED.id=it.id;ED.dirty=false;toast('Saved to your library');renderEditor();});}
+async function exportCanvas(c,name,fmt='png',q=.92){const type={png:'image/png',jpg:'image/jpeg',webp:'image/webp'}[fmt];const b=await toBlob(fmt==='jpg'?composite(c,{type:'color',color:'#ffffff'}):c,type,q);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(name||'image').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_')+'.'+fmt;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);}
+
+/* ---------- EDIT view ---------- */
+const TOOLS=[['prompt','Prompt'],['adjust','Adjust'],['filters','Filters'],['bg','Background'],['remove','Remove objects'],['enhance','Enhance'],['crop','Crop'],['understand','Understand']];
+const EX_PROMPTS=['Make it brighter and warmer','Blur the background','Remove the background','Black and white with strong contrast','Crop to a square and make the colors pop','Fix the lighting and sharpen','Give it a cinematic look','Replace the sky with a dramatic sunset'];
+R.edit=()=>{const v=$('#v-edit');if(!curC()){v.innerHTML=`<div class="box" style="text-align:center;padding:36px 16px" id="drop"><div class="c-lift" style="display:flex;justify-content:center">${ic('image')}</div><h3 style="margin:8px 0 4px">Open a photo to start editing</h3><p class="sub">Drop an image here, or choose one.</p><div class="row wrap" style="justify-content:center;margin-top:12px"><button class="btn primary" id="edOpen">${ic('upload')} Upload photo</button><a class="btn" href="#library">From library</a><a class="btn" href="#create">Generate one</a></div></div>`;icons(v);$('#edOpen').onclick=async()=>openFile(await pickImg());bindDrop($('#drop'));return;}renderEditor();};
+function renderEditor(){const v=$('#v-edit'),c=curC();
+ v.innerHTML=`<div class="row between wrap" style="gap:8px"><input id="edName" value="${esc(ED.name)}" aria-label="Name" style="max-width:260px;font-weight:600"><div class="toolbar"><button class="btn sm" id="edUndo" ${ED.idx<=0?'disabled':''} title="Undo">${ic('undo')}</button><button class="btn sm" id="edRedo" ${ED.idx>=ED.versions.length-1?'disabled':''} title="Redo">${ic('redo')}</button><button class="btn sm ${ED.cmp?'primary':''}" id="edCmp">${ic('split')} Before / after</button><button class="btn sm" id="edNew">${ic('upload')} Open</button><button class="btn sm" id="edExp">${ic('dl')} Export</button><button class="btn sm primary" id="edSave">${ic('save')} ${ED.id?(ED.dirty?'Save':'Saved ✓'):'Save'}</button></div></div>
+ <div class="stage" id="stage" style="margin-top:10px"></div>
+ <div class="row between wrap" style="margin-top:6px"><span class="tiny muted">${c.width} × ${c.height}px · ${esc(ED.versions[ED.idx].label)}${hasAlpha(c)?' · transparent':''}</span>${ED.cmp?`<select id="cmpBase" style="width:auto;font-size:12.5px;padding:4px 8px"><option value="original" ${ED.cmpBase==='original'?'selected':''}>vs original</option><option value="previous" ${ED.cmpBase==='previous'?'selected':''}>vs previous step</option></select>`:''}</div>
+ <h4>History</h4><div class="vers" id="vers">${ED.versions.map((x,i)=>`<button class="${i===ED.idx?'on':''}" data-ver="${i}" title="${esc(x.label)}"><img src="${thumbURL(x.c,120)}" alt=""><small>${esc(x.label)}</small></button>`).join('')}</div>
+ <div class="seg" id="edTools" style="margin-top:12px">${TOOLS.map(([k,l])=>`<button data-t="${k}" class="${k===ED.tool?'on':''}">${l}</button>`).join('')}</div>
+ <div class="box" id="toolBox"></div>`;
+ icons(v);drawStage();renderTool();
+ $('#edName').oninput=e=>{ED.name=e.target.value;ED.dirty=true;};$('#edUndo').onclick=()=>{if(ED.idx>0){ED.idx--;ED.adj=zeroAdj();ED.mask=null;ED.prev=null;ED.dirty=true;renderEditor();}};$('#edRedo').onclick=()=>{if(ED.idx<ED.versions.length-1){ED.idx++;ED.adj=zeroAdj();ED.prev=null;ED.dirty=true;renderEditor();}};
+ $('#edCmp').onclick=()=>{ED.cmp=!ED.cmp;renderEditor();};const cb=$('#cmpBase');if(cb)cb.onchange=e=>{ED.cmpBase=e.target.value;drawStage();};
+ $('#edNew').onclick=async()=>{if(ED.dirty&&!confirm('Open another photo? Unsaved changes to this one will be lost.'))return;openFile(await pickImg());};
+ $('#edSave').onclick=saveEditor;$('#edExp').onclick=()=>exportModal(isZero(ED.adj)?curC():adjustCanvas(curC(),ED.adj),ED.name);
+ $$('[data-ver]',v).forEach(b=>b.onclick=()=>{ED.idx=+b.dataset.ver;ED.adj=zeroAdj();ED.mask=null;ED.prev=null;ED.dirty=true;renderEditor();});
+ $('#edTools').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.tool=b.dataset.t;$$('#edTools button').forEach(x=>x.classList.toggle('on',x===b));renderTool();drawStage();};bindDrop($('#stage'));}
+function previewCanvas(){const c=curC();if(!ED.prev||ED.prev.src!==c||ED.prev.adjKey!==JSON.stringify(ED.adj)){const base=scaled(c,1400);ED.prev={src:c,adjKey:JSON.stringify(ED.adj),c:isZero(ED.adj)?base:adjustCanvas(base,ED.adj)};}return ED.prev.c;}
+function drawStage(){const st=$('#stage');if(!st)return;const pv=previewCanvas();st.className='stage'+(ED.tool==='remove'?' paint':'')+(ED.tool==='crop'?' crop':'');
+ if(ED.cmp){const before=ED.cmpBase==='previous'&&ED.idx>0?ED.versions[ED.idx-1].c:ED.versions[0].c;const bc=mk(pv.width,pv.height);const bg=cx(bc);bg.imageSmoothingQuality='high';const fk=Math.min(bc.width/before.width,bc.height/before.height),fw=before.width*fk,fh=before.height*fk;bg.drawImage(before,(bc.width-fw)/2,(bc.height-fh)/2,fw,fh);
+  st.innerHTML=`<div class="cmpwrap" id="cmpw"></div>`;const w=$('#cmpw');bc.className='';w.appendChild(bc);const ac=clone(pv);ac.className='after';w.appendChild(ac);w.insertAdjacentHTML('beforeend','<div class="cmpline" id="cmpl"></div><span class="cmptag" style="left:8px">Before</span><span class="cmptag" style="right:8px">After</span>');
+  const set=p=>{ac.style.clipPath=`inset(0 0 0 ${p}%)`;$('#cmpl').style.left=p+'%';};set(50);const mv=e=>{const r=w.getBoundingClientRect();set(clamp((e.clientX-r.left)/r.width*100,0,100));};w.onpointerdown=e=>{w.setPointerCapture(e.pointerId);mv(e);w.onpointermove=mv;};w.onpointerup=()=>{w.onpointermove=null;};return;}
+ st.innerHTML='';const vc=clone(pv);vc.id='view';st.appendChild(vc);if(ED.tool==='remove'||ED.tool==='crop'||(ED.tool==='understand'&&ED.ocr)){const ov=mk(pv.width,pv.height);ov.className='ov';ov.id='ov';st.appendChild(ov);requestAnimationFrame(()=>{const r=vc.getBoundingClientRect(),sr=st.getBoundingClientRect();Object.assign(ov.style,{left:(r.left-sr.left)+'px',top:(r.top-sr.top)+'px',width:r.width+'px',height:r.height+'px'});});if(ED.tool==='remove')bindPaint(ov);if(ED.tool==='crop')bindCrop(ov);if(ED.tool==='understand')drawOCR(ov);}}
+function bindDrop(el){if(!el)return;el.addEventListener('dragover',e=>{e.preventDefault();el.style.outline='2px dashed var(--ink)';});el.addEventListener('dragleave',()=>{el.style.outline='';});el.addEventListener('drop',e=>{e.preventDefault();el.style.outline='';const f=e.dataTransfer.files&&e.dataTransfer.files[0];if(f)openFile(f);});}
+/* painting (object removal mask) */
+function bindPaint(ov){const c=curC();if(!ED.mask)ED.mask=mk(c.width,c.height);const k=c.width/ov.width;const og=cx(ov);const redraw=()=>{og.clearRect(0,0,ov.width,ov.height);og.globalAlpha=.55;og.drawImage(tint(ED.mask,'#ff2d55'),0,0,ov.width,ov.height);og.globalAlpha=1;};redraw();let down=false,last=null;
+ const pt=e=>{const r=ov.getBoundingClientRect();return[(e.clientX-r.left)/r.width*c.width,(e.clientY-r.top)/r.height*c.height];};const dab=(p)=>{const g=cx(ED.mask);g.fillStyle='#000';g.strokeStyle='#000';g.lineCap='round';g.lineWidth=ED.brush*k*(ov.width/ov.getBoundingClientRect().width);if(last){g.beginPath();g.moveTo(last[0],last[1]);g.lineTo(p[0],p[1]);g.stroke();}g.beginPath();g.arc(p[0],p[1],g.lineWidth/2,0,7);g.fill();last=p;redraw();};
+ ov.onpointerdown=e=>{down=true;last=null;ov.setPointerCapture(e.pointerId);dab(pt(e));};ov.onpointermove=e=>{if(down)dab(pt(e));};ov.onpointerup=ov.onpointercancel=()=>{down=false;last=null;};}
+function tint(m,color){const o=mk(m.width,m.height),g=cx(o);g.drawImage(m,0,0);g.globalCompositeOperation='source-in';g.fillStyle=color;g.fillRect(0,0,o.width,o.height);return o;}
+/* crop */
+function bindCrop(ov){const c=curC();const og=cx(ov);const s=ov.width/c.width;if(!ED.crop){const ar=ASPECTS[ED.cropAR];ED.crop=ar?aspectRect(c.width,c.height,ar):{x:c.width*.05,y:c.height*.05,w:c.width*.9,h:c.height*.9};}
+ const draw=()=>{const r=ED.crop;og.clearRect(0,0,ov.width,ov.height);og.fillStyle='rgba(0,0,0,.5)';og.fillRect(0,0,ov.width,ov.height);og.clearRect(r.x*s,r.y*s,r.w*s,r.h*s);og.strokeStyle='#fff';og.lineWidth=2;og.strokeRect(r.x*s,r.y*s,r.w*s,r.h*s);og.globalAlpha=.4;og.beginPath();for(let i=1;i<3;i++){og.moveTo((r.x+r.w*i/3)*s,r.y*s);og.lineTo((r.x+r.w*i/3)*s,(r.y+r.h)*s);og.moveTo(r.x*s,(r.y+r.h*i/3)*s);og.lineTo((r.x+r.w)*s,(r.y+r.h*i/3)*s);}og.stroke();og.globalAlpha=1;const t=$('#cropInfo');if(t)t.textContent=`${Math.round(r.w)} × ${Math.round(r.h)}px`;};draw();
+ const pt=e=>{const b=ov.getBoundingClientRect();return[(e.clientX-b.left)/b.width*c.width,(e.clientY-b.top)/b.height*c.height];};let mode=null,start=null,orig=null;
+ ov.onpointerdown=e=>{ov.setPointerCapture(e.pointerId);const p=pt(e),r=ED.crop;start=p;orig={...r};mode=p[0]>r.x&&p[0]<r.x+r.w&&p[1]>r.y&&p[1]<r.y+r.h?'move':'new';};
+ ov.onpointermove=e=>{if(!mode)return;const p=pt(e);if(mode==='move'){ED.crop={...orig,x:clamp(orig.x+p[0]-start[0],0,c.width-orig.w),y:clamp(orig.y+p[1]-start[1],0,c.height-orig.h)};}else{let x=Math.min(start[0],p[0]),y=Math.min(start[1],p[1]),w=Math.abs(p[0]-start[0]),h=Math.abs(p[1]-start[1]);const ar=ASPECTS[ED.cropAR];if(ar){if(w/h>ar)w=h*ar;else h=w/ar;if(p[0]<start[0])x=start[0]-w;if(p[1]<start[1])y=start[1]-h;}x=clamp(x,0,c.width);y=clamp(y,0,c.height);ED.crop={x,y,w:Math.min(w,c.width-x),h:Math.min(h,c.height-y)};}draw();};
+ ov.onpointerup=()=>{mode=null;if(ED.crop.w<10||ED.crop.h<10){ED.crop=null;bindCrop(ov);}};}
+function drawOCR(ov){const c=curC(),g=cx(ov),s=ov.width/c.width;g.clearRect(0,0,ov.width,ov.height);(ED.ocr&&ED.ocr.words||[]).forEach(w=>{if(w.confidence<40)return;const b=w.bbox;g.fillStyle='rgba(245,158,11,.18)';g.strokeStyle='#f59e0b';g.lineWidth=1.5;g.fillRect(b.x0*s,b.y0*s,(b.x1-b.x0)*s,(b.y1-b.y0)*s);g.strokeRect(b.x0*s,b.y0*s,(b.x1-b.x0)*s,(b.y1-b.y0)*s);});ov.style.pointerEvents='none';}
+/* tool panels */
+let edStop=null;
+async function doOp(btn,label,fn){await run(btn,async()=>{const out=await fn(curC());if(out){push(out,label);renderEditor();}});}
+function renderTool(){const b=$('#toolBox');if(!b)return;const t=ED.tool;
+ if(t==='prompt'){b.innerHTML=`<label>Describe your edit<span class="row" style="align-items:flex-start"><textarea id="pIn" rows="2" placeholder="e.g. make it warmer, blur the background and crop to a square"></textarea><button type="button" class="icon-btn" data-dictate="pIn" title="Speak"></button></span></label><div class="chips">${EX_PROMPTS.map(p=>`<button class="chip" data-ep="${esc(p)}">${esc(p)}</button>`).join('')}</div><div class="row wrap" style="margin-top:10px"><button class="btn primary" id="pGo">${ic('wand')} Apply edit</button><label class="check" style="margin:0"><input type="checkbox" id="pGen"> Use the AI image model (${esc(IMG_NAMES[S.settings.imgProvider])})</label><button class="btn danger sm" id="pStop" hidden>Stop</button></div><div id="pOut" class="small" style="margin-top:8px"></div><p class="note">Adjustments, background, crop and enhance steps run on your device. Content changes (adding or replacing things) use your image model${canEditGen()?'':' — choose OpenAI, Gemini or Local Stable Diffusion in Settings to enable them'}.</p>`;icons(b);wireMics(b);$$('[data-ep]',b).forEach(x=>x.onclick=()=>{$('#pIn').value=x.dataset.ep;});$('#pGo').onclick=e=>promptEdit($('#pIn').value,e.currentTarget,$('#pGen').checked);return;}
+ if(t==='adjust'){b.innerHTML=ADJ.map(([k,l])=>`<div class="sl"><span>${l}</span><input type="range" data-adj="${k}" min="${ADJ_MIN[k]??-100}" max="${ADJ_MAX[k]??100}" value="${ED.adj[k]}"><b id="av-${k}">${ED.adj[k]}</b></div>`).join('')+`<div class="row end" style="margin-top:8px"><button class="btn sm" id="aReset">Reset</button><button class="btn primary sm" id="aApply">Apply</button></div>`;let tm=null;$$('[data-adj]',b).forEach(r=>r.oninput=()=>{ED.adj[r.dataset.adj]=+r.value;$('#av-'+r.dataset.adj).textContent=r.value;clearTimeout(tm);tm=setTimeout(drawStage,40);});$('#aReset').onclick=()=>{ED.adj=zeroAdj();renderTool();drawStage();};$('#aApply').onclick=()=>{if(isZero(ED.adj))return;const c=adjustCanvas(curC(),ED.adj);push(c,'Adjustments');renderEditor();};return;}
+ if(t==='filters'){const sm=scaled(curC(),140);b.innerHTML=`<div class="gal" style="grid-template-columns:repeat(auto-fill,minmax(86px,1fr))">${Object.entries(FILTERS).map(([k,[l,a]])=>`<button class="gi" data-flt="${k}"><img src="${(k==='auto'?autoEnhance(sm):adjustCanvas(sm,{...zeroAdj(),...(a||{})})).toDataURL('image/jpeg',.8)}" alt=""><span>${l}</span></button>`).join('')}</div><div class="sl" style="margin-top:10px"><span>Strength</span><input type="range" id="fStr" min="0" max="150" value="100"><b id="fStrV">100%</b></div><div class="row end"><button class="btn primary sm" id="fApply" disabled>Apply filter</button></div>`;let sel=null;const applyPrev=()=>{if(!sel)return;if(sel==='auto'){ED.adj=zeroAdj();drawStage();return;}const k=+$('#fStr').value/100;ED.adj={...zeroAdj()};Object.entries(FILTERS[sel][1]).forEach(([a,v])=>ED.adj[a]=Math.round(v*k));drawStage();};
+  $$('[data-flt]',b).forEach(x=>x.onclick=()=>{sel=x.dataset.flt;$$('[data-flt]',b).forEach(y=>y.style.outline=y===x?'3px solid var(--ink)':'');$('#fApply').disabled=false;applyPrev();});$('#fStr').oninput=e=>{$('#fStrV').textContent=e.target.value+'%';applyPrev();};$('#fApply').onclick=()=>{if(sel==='auto'){push(autoEnhance(curC()),'Auto enhance');}else{if(isZero(ED.adj))return;push(adjustCanvas(curC(),ED.adj),FILTERS[sel][0]+' filter');}renderEditor();};return;}
+ if(t==='bg'){b.innerHTML=`<div class="row wrap"><button class="btn primary" id="bgRm">${ic('cut')} Remove background</button><button class="btn" id="bgCrop">Crop to subject</button></div><div class="sl" style="margin-top:12px"><span>Blur amount</span><input type="range" id="bgBlurA" min="4" max="60" value="22"><b id="bgBlurV">22</b></div><div class="row"><button class="btn" id="bgBlur">Blur background</button></div><h4>Replace background</h4><div class="swatches">${BG_PRESETS.filter(p=>p[0]!=='transparent').map(([k,l,bg])=>`<button class="sw" data-bgp="${k}" title="${l}" style="background:${bg.type==='color'?bg.color:`radial-gradient(${bg.c1},${bg.c2})`}"></button>`).join('')}<input type="color" id="bgCol" value="#3b6fb6" title="Custom color" style="width:38px;height:30px;padding:2px"></div><div class="row wrap" style="margin-top:8px"><button class="btn sm" id="bgLib">Use a photo from library</button></div><label style="margin-top:10px">Or describe a new background (AI image model)<span class="row"><input id="bgPrompt" placeholder="e.g. soft sunlit cafe interior, shallow depth of field"><button class="btn" id="bgGen">${ic('spark')} Generate</button></span></label><p class="note">The subject is found with the ${S.settings.bgModel==='modnet'?'MODNet portrait':'RMBG-1.4'} model on your device (one-time download).</p>`;icons(b);
+  const masked=async c=>{const m=await subjectMask(c);return maskToAlpha(c,m);};
+  $('#bgRm').onclick=e=>doOp(e.currentTarget,'Background removed',c=>hasAlpha(c)?(toast('Background is already transparent.'),null):masked(c));
+  $('#bgCrop').onclick=e=>doOp(e.currentTarget,'Cropped to subject',async c=>{const fg=hasAlpha(c)?c:await masked(c);const bb=alphaBBox(fg);if(!bb)throw new Error('No subject found.');const p=Math.round(Math.max(bb.w,bb.h)*.06);return cropRect(c,bb.x-p,bb.y-p,bb.w+2*p,bb.h+2*p);});
+  $('#bgBlurA').oninput=e=>$('#bgBlurV').textContent=e.target.value;
+  $('#bgBlur').onclick=e=>doOp(e.currentTarget,'Background blurred',async c=>{const m=await subjectMask(c);const fg=maskToAlpha(c,m);const r=Math.round(+$('#bgBlurA').value*Math.max(c.width,c.height)/1600);const o=blurCanvas(composite(c,{type:'color',color:'#000'}),r);cx(o).drawImage(fg,0,0);return o;});
+  const repl=async(btn,bg,label)=>doOp(btn,label,async c=>{const fg=hasAlpha(c)?c:await masked(c);return composite(fg,bg);});
+  $$('[data-bgp]',b).forEach(x=>x.onclick=()=>repl(x,BG_PRESETS.find(p=>p[0]===x.dataset.bgp)[2],'New background'));$('#bgCol').onchange=e=>repl(e.target,{type:'color',color:e.target.value},'New background');
+  $('#bgLib').onclick=()=>libPicker(async it=>{const bgc=await blobToCanvas(it.blob);repl($('#bgLib'),{type:'image',canvas:bgc},'Background: '+it.name);});
+  $('#bgGen').onclick=e=>{const p=$('#bgPrompt').value.trim();if(!p){toast('Describe the background first.');return;}doOp(e.currentTarget,'AI background',async c=>{const fg=hasAlpha(c)?c:await masked(c);const ar=c.width/c.height;const asp=Object.entries(ASPECTS).sort((x,y)=>Math.abs(x[1]-ar)-Math.abs(y[1]-ar))[0][0];const bgc=await generateImage(p+', background only, no people, photographic',{aspect:asp});S.stats.generated++;save();return composite(fg,{type:'image',canvas:bgc});});};return;}
+ if(t==='remove'){b.innerHTML=`<p class="small" style="margin-top:0">Paint over what you want to remove — people, wires, blemishes, text, objects.</p><div class="sl"><span>Brush size</span><input type="range" id="brSz" min="6" max="160" value="${ED.brush}"><b id="brV">${ED.brush}</b></div><div class="row wrap" style="margin-top:6px"><button class="btn primary" id="rmGo">${ic('eraser')} Remove (on device)</button><button class="btn" id="rmGen" ${canEditGen()?'':'title="Needs OpenAI, Gemini or Local Stable Diffusion"'}>${ic('spark')} Generative fill</button><button class="btn sm ghost" id="rmClr">Clear</button></div><label style="margin-top:8px">Generative fill instruction (optional)<input id="rmPrompt" placeholder="e.g. replace with green grass; or leave blank to remove"></label><p class="note">On-device removal (OpenCV) is best for small objects and blemishes. Generative fill rebuilds larger areas realistically.</p>`;icons(b);
+  $('#brSz').oninput=e=>{ED.brush=+e.target.value;$('#brV').textContent=e.target.value;};$('#rmClr').onclick=()=>{ED.mask=null;drawStage();};
+  $('#rmGo').onclick=e=>{if(!ED.mask){toast('Paint over the object first.');return;}const m=ED.mask;doOp(e.currentTarget,'Object removed',c=>inpaintCV(c,m));};
+  $('#rmGen').onclick=e=>{if(!ED.mask){toast('Paint over the area first.');return;}const m=ED.mask;const p=$('#rmPrompt').value.trim()||'Remove the marked object and fill the area naturally so it matches the surroundings.';doOp(e.currentTarget,'Generative fill',c=>editGenerative(c,p,m));};return;}
+ if(t==='enhance'){const c=curC();const big=Math.max(c.width,c.height);b.innerHTML=`<div class="tool-tiles">${[['auto','bolt','Auto enhance','Levels, color & detail'],['light','eye','Fix lighting','Recover shadows (CLAHE)'],['denoise','wand','Reduce noise','Smooth grain, keep edges'],['sharpen','spark','Sharpen','Crisper details']].map(([k,i,t2,s])=>`<button class="tile" data-enh="${k}"><span class="c-lift">${ic(i)}</span><b>${t2}</b><span>${s}</span></button>`).join('')}</div><h4>Upscale</h4><div class="row wrap"><button class="btn primary" data-up="2">AI upscale 2×</button><button class="btn" data-up="4">AI upscale 4×</button><button class="btn sm" data-upf="2">Fast 2×</button></div><p class="note">${big>1024?`This photo is ${big}px — AI upscaling works on up to 1024px, so it will be scaled down first; Fast 2× keeps full size.`:'AI upscaling (Swin2SR) runs on your device; larger images take longer.'} Result is ${c.width*2}×${c.height*2}px for 2×.</p>`;icons(b);
+  $$('[data-enh]',b).forEach(x=>x.onclick=()=>{const k=x.dataset.enh;doOp(x,{auto:'Auto enhance',light:'Lighting fixed',denoise:'Noise reduced',sharpen:'Sharpened'}[k],c=>k==='auto'?autoEnhance(c):k==='light'?lightingCV(c):k==='denoise'?denoiseCV(c):sharpenCanvas(c,.45));});
+  $$('[data-up]',b).forEach(x=>x.onclick=()=>doOp(x,`Upscaled ${x.dataset.up}×`,c=>upscaleAI(scaled(c,1024),+x.dataset.up)));$$('[data-upf]',b).forEach(x=>x.onclick=()=>doOp(x,'Upscaled 2× (fast)',c=>{if(Math.max(c.width,c.height)*2>MAXDIM*2)throw new Error('Too large to upscale further.');return upscaleFast(c,2);}));return;}
+ if(t==='crop'){b.innerHTML=`<div class="chips">${['free','1:1','4:5','3:2','2:3','16:9','9:16','4:3'].map(a=>`<button class="chip" data-ar="${a}" style="${a===ED.cropAR?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${a==='free'?'Free':a}</button>`).join('')}</div><p class="tiny muted" style="margin:8px 0">Drag on the photo to draw a crop, or drag inside it to move. <span id="cropInfo"></span></p><div class="row wrap"><button class="btn primary" id="crGo">${ic('crop')} Apply crop</button><button class="btn" id="crFace">Center on face</button><button class="btn sm" data-rot="-90">⟲ Rotate left</button><button class="btn sm" data-rot="90">⟳ Rotate right</button><button class="btn sm" data-flip="h">⇋ Flip</button><button class="btn sm" data-flip="v">⇵ Flip vertical</button></div>`;icons(b);
+  $$('[data-ar]',b).forEach(x=>x.onclick=()=>{ED.cropAR=x.dataset.ar;ED.crop=null;renderTool();drawStage();});
+  $('#crGo').onclick=()=>{const r=ED.crop;if(!r)return;push(cropRect(curC(),r.x,r.y,r.w,r.h),'Cropped');renderEditor();};
+  $('#crFace').onclick=e=>run(e.currentTarget,async()=>{const c=curC();const f=await faceBox(c);if(!f)throw new Error('No face found.');const ar=ASPECTS[ED.cropAR]||(c.width/c.height);ED.crop=aspectRect(c.width,c.height,ar,(f.originX+f.width/2)/c.width,(f.originY+f.height/2)/c.height);drawStage();});
+  $$('[data-rot]',b).forEach(x=>x.onclick=()=>{push(rotate(curC(),+x.dataset.rot),'Rotated');renderEditor();});$$('[data-flip]',b).forEach(x=>x.onclick=()=>{push(flip(curC(),x.dataset.flip),'Flipped');renderEditor();});return;}
+ if(t==='understand'){b.innerHTML=`<div class="row wrap"><button class="btn primary" id="unDesc">${ic('eye')} Describe photo</button><button class="btn" id="unAlt">Alt text</button><button class="btn" id="unOcr">${ic('text')} Read text (OCR)</button><button class="btn" id="unTags">Auto-tag</button></div><label style="margin-top:10px">Ask about this photo<span class="row"><input id="unQ" placeholder="e.g. What breed is this dog? What does the sign say?"><button class="btn" id="unAsk">Ask</button></span></label><div id="unOut" class="out" style="margin-top:10px">${ED.ocr?ocrHTML(ED.ocr):''}</div>`;icons(b);bindOCRbtns();
+  const vis=async(btn,prompt,sys)=>run(btn,async()=>{const c=composite(scaled(curC(),1280),{type:'color',color:'#fff'});const t2=await aiVision(prompt,[c.toDataURL('image/jpeg',.88)],{system:sys,max:1200});$('#unOut').innerHTML=`<div class="soft md">${tmd(t2)}</div>`;});
+  $('#unDesc').onclick=e=>vis(e.currentTarget,'Describe this photo.','Describe the photo clearly: subject, setting, composition, lighting, colors and mood, then 2–3 specific editing suggestions. Do not identify real people by name. Markdown, under 180 words.');
+  $('#unAlt').onclick=e=>vis(e.currentTarget,'Write alt text for this image.','Write concise, useful alt text (under 125 characters) for screen readers, then one longer description sentence. Do not identify real people by name.');
+  $('#unAsk').onclick=e=>{const q=$('#unQ').value.trim();if(q)vis(e.currentTarget,q,'Answer the question about the image accurately; say if something is not visible or uncertain. Do not identify real people by name.');};
+  $('#unOcr').onclick=e=>run(e.currentTarget,async()=>{const d=await ocrCanvas(curC());ED.ocr={text:(d.text||'').trim(),words:(d.words||[]).map(w=>({text:w.text,confidence:w.confidence,bbox:w.bbox})),conf:d.confidence};$('#unOut').innerHTML=ocrHTML(ED.ocr);bindOCRbtns();drawStage();});
+  $('#unTags').onclick=e=>run(e.currentTarget,async()=>{const emb=await imageEmb(curC());const tags=await autoTags(emb);$('#unOut').innerHTML=`<div class="soft"><b>Tags:</b> ${tags.map(t2=>`<span class="pill">${esc(t2)}</span>`).join(' ')||'none confident'}</div>`;});}}
+const ocrHTML=o=>`<div class="soft"><div class="row between"><b>Text found</b><span class="tiny muted">${o.text?`${o.text.split(/\s+/).length} words · ${r0(o.conf||0)}% confidence`:''}</span></div><textarea id="ocrT" rows="6" style="margin-top:6px">${esc(o.text||'(no text found)')}</textarea><div class="row wrap" style="margin-top:6px"><button class="btn sm" id="ocrCp">Copy</button><button class="btn sm" id="ocrDl">Download .txt</button><button class="btn sm" id="ocrFix">${ic('spark')} Clean up</button><button class="btn sm" id="ocrTr">${ic('spark')} Translate to English</button></div></div>`;
+function bindOCRbtns(){const c=$('#ocrCp');if(!c)return;icons($('#unOut'));c.onclick=()=>copy($('#ocrT').value);$('#ocrDl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([$('#ocrT').value],{type:'text/plain'}));a.download=(ED.name||'text')+'.txt';a.click();};$('#ocrFix').onclick=e=>run(e.currentTarget,async()=>{$('#ocrT').value=await ai($('#ocrT').value,{system:'Clean up this OCR text: fix obvious recognition errors, join broken lines into paragraphs, keep the original wording and language. Output only the text.',temp:0,max:2500});});$('#ocrTr').onclick=e=>run(e.currentTarget,async()=>{$('#ocrT').value=await ai($('#ocrT').value,{system:'Translate this text into natural English. Output only the translation.',temp:.1,max:2500});});}
+async function promptEdit(text,btn,forceGen){text=String(text||'').trim();if(!text){toast('Describe the edit first.');return;}const out=$('#pOut');const st=$('#pStop');let stop=false;if(st){st.hidden=false;st.onclick=()=>{stop=true;ctl&&ctl.abort&&ctl.abort();};}
+ S.recentPrompts=[text,...S.recentPrompts.filter(p=>p!==text)].slice(0,12);save();
+ await run(btn,async()=>{let plan;if(forceGen)plan={steps:[{op:'generative',prompt:text}],note:'Sending your instruction to the AI image model.'};else{if(out)out.textContent='Planning the edit…';plan=await planEdit(text,curC());}
+  if(out)out.innerHTML=`<b>${esc(plan.note||'')}</b><ol style="margin:6px 0 0;padding-left:20px">${plan.steps.map((s,i)=>`<li id="ps${i}">${esc(describeStep(s))}</li>`).join('')}</ol>`;
+  for(let i=0;i<plan.steps.length;i++){if(stop)break;const s=plan.steps[i];const li=$('#ps'+i);if(li)li.style.fontWeight='600';try{const c=await execStep(s,curC());if(c){push(c,describeStep(s));if(cur==='edit'){drawStage();}}if(li){li.style.fontWeight='';li.insertAdjacentHTML('beforeend',' <span style="color:var(--good)">✓</span>');}}catch(e){if(li)li.insertAdjacentHTML('beforeend',` <span style="color:var(--bad)">— ${esc(e.message)}</span>`);if(e.stopped)break;}}
+  if(cur==='edit'){const keep=out?out.innerHTML:'';renderEditor();const o2=$('#pOut');if(o2)o2.innerHTML=keep;}}).finally(()=>{const s2=$('#pStop');if(s2)s2.hidden=true;});}
+function describeStep(s){switch(s.op){case'adjust':return'Adjust '+Object.entries(s.params||{}).filter(([,v])=>v).map(([k,v])=>`${k} ${v>0?'+':''}${Math.round(v)}`).join(', ');case'filter':return(FILTERS[s.name]||['Filter'])[0]+' filter';case'auto_enhance':return'Auto enhance';case'denoise':return'Reduce noise';case'fix_lighting':return'Fix lighting';case'upscale':return`Upscale ${s.scale||2}×`;case'crop':return'Crop to '+s.aspect;case'rotate':return`Rotate ${s.deg}°`;case'flip':return'Flip '+(s.axis==='v'?'vertical':'horizontal');case'remove_background':return'Remove background';case'blur_background':return'Blur background';case'replace_background':return s.prompt?'AI background: '+s.prompt:'Background '+(s.color||'');case'generative':return'AI edit: '+s.prompt;default:return s.op;}}
+async function execStep(s,c){switch(s.op){case'adjust':{const a=zeroAdj();Object.entries(s.params||{}).forEach(([k,v])=>{if(k in a)a[k]=clamp(+v||0,ADJ_MIN[k]??-100,ADJ_MAX[k]??100);});return isZero(a)?null:adjustCanvas(c,a);}
+ case'filter':{const f=FILTERS[s.name];if(!f)return null;return f[1]?adjustCanvas(c,{...zeroAdj(),...f[1]}):autoEnhance(c);}
+ case'auto_enhance':return autoEnhance(c);case'denoise':return denoiseCV(c);case'fix_lighting':return lightingCV(c);case'upscale':return upscaleAI(scaled(c,1024),s.scale>=4?4:2);
+ case'crop':{const ar=ASPECTS[s.aspect];if(!ar)return null;let cxp=.5,cyp=.5;try{const f=await faceBox(c);if(f){cxp=(f.originX+f.width/2)/c.width;cyp=(f.originY+f.height/2)/c.height;}}catch(e){}const r=aspectRect(c.width,c.height,ar,cxp,cyp);return cropRect(c,r.x,r.y,r.w,r.h);}
+ case'rotate':return rotate(c,+s.deg||90);case'flip':return flip(c,s.axis==='v'?'v':'h');
+ case'remove_background':return hasAlpha(c)?null:maskToAlpha(c,await subjectMask(c));
+ case'blur_background':{const m=await subjectMask(c);const fg=maskToAlpha(c,m);const o=blurCanvas(composite(c,{type:'color',color:'#000'}),Math.round(clamp(+s.amount||40,5,100)*Math.max(c.width,c.height)/2400));cx(o).drawImage(fg,0,0);return o;}
+ case'replace_background':{const fg=hasAlpha(c)?c:maskToAlpha(c,await subjectMask(c));if(s.prompt){const bg=await generateImage(s.prompt+', background only, photographic',{aspect:Object.entries(ASPECTS).sort((x,y)=>Math.abs(x[1]-c.width/c.height)-Math.abs(y[1]-c.width/c.height))[0][0]});S.stats.generated++;save();return composite(fg,{type:'image',canvas:bg});}return composite(fg,{type:'color',color:/^#[0-9a-f]{3,8}$/i.test(s.color||'')?s.color:'#ffffff'});}
+ case'generative':return editGenerative(c,s.prompt);default:return null;}}
+function exportModal(c,name){openModal('Export',`<div class="form-row"><label>Format<select id="exF"><option value="png">PNG${hasAlpha(c)?' (keeps transparency)':''}</option><option value="jpg">JPEG</option><option value="webp">WebP</option></select></label><label>Size<select id="exS"><option value="1">Full — ${c.width}×${c.height}</option><option value="2048">Large — 2048px</option><option value="1080">Social — 1080px</option><option value="640">Small — 640px</option></select></label></div><div class="sl"><span>Quality</span><input type="range" id="exQ" min="50" max="100" value="92"><b id="exQv">92</b></div><button class="btn primary block" id="exGo">${ic('dl')} Download</button>`,{onMount:d=>{$('#exQ',d).oninput=e=>$('#exQv',d).textContent=e.target.value;$('#exGo',d).onclick=()=>{const s=$('#exS',d).value;const cc=s==='1'?c:scaled(c,+s);exportCanvas(cc,name,$('#exF',d).value,+$('#exQ',d).value/100);d.close();};}});}
+async function libPicker(onPick){await refreshLib();openModal('Choose from library',LIB.length?`<div class="gal">${LIB.map(it=>`<button class="gi" data-pick="${it.id}"><img src="${it.thumb}" alt=""><span>${esc(it.name)}</span></button>`).join('')}</div>`:'<p class="empty">Your library is empty.</p>',{wide:true,onMount:d=>{d.onclick=async e=>{const b=e.target.closest('[data-pick]');if(!b)return;const it=LIB.find(x=>x.id===b.dataset.pick);d.close();onPick(it);};}});}
+let ctl=null;
+
+/* ---------- smart search indexing ---------- */
+async function indexItem(it){const c=await blobToCanvas(it.blob);const emb=await imageEmb(c);const tags=await autoTags(emb);const cur2=await DB.get(it.id);if(!cur2)return;cur2.emb=emb;if(!cur2.tagsManual)cur2.tags=tags;await DB.put(cur2);await refreshLib();}
+
+/* ---------- AI assistant (Home) ---------- */
+const ASSIST_SYS=`You are the assistant inside AI Photo, an AI photo editor. Help with editing ideas, photography tips, prompts for image generation, captions and social posts. You can also run actions in the app. Return JSON {"reply":"short markdown answer","actions":[...]}. Actions (only when the user asks for something the app can do):
+{"type":"edit","prompt":"edit instruction for the photo currently open in the editor"}
+{"type":"generate","prompt":"detailed image prompt","aspect":"1:1|4:5|16:9|9:16|3:2|2:3"}
+{"type":"search","query":"words to search the photo library"}
+{"type":"social","topic":"what the post is about","template":"ig|ig45|story|fb|x|li|yt|pin|lib"}
+{"type":"open","view":"home|edit|create|portrait|social|library|settings"}
+Never claim an action finished — say you are starting it. Do not identify real people in photos by name.`;
+const ASSIST_Q=['Give my photo a moody cinematic look','Generate a cozy coffee shop flat-lay','Make a headshot from my photo','Find my beach photos','Write an Instagram post for my bakery','How do I shoot better portraits on my phone?'];
+function renderChat(){const c=$('#chat');if(!c)return;const m=S.chat.slice(-8);c.innerHTML=m.map(x=>x.role==='user'?`<div class="msg me">${esc(x.text)}</div>`:`<div class="msg ai"><div class="md">${tmd(x.text)}</div></div>`).join('')+(m.length?'<div class="row end"><button class="btn ghost sm" id="chatClear">Clear chat</button></div>':'');const cl=$('#chatClear');if(cl)cl.onclick=()=>{S.chat=[];save();renderChat();};}
+async function askAssistant(q,btn){q=String(q||'').trim();if(!q)return;S.chat.push({role:'user',text:q});S.chat=S.chat.slice(-30);save();renderChat();
+ await run(btn,async()=>{const hist=S.chat.slice(-7,-1).map(m=>`${m.role==='user'?'Me':'Assistant'}: ${m.text.slice(0,400)}`).join('\n');const ctx=`App state: ${curC()?`a photo "${ED.name}" (${curC().width}×${curC().height}) is open in the editor`:'no photo open in the editor'}; library has ${LIB.length} images; image generator: ${IMG_NAMES[S.settings.imgProvider]}.`;
+  const prompt=`${hist?'Earlier:\n'+hist+'\n\n':''}${ctx}\nMy message: ${q}`;let out;ctl=new AbortController();
+  try{out=await ai(prompt,{system:ASSIST_SYS,json:true,temp:.4,max:1500,signal:ctl.signal});}catch(e){if(!/unreadable/.test(e.message))throw e;out={reply:await ai(prompt,{system:ASSIST_SYS.split('You can also run')[0],temp:.4,max:1200}),actions:[]};}
+  const notes=[];let after=null;
+  for(const a of(Array.isArray(out.actions)?out.actions:[])){if(!a||!a.type)continue;
+   if(a.type==='edit'&&a.prompt){if(!curC()){notes.push('Open a photo in the editor first, then ask again.');after=()=>go('edit');continue;}after=()=>{ED.tool='prompt';go('edit');setTimeout(()=>{const i=$('#pIn');if(i){i.value=a.prompt;promptEdit(a.prompt,$('#pGo'),false);}},120);};notes.push('Applying the edit in the editor — you can undo any step.');}
+   else if(a.type==='generate'&&a.prompt){after=()=>{CR.prompt=String(a.prompt);if(ASPECTS[a.aspect])CR.aspect=a.aspect;go('create');setTimeout(()=>{const b=$('#crGo');if(b)b.click();},150);};notes.push('Generating it in Create.');}
+   else if(a.type==='search'&&a.query){after=()=>{LS.q=String(a.query);go('library');};notes.push('Searching your library.');}
+   else if(a.type==='social'){after=()=>{if(SOC_T[a.template])SOC.t=a.template;go('social');if(a.topic)setTimeout(()=>{const t=$('#soTopic');if(t){t.value=a.topic;$('#soAI').click();}},150);};notes.push('Opening the social post designer.');}
+   else if(a.type==='open'&&VIEWS.includes(a.view))after=()=>go(a.view);}
+  S.chat.push({role:'ai',text:String(out.reply||'Done.')+(notes.length?`\n\n*${notes.join(' ')}*`:'')});save();renderChat();if(after)setTimeout(after,350);});}
+
+/* ---------- HOME ---------- */
+R.home=async()=>{const v=$('#v-home');await refreshLib();const wk=S.stats.weekEdits[weekKey()]||0;const recent=LIB.slice(0,8);
+ v.innerHTML=`<div class="grid">
+  <button class="stat" data-go="library"><span class="c-lift">${ic('save')}</span><b>${LIB.length}</b><span>Creations saved</span></button>
+  <button class="stat" data-go="edit"><span class="c-pro">${ic('wand')}</span><b>${wk}</b><span>Edits this week</span></button>
+  <button class="stat" data-go="create"><span class="c-kcal">${ic('spark')}</span><b>${S.stats.generated}</b><span>Images generated</span></button>
+  <button class="stat" data-go="settings"><span class="c-water">${ic('grid')}</span><b id="libSize">—</b><span>Library size</span></button>
+ </div>
+ <h2>Quick tools</h2><div class="tool-tiles">
+  <button class="tile" data-qt="upload"><span class="c-lift">${ic('upload')}</span><b>Edit a photo</b><span>Text prompts, adjust, filters</span></button>
+  <button class="tile" data-qt="bg"><span class="c-lift">${ic('cut')}</span><b>Remove background</b><span>Or blur / replace it</span></button>
+  <button class="tile" data-qt="remove"><span class="c-lift">${ic('eraser')}</span><b>Remove objects</b><span>Paint and erase</span></button>
+  <button class="tile" data-qt="enhance"><span class="c-lift">${ic('bolt')}</span><b>Enhance &amp; upscale</b><span>Light, noise, 2× / 4×</span></button>
+  <button class="tile" data-go="create"><span class="c-lift">${ic('spark')}</span><b>Text to image</b><span>Describe it, get it</span></button>
+  <button class="tile" data-go="portrait"><span class="c-lift">${ic('user')}</span><b>Headshot</b><span>Studio-style portraits</span></button>
+  <button class="tile" data-qt="understand"><span class="c-lift">${ic('text')}</span><b>Read &amp; describe</b><span>OCR, alt text, Q&amp;A</span></button>
+  <button class="tile" data-go="social"><span class="c-lift">${ic('share')}</span><b>Social post</b><span>Sized for every platform</span></button>
+ </div>
+ <h2>Recent creations</h2><div class="box">${recent.length?`<div class="gal">${recent.map(it=>`<button class="gi" data-item="${it.id}"><img src="${it.thumb}" alt=""><span>${esc(it.name)}</span></button>`).join('')}</div><p class="small" style="margin:8px 0 0"><a href="#library">Open library →</a></p>`:'<p class="empty">Saved edits, generated images, portraits and social posts appear here.</p>'}</div>
+ <h2>AI Assistant</h2><div class="soft"><div class="coach-head"><span class="c-lift">${ic('brain')}</span>Ask for an edit, an image, a caption or a tip<span class="grow"></span></div>
+  <div class="chips">${ASSIST_Q.map(q=>`<button class="chip" data-aq="${esc(q)}">${esc(q)}</button>`).join('')}</div>
+  <div class="chat" id="chat"></div>
+  <form class="askbar" id="askForm" autocomplete="off"><input id="askIn" placeholder="e.g. make my photo look like golden hour" aria-label="Ask the assistant"><button type="button" class="icon-btn" data-dictate="askIn" data-submit="#askBtn" title="Speak"></button><button class="btn primary" id="askBtn">Ask</button></form>
+  ${hasAI()?'':'<p class="note">Choose an AI provider in Settings to chat. Editing tools, background removal, OCR and Pollinations image generation work without one.</p>'}</div>`;
+ icons(v);wireMics(v);renderChat();$('#libSize').textContent=fmtMB(sum(LIB.map(i=>i.size||0)));
+ $$('[data-aq]',v).forEach(b=>b.onclick=()=>askAssistant(b.dataset.aq,$('#askBtn')));
+ $('#askForm').onsubmit=e=>{e.preventDefault();const q=$('#askIn').value;$('#askIn').value='';askAssistant(q,$('#askBtn'));};
+ $$('[data-qt]',v).forEach(b=>b.onclick=async()=>{const t=b.dataset.qt;if(t!=='upload')ED.tool=t;if(!curC()||t==='upload'){const f=await pickImg();if(!f)return;await openFile(f);}else go('edit');});};
+
+/* ---------- CREATE ---------- */
+const STYLES=[['','None'],['photorealistic, natural light, 35mm photo, high detail','Photo'],['cinematic film still, dramatic lighting, shallow depth of field','Cinematic'],['professional product photography, clean studio background, soft shadows','Product'],['digital illustration, vibrant colors, clean lines','Illustration'],['soft watercolor painting','Watercolor'],['3D render, soft global illumination, clay style','3D'],['anime style, detailed background','Anime'],['minimalist flat vector graphic, simple shapes','Flat vector'],['oil painting, visible brush strokes','Oil paint'],['isometric pixel art','Pixel art'],['moody black and white photography, high contrast','B&W photo']];
+const CR={prompt:'',style:1,aspect:'1:1',count:1,seed:'',negative:'',results:[]};
+R.create=()=>{const v=$('#v-create');const need=imgNeeds();
+ v.innerHTML=`<h2 style="margin-top:4px">Text to image</h2><div class="box">
+  <label>Describe the image<span class="row" style="align-items:flex-start"><textarea id="crP" rows="3" placeholder="e.g. a golden retriever wearing sunglasses on a sailboat at sunset">${esc(CR.prompt)}</textarea><button type="button" class="icon-btn" data-dictate="crP" title="Speak"></button></span></label>
+  <div class="row wrap"><button class="btn sm" id="crEnh">${ic('spark')} Improve my prompt</button><button class="btn sm ghost" id="crIdea">Surprise me</button></div>
+  <h4>Style</h4><div class="chips">${STYLES.map(([,l],i)=>`<button class="chip" data-sty="${i}" style="${i===CR.style?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${l}</button>`).join('')}</div>
+  <div class="form-row" style="margin-top:10px"><label>Aspect<select id="crA">${['1:1','4:5','3:2','2:3','16:9','9:16','4:3','3:4'].map(a=>`<option ${a===CR.aspect?'selected':''}>${a}</option>`).join('')}</select></label><label>How many<select id="crN">${[1,2,3,4].map(n=>`<option ${n===CR.count?'selected':''}>${n}</option>`).join('')}</select></label><label>Seed (optional)<input id="crS" inputmode="numeric" value="${esc(CR.seed)}" placeholder="random"></label></div>
+  <label>Avoid (negative prompt)<input id="crNeg" value="${esc(CR.negative)}" placeholder="e.g. text, watermark, extra fingers"></label>
+  <div class="row wrap"><button class="btn primary" id="crGo">${ic('spark')} Generate</button><span class="hint">Using ${esc(IMG_NAMES[S.settings.imgProvider])} · <a href="#settings">change</a></span></div>
+  ${need?`<p class="note err">${esc(need)}</p>`:''}<p class="note">Please don't generate deceptive images of real people.</p></div>
+ <div id="crOut">${crResults()}</div>`;icons(v);wireMics(v);
+ const sync=()=>{CR.prompt=$('#crP').value;CR.aspect=$('#crA').value;CR.count=+$('#crN').value;CR.seed=$('#crS').value.trim();CR.negative=$('#crNeg').value;};['#crP','#crA','#crN','#crS','#crNeg'].forEach(s=>$(s).addEventListener('change',sync));
+ $$('[data-sty]',v).forEach(b=>b.onclick=()=>{sync();CR.style=+b.dataset.sty;R.create();});
+ $('#crEnh').onclick=e=>{sync();if(!CR.prompt.trim()){toast('Write a short idea first.');return;}run(e.currentTarget,async()=>{CR.prompt=(await ai(CR.prompt,{system:'Rewrite this into one vivid, specific image-generation prompt (subject, setting, composition, lighting, lens/medium, mood). Under 70 words. Keep the user\'s intent. Output only the prompt.',temp:.6,max:400})).replace(/^["']|["']$/g,'').trim();$('#crP').value=CR.prompt;});};
+ $('#crIdea').onclick=e=>{const ideas=['a tiny cottage inside a glass bottle on a mossy forest floor, morning mist','a neon-lit ramen stand on a rainy Tokyo street at night','an astronaut tending a vegetable garden on Mars, warm sunrise','a vintage red bicycle leaning on a lavender field wall in Provence','a cozy reading nook with a cat, rain on the window, warm lamp light','a flat-lay of fresh pastries and coffee on a marble table, top-down'];if(!hasAI()){CR.prompt=ideas[Math.floor(Math.random()*ideas.length)];$('#crP').value=CR.prompt;return;}run(e.currentTarget,async()=>{CR.prompt=(await ai('Give me one original, visually striking image idea.',{system:'Output one image-generation prompt under 40 words, nothing else.',temp:1,max:200})).replace(/^["']|["']$/g,'').trim();$('#crP').value=CR.prompt;});};
+ $('#crGo').onclick=e=>{sync();generateBatch(e.currentTarget);};bindCrResults();};
+function crResults(){return CR.results.length?`<h2>Results</h2><div class="gal" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">${CR.results.map((r,i)=>`<div class="box" style="padding:8px"><img src="${r.url}" alt="${esc(r.prompt)}" style="width:100%;border-radius:8px;display:block"><div class="row wrap" style="margin-top:6px;gap:4px"><button class="btn sm" data-cre="${i}">${ic('wand')} Edit</button><button class="btn sm" data-crs="${i}" ${r.saved?'disabled':''}>${ic('save')} ${r.saved?'Saved':'Save'}</button><button class="btn sm ghost" data-crd="${i}">${ic('dl')}</button><button class="btn sm ghost" data-crv="${i}" title="More like this">↻</button></div></div>`).join('')}</div>`:'';}
+function bindCrResults(){const o=$('#crOut');if(!o)return;icons(o);o.onclick=async e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+ if(d.cre){const r=CR.results[+d.cre];loadIntoEditor(r.c,{name:r.name,source:'generated',prompt:r.prompt});go('edit');}
+ else if(d.crs){const r=CR.results[+d.crs];await run(b,async()=>{await saveItem({c:r.c,name:r.name,source:'generated',prompt:r.prompt,extra:{caption:r.prompt}});r.saved=true;toast('Saved to your library');$('#crOut').innerHTML=crResults();bindCrResults();});}
+ else if(d.crd){const r=CR.results[+d.crd];exportCanvas(r.c,r.name,'png');}
+ else if(d.crv){const r=CR.results[+d.crv];CR.prompt=r.base;CR.seed='';generateBatch(b);}};}
+async function generateBatch(btn){const base=CR.prompt.trim();if(!base){toast('Describe the image first.');return;}const style=STYLES[CR.style][0];const full=style?`${base}, ${style}`:base;
+ await run(btn,async()=>{for(let i=0;i<CR.count;i++){prog(`Generating image ${i+1} of ${CR.count}…`,i/CR.count);let c;try{const seed=CR.seed!==''?(+CR.seed||0)+i:null;c=await generateImage(full,{aspect:CR.aspect,seed,negative:CR.negative});}finally{progDone();}
+   const name=base.split(/\s+/).slice(0,6).join(' ');CR.results.unshift({c,url:c.toDataURL('image/jpeg',.9),prompt:full,base,name,saved:false});S.stats.generated++;save();const o=$('#crOut');if(o&&cur==='create'){o.innerHTML=crResults();bindCrResults();}
+   if(S.settings.imgProvider==='pollinations'&&i<CR.count-1){prog('Waiting for the free rate limit…',0);await new Promise(r=>setTimeout(r,15500));progDone();}}
+  CR.results=CR.results.slice(0,24);});}
+
+/* ---------- PORTRAIT ---------- */
+const PFMT={'1:1':['Square (LinkedIn, avatars)',1,1080,1080],'4:5':['Portrait 4:5',.8,1080,1350],'passport':['Passport / ID 35×45mm',35/45,827,1063],'2x2':['US passport 2×2in',1,600,600],'3:4':['Resume photo 3:4',.75,900,1200]};
+const PT={src:null,out:null,fmt:'1:1',bg:'studio',color:'#ffffff',smooth:30,light:10,warmth:0,consent:false,busy:false};
+R.portrait=()=>{const v=$('#v-portrait');
+ v.innerHTML=`<h2 style="margin-top:4px">Headshots &amp; portraits</h2><div class="box">
+  <div class="row wrap"><button class="btn ${PT.src?'':'primary'}" id="ptUp">${ic('upload')} ${PT.src?'Use a different photo':'Upload a photo of a face'}</button>${curC()?'<button class="btn" id="ptEd">Use photo from editor</button>':''}<button class="btn" id="ptLib">From library</button></div>
+  ${PT.src?`<div class="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"><div><div class="tiny muted">Original</div><img src="${thumbURL(PT.src,700)}" style="width:100%;border-radius:10px" alt=""></div><div><div class="tiny muted">Portrait</div>${PT.out?`<div class="stage" style="min-height:0"><img src="${PT.out.toDataURL('image/png')}" style="max-width:100%;display:block" alt=""></div>`:'<div class="empty" style="padding:30px 8px">Choose options and press Create portrait.</div>'}</div></div>`:''}
+  <h4>Format</h4><div class="chips">${Object.entries(PFMT).map(([k,[l]])=>`<button class="chip" data-pf="${k}" style="${k===PT.fmt?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${l}</button>`).join('')}</div>
+  <h4>Background</h4><div class="swatches">${BG_PRESETS.map(([k,l,bg])=>`<button class="sw ${k===PT.bg?'on':''}" data-pbg="${k}" title="${l}" style="background:${bg.type==='color'?bg.color:bg.type==='transparent'?'repeating-conic-gradient(#ddd 0 25%,#fff 0 50%) 0 0/10px 10px':`radial-gradient(${bg.c1},${bg.c2})`}"></button>`).join('')}<input type="color" id="ptCol" value="${PT.color}" title="Custom color" style="width:38px;height:30px;padding:2px"></div>
+  <div class="sl" style="margin-top:10px"><span>Skin smoothing</span><input type="range" id="ptSm" min="0" max="100" value="${PT.smooth}"><b>${PT.smooth}</b></div>
+  <div class="sl"><span>Brightness</span><input type="range" id="ptLi" min="-40" max="40" value="${PT.light}"><b>${PT.light}</b></div>
+  <div class="sl"><span>Warmth</span><input type="range" id="ptWa" min="-40" max="40" value="${PT.warmth}"><b>${PT.warmth}</b></div>
+  <div class="row wrap" style="margin-top:10px"><button class="btn primary" id="ptGo" ${PT.src?'':'disabled'}>${ic('user')} Create portrait</button>${PT.out?`<button class="btn" id="ptSave">${ic('save')} Save</button><button class="btn" id="ptDl">${ic('dl')} Download</button><button class="btn" id="ptEdit">${ic('wand')} Open in editor</button>`:''}</div>
+  <p class="note">Runs on your device: face detection (MediaPipe), cut-out (MODNet portrait model), smoothing and light. Nothing is uploaded.</p></div>
+ <h2>AI studio headshot</h2><div class="box"><p class="small" style="margin-top:0">Uses your image model (${esc(IMG_NAMES[S.settings.imgProvider])}) to re-light the photo as a professional studio headshot with business attire, keeping the person's face and identity.</p>
+  <label>Look<select id="ptLook"><option value="corporate">Corporate — suit/blazer, gray studio</option><option value="creative">Creative — smart casual, warm light, office blur</option><option value="medical">Healthcare — clean white coat or scrubs, bright clinic</option><option value="outdoor">Outdoor — natural light, soft greenery bokeh</option><option value="dark">Executive — dark backdrop, dramatic light</option></select></label>
+  <label class="check"><input type="checkbox" id="ptConsent" ${PT.consent?'checked':''}> This is me, or I have the person's permission.</label>
+  <div class="row wrap"><button class="btn primary" id="ptAI" ${PT.src?'':'disabled'}>${ic('spark')} Generate studio headshot</button></div>${canEditGen()?'':'<p class="note err">Needs OpenAI, Gemini or Local Stable Diffusion as the image provider (Settings).</p>'}</div>`;
+ icons(v);
+ const setSrc=c=>{PT.src=scaled(c,2400);PT.out=null;R.portrait();};
+ $('#ptUp').onclick=async()=>{const f=await pickImg();if(!f)return;try{setSrc(await blobToCanvas(f));}catch(e){toast('Couldn\'t open that image.',{err:true});}};
+ const pe=$('#ptEd');if(pe)pe.onclick=()=>setSrc(curC());$('#ptLib').onclick=()=>libPicker(async it=>setSrc(await blobToCanvas(it.blob)));
+ $$('[data-pf]',v).forEach(b=>b.onclick=()=>{PT.fmt=b.dataset.pf;R.portrait();});$$('[data-pbg]',v).forEach(b=>b.onclick=()=>{PT.bg=b.dataset.pbg;$$('[data-pbg]',v).forEach(x=>x.classList.toggle('on',x===b));});
+ $('#ptCol').onchange=e=>{PT.color=e.target.value;PT.bg='custom';$$('[data-pbg]',v).forEach(x=>x.classList.remove('on'));};
+ [['#ptSm','smooth'],['#ptLi','light'],['#ptWa','warmth']].forEach(([s,k])=>{$(s).oninput=e=>{PT[k]=+e.target.value;e.target.nextElementSibling.textContent=e.target.value;};});
+ $('#ptConsent').onchange=e=>{PT.consent=e.target.checked;};
+ $('#ptGo').onclick=e=>run(e.currentTarget,async()=>{PT.out=await makePortrait(PT.src);countEdit();R.portrait();});
+ const sv=$('#ptSave');if(sv){sv.onclick=e=>run(e.currentTarget,async()=>{await saveItem({c:PT.out,name:'Headshot '+new Date().toLocaleDateString(),source:'portrait'});toast('Saved to your library');});$('#ptDl').onclick=()=>exportCanvas(PT.out,'headshot',hasAlpha(PT.out)?'png':'jpg');$('#ptEdit').onclick=()=>{loadIntoEditor(PT.out,{name:'Headshot',source:'portrait'});go('edit');};}
+ $('#ptAI').onclick=e=>{if(!PT.consent){toast('Please confirm this is you or that you have permission.');return;}const look={corporate:'wearing a tailored dark blazer, neutral gray seamless studio backdrop, soft key light and fill',creative:'smart casual outfit, warm soft window light, blurred modern office background',medical:'clean white medical coat over scrubs, bright softly blurred clinic background',outdoor:'natural daylight, softly blurred green foliage background, golden soft light',dark:'dark charcoal backdrop, dramatic Rembrandt lighting, dark suit'}[$('#ptLook').value];
+  run(e.currentTarget,async()=>{const src=PT.src;let crop=src;try{const f=await faceBox(src);if(f){const r=headRect(src,f,.8);crop=cropRect(src,r.x,r.y,r.w,r.h);}}catch(_){}
+   const out=await editGenerative(scaled(crop,1024),`Turn this into a professional studio headshot of the SAME person: ${look}. Keep the face, facial features, skin tone, age, hairstyle and identity exactly the same — do not beautify or change who they are. Head and shoulders, centered, sharp focus on the eyes, photorealistic.`);S.stats.generated++;save();PT.out=out;R.portrait();toast('Headshot generated — check it looks like the person before using it.');});};};
+function headRect(c,f,ar){const fcx=f.originX+f.width/2,fcy=f.originY+f.height*.55;let h=f.height*3.1,w=h*ar;if(w>c.width){w=c.width;h=w/ar;}if(h>c.height){h=c.height;w=h*ar;}return{x:clamp(fcx-w/2,0,c.width-w),y:clamp(fcy-h*.42,0,c.height-h),w,h};}
+async function makePortrait(src){const [,ar,W,H]=PFMT[PT.fmt];let crop=src;const f=await faceBox(src).catch(()=>null);if(f){const r=headRect(src,f,ar);crop=cropRect(src,r.x,r.y,r.w,r.h);}else{toast('No face found — centering instead.');const r=aspectRect(src.width,src.height,ar,.5,.4);crop=cropRect(src,r.x,r.y,r.w,r.h);}
+ const out0=mk(W,H);const g=cx(out0);g.imageSmoothingQuality='high';g.drawImage(crop,0,0,W,H);let c=out0;
+ if(PT.smooth>0){const d=await denoiseCV(c);const d2=await denoiseCV(d);c=blendCanvas(c,d2,PT.smooth/100*.85);}
+ if(PT.light||PT.warmth)c=adjustCanvas(c,{...zeroAdj(),exposure:PT.light*.6,shadows:PT.light*.5,warmth:PT.warmth});
+ if(PT.bg!=='none'){const prev=S.settings.bgModel;S.settings.bgModel='modnet';let m;try{m=await subjectMask(c);}finally{S.settings.bgModel=prev;}const fg=maskToAlpha(c,m);const bg=PT.bg==='custom'?{type:'color',color:PT.color}:BG_PRESETS.find(p=>p[0]===PT.bg)[2];c=composite(fg,bg);}
+ return c;}
+
+/* ---------- SOCIAL ---------- */
+const SOC_T={ig:['Instagram post',1080,1080],ig45:['Instagram portrait',1080,1350],story:['Story / Reel',1080,1920],fb:['Facebook post',1200,630],x:['X / Twitter',1600,900],li:['LinkedIn post',1200,627],yt:['YouTube thumbnail',1280,720],pin:['Pinterest pin',1000,1500],lib:['LinkedIn banner',1584,396]};
+const FONTS=[['Inter, system-ui, sans-serif','Clean sans'],['Georgia, "Times New Roman", serif','Classic serif'],['"Arial Black", Impact, sans-serif','Bold impact'],['"Trebuchet MS", sans-serif','Friendly'],['"Courier New", monospace','Typewriter']];
+const SOC=Object.assign({t:'ig',layout:'bottom',head:'Your headline here',sub:'A short supporting line',cta:'Learn more',font:0,ink:'#ffffff',accent:'#f59e0b',overlay:45,bgMode:'gradient',c1:'#1f2a44',c2:'#6a3fb5',img:null,logo:null,caption:'',tags:''},S.social?{...S.social,img:null,logo:null}:{});
+const saveSoc=()=>{const{img,logo,...rest}=SOC;S.social=rest;save();};
+function wrapText(g,text,maxW){const words=String(text||'').split(/\s+/).filter(Boolean),lines=[];let l='';for(const w of words){const t=l?l+' '+w:w;if(g.measureText(t).width>maxW&&l){lines.push(l);l=w;}else l=t;}if(l)lines.push(l);return lines;}
+function renderSocial(){const[,W,H]=SOC_T[SOC.t];const c=mk(W,H),g=cx(c);
+ if(SOC.img){const im=SOC.img;const k=Math.max(W/im.width,H/im.height);g.imageSmoothingQuality='high';g.drawImage(im,(W-im.width*k)/2,(H-im.height*k)/2,im.width*k,im.height*k);}else{const gr=g.createLinearGradient(0,0,W,H);gr.addColorStop(0,SOC.c1);gr.addColorStop(1,SOC.c2);g.fillStyle=gr;g.fillRect(0,0,W,H);}
+ const u=Math.min(W,H)/1080,pad=Math.round(64*u*(H<500?.6:1)),font=FONTS[SOC.font][0],L=SOC.layout,ov=SOC.overlay/100;
+ const hs=Math.round((H<500?70:W>H*1.5?78:92)*u*(H<500?1.5:1)),ss=Math.round(hs*.42),cs=Math.round(hs*.36);
+ g.font=`800 ${hs}px ${font}`;const maxW=(L==='split'?W*.5:W)-pad*2;const hl=wrapText(g,SOC.head,maxW).slice(0,4);g.font=`500 ${ss}px ${font}`;const sl=wrapText(g,SOC.sub,maxW).slice(0,3);
+ const blockH=hl.length*hs*1.08+(sl.length?ss*.6+sl.length*ss*1.3:0)+(SOC.cta?cs*2.6+ss*.6:0);
+ let y0;if(L==='center')y0=(H-blockH)/2;else if(L==='top')y0=pad;else y0=H-pad-blockH;
+ if(ov>0&&(SOC.img||L==='split')){if(L==='split'){g.fillStyle=`rgba(0,0,0,${Math.max(ov,.55)})`;g.fillRect(0,0,W*.5+pad*.2,H);y0=(H-blockH)/2;}else if(L==='center'){g.fillStyle=`rgba(0,0,0,${ov})`;g.fillRect(0,0,W,H);}else{const gr=L==='top'?g.createLinearGradient(0,0,0,y0+blockH+pad*2):g.createLinearGradient(0,H,0,y0-pad*2);gr.addColorStop(0,`rgba(0,0,0,${Math.min(.9,ov*1.6)})`);gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,W,H);}}
+ const ax=L==='center'?W/2:pad;g.textAlign=L==='center'?'center':'left';g.textBaseline='top';g.fillStyle=SOC.ink;g.shadowColor='rgba(0,0,0,.35)';g.shadowBlur=12*u;let y=y0;
+ g.font=`800 ${hs}px ${font}`;hl.forEach(l=>{g.fillText(l,ax,y);y+=hs*1.08;});if(sl.length){y+=ss*.6;g.font=`500 ${ss}px ${font}`;g.globalAlpha=.92;sl.forEach(l=>{g.fillText(l,ax,y);y+=ss*1.3;});g.globalAlpha=1;}
+ g.shadowBlur=0;if(SOC.cta){y+=ss*.6;g.font=`700 ${cs}px ${font}`;const tw=g.measureText(SOC.cta).width,bw=tw+cs*1.6,bh=cs*2.2,bx=L==='center'?W/2-bw/2:pad;g.fillStyle=SOC.accent;if(g.roundRect){g.beginPath();g.roundRect(bx,y,bw,bh,bh/2);g.fill();}else g.fillRect(bx,y,bw,bh);g.fillStyle=lum(SOC.accent)>.6?'#111':'#fff';g.textAlign='center';g.textBaseline='middle';g.fillText(SOC.cta,bx+bw/2,y+bh/2+1);}
+ if(SOC.logo){const lg=SOC.logo,lh=Math.round(Math.min(H*.12,90*u)),lw=lg.width/lg.height*lh;g.drawImage(lg,W-pad-lw,L==='top'?H-pad-lh:pad,lw,lh);}
+ return c;}
+const lum=h=>{const m=/^#?([0-9a-f]{6})$/i.exec(h||'');if(!m)return 0;const n=parseInt(m[1],16);return((n>>16&255)*.299+(n>>8&255)*.587+(n&255)*.114)/255;};
+R.social=()=>{const v=$('#v-social');
+ v.innerHTML=`<h2 style="margin-top:4px">Social media designer</h2><div class="box"><div class="chips">${Object.entries(SOC_T).map(([k,[l,w,h]])=>`<button class="chip" data-st="${k}" title="${w}×${h}" style="${k===SOC.t?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${l}</button>`).join('')}</div>
+  <div class="stage" id="soStage" style="margin-top:10px;min-height:0;background:var(--card)"></div><div class="tiny muted" style="margin-top:4px">${SOC_T[SOC.t][1]} × ${SOC_T[SOC.t][2]}px</div>
+  <div class="row wrap" style="margin-top:10px"><button class="btn primary" id="soSave">${ic('save')} Save</button><button class="btn" id="soDl">${ic('dl')} Download PNG</button><button class="btn" id="soAll">Export all sizes</button></div></div>
+ <h2>Background</h2><div class="box"><div class="seg" id="soBgSeg">${[['gradient','Gradient'],['photo','Photo'],['ai','AI generated']].map(([k,l])=>`<button data-bm="${k}" class="${SOC.bgMode===k?'on':''}">${l}</button>`).join('')}</div>
+  <div style="margin-top:10px">${SOC.bgMode==='gradient'?`<div class="row"><label>From<input type="color" id="soC1" value="${SOC.c1}"></label><label>To<input type="color" id="soC2" value="${SOC.c2}"></label></div>`:SOC.bgMode==='photo'?`<div class="row wrap"><button class="btn sm" id="soUp">${ic('upload')} Upload</button>${curC()?'<button class="btn sm" id="soEd">From editor</button>':''}<button class="btn sm" id="soLib">From library</button></div>`:`<label>Describe the background<span class="row"><input id="soBgP" placeholder="e.g. fresh croissants on a rustic wooden table, morning light"><button class="btn" id="soBgGo">${ic('spark')} Generate</button></span></label>`}</div>
+  <div class="sl" style="margin-top:8px"><span>Darken</span><input type="range" id="soOv" min="0" max="85" value="${SOC.overlay}"><b>${SOC.overlay}</b></div></div>
+ <h2>Text</h2><div class="box">
+  <label>What's the post about? (for AI copy)<span class="row"><input id="soTopic" placeholder="e.g. weekend sale at my bakery, 20% off sourdough"><button class="btn" id="soAI">${ic('spark')} Write copy</button></span></label>
+  <label>Headline<input id="soHead" value="${esc(SOC.head)}"></label><label>Subtext<input id="soSub" value="${esc(SOC.sub)}"></label><label>Button (optional)<input id="soCta" value="${esc(SOC.cta)}"></label>
+  <div class="form-row"><label>Layout<select id="soLay">${[['bottom','Text at bottom'],['center','Centered'],['top','Text at top'],['split','Side panel']].map(([k,l])=>`<option value="${k}" ${SOC.layout===k?'selected':''}>${l}</option>`).join('')}</select></label><label>Font<select id="soFont">${FONTS.map(([,l],i)=>`<option value="${i}" ${SOC.font===i?'selected':''}>${l}</option>`).join('')}</select></label></div>
+  <div class="row wrap"><label>Text<input type="color" id="soInk" value="${SOC.ink}"></label><label>Accent<input type="color" id="soAcc" value="${SOC.accent}"></label><button class="btn sm" id="soLogo" style="align-self:flex-end">${SOC.logo?'Replace logo':'Add logo'}</button>${SOC.logo?'<button class="btn sm ghost" id="soLogoX" style="align-self:flex-end">Remove logo</button>':''}</div>
+  <label>Caption &amp; hashtags<textarea id="soCap" rows="4" placeholder="Your caption appears here after Write copy">${esc(SOC.caption+(SOC.tags?'\n\n'+SOC.tags:''))}</textarea></label><button class="btn sm" id="soCapCp">Copy caption</button></div>`;
+ icons(v);wireMics(v);const draw=()=>{const st=$('#soStage');if(!st)return;st.innerHTML='';const c=renderSocial();c.style.maxHeight='60vh';st.appendChild(c);};draw();
+ $$('[data-st]',v).forEach(b=>b.onclick=()=>{SOC.t=b.dataset.st;saveSoc();R.social();});
+ $('#soBgSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;SOC.bgMode=b.dataset.bm;if(b.dataset.bm==='gradient')SOC.img=null;saveSoc();R.social();};
+ const c1=$('#soC1');if(c1){c1.oninput=e=>{SOC.c1=e.target.value;draw();saveSoc();};$('#soC2').oninput=e=>{SOC.c2=e.target.value;draw();saveSoc();};}
+ const setImg=c=>{SOC.img=scaled(c,2400);draw();};
+ const su=$('#soUp');if(su)su.onclick=async()=>{const f=await pickImg();if(f)setImg(await blobToCanvas(f));};const se=$('#soEd');if(se)se.onclick=()=>setImg(curC());const sl2=$('#soLib');if(sl2)sl2.onclick=()=>libPicker(async it=>setImg(await blobToCanvas(it.blob)));
+ const sg=$('#soBgGo');if(sg)sg.onclick=e=>{const p=$('#soBgP').value.trim();if(!p){toast('Describe the background first.');return;}const[,W,H]=SOC_T[SOC.t];const ar=W/H;const asp=Object.entries(ASPECTS).sort((x,y)=>Math.abs(x[1]-ar)-Math.abs(y[1]-ar))[0][0];run(e.currentTarget,async()=>{prog('Generating background…',.2);try{setImg(await generateImage(p+', background image for a social media post, room for text, no text, no letters',{aspect:asp}));}finally{progDone();}S.stats.generated++;save();});};
+ $('#soOv').oninput=e=>{SOC.overlay=+e.target.value;e.target.nextElementSibling.textContent=e.target.value;draw();saveSoc();};
+ [['#soHead','head'],['#soSub','sub'],['#soCta','cta'],['#soInk','ink'],['#soAcc','accent']].forEach(([s,k])=>$(s).oninput=e=>{SOC[k]=e.target.value;draw();saveSoc();});
+ $('#soLay').onchange=e=>{SOC.layout=e.target.value;draw();saveSoc();};$('#soFont').onchange=e=>{SOC.font=+e.target.value;draw();saveSoc();};
+ $('#soLogo').onclick=async()=>{const f=await pickImg();if(!f)return;SOC.logo=scaled(await blobToCanvas(f),600);R.social();};const lx=$('#soLogoX');if(lx)lx.onclick=()=>{SOC.logo=null;R.social();};
+ $('#soCap').oninput=e=>{SOC.caption=e.target.value;SOC.tags='';saveSoc();};$('#soCapCp').onclick=()=>copy($('#soCap').value);
+ $('#soAI').onclick=e=>{const topic=$('#soTopic').value.trim()||SOC.head;run(e.currentTarget,async()=>{const o=await ai(`Platform: ${SOC_T[SOC.t][0]}\nPost about: ${topic}`,{system:'Write social media copy. Return JSON {"headline":"max 7 words, punchy","subtext":"max 12 words","cta":"2-3 words or empty","caption":"engaging caption for the platform, 1-3 short sentences, may include 1-2 emoji","hashtags":"5-10 relevant hashtags separated by spaces"}. No made-up facts, prices or dates beyond what is given.',json:true,temp:.7,max:700});SOC.head=o.headline||SOC.head;SOC.sub=o.subtext??SOC.sub;SOC.cta=o.cta??SOC.cta;SOC.caption=o.caption||'';SOC.tags=o.hashtags||'';saveSoc();R.social();const t=$('#soTopic');if(t)t.value=topic;});};
+ $('#soSave').onclick=e=>run(e.currentTarget,async()=>{await saveItem({c:renderSocial(),name:`${SOC_T[SOC.t][0]} — ${SOC.head}`.slice(0,60),source:'social',extra:{caption:SOC.caption+(SOC.tags?' '+SOC.tags:'')}});toast('Saved to your library');});
+ $('#soDl').onclick=()=>exportCanvas(renderSocial(),`${SOC.t}-${SOC.head}`.slice(0,40),'png');
+ $('#soAll').onclick=async e=>{const keep=SOC.t;await run(e.currentTarget,async()=>{for(const k of Object.keys(SOC_T)){SOC.t=k;await exportCanvas(renderSocial(),`${k}-${SOC.head}`.slice(0,40),'png');await new Promise(r=>setTimeout(r,350));}});SOC.t=keep;};};
+
+/* ---------- LIBRARY ---------- */
+const LS={q:'',src:'all',results:null};
+R.library=async()=>{const v=$('#v-library');await refreshLib();const idx=LIB.filter(i=>i.emb).length;
+ v.innerHTML=`<h2 style="margin-top:4px">Library</h2><div class="box"><form class="askbar" id="lsForm" style="margin-top:0" autocomplete="off"><input id="lsQ" value="${esc(LS.q)}" placeholder="Smart search — e.g. dog on the beach, receipts, sunset, red car"><button type="button" class="icon-btn" data-dictate="lsQ" data-submit="#lsGo" title="Speak"></button><button class="btn primary" id="lsGo">${ic('search')}</button></form>
+  <div class="chips" style="margin-top:8px">${[['all','All'],...Object.entries(SRC)].map(([k,l])=>`<button class="chip" data-src="${k}" style="${k===LS.src?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${l} ${k==='all'?LIB.length:LIB.filter(i=>i.source===k).length}</button>`).join('')}</div>
+  <div class="row between wrap" style="margin-top:8px"><span class="tiny muted">${idx}/${LIB.length} photos indexed for visual search${idx<LIB.length?' — searches still match names, tags, captions and text found by OCR':''}</span>${LIB.length&&idx<LIB.length?'<button class="btn sm" id="lsIdx">Index library</button>':''}</div></div>
+ <div id="lsOut" style="margin-top:10px"></div>`;icons(v);wireMics(v);
+ $('#lsForm').onsubmit=e=>{e.preventDefault();LS.q=$('#lsQ').value.trim();doSearch($('#lsGo'));};
+ $$('[data-src]',v).forEach(b=>b.onclick=()=>{LS.src=b.dataset.src;R.library();});
+ const ix=$('#lsIdx');if(ix)ix.onclick=e=>run(e.currentTarget,async()=>{const todo=LIB.filter(i=>!i.emb);for(let i=0;i<todo.length;i++){prog(`Indexing ${i+1} of ${todo.length}…`,i/todo.length);await indexItem(todo[i]);}progDone();toast(`Indexed ${todo.length} photo${todo.length>1?'s':''}`);R.library();});
+ if(LS.q)doSearch(null);else libGrid(LIB);};
+function libGrid(items,scores){const o=$('#lsOut');if(!o)return;const list=items.filter(i=>LS.src==='all'||i.source===LS.src);o.innerHTML=list.length?`<div class="gal">${list.map(it=>`<button class="gi" data-item="${it.id}"><img src="${it.thumb}" alt="${esc(it.caption||it.name)}" loading="lazy"><span>${esc(it.name)}</span>${scores&&scores[it.id]!=null?`<i class="sc">${scores[it.id]}</i>`:''}</button>`).join('')}</div>`:`<p class="empty">${LIB.length?'No matches.':'Nothing saved yet. Edits, generated images, portraits and social posts you save appear here.'}</p>`;}
+async function doSearch(btn){const q=LS.q.toLowerCase();if(!q){libGrid(LIB);return;}await run(btn,async()=>{const words=q.split(/\s+/).filter(Boolean);const sc={};
+ for(const it of LIB){const hay=[it.name,it.prompt,it.caption,it.ocr,(it.tags||[]).join(' '),it.source].join(' ').toLowerCase();let s=0;words.forEach(w=>{if(hay.includes(w))s+=1;});sc[it.id]=s/words.length;}
+ const withEmb=LIB.filter(i=>i.emb);if(withEmb.length){try{const[te]=await textEmb(['a photo of '+q]);withEmb.forEach(it=>{const sim=dot(te,it.emb);sc[it.id]=Math.max(sc[it.id],clamp((sim-.2)/.12,0,1));});}catch(e){console.warn(e);}}
+ const res=LIB.filter(i=>sc[i.id]>=.34).sort((a,b)=>sc[b.id]-sc[a.id]);const pct={};res.forEach(i=>pct[i.id]=Math.round(sc[i.id]*100)+'%');libGrid(res,pct);});}
+async function itemModal(id){const it=await DB.get(id);if(!it)return;const url=URL.createObjectURL(it.blob);
+ openModal(it.name,`<img src="${url}" alt="" style="width:100%;max-height:52vh;object-fit:contain;border-radius:10px;background:var(--card)">
+  <div class="tiny muted" style="margin-top:6px">${SRC[it.source]||it.source} · ${it.w}×${it.h}px · ${fmtMB(it.size||it.blob.size)} · ${new Date(it.updated).toLocaleString()}</div>
+  ${it.prompt?`<p class="small"><b>Prompt:</b> ${esc(it.prompt)}</p>`:''}
+  ${(it.versions||[]).length>1?`<h4>Version history</h4><div class="vers">${it.versions.map((x,i)=>`<button data-vdl="${i}" title="Download this version"><img src="${URL.createObjectURL(x.blob)}" alt=""><small>${esc(x.label)}</small></button>`).join('')}</div>`:''}
+  <label>Name<input id="imName" value="${esc(it.name)}"></label><label>Tags<input id="imTags" value="${esc((it.tags||[]).join(', '))}" placeholder="comma separated"></label><label>Caption / notes<textarea id="imCap" rows="2">${esc(it.caption||'')}</textarea></label>
+  <div class="row wrap"><button class="btn primary" id="imOpen">${ic('wand')} Open in editor</button><button class="btn" id="imDl">${ic('dl')} Download</button><button class="btn" id="imDesc">${ic('eye')} AI caption</button><button class="btn danger" id="imDel">Delete</button></div>`,{wide:true,onMount:d=>{
+  const saveMeta=async()=>{const x=await DB.get(id);if(!x)return;x.name=$('#imName',d).value.trim()||x.name;const tg=$('#imTags',d).value.split(',').map(s=>s.trim()).filter(Boolean);if(tg.join()!==(x.tags||[]).join()){x.tags=tg;x.tagsManual=true;}x.caption=$('#imCap',d).value;await DB.put(x);await refreshLib();};
+  ['#imName','#imTags','#imCap'].forEach(s=>$(s,d).addEventListener('change',saveMeta));
+  $('#imOpen',d).onclick=async()=>{await saveMeta();d.close();if(ED.dirty&&curC()&&!confirm('Replace the photo in the editor? Unsaved changes will be lost.'))return;openItem(id);};
+  $('#imDl',d).onclick=()=>{const a=document.createElement('a');a.href=url;a.download=(it.name||'image').replace(/[^\w\- ]+/g,'').replace(/\s+/g,'_')+(it.blob.type==='image/png'?'.png':'.jpg');a.click();};
+  $$('[data-vdl]',d).forEach(b=>b.onclick=()=>{const x=it.versions[+b.dataset.vdl];const a=document.createElement('a');a.href=URL.createObjectURL(x.blob);a.download=`${it.name}-v${+b.dataset.vdl+1}.${x.blob.type==='image/png'?'png':'jpg'}`;a.click();});
+  $('#imDesc',d).onclick=e=>run(e.currentTarget,async()=>{const c=composite(scaled(await blobToCanvas(it.blob),1024),{type:'color',color:'#fff'});const t=await aiVision('Write a one-sentence caption and 5 tags for this photo.',[c.toDataURL('image/jpeg',.85)],{system:'Return exactly two lines: line 1 a one-sentence caption; line 2 "Tags: tag1, tag2, tag3, tag4, tag5". Do not identify real people by name.',max:300});const lines=t.split('\n').map(s=>s.trim()).filter(Boolean);$('#imCap',d).value=lines[0]||t;const tl=lines.find(l=>/^tags:/i.test(l));if(tl)$('#imTags',d).value=tl.replace(/^tags:\s*/i,'');await saveMeta();});
+  $('#imDel',d).onclick=async()=>{if(!confirm('Delete this image and its history?'))return;await DB.del(id);if(ED.id===id){ED.id=null;ED.dirty=true;}d.close();await refreshLib();refresh();toast('Deleted');};
+  d.addEventListener('close',()=>URL.revokeObjectURL(url),{once:true});}});}
+
+/* ---------- SETTINGS ---------- */
+function renderProv(){const p=prov();$$('#provSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.p===p);});$$('[data-prov]').forEach(d=>d.hidden=d.dataset.prov!==p);const o=location.origin&&location.origin!=='null'?location.origin:'https://your-site.com';$$('.originCode').forEach(c=>c.textContent=o);const lp=$('#localPreset');if(lp)lp.value=[...lp.options].some(x=>x.value===(S.settings.localBase||''))?S.settings.localBase:'';$('#voiceNote').textContent=(canVision()?'Describing photos uses '+visionTarget().model+'. ':'Describing photos needs a vision-capable model (Groq key, a vision model via another key, or a local vision model). ')+'Prompt edits, captions and the assistant work with any provider.';if(p!=='browser'&&$('#llmStatus'))$('#llmStatus').textContent='';if(p==='browser'&&!navigator.gpu)$('#llmStatus').textContent='This browser doesn\'t support WebGPU — try Chrome or Edge on a computer.';}
+function renderImgProv(){const p=S.settings.imgProvider||'pollinations';$$('[data-ip]').forEach(d=>d.hidden=d.dataset.ip!==p);}
+R.settings=async()=>{$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!S.settings[k];else el.value=S.settings[k]??'';});renderProv();renderImgProv();await refreshLib();let est='';try{const e=await navigator.storage.estimate();est=` · browser storage used ${fmtMB(e.usage||0)} of ${fmtMB(e.quota||0)}`;}catch(_){}$('#storeInfo').textContent=`${LIB.length} images (${fmtMB(sum(LIB.map(i=>i.size||0)))})${est}`;};
+function bindSettings(){$$('[data-set]').forEach(el=>el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'?'change':'input',()=>{const k=el.dataset.set;let v=el.type==='checkbox'?el.checked:el.value;if(typeof v==='string')v=v.trim();S.settings[k]=v;save();badge();if(k==='imgProvider'){renderImgProv();$('#imgStatus').textContent='';}}));}
+
+/* ---------- global events ---------- */
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-item]');if(!t)return;const d=t.dataset;if(d.go)go(d.go);else if(d.item)itemModal(d.item);});
+window.addEventListener('beforeunload',e=>{if(ED.dirty&&curC()&&ED.versions.length>1){e.preventDefault();e.returnValue='';}});
+document.addEventListener('paste',e=>{const f=[...(e.clipboardData&&e.clipboardData.files||[])].find(x=>/^image\//.test(x.type));if(f&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();openFile(f);}});
+document.addEventListener('keydown',e=>{if(cur!=='edit'||/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();const b=$(e.shiftKey?'#edRedo':'#edUndo');if(b&&!b.disabled)b.click();}});
+
+/* ---------- init ---------- */
+function init(){icons();bindSettings();
+ $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=aiBadgeClick;
+ $('#btnTestImg').onclick=e=>run(e.currentTarget,async()=>{const st=$('#imgStatus');st.textContent='Generating a small test image…';try{const c=await generateImage('a single red apple on a white table, simple photo',{aspect:'1:1'});st.innerHTML=`Works — ${esc(IMG_NAMES[S.settings.imgProvider])} returned a ${c.width}×${c.height} image. <img src="${thumbURL(c,64)}" alt="" style="height:32px;vertical-align:middle;border-radius:4px">`;}catch(err){st.textContent='';throw err;}});
+ $('#btnWipe').onclick=async()=>{if(!confirm('Erase all saved images, history and settings from this browser? This cannot be undone.'))return;try{await DB.clear();}catch(_){}localStorage.removeItem(KEY);location.reload();};
+ $$('[data-show]').forEach(b=>b.onclick=()=>{const k=$(b.dataset.show);k.type=k.type==='password'?'text':'password';b.textContent=k.type==='password'?'Show':'Hide';});
+ $('#provSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.settings.provider=b.dataset.p;save();$('#keyStatus').textContent='';renderProv();badge();};
+ $('#customPreset').innerHTML=Object.entries(PRESETS).map(([k,[n]])=>`<option value="${k}">${n}</option>`).join('');
+ $('#customPreset').addEventListener('change',e=>{const u=PRESETS[e.target.value]?.[1];if(u){S.settings.customBase=u;$('#customBase').value=u;}S.settings.customModel='';save();R.settings();if(!u)$('#customBase').focus();});
+ $('#localPreset').onchange=e=>{const v=e.target.value;if(v){S.settings.localBase=v;$('#localBase').value=v;save();}else $('#localBase').focus();};
+ $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
+ $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
+ $('#gateHide').onclick=()=>gateClose();
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':p==='free'?'freeModel':'model';st.textContent='Checking…';if(p==='free'){let r;try{r=await fetch(FREE_BASE+'/models');}catch(_){st.textContent='Couldn\'t reach AI Verse free AI. Check your connection.';return;}freeSeen(r);st.textContent=r.ok?`Connected · ${freeLeft().n} of ${freeLeft().limit} free daily uses left`:'Free AI isn\'t available right now.';return;}
+  try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
+   if(listErr&&/rejected/.test(listErr.message))throw listErr;
+   if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}
+   if((p==='local'||p==='custom')&&!S.settings[key])throw listErr||new Error('No models found — download or load one first.');
+   const reply=await ai('Reply with just the word: ready',{temp:0,max:300});
+   st.textContent=`Connected${models.length&&p!=='browser'?` · ${models.length} models available`:''} · ${aiTarget().model} replied “${reply.slice(0,40)}”.`;
+  }catch(err){st.textContent='';throw err;}});
+
+
+ window.addEventListener('hashchange',()=>show(hashView()));
+ refreshLib().then(()=>show(hashView()));
+ if(prov()==='browser'&&navigator.gpu&&S.settings.llmReady&&S.settings.llmReady===(S.settings.webllmModel||DEFAULT_WEBLLM))setTimeout(()=>getEngine(S.settings.llmReady).catch(e=>console.warn('Model warm-up failed',e)),1500);
+}
+init();
+})();
+</script>
+<script src="../legal.js" defer></script>
+<script src="aiv-connect.js"></script>
+</body>
+</html>
