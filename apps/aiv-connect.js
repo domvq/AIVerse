@@ -361,7 +361,19 @@
     if (list) out.push("<ul>" + list.join("") + "</ul>");
     return out.join("");
   }
-  function stripActs(t) { return String(t || "").replace(/```aiv-actions[\s\S]*?(```|$)/g, "").trim(); }
+  var BARE_ACTS = /\[\s*\{\s*["']?do["']?\s*:[\s\S]*?\}\s*\]/;
+  var JSON_ACTS = /```(?:json|js|javascript)?[ \t]*\n?\s*(\[\s*\{\s*["']?do["']?\s*:[\s\S]*?)(```|$)/;
+  function stripActs(t) {
+    return String(t || "").replace(/```aiv-actions[\s\S]*?(```|$)/g, "")
+      .replace(/```(?:json|js|javascript)?[ \t]*\n?\s*\[\s*\{\s*["']?do["']?\s*:[\s\S]*?(```|$)/g, "")
+      .replace(/\[\s*\{\s*["']?do["']?\s*:[\s\S]*?\}\s*\]/g, "").replace(/\n{3,}/g, "\n\n").trim();
+  }
+  function findActs(t) {
+    var m = t.match(/```aiv-actions\s*([\s\S]*?)(```|$)/); if (m) return { raw: m[1], fenced: true };
+    m = t.match(JSON_ACTS); if (m) return { raw: m[1] };
+    m = t.match(BARE_ACTS); if (m) return { raw: m[0] };
+    return null;
+  }
   function parseActs(raw) {
     var s = String(raw || "").replace(/```[a-z-]*/gi, "").trim().replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
     var fixes = [function (t) { return t; }, function (t) { return t.replace(/,\s*([\]}])/g, "$1"); },
@@ -534,7 +546,7 @@
       "\n\nTOOLS — to use them, end your reply with ONE fenced block:\n```aiv-actions\n[{\"do\":\"go\",\"screen\":\"tasks\"}]\n```\n" +
       "- search {q}: search the web for anything current or that you're not sure of\n- read {url}: read a web page\n" +
       "- go {screen} · click {text exactly as shown} · type {field, value, submit} · check {field, on} · look {} (look at the screen again)\n" +
-      "Rules: if the screen or saved data already answers the question, just answer. Before the block, say in a few words what you're doing. After tools run you'll get results and the updated screen; then continue or confirm briefly. Cite web sources as [1], [2]. Many apps have a main \"Ask\" box that understands plain requests. Never delete, clear, reset, or sign out unless the user explicitly asked. For health, legal, or money questions, give helpful general information and suggest a professional when it really matters.";
+      "Rules: if the screen or saved data already answers the question, just answer. Greetings, small talk, and thanks never need tools. Only use the tools listed here, and only inside the fenced aiv-actions block, never as plain text. Before the block, say in a few words what you're doing. After tools run you'll get results and the updated screen; then continue or confirm briefly. Cite web sources as [1], [2]. Many apps have a main \"Ask\" box that understands plain requests. Never delete, clear, reset, or sign out unless the user explicitly asked. For health, legal, or money questions, give helpful general information and suggest a professional when it really matters.";
   }
   function send(text) {
     text = String(text || "").trim();
@@ -557,9 +569,10 @@
         var reply = String(d.reply || "");
         var vis = stripActs(reply);
         if (vis) shown = shown ? shown + "\n\n" + vis : vis;
-        var m = reply.match(/```aiv-actions\s*([\s\S]*?)(```|$)/);
-        if (!m || step >= 5) return finish();
-        var acts = parseActs(m[1]);
+        var found = findActs(reply);
+        if (!found || step >= 5) return finish();
+        var acts = parseActs(found.raw);
+        if (!acts && !found.fenced && shown) return finish();
         if (!acts) {
           if (retried) return finish();
           retried = true; step++;
@@ -585,6 +598,7 @@
               }).catch(function (e) { steps.push("Couldn't read that page"); results.push("Read error: " + e.message); });
             }
             if (k === "look" || k === "read") { results.push("looked at the screen"); return; }
+            if (["go", "click", "type", "fill", "check"].indexOf(k) < 0) { results.push("\"" + a.do + "\" isn't one of your tools. Answer the user directly in plain words."); return; }
             if (k === "click" && DESTRUCTIVE.test(String(a.text || "")) && !DESTRUCTIVE.test(text)) { steps.push("Skipped “" + a.text + "” — ask me directly if you want that"); results.push("skipped " + a.text + ": the user didn't ask for that"); return; }
             return runActions([a]).then(function (r) { (r.results || []).forEach(function (x) { steps.push(x.charAt(0).toUpperCase() + x.slice(1)); results.push(x); }); });
           });
