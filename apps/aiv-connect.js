@@ -30,6 +30,14 @@
     "aide": "aide", "personal-assistant-ai": "aide", "ai-personal-assistant": "aide", "ai-study-and-research": "study", "ai-stock-and-finance": "finance", "ai-health-and-fitness": "fitness", "ai-photo": "photo", "ai-career": "career", "study-and-research-ai": "study", "stock-and-finance-ai": "finance",
     "health-and-fitness-ai": "fitness", "photo-ai": "photo", "career-ai": "career"
   };
+  // phones: tapping a text box never zooms the app (iOS zooms text under 16px)
+  try {
+    var vp = document.querySelector('meta[name="viewport"]');
+    if (vp && !/maximum-scale/.test(vp.content)) vp.content += ", maximum-scale=1.0";
+    var nz = document.createElement("style");
+    nz.textContent = "@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}";
+    (document.head || document.documentElement).appendChild(nz);
+  } catch (e) {}
   var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "");
   var APP_ID = FILE_TO_ID[file] || file || "app";
 
@@ -340,7 +348,7 @@
   var TERMS_VERSION = "2026-11-04";
   var TERMS_URL = "https://aiv-x.com/terms.html", PRIVACY_URL = "https://aiv-x.com/privacy.html";
   var AGREE_HTML = '<label class="ag"><input type="checkbox" class="agc"><span>I\'m 18 or older and agree to the <a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms of Use</a> and <a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>';
-  var APP_NAMES = { aide: "Personal Assistant AI", study: "Study and Research AI", finance: "Stock and Finance AI", fitness: "Health and Fitness AI", photo: "Photo AI", career: "Career AI" };
+  var APP_NAMES = { aide: "AI Personal Assistant", study: "AI Study and Research", finance: "AI Stock and Finance", fitness: "AI Health and Fitness", photo: "AI Photo", career: "AI Career" };
   var STARTERS = {
     aide: ["Add “call the dentist Friday” to my tasks", "What's on my calendar this week?", "Plan my day"],
     study: ["Quiz me on what I'm studying", "Find recent research on my topic", "Make flashcards for this"],
@@ -425,11 +433,11 @@
       '.th{color:#71717a;font-size:13.5px}.er{color:#dc2626;font-size:13px}' +
       '.ch{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px}.ch button{border:1px solid #e4e4e7;background:#fff;color:#3f3f46;border-radius:999px;padding:6px 11px;font-size:12.5px;cursor:pointer}.ch button:hover{background:#f4f4f5}' +
       '.cp{display:flex;gap:8px;padding:10px 12px 12px;border-top:1px solid #f1f1f3}' +
-      '.cp textarea{flex:1;border:1px solid #d4d4d8;border-radius:16px;padding:10px 12px;resize:none;height:44px;max-height:140px;font-size:14.5px;outline:none;color:#18181b;background:#fff}' +
+      '.cp textarea{flex:1;border:1px solid #d4d4d8;border-radius:16px;padding:10px 12px;resize:none;height:44px;max-height:140px;font-size:16px;outline:none;color:#18181b;background:#fff}' +
       '.cp button{border:0;border-radius:999px;background:#0a0a0b;color:#fff;padding:0 16px;font-weight:600;cursor:pointer}.cp button:disabled{opacity:.35;cursor:not-allowed}' +
       '.ft{font-size:11px;color:#a1a1aa;text-align:center;padding:0 0 8px}' +
       '.si{padding:22px 16px}.si h3{font-size:18px;margin-bottom:6px}.si p{font-size:13px;color:#71717a;margin-bottom:14px}' +
-      '.si button,.si input{width:100%;font-size:14px;padding:10px 12px;border-radius:11px;border:1px solid #d4d4d8;background:#fff;color:#18181b;margin-bottom:8px;cursor:pointer}' +
+      '.si button,.si input{width:100%;font-size:16px;padding:10px 12px;border-radius:11px;border:1px solid #d4d4d8;background:#fff;color:#18181b;margin-bottom:8px;cursor:pointer}' +
       '.si input{cursor:text}.si .pr{background:#0a0a0b;color:#fff;border-color:#0a0a0b}.si .lk{border:0;background:none;color:#2563eb;padding:4px;width:auto}.si .or{text-align:center;color:#a1a1aa;font-size:12px;margin:4px 0 10px}' +
       '.ag{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#52525b;margin:6px 0 12px;cursor:pointer;line-height:1.4}.ag input{width:16px!important;height:16px;margin:1px 0 0!important;padding:0!important;flex:none}.ag a{color:#2563eb}.ag.need{outline:1px solid #dc2626;border-radius:6px;padding:4px}' +
       '.lim{margin:0 16px 10px;padding:10px 12px;border-radius:10px;background:#fef3c7;color:#7c4a03;font-size:13px}.lim a{color:#7c4a03;font-weight:600}' +
