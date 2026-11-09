@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Verse MCP Server: Free AI Tools for Claude, ChatGPT and Cursor | AI Verse</title>
+<meta name="description" content="Add the free AI Verse MCP server to Claude, ChatGPT, Cursor or VS Code. Make playlists, plan your day, write cover letters, build flashcards and more right in your chat.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://aiverse.it.com/mcp.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Verse">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="AI Verse MCP server">
+<meta property="og:description" content="Add the free AI Verse MCP server to Claude, ChatGPT, Cursor or VS Code. Make playlists, plan your day, write cover letters, build flashcards and more right in your chat.">
+<meta property="og:url" content="https://aiverse.it.com/mcp.html">
+<meta property="og:image" content="https://aiverse.it.com/icons/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI Verse MCP server">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Verse MCP server">
+<meta name="twitter:description" content="Add the free AI Verse MCP server to Claude, ChatGPT, Cursor or VS Code. Make playlists, plan your day, write cover letters, build flashcards and more right in your chat.">
+<meta name="twitter:image" content="https://aiverse.it.com/icons/og-image.jpg">
+<meta name="twitter:image:alt" content="AI Verse MCP server">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","alternateName":"AIV","url":"https://aiverse.it.com/","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"SoftwareApplication","name":"AI Verse MCP server","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://aiverse.it.com/mcp.html","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://aiverse.it.com/#org"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the AI Verse MCP server free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Anyone can use it with a daily allowance of free AI tool calls. An AIV key gives more."}},{"@type":"Question","name":"Do I need an account?","acceptedAnswer":{"@type":"Answer","text":"No. Paste the server address into your AI app and start."}},{"@type":"Question","name":"Can the tools change anything in my accounts?","acceptedAnswer":{"@type":"Answer","text":"No. Every tool is read-only and never sends, buys or posts anything."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"MCP","item":"https://aiverse.it.com/mcp.html"}]}]}</script>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="icons/site.webmanifest">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: same system as the home page — centered heading, then a two-up of a quiet info card and the form card. */
+:root{
+  --bg:#ffffff;--fg:#111111;--muted:#6e6c68;--soft:#9b9893;--card:#f6f5f3;--pill:#efeeeb;--line:#e7e5e1;
+  --ink-btn:#111111;--ink-btn-fg:#ffffff;--good:#1f7a4a;--bad:#b42318;--field:#ffffff;
+  --display:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c;--fg:#f2f1ee;--muted:#a3a09a;--soft:#77746f;--card:#171716;--pill:#22211f;--line:#2a2927;--ink-btn:#f2f1ee;--ink-btn-fg:#0c0c0c;--good:#5fc98f;--bad:#f2766b;--field:#0f0f0e;color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1232px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.nav{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand svg{height:22px;width:auto;display:block}
+.brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.links{display:flex;gap:26px;font-size:14px}
+.links a{text-decoration:none;opacity:.85}.links a:hover,.links a[aria-current]{opacity:1}
+.links a[aria-current]{font-weight:500}
+.nav .right{margin-left:auto;display:flex;gap:8px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:500 15px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.btn.sm{padding:9px 18px;font-size:14px}
+.btn.dark{background:var(--ink-btn);color:var(--ink-btn-fg)}.btn.dark:hover{opacity:.86}
+.btn.pill{background:var(--pill);color:var(--fg)}.btn.pill:hover{background:var(--line)}
+.btn.line{border-color:var(--line);color:var(--fg);background:transparent}.btn.line:hover{background:var(--pill)}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn:focus-visible,a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.btn svg{width:14px;height:14px}
+
+.hero{text-align:center;padding-block:80px 52px}
+h1{font:500 clamp(40px,6vw,68px)/1.03 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.lede{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:32em;margin:20px auto 0;text-wrap:balance}
+
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start;padding-bottom:96px}
+.card{background:var(--card);border-radius:18px;padding:36px 38px;min-width:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h2{font:500 24px/1.2 var(--display);letter-spacing:-.02em;margin:0}
+.info p{color:var(--muted);margin:12px 0 0;max-width:40ch}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
+.mail .addr{font:500 clamp(18px,2vw,22px)/1.2 var(--display);letter-spacing:-.01em;user-select:all;overflow-wrap:anywhere}
+.topics{margin-top:30px;border-top:1px solid var(--line)}
+.topics div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding-block:14px;border-bottom:1px solid var(--line);font-size:14px}
+.topics b{font-weight:500}
+.topics span{color:var(--muted)}
+
+form{display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:500}
+label .opt{color:var(--soft);font-weight:400}
+input,select,textarea{font:400 15px/1.4 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:0;min-width:0}
+textarea{resize:vertical;min-height:150px}
+input:focus,select:focus,textarea:focus{border-color:var(--fg)}
+input[aria-invalid="true"],textarea[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;font-weight:400}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.foot-form{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.note{color:var(--muted);font-size:12.5px;margin:0;max-width:42ch}
+.count{color:var(--soft);font:400 12px var(--mono);text-align:right}
+
+.status{border-radius:14px;padding:18px 20px;margin-top:4px}
+.status.ok{background:color-mix(in srgb,var(--good) 12%,var(--card));}
+.status.ok b{color:var(--good)}
+.status.fail{background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.status.fail b{color:var(--bad)}
+.status p{margin:6px 0 0;color:var(--muted)}
+.status .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+
+footer{border-top:1px solid var(--line);padding-block:40px 56px;color:var(--muted);font-size:13.5px}
+.foot{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+.foot .brand{color:var(--fg)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a{text-decoration:none}.foot nav a:hover{color:var(--fg)}
+.fine{margin-top:22px;max-width:80ch;color:var(--soft);font-size:12.5px}
+
+@media (max-width:900px){.links{display:none}.grid{grid-template-columns:1fr}}
+@media (max-width:560px){.nav .right .pill{display:none}.card{padding:28px 22px}.row2{grid-template-columns:1fr}.topics div{grid-template-columns:1fr;gap:2px}.hero{padding-block:56px 40px}}
+
+/* ===== shared site header (identical on every page) ===== */
+header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
+.sitehead .brand span{white-space:nowrap}
+.sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
+.sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
+.sitehead .tabs a{flex:0 0 auto;min-width:0;text-align:center;padding:9px 12px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
+.sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
+.sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.sitehead .hb{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 16px;font:500 14px/1 var(--body);text-decoration:none;white-space:nowrap;border:1px solid transparent;cursor:pointer}
+.sitehead .hb.solid{background:var(--ink-btn);color:var(--ink-btn-fg)}.sitehead .hb.solid:hover{opacity:.86}
+.sitehead .hb.line{background:transparent;color:var(--fg);border-color:var(--line)}.sitehead .hb.line:hover{background:var(--pill)}
+.sitehead .hb svg{width:15px;height:15px}
+.sitehead a:focus-visible,.sitehead button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:1180px){
+ .sitehead .bar{grid-template-columns:auto auto;padding-block:10px 0;row-gap:6px}
+ .sitehead .tabs{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-inline:-6px}
+ .sitehead .tabs::-webkit-scrollbar{display:none}
+ .sitehead .tabs a{min-width:0;flex:1 0 auto}
+}
+
+/* legal pages */
+.legal .hero{padding-block:72px 36px}
+.legal .upd{color:var(--soft);font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:18px 0 0}
+.doc{display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;align-items:start;padding-bottom:96px}
+.toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:2px;font-size:13.5px;border-left:1px solid var(--line);padding-left:14px;max-height:calc(100vh - 110px);overflow:auto}
+.toc a{text-decoration:none;color:var(--muted);padding:4px 0}.toc a:hover{color:var(--fg)}
+.legal article{max-width:72ch}
+.legal article h2{font:500 21px/1.25 var(--display);letter-spacing:-.015em;margin:40px 0 10px;scroll-margin-top:84px}
+.legal article h2:first-child{margin-top:0}
+.legal article p,.legal article li{color:var(--fg);opacity:.9;font-size:15.5px;line-height:1.65}
+.legal article ul{padding-left:20px;margin:10px 0}.legal article li{margin:6px 0}
+.legal article a{text-underline-offset:2px}
+.legal .caps{font-size:14px!important;text-transform:uppercase;letter-spacing:.01em;line-height:1.6}
+@media (max-width:860px){.doc{grid-template-columns:1fr;gap:24px}.toc{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:6px 14px;border-left:0;padding-left:0;border-bottom:1px solid var(--line);padding-bottom:16px}}
+
+.legal .hero .kick{display:inline-block;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.legal .hero .kick a{text-decoration:none}
+.legal article h3{font:500 17px/1.3 var(--display);margin:22px 0 6px}
+.legal article ol{padding-left:22px;margin:10px 0}.legal article ol li{margin:6px 0}
+.legal .eg{background:var(--card);border-radius:12px;padding:14px 16px}
+.legal .quote{background:var(--card);border-radius:12px;padding:16px 18px}
+.legal .cta-line{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}
+.legal .cta-line .btn{opacity:1;text-decoration:none}
+.facts{width:100%;border-collapse:collapse;font-size:15px}.facts th,.facts td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}.facts th{width:150px;font-weight:500;color:var(--muted)}
+.assets{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:12px 0}
+.asset{display:flex;flex-direction:column;gap:6px;background:var(--card);border-radius:14px;padding:14px;text-decoration:none}
+.asset img,.asset .sw{height:84px;width:auto;max-width:100%;object-fit:contain;align-self:flex-start;border-radius:6px}.asset .sw{display:flex;align-items:center}.asset .sw svg{height:34px;width:auto}
+.asset small{color:var(--muted)}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:12px 0}
+.shots figure{margin:0}.shots img{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);display:block}
+.shots figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.legal .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding-bottom:96px}
+.gcard{background:var(--card);border-radius:18px;padding:26px 26px 24px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:background .15s}
+.gcard:hover{background:var(--pill)}
+.gcard h2{font:500 21px/1.25 var(--display);letter-spacing:-.015em;margin:0}.gcard p{margin:0;color:var(--muted);font-size:14.5px}
+
+.emari{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;margin:24px 0 0;padding:12px 18px;border-radius:999px;background:linear-gradient(90deg,#e9e6ff,#dfe9ff 55%,#dff3ff);color:#1b1d3a;text-decoration:none;font-size:14.5px}
+.emari .em-k{font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.emari .em-t{flex:1 1 260px}
+.emari .em-go{display:inline-flex;align-items:center;gap:6px;font-weight:500;white-space:nowrap}.emari svg{width:16px;height:16px}
+.emari:hover{filter:brightness(.98)}
+.legal .hero{padding-block:56px 32px}
+.rs-h{font:500 26px/1.2 var(--display);letter-spacing:-.02em;margin:56px 0 16px;scroll-margin-top:84px}
+.rs-cards{padding-bottom:0!important}
+.gcard.rs h3{font:500 22px/1.2 var(--display);margin:0}
+.gcard.rs dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:6px 0 0;font-size:14px}
+.gcard.rs dt{color:var(--muted)}.gcard.rs dd{margin:0}
+.gcard.rs code{font:13px var(--mono);background:var(--bg);padding:2px 6px;border-radius:6px}
+.rs-p{max-width:72ch;font-size:15.5px;line-height:1.65;color:var(--fg)}
+.rs-table{overflow-x:auto;border:1px solid var(--line);border-radius:16px;margin:18px 0}
+.rs-table table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:720px}
+.rs-table th,.rs-table td{text-align:left;vertical-align:top;padding:12px 16px;border-bottom:1px solid var(--line)}
+.rs-table th{font-weight:500;color:var(--muted);background:var(--card)}
+.rs-table tr:last-child td{border-bottom:0}
+.rs-table td:first-child{font-weight:500;white-space:nowrap}
+.rs-note{background:var(--card);border-radius:16px;padding:18px 20px;max-width:72ch}.rs-note p{margin:6px 0 0;font-size:15px;line-height:1.6}
+.rs-emari{max-width:72ch}.rs-emari p{font-size:15.5px;line-height:1.65;margin:0 0 12px}
+.rs-list{max-width:72ch;padding-left:20px;font-size:15.5px;line-height:1.65}.rs-list li{margin:6px 0}
+.pt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.pt-card{background:var(--card);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px}
+.pt-card h2{font:500 30px/1.1 var(--display);letter-spacing:-.02em;margin:0}
+.pt-card p{margin:0;font-size:15.5px;line-height:1.6}
+.pt-link{margin-top:auto;padding-top:8px;color:var(--fg);font-weight:500}
+.pt-cta{margin:56px 0 24px;max-width:72ch}.pt-cta h2{font:500 26px/1.2 var(--display);margin:0 0 10px}.pt-cta p{font-size:15.5px;line-height:1.65}
+.pt-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.pt-btns .btn{text-decoration:none}
+.pt-fine{font-size:12.5px;color:var(--muted);margin:32px 0 96px}
+main.legal{padding-bottom:96px}
+
+.pd-hero{padding:72px 0 40px;max-width:760px}
+.pd-hero h1{font:500 clamp(36px,5vw,56px)/1.05 var(--display);letter-spacing:-.03em;margin:0 0 16px;text-align:left;max-width:none}
+.pd-hero .lede{font-size:18px;line-height:1.55;color:var(--muted);margin:0;text-align:left;max-width:60ch}
+.pd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;max-width:1140px}
+.pd-card{background:var(--card);border-radius:12px;padding:14px 14px 18px;display:flex;flex-direction:column}
+.pd-logo{display:flex;align-items:center;justify-content:center;height:150px;background:#fff;border-radius:8px;text-decoration:none;color:#000}
+.pd-logo img{width:78%;max-width:300px;height:auto;display:block}
+.pd-name-fallback{font:600 34px/1 var(--display);letter-spacing:-.02em;color:#000}
+.pd-card h2{font:500 17px/1.3 var(--body);margin:18px 0 8px;letter-spacing:0}
+.pd-card p{margin:0 0 18px;font-size:14.5px;line-height:1.6;color:var(--fg);opacity:.85}
+.pd-tags{margin-top:auto;font-size:12.5px;color:var(--fg)}
+
+/* MCP page */
+.mx-hero{padding:72px 0 28px;max-width:820px}
+.mx-hero h1{font:500 clamp(36px,5vw,56px)/1.05 var(--display);letter-spacing:-.03em;margin:14px 0 16px;text-align:left;max-width:none}
+.mx-hero .lede{margin:0}
+.mx-addr{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:10px 10px 10px 16px;margin:26px 0 0;max-width:720px}
+.mx-addr code{flex:1;font:500 14px/1.4 var(--mono);word-break:break-all}
+.mx-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.mx-sec{padding:56px 0 0;max-width:1140px}
+.mx-sec>h2{font:500 clamp(24px,3vw,32px)/1.15 var(--display);letter-spacing:-.02em;margin:10px 0 10px}
+.mx-sec>p.sub{color:var(--muted);font-size:16px;line-height:1.6;margin:0 0 22px;max-width:62ch}
+.mx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.mx-card{background:var(--card);border-radius:14px;padding:18px}
+.mx-card h3{font:500 16px/1.3 var(--body);margin:0 0 6px}
+.mx-card p{margin:0;font-size:14.5px;line-height:1.6;opacity:.85}
+.mx-card .tag{display:inline-block;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.mx-card code{font:500 12.5px var(--mono);background:var(--pill);border-radius:6px;padding:2px 6px}
+.mx-steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;list-style:none;padding:0;margin:0}
+.mx-steps li{background:var(--card);border-radius:14px;padding:18px;counter-increment:s;font-size:14.5px;line-height:1.6}
+.mx-steps li::before{content:counter(s);display:inline-flex;width:28px;height:28px;border-radius:99px;background:var(--ink-btn);color:var(--ink-btn-fg);align-items:center;justify-content:center;font:600 13px/1 var(--body);margin-bottom:10px}
+.mx-steps b{display:block;font-weight:500;font-size:16px;margin-bottom:4px}
+.mx-code{position:relative;background:var(--card);border-radius:14px;padding:16px;margin:12px 0 0;overflow:auto}
+.mx-code pre{margin:0;font:13px/1.6 var(--mono);white-space:pre}
+.mx-code .btn{position:absolute;top:10px;right:10px}
+.mx-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.mx-cols h3{font:500 16px/1.3 var(--body);margin:0 0 4px}
+.mx-cols p{margin:0;color:var(--muted);font-size:14px}
+.mx-ex{display:flex;flex-wrap:wrap;gap:8px}
+.mx-ex span{background:var(--pill);border-radius:99px;padding:9px 14px;font-size:14px}
+.mx-try{background:var(--card);border-radius:16px;padding:18px;display:grid;gap:14px}
+.mx-try label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500}
+.mx-try select,.mx-try input,.mx-try textarea{font:400 15px/1.4 var(--body);color:var(--fg);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box}
+.mx-try .desc{color:var(--muted);font-size:14px;margin:0}
+.mx-out{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;font:13.5px/1.6 var(--mono);max-height:460px;overflow:auto}
+.mx-out a{color:inherit}.mx-out img{max-width:100%;border-radius:10px;display:block;margin-top:10px}
+.mx-faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.mx-faq summary{cursor:pointer;font-weight:500;font-size:16px}
+.mx-faq p{margin:10px 0 0;color:var(--fg);opacity:.85;line-height:1.65;font-size:15px;max-width:72ch}
+.mx-fine{font-size:12.5px;color:var(--muted);margin:40px 0 0;max-width:80ch}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="aiv" viewBox="168 188 1044 394"><g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"><path d="M210 538 L402 232 L582 538"/><path d="M372 432 L428 432"/><path d="M700 232 L700 538"/><path d="M822 232 L992 536 L1164 232"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="sitehead">
+  <div class="bar">
+    <a class="brand" href="index.html" aria-label="AI Verse home"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+    <nav class="tabs" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="chat.html">Ask AIV</a>
+      <a href="builder.html">Build AI</a>
+      <a href="introducing-aiv-x.html">AIV X</a>
+      <a href="business.html">Business</a>
+      <a href="data.html">Data</a>
+      <a href="index.html#apps">Apps</a>
+      <a href="api.html">API</a>
+      <a href="research.html">Research</a>
+      <a href="partners.html">Partners</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
+  </div>
+</header>
+
+<main class="wrap legal">
+  <section class="mx-hero">
+    <span class="eyebrow">AI Verse MCP</span>
+    <h1>Use AI Verse inside your favorite AI app</h1>
+    <p class="lede">The AI Verse MCP server brings our free AI tools to Claude, ChatGPT, Cursor, VS Code and any app that supports the Model Context Protocol. Make playlists, plan your day, write cover letters, build flashcards and more, without leaving the chat.</p>
+    <div class="mx-addr"><code id="mcpUrl">https://ask-aiv.domhasaball.workers.dev/mcp</code><button class="btn dark sm" type="button" data-copy="mcpUrl">Copy</button></div>
+    <div class="mx-btns"><a class="btn pill sm" href="#connect">How to connect</a><a class="btn pill sm" href="#try">Try a tool</a><a class="btn pill sm" href="#tools">See all tools</a></div>
+  </section>
+
+  <section class="mx-sec" id="what">
+    <span class="eyebrow">What it is</span>
+    <h2>One address, every AI Verse tool</h2>
+    <p class="sub">MCP (Model Context Protocol) is an open standard that lets AI apps use tools from other services. Add the AI Verse server once, then just ask.</p>
+    <div class="mx-grid">
+      <article class="mx-card"><h3>Works where you already chat</h3><p>Claude, ChatGPT, Cursor, VS Code and other MCP apps can call AI Verse tools when your request needs them.</p></article>
+      <article class="mx-card"><h3>Free to start</h3><p>No account needed. Try every tool with a daily allowance of free AI tool calls.</p></article>
+      <article class="mx-card"><h3>Real results with links</h3><p>Songs are checked against Apple’s catalog, job searches open on LinkedIn and Indeed, and day plans come with a calendar file.</p></article>
+      <article class="mx-card"><h3>Private by design</h3><p>Tools only read what you send them. We don’t store your requests or the answers.</p></article>
+    </div>
+  </section>
+
+  <section class="mx-sec" id="connect">
+    <span class="eyebrow">Connect</span>
+    <h2>Connect in three steps</h2>
+    <ol class="mx-steps">
+      <li><b>Copy the address</b>Copy the AI Verse MCP server address above.</li>
+      <li><b>Add it to your AI app</b>In your AI app’s settings, add a custom connector (it may be called a remote MCP server or an MCP integration) and paste the address. No sign-in is needed.</li>
+      <li><b>Just ask</b>Try “Use AI Verse to make a rainy-day jazz playlist.” Your app will ask before it uses a tool.</li>
+    </ol>
+    <div class="mx-cols" style="margin-top:22px">
+      <div><h3>Cursor and other apps with an MCP settings file</h3><p>Add this to the app’s MCP settings.</p>
+        <div class="mx-code"><button class="btn pill sm" type="button" data-copy="cfg1">Copy</button><pre id="cfg1">{
+  "mcpServers": {
+    "ai-verse": {
+      "url": "https://ask-aiv.domhasaball.workers.dev/mcp"
+    }
+  }
+}</pre></div></div>
+      <div><h3>VS Code</h3><p>Add this to your <code>mcp.json</code>.</p>
+        <div class="mx-code"><button class="btn pill sm" type="button" data-copy="cfg2">Copy</button><pre id="cfg2">{
+  "servers": {
+    "ai-verse": {
+      "type": "http",
+      "url": "https://ask-aiv.domhasaball.workers.dev/mcp"
+    }
+  }
+}</pre></div></div>
+    </div>
+    <p class="sub" style="margin-top:22px">Have an AIV key? Add the header <code>Authorization: Bearer YOUR_KEY</code> (some apps call it an access token or API key) to use your key’s monthly requests instead of the free daily allowance.</p>
+  </section>
+
+  <section class="mx-sec" id="try">
+    <span class="eyebrow">Try it</span>
+    <h2>Try a tool right here</h2>
+    <p class="sub">Run any AI Verse tool from this page. AI tools count toward the free daily allowance.</p>
+    <div class="mx-try" id="tryBox">
+      <label>Tool<select id="tSel"><option>Loading tools…</option></select></label>
+      <p class="desc" id="tDesc"></p>
+      <form id="tForm" style="display:grid;gap:12px"></form>
+      <div class="mx-out" id="tOut" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="mx-sec" id="tools">
+    <span class="eyebrow">Tools</span>
+    <h2>13 tools from 7 free AI apps</h2>
+    <p class="sub">Each answer links to the free AI Verse app that does even more.</p>
+    <div class="mx-grid"><article class="mx-card"><span class="tag">AI Music</span><h3>Make a playlist</h3><p>A playlist of real songs from a mood, activity or favorite artists. Every song is checked against Apple’s music catalog and comes with a link.</p><p style="margin-top:10px"><code>make_playlist</code></p></article><article class="mx-card"><span class="tag">AI Music</span><h3>Find similar artists</h3><p>Artists like one you love, with a reason for each and a link to listen.</p><p style="margin-top:10px"><code>similar_artists</code></p></article><article class="mx-card"><span class="tag">AI Career</span><h3>Job search links</h3><p>Ready-made LinkedIn and Indeed searches for any role and location.</p><p style="margin-top:10px"><code>job_search_links</code></p></article><article class="mx-card"><span class="tag">AI Career</span><h3>Write a cover letter</h3><p>A tailored letter from a job post and your background, using only facts you give it.</p><p style="margin-top:10px"><code>write_cover_letter</code></p></article><article class="mx-card"><span class="tag">AI Career</span><h3>Improve resume bullets</h3><p>Clear, results-focused bullet points without invented numbers.</p><p style="margin-top:10px"><code>improve_resume_bullets</code></p></article><article class="mx-card"><span class="tag">AI Personal Assistant</span><h3>Plan my day</h3><p>A realistic time-blocked schedule from your task list, plus a calendar file.</p><p style="margin-top:10px"><code>plan_my_day</code></p></article><article class="mx-card"><span class="tag">AI Personal Assistant</span><h3>Draft an email</h3><p>A clear email from a few notes. Nothing is ever sent.</p><p style="margin-top:10px"><code>draft_email</code></p></article><article class="mx-card"><span class="tag">AI Health and Fitness</span><h3>Make a workout plan</h3><p>A weekly plan for your goal, schedule and equipment.</p><p style="margin-top:10px"><code>workout_plan</code></p></article><article class="mx-card"><span class="tag">AI Study and Research</span><h3>Make flashcards</h3><p>Study cards on any topic, ready to import into Anki or Quizlet.</p><p style="margin-top:10px"><code>make_flashcards</code></p></article><article class="mx-card"><span class="tag">AI Study and Research</span><h3>Explain a topic</h3><p>Step-by-step explanations at your level, with an example and a check question.</p><p style="margin-top:10px"><code>explain_topic</code></p></article><article class="mx-card"><span class="tag">AI Stock and Finance</span><h3>Explain a finance term</h3><p>Plain-words money and investing terms. Education only.</p><p style="margin-top:10px"><code>explain_finance_term</code></p></article><article class="mx-card"><span class="tag">AI Photo</span><h3>Create an image</h3><p>An image from a description, in square, portrait or landscape.</p><p style="margin-top:10px"><code>create_image</code></p></article><article class="mx-card"><span class="tag">AI Verse</span><h3>List AI Verse apps</h3><p>The free AI Verse apps and what each one does.</p><p style="margin-top:10px"><code>list_ai_verse_apps</code></p></article></div>
+  </section>
+
+  <section class="mx-sec" id="examples">
+    <span class="eyebrow">Ideas</span>
+    <h2>Things to ask</h2>
+    <div class="mx-ex">
+      <span>Make a 20-song playlist for a late-night drive</span><span>Find artists like Phoebe Bridgers</span><span>Plan my day: report, gym at 6, call the bank</span><span>Write a cover letter for this job post</span><span>Make 25 flashcards on the French Revolution</span><span>Give me a 3-day dumbbell workout plan</span><span>What is a Roth IRA, in plain words?</span><span>Find remote UX designer jobs</span><span>Create an image of a cozy reading nook</span>
+    </div>
+  </section>
+
+  <section class="mx-sec" id="apps">
+    <span class="eyebrow">In our apps</span>
+    <h2>MCP inside every AI Verse app</h2>
+    <p class="sub">Every AI Verse app can use MCP too. Open an app, press the plug button, and choose <b>MCP</b> to run AI Verse tools or add any MCP server you trust. The same Connections panel links each app to services like Spotify, Apple Music, LinkedIn, Indeed, Gmail, Google Calendar, Apple Reminders, Strava, Dropbox, Anki and Notion.</p>
+    <div class="mx-btns"><a class="btn dark sm" href="index.html#apps">Open the free apps</a><a class="btn pill sm" href="api.html#plans">Get an AIV key</a></div>
+  </section>
+
+  <section class="mx-sec mx-faq" id="faq">
+    <span class="eyebrow">FAQ</span>
+    <h2>Questions</h2>
+    <details><summary>Is it free?</summary><p>Yes. Anyone can use the AI Verse MCP server with a daily allowance of free AI tool calls. Job search links and the app list don’t count toward it. For more, use an AIV key.</p></details>
+    <details><summary>Do I need an account?</summary><p>No. Paste the address and start. An AIV key is optional.</p></details>
+    <details><summary>What happens to what I send?</summary><p>The server uses your request only to answer it and doesn’t store the request or the answer. We keep a daily count per visitor, or a monthly count per AIV key, to apply limits. See our <a href="privacy.html#p5a">Privacy Policy</a>.</p></details>
+    <details><summary>Can the tools change anything in my accounts?</summary><p>No. Every tool is read-only. It returns text, links, files or images, and never sends, buys or posts anything.</p></details>
+    <details><summary>My app can’t connect. What should I check?</summary><p>Make sure you pasted the full address ending in <code>/mcp</code>, and that your app supports remote MCP servers over HTTP (sometimes called Streamable HTTP). Still stuck? Email <a href="mailto:team@aiverse.it.com">team@aiverse.it.com</a>.</p></details>
+  </section>
+
+  <p class="mx-fine">AI can be wrong. Check important information before you rely on it. Workout plans are general fitness information, not medical advice. Finance answers are for education only, not investment, financial, tax or legal advice. Claude, ChatGPT, Cursor, VS Code and other product names are trademarks of their owners; AI Verse is not affiliated with or endorsed by them.</p>
+</main>
+
+
+
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice.</p>
+  </div>
+</footer>
+<script src="config.js"></script>
+<script>
+(function(){
+  var base=((window.AIV_SITE&&(AIV_SITE.apiPublic||AIV_SITE.server))||'https://ask-aiv.domhasaball.workers.dev').replace(/\/+$/,''),URL=base+'/mcp';
+  ['mcpUrl','cfg1','cfg2'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=e.textContent.replace(/https:\/\/[^"\s]+\/mcp/,URL);});
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.dataset.copy).textContent;var ok=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1500)};if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){});});});
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var sid='',ready=false,tools=[],sel=document.getElementById('tSel'),form=document.getElementById('tForm'),out=document.getElementById('tOut'),desc=document.getElementById('tDesc');
+  function rpc(method,params,note){var h={'Content-Type':'application/json',Accept:'application/json, text/event-stream','MCP-Protocol-Version':'2025-06-18'};if(sid)h['Mcp-Session-Id']=sid;var m={jsonrpc:'2.0',method:method};if(params)m.params=params;if(!note)m.id=Date.now();
+    return fetch(URL,{method:'POST',headers:h,body:JSON.stringify(m)}).then(function(r){var s=r.headers.get('Mcp-Session-Id');if(s)sid=s;if(note)return null;return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){t.split(/\n\n/).forEach(function(ev){var d=ev.split('\n').filter(function(l){return l.indexOf('data:')===0}).map(function(l){return l.slice(5).trim()}).join('');try{var o=JSON.parse(d);if(o.id===m.id)j=o}catch(x){}})}if(!j)throw new Error('The server sent a reply that could not be read.');if(j.error)throw new Error(j.error.message);return j.result;});});}
+  function init(){if(ready)return Promise.resolve();return rpc('initialize',{protocolVersion:'2025-06-18',capabilities:{},clientInfo:{name:'AI Verse MCP page',version:'1.0'}}).then(function(){ready=true;return rpc('notifications/initialized',null,true).catch(function(){})});}
+  function field(k,p,req){var lab=(p.title||k.replace(/_/g,' '));lab=lab.charAt(0).toUpperCase()+lab.slice(1)+(req?'':' (optional)');var input;
+    if(p.enum)input='<select name="'+k+'">'+p.enum.map(function(v){return'<option'+(v===p.default?' selected':'')+'>'+esc(v)+'</option>'}).join('')+'</select>';
+    else if(p.type==='integer'||p.type==='number')input='<input name="'+k+'" type="number" value="'+esc(p.default!=null?p.default:'')+'"'+(p.minimum!=null?' min="'+p.minimum+'"':'')+(p.maximum!=null?' max="'+p.maximum+'"':'')+'>';
+    else if((p.maxLength||0)>500)input='<textarea name="'+k+'" rows="4" placeholder="'+esc(p.description||'')+'"'+(req?' required':'')+'></textarea>';
+    else input='<input name="'+k+'" placeholder="'+esc(p.description||'')+'" value="'+esc(p.default||'')+'"'+(req?' required':'')+'>';
+    return'<label>'+esc(lab)+input+'</label>';}
+  function show(){var t=tools[sel.selectedIndex];if(!t)return;desc.textContent=t.description||'';var s=t.inputSchema||{},pr=s.properties||{},rq=s.required||[];
+    form.innerHTML=Object.keys(pr).map(function(k){return field(k,pr[k],rq.indexOf(k)>=0)}).join('')+'<div><button class="btn dark sm" type="submit">Run tool</button></div>';out.hidden=true;}
+  function linkify(h){return h.replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)])/g,'<a href="$1" target="_blank" rel="noopener">$1</a>')}
+  form.addEventListener('submit',function(e){e.preventDefault();var t=tools[sel.selectedIndex],pr=(t.inputSchema||{}).properties||{},args={};
+    Object.keys(pr).forEach(function(k){var v=form.elements[k].value.trim();if(v==='')return;args[k]=(pr[k].type==='integer'||pr[k].type==='number')?Number(v):v;});
+    if(pr.date&&!args.date){var d=new Date();args.date=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}var b=form.querySelector('button');b.disabled=true;b.textContent='Running…';out.hidden=false;out.textContent='Running…';
+    init().then(function(){return rpc('tools/call',{name:t.name,arguments:args})}).then(function(r){var c=(r&&r.content)||[];
+      out.innerHTML=c.map(function(x){return x.type==='text'?linkify(esc(x.text)):x.type==='image'?'<img alt="Created image" src="data:'+esc(x.mimeType)+';base64,'+esc(x.data)+'">':''}).join('\n\n')||'Done.';
+      if(r&&r.structuredContent&&r.structuredContent.ics){var a=document.createElement('a');a.className='btn pill sm';a.style.marginTop='12px';a.textContent='Download calendar file';a.href=URL_.createObjectURL(new Blob([r.structuredContent.ics],{type:'text/calendar'}));a.download='plan.ics';out.appendChild(document.createElement('br'));out.appendChild(a);}
+      if(r&&r.structuredContent&&r.structuredContent.anki){var a2=document.createElement('a');a2.className='btn pill sm';a2.style.marginTop='12px';a2.textContent='Download for Anki';a2.href=URL_.createObjectURL(new Blob(['#separator:tab\n#html:false\n'+r.structuredContent.anki],{type:'text/plain'}));a2.download='flashcards (Anki).txt';out.appendChild(document.createElement('br'));out.appendChild(a2);}
+    }).catch(function(x){out.textContent=x.message||'Something went wrong. Please try again.';}).then(function(){b.disabled=false;b.textContent='Run tool';});});
+  var URL_=window.URL;
+  sel.addEventListener('change',show);
+  init().then(function(){return rpc('tools/list',{})}).then(function(r){tools=(r&&r.tools)||[];sel.innerHTML=tools.map(function(t){return'<option>'+esc(t.title||t.name)+'</option>'}).join('');show();})
+    .catch(function(){sel.innerHTML='<option>Tools are unavailable right now</option>';desc.textContent='The AI Verse server could not be reached. Please try again later.';});
+})();
+</script>
+<script src="auth.js" defer></script>
+</body>
+</html>

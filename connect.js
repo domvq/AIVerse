@@ -1010,6 +1010,7 @@
             else args[f.name] = v;
           });
         } catch (x) { toast('Check the JSON fields.', true); return; }
+        if (props.date && !args.date) args.date = today();
         var btn = fm.querySelector('button[type=submit]'); btn.disabled = true; out.innerHTML = '<div class="aivc-busy"><span class="aivc-spin"></span>Running…</div>';
         try {
           await mcpInit(srv);
@@ -1112,7 +1113,7 @@
       '<div class="aivc-h4">Your MCP servers</div><div class="aivc-pick">' + servers().map(function (s, i) { return '<div class="aivc-opt" style="cursor:default"><b>' + esc(s.name) + (s.builtin ? ' <span style="display:inline;font-weight:500">· built in</span>' : '') + '</b><span>' + esc(s.url) + '</span><div class="aivc-row"><button type="button" class="aivc-btn pri" data-open="' + i + '">Open tools</button>' + (s.builtin ? '' : '<button type="button" class="aivc-btn" data-del="' + i + '">Remove</button>') + '</div></div>'; }).join('') + '</div>' +
       '<div class="aivc-row"><button type="button" class="aivc-btn" data-add>Add an MCP server</button></div>' +
       '<div class="aivc-h4">Use AI Verse in other AI apps</div><div class="aivc-card"><p>Add this address as a custom connector (remote MCP server) in Claude, ChatGPT, Cursor, VS Code or any app that supports MCP. You get AI Verse tools like playlists, flashcards, cover letters, day plans and workout plans.</p><div class="aivc-code"><span>' + esc(url) + '</span><button type="button" class="aivc-btn" data-cpu>Copy</button></div>' +
-      '<p class="aivc-note" style="margin-top:10px">Free to try with a daily limit. For unlimited use, add your AIV key as the access token (Authorization: Bearer your-key).</p><a class="aivc-btn" href="' + esc(base + 'api.html#mcp') + '" target="_blank" rel="noopener">Setup guide</a></div>';
+      '<p class="aivc-note" style="margin-top:10px">Free to try with a daily limit. For unlimited use, add your AIV key as the access token (Authorization: Bearer your-key).</p><a class="aivc-btn" href="' + esc(base + 'mcp.html') + '" target="_blank" rel="noopener">Setup guide</a></div>';
     $$('[data-open]', body).forEach(function (b) { b.onclick = function () { mcpTools(servers()[+b.dataset.open]).catch(function (e) { toast(e.message, true); render(); }); }; });
     $$('[data-del]', body).forEach(function (b) { b.onclick = function () { var s = servers()[+b.dataset.del]; if (!confirm('Remove ' + s.name + '?')) return; C.mcp = C.mcp.filter(function (x) { return x.id !== s.id; }); persist(); render(); }; });
     body.querySelector('[data-add]').onclick = addServer;
