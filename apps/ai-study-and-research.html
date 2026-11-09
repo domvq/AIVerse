@@ -584,7 +584,7 @@ const KEY='learnintel.v1';
 const freshTutor=()=>({topic:'',lvl:'Beginner',nodes:[],hist:[],sel:null});
 const DEF=()=>({profile:{name:''},settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:''},tutor:freshTutor(),lab:{lvl:'Undergraduate',hist:[],ptitle:'',ptext:''},chat:[],mchat:[],setupDone:false});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.tutor={...freshTutor(),...(s.tutor||{})};d.lab={...DEF().lab,...(s.lab||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
 
@@ -797,6 +797,7 @@ init();
 </script>
 <script src="../legal.js" defer></script>
 <script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>

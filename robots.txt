@@ -5,5 +5,6 @@ Allow: /
 # Private and utility pages
 Disallow: /admin.html
 Disallow: /bot.html
+Disallow: /oauth-callback.html
 
 Sitemap: https://aiverse.it.com/sitemap.xml

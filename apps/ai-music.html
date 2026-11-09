@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Music: Free AI Playlist Generator | AI Verse</title>
+<meta name="description" content="Make AI playlists from one song, your favorites or a vibe, find new artists like the ones you love, and blend friends&#x27; tastes. Real songs with previews. Free.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://aiverse.it.com/apps/ai-music.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Verse">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="AI Music: AI playlists and music discovery">
+<meta property="og:description" content="Make AI playlists from one song, your favorites or a vibe, find new artists like the ones you love, and blend friends&#x27; tastes. Real songs with previews. Free.">
+<meta property="og:url" content="https://aiverse.it.com/apps/ai-music.html">
+<meta property="og:image" content="https://aiverse.it.com/icons/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI Music by AI Verse">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Music: AI playlists and music discovery">
+<meta name="twitter:description" content="Make AI playlists from one song, your favorites or a vibe, find new artists like the ones you love, and blend friends&#x27; tastes. Real songs with previews. Free.">
+<meta name="twitter:image" content="https://aiverse.it.com/icons/og-image.jpg">
+<meta name="twitter:image:alt" content="AI Music by AI Verse">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","alternateName":"AIV","url":"https://aiverse.it.com/","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"WebApplication","name":"AI Music","url":"https://aiverse.it.com/apps/ai-music.html","applicationCategory":"MultimediaApplication","operatingSystem":"Web browser","description":"Make AI playlists from one song, your favorites or a vibe, find new artists like the ones you love, and blend friends' tastes. Real songs with previews. Free.","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"20 free AI uses per day"},"publisher":{"@id":"https://aiverse.it.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"AI Music","item":"https://aiverse.it.com/apps/ai-music.html"}]}]}</script>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111'/%3E%3Ccircle cx='20' cy='40' r='6' fill='white'/%3E%3Ccircle cx='44' cy='22' r='6' fill='white'/%3E%3Ccircle cx='44' cy='44' r='6' fill='white'/%3E%3Cpath d='M25 37l14-12M26 40h12' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+[hidden]{display:none!important}
+
+:root{--bg:#fff;--card:#f4f4f5;--box:#fff;--line:#e6e6e9;--ink:#111214;--muted:#6b6d72;--soft:#9a9ca1;--good:#15803d;--good-bg:#dcfce7;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;--kcal:#f97316;--pro:#0891b2;--carb:#d97706;--fat:#8b5cf6;--sleep:#8b5cf6;--lift:#0e7490;--water:#0284c7;--btn:#111214;--btn-ink:#fff;--r:14px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0e0f11;--card:#1a1b1e;--box:#141518;--line:#2a2c30;--ink:#ececee;--muted:#a1a3a8;--soft:#7a7c82;--good:#4ade80;--good-bg:#14321f;--warn:#fbbf24;--warn-bg:#3a2d0c;--bad:#f87171;--bad-bg:#3b1414;--kcal:#fb923c;--pro:#22d3ee;--carb:#fbbf24;--fat:#a78bfa;--sleep:#a78bfa;--lift:#22d3ee;--water:#38bdf8;--btn:#ececee;--btn-ink:#111214;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.shell{max-width:780px;margin:0 auto;padding:24px 18px 110px}
+@media (min-width:820px){.shell{margin:20px auto;border:1px solid var(--line);border-radius:22px;padding:26px 26px 110px;min-height:calc(100vh - 40px)}}
+header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+h1{font-size:30px;line-height:1.15;margin:0;font-weight:700;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px;margin:3px 0 0}
+.hdr-r{display:flex;gap:8px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:5px;background:var(--good-bg);color:var(--good);font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap;border:0;cursor:pointer;font-family:inherit}
+.badge.off{background:var(--card);color:var(--muted)}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--box);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.icon-btn:hover{background:var(--card)}
+.ic{width:20px;height:20px;flex:none}
+.view{display:none}.view.on{display:block;animation:fade .15s ease}
+@keyframes fade{from{opacity:0}}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stat{background:var(--card);border-radius:var(--r);padding:14px 14px 12px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer;min-width:0}
+.stat:hover{filter:brightness(.98)}
+.stat .ic{width:20px;height:20px}
+.stat b{display:block;font-size:34px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat b small{font-size:18px;font-weight:600;color:var(--muted)}
+.stat>span:last-child{font-size:13px;color:var(--muted)}
+.c-kcal{color:var(--kcal)}.c-lift{color:var(--lift)}.c-pro{color:var(--pro)}.c-sleep{color:var(--sleep)}.c-water{color:var(--water)}.c-carb{color:var(--carb)}.c-fat{color:var(--fat)}
+h2{font-size:15px;font-weight:600;margin:22px 0 10px}
+h3{font-size:15px;font-weight:600;margin:0}
+h4{font-size:13px;font-weight:600;margin:14px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.box{background:var(--box);border:1px solid var(--line);border-radius:var(--r);padding:14px 14px}
+.soft{background:var(--card);border-radius:var(--r);padding:14px}
+.box+.box,.soft+.soft,.box+.soft,.soft+.box{margin-top:10px}
+.row{display:flex;gap:8px;align-items:center}
+.wrap{flex-wrap:wrap}.between{justify-content:space-between}.end{justify-content:flex-end}.grow{flex:1;min-width:0}
+.pill{display:inline-block;background:var(--card);color:var(--ink);font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.box .pill{background:var(--card)}
+.pill.good{background:var(--good-bg);color:var(--good)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:12px}
+.note{color:var(--muted);font-size:12.5px;margin:10px 0 0}
+ul.ex{margin:8px 0 0;padding-left:22px}ul.ex li{margin:3px 0}
+.btn{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--box);color:var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;position:relative;text-decoration:none}
+.btn:hover{background:var(--card)}
+.btn.primary{background:var(--btn);border-color:var(--btn);color:var(--btn-ink)}
+.btn.primary:hover{opacity:.9}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.danger{color:var(--bad)}
+.btn.block{width:100%}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn .ic{width:16px;height:16px}
+.loading{color:transparent!important}.loading>*{visibility:hidden}
+.loading::after{content:"";position:absolute;inset:0;margin:auto;width:16px;height:16px;border:2px solid var(--soft);border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:10px;flex:1;min-width:0}
+input,select,textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid transparent;border-radius:10px;padding:9px 11px;width:100%;outline:0;min-width:0}
+.box input,.box select,.box textarea{background:var(--card)}
+input:focus,select:focus,textarea:focus{border-color:var(--ink)}
+textarea{resize:vertical}
+label.check{flex-direction:row;align-items:center;gap:8px;font-weight:500;color:var(--ink);font-size:14px}
+label.check input{width:auto}
+.form-row{display:flex;gap:10px;flex-wrap:wrap}.form-row>label{min-width:110px}
+.seg{display:inline-flex;background:var(--card);border-radius:11px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer}
+.seg button.on{background:var(--box);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--box);color:var(--ink);font:inherit;font-size:12.5px;padding:5px 10px;border-radius:99px;cursor:pointer;text-align:left}
+.chip:hover{background:var(--card)}
+.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--ink)}
+.mrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .t{font-weight:600;font-size:14px}
+.x{border:0;background:none;color:var(--soft);cursor:pointer;font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
+.x:hover{background:var(--card);color:var(--ink)}
+.empty{color:var(--muted);font-size:14px;margin:4px 0}
+.md p{margin:0 0 8px}.md ul,.md ol{margin:0 0 8px;padding-left:20px}.md li{margin:2px 0}.md h4{text-transform:none;letter-spacing:0;color:var(--ink);font-size:14px}.md>:last-child{margin-bottom:0}
+.coach-head{display:flex;gap:8px;align-items:center;font-weight:600;margin-bottom:8px}
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.msg{padding:10px 12px;border-radius:12px;max-width:92%;font-size:14px}
+.msg.me{align-self:flex-end;background:var(--btn);color:var(--btn-ink)}
+.msg.ai{align-self:flex-start;background:var(--box);border:1px solid var(--line)}
+.askbar{display:flex;gap:6px;margin-top:10px}
+.askbar input{background:var(--box);border:1px solid var(--line)}
+/* workout logging */
+.exc{background:var(--box);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-top:10px}
+.sets{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+.sets th{font-size:11.5px;font-weight:600;color:var(--muted);text-align:left;padding:2px 4px;text-transform:uppercase;letter-spacing:.04em}
+.sets td{padding:3px 4px}
+.sets input{padding:7px 8px;text-align:center}
+.sets tr.done td{opacity:.6}
+.setchk{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--box);cursor:pointer;display:grid;place-items:center;color:var(--muted);font-size:15px}
+.setchk.on{background:var(--good);border-color:var(--good);color:#fff}
+#restBar{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:30;background:var(--btn);color:var(--btn-ink);border-radius:14px;padding:10px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);width:min(440px,92vw)}
+#restBar[hidden]{display:none}
+#restBar b{font-size:22px;font-variant-numeric:tabular-nums;min-width:64px}
+#restBar button{background:transparent;color:inherit;border:1px solid currentColor;border-radius:8px;padding:4px 9px;font:inherit;font-size:13px;cursor:pointer;opacity:.9}
+/* charts */
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart text{fill:var(--muted);font-size:11px;font-family:inherit}
+.chart .grid line{stroke:var(--line)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* photos */
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.thumb{position:relative;border-radius:10px;overflow:hidden;background:var(--card);aspect-ratio:3/4;border:0;padding:0;cursor:pointer}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb span{position:absolute;left:4px;bottom:4px;background:rgba(0,0,0,.6);color:#fff;font-size:10.5px;padding:1px 6px;border-radius:6px}
+.compare{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:3/4;max-height:70vh;margin:0 auto;user-select:none}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.compare .top{clip-path:inset(0 0 0 50%)}
+.compare .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;pointer-events:none}
+.side{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.side figure{margin:0}.side img{width:100%;border-radius:10px;display:block;background:var(--card)}
+.side figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:4px}
+.posewrap{position:relative;max-width:420px;margin:0 auto}
+.posewrap img,.posewrap canvas{width:100%;display:block;border-radius:12px}
+.posewrap canvas{position:absolute;inset:0}
+.ring{width:118px;height:118px;flex:none}
+.ring text{font-family:inherit}
+/* bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav.tabs .in{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--ink);font-size:12px;font-weight:600;padding:2px 0}
+nav.tabs a .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1.5px solid transparent}
+nav.tabs a.on .ico{border-color:var(--ink)}
+nav.tabs a:not(.on){color:var(--muted)}
+/* dialogs, toasts, ai progress */
+dialog{border:1px solid var(--line);border-radius:16px;padding:0;background:var(--bg);color:var(--ink);width:min(560px,94vw);box-shadow:0 20px 60px rgba(0,0,0,.28)}
+dialog.wide{width:min(760px,96vw)}
+dialog::backdrop{background:rgba(10,12,14,.45)}
+.dlg-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.dlg-b{padding:16px;max-height:78vh;overflow:auto}
+#toasts{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;width:min(470px,92vw)}
+.toast{background:var(--btn);color:var(--btn-ink);padding:10px 14px;border-radius:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,.22);font-size:14px;animation:fade .2s}
+.toast.err{background:var(--bad);color:#fff}
+.toast button{background:none;border:1px solid currentColor;color:inherit;border-radius:7px;padding:3px 9px;cursor:pointer;font:inherit;font-size:13px}
+#llmBar{position:fixed;top:12px;right:12px;z-index:90;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:min(340px,90vw);box-shadow:0 8px 24px rgba(0,0,0,.15);font-size:12px;color:var(--muted)}
+#llmBar[hidden]{display:none}
+.llm-track{height:4px;background:var(--line);border-radius:4px;margin-top:6px;overflow:hidden}.llm-track i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
+.llm-track.big{height:8px;margin-top:14px}#gateTrack[hidden]{display:none}
+#gate{width:min(460px,94vw)}#gate h3{font-size:20px;margin:0 0 6px}
+[data-prov][hidden]{display:none}
+#aiCard .seg{margin-bottom:12px}
+details summary{cursor:pointer;font-weight:600;font-size:14px}
+.steps{padding-left:20px;margin:6px 0}.steps li{margin:4px 0}
+code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 14px;font-size:14px}
+.kv span:nth-child(even){font-weight:600;text-align:right}
+.hint{color:var(--muted);font-size:12.5px}
+@media (max-width:520px){h1{font-size:26px}.stat b{font-size:28px}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}.mrow{grid-template-columns:60px 1fr auto}}
+
+.err{color:var(--bad);font-weight:600}
+#map{overflow-x:auto}#map svg{min-width:480px;width:100%;max-width:680px;height:auto;display:block;margin:0 auto}
+#map g[data-id]{cursor:pointer}#map g[data-id]:focus-visible{outline:none}#map g[data-id]:focus-visible circle{stroke:var(--ink);stroke-width:3}
+.n0{fill:var(--soft)}.n1{fill:var(--bad)}.n2{fill:var(--carb)}.n3{fill:var(--good)}
+.edge{stroke:var(--line);stroke-width:2}.num{fill:#fff;font-weight:700;font-size:13px}.lbl{fill:var(--ink);font-size:12px}
+.ring{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-dasharray:5 4}.selr{stroke:var(--ink);stroke-width:3}
+.lg{font-size:12.5px}.lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px 0 10px;vertical-align:-1px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;white-space:normal}
+.opt.good{border-color:var(--good);background:var(--good-bg)}.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.opt:disabled{opacity:1;color:var(--ink);cursor:default}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.fc{min-height:120px;text-align:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--box);color:var(--ink);font:inherit;cursor:pointer}
+.fc .b,.fc.flip .f{display:none}.fc.flip .b{display:block}.fc.flip{background:var(--card)}
+.slide{border:1px solid var(--line);border-radius:12px;padding:22px;min-height:220px;background:var(--box)}
+.slide h3{font-size:19px;margin-bottom:8px}
+pre{overflow:auto;background:var(--card);padding:10px;border-radius:8px;font-size:13px}
+.out{overflow-wrap:anywhere}
+.cite{border:1px solid var(--ink);border-radius:5px;padding:0 6px;font-size:12px;margin-left:4px;background:transparent;color:var(--ink);cursor:pointer;font-family:inherit}
+.ok{color:var(--good)}.warnt{color:var(--bad)}
+.src{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:10px;font-size:14px}
+.src p{margin:0 0 8px;padding:4px 6px;border-radius:6px}.src p.on{background:var(--warn-bg)}
+.sc{display:grid;grid-template-columns:110px 1fr 30px;gap:8px;align-items:center;margin:6px 0;font-size:14px}
+.tile{background:var(--card);border-radius:var(--r);padding:12px 14px;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.tile:hover{filter:brightness(.98)}.tile b{display:block;font-size:14.5px;margin-top:6px}.tile span{font-size:12.5px;color:var(--muted)}
+.lvlsel{width:auto;font-size:13px;padding:6px 8px}
+
+/* AI Verse promo + AIV key */
+.aivpromo{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 12px 12px 16px;margin:0 0 14px}
+.aivpromo .t{flex:1;min-width:200px;font-size:13px;line-height:1.4}
+.aivpromo .t b{display:block;font-size:14.5px;margin-bottom:1px}
+.aivpromo .t span{opacity:.72}
+.aivpromo a.go{background:var(--bg);color:var(--ink);text-decoration:none;font-weight:600;font-size:13.5px;padding:8px 15px;border-radius:99px;white-space:nowrap}
+.aivpromo a.go:hover{opacity:.9}
+.aivpromo .add{background:none;border:0;color:inherit;opacity:.75;font:inherit;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.aivpromo .x{background:none;border:0;color:inherit;opacity:.55;font-size:20px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:8px}
+.aivpromo .x:hover{opacity:1}
+.aivpromo a:focus-visible,.aivpromo button:focus-visible{outline:2px solid var(--bg);outline-offset:2px}
+
+/* ===== responsive layout: bottom tabs on phones, sidebar on desktop ===== */
+nav.tabs .side-brand,nav.tabs .side-home{display:none}
+@media (min-width:900px){
+ body{padding-left:240px}
+ nav.tabs{top:0;bottom:0;left:0;right:auto;width:240px;display:flex;flex-direction:column;gap:14px;border-top:0;border-right:1px solid var(--line);padding:22px 14px 18px;background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;overflow-y:auto}
+ nav.tabs .side-brand{display:flex;align-items:center;gap:10px;padding:0 6px 4px;text-decoration:none;color:var(--ink)}
+ .side-brand .logo{flex:none;width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:16px}
+ .side-brand b{display:block;font-size:14.5px;line-height:1.2}
+ .side-brand small{display:block;color:var(--muted);font-size:12px;line-height:1.25;margin-top:1px}
+ nav.tabs .in{display:flex;flex-direction:column;gap:2px;max-width:none;margin:0}
+ nav.tabs a{flex-direction:row;justify-content:flex-start;gap:10px;font-size:14px;font-weight:500;padding:9px 10px;border-radius:10px;color:var(--muted)}
+ nav.tabs a .ico{width:auto;height:auto;border:0!important;border-radius:0}
+ nav.tabs a:hover{background:var(--card);color:var(--ink)}
+ nav.tabs a.on{background:var(--card);color:var(--ink);font-weight:600}
+ nav.tabs .side-home{display:block;margin-top:auto;padding:8px 10px;font-size:13px;color:var(--muted);text-decoration:none;border-radius:10px}
+ nav.tabs .side-home:hover{background:var(--card);color:var(--ink)}
+ .shell{max-width:1180px;margin:0 auto;border:0;border-radius:0;padding:24px 36px 60px;min-height:100vh}
+ header.top{justify-content:flex-end;margin-bottom:12px}
+ header.top>div:first-child{display:none}
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .disclaimer{text-align:left}
+ svg.chart{max-height:300px}
+}
+.grid>.soft,.grid>.box,.grid3>.soft,.grid3>.box{margin-top:0}
+@media (min-width:900px) and (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* AI Verse free AI limit dialog */
+dialog.freedlg{border:0;padding:0;border-radius:20px;max-width:min(440px,calc(100vw - 32px));width:100%;background:var(--bg);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
+.freedlg .fd-in{padding:28px 26px 22px}
+.freedlg .fd-t{display:block;font-size:20px;line-height:1.25;letter-spacing:-.01em}
+.freedlg p{color:var(--muted);margin:10px 0 0;font-size:14.5px;line-height:1.5}
+.freedlg .fd-go{display:block;text-align:center;margin-top:20px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;padding:13px 18px;border-radius:12px}
+.freedlg .fd-go:hover{opacity:.9}
+.freedlg .fd-alt{display:flex;justify-content:center;gap:18px;margin-top:12px}
+.freedlg .fd-alt button{background:none;border:0;color:var(--muted);font:inherit;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
+.freedlg a:focus-visible,.freedlg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* ---------- AI Music ---------- */
+.hero-ask{background:var(--card);border-radius:18px;padding:18px 16px}
+.hero-ask .askbar input{background:var(--box)}
+@media (max-width:520px){.hero-ask .askbar{flex-wrap:wrap}.hero-ask .askbar input{flex:1 1 100%}.hero-ask .askbar .btn{width:100%}}
+.acts .stat{padding:14px}.acts .stat b{white-space:normal}
+.chip.on{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+.trks{list-style:none;margin:10px 0 0;padding:0}
+.trk{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.trk:first-child{border-top:0}
+.trks.mini .trk{grid-template-columns:44px minmax(0,1fr) auto}
+.art{position:relative;width:52px;height:52px;border-radius:9px;overflow:hidden;border:0;padding:0;background:var(--card);cursor:pointer;color:#fff}
+.trks.mini .art{width:44px;height:44px}
+.art img{width:100%;height:100%;object-fit:cover;display:block}
+.art .pi{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.35);opacity:0;transition:opacity .15s}
+.art:hover .pi,.art:focus-visible .pi,.art.on .pi{opacity:1}
+.art:disabled{cursor:default}.art:disabled .pi{display:none}
+.art .ic{width:22px;height:22px}
+.tm{min-width:0}.tt{font-weight:600;font-size:14.5px;line-height:1.3;overflow:hidden;text-overflow:ellipsis}.ta{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.why{font-size:12.5px;color:var(--soft);margin-top:2px;line-height:1.35}
+.ta2{display:flex;gap:2px;align-items:center}
+.tb{width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;padding:0;list-style:none}
+.tb::-webkit-details-marker{display:none}
+.tb:hover{background:var(--card);color:var(--ink)}
+.tb.on{color:#e11d48}.tb.on svg{fill:currentColor}
+.tb .ic{width:18px;height:18px}
+details.more{position:relative}
+details.more .menu{position:absolute;right:0;top:38px;z-index:15;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.14);padding:6px;min-width:180px;display:flex;flex-direction:column}
+details.more .menu a,details.more .menu button{display:block;text-align:left;padding:9px 10px;border-radius:8px;font:inherit;font-size:13.5px;text-decoration:none;color:var(--ink);background:none;border:0;cursor:pointer}
+details.more .menu a:hover,details.more .menu button:hover{background:var(--card)}
+.plh{display:flex;gap:14px;align-items:center}
+.plt{margin:0;font-size:20px;letter-spacing:-.01em}
+.cover{width:96px;height:96px;flex:none;border-radius:12px;overflow:hidden;background:var(--card);display:grid;place-items:center}
+.cover.sm{width:52px;height:52px;border-radius:9px}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cover .mos{display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%}
+.cv0{display:grid;place-items:center;width:100%;height:100%;color:var(--muted)}.cv0 .ic{width:28px;height:28px}
+.cv0.like{background:linear-gradient(135deg,#fde2e7,#e0e7ff);color:#e11d48}.cv0.like svg{fill:currentColor}
+.tune{margin:12px 0 0}.tune .askbar{margin-top:0}
+.plc{display:flex;gap:12px;align-items:center;text-align:left;border:0;background:var(--card);border-radius:14px;padding:10px;font:inherit;color:inherit;cursor:pointer;width:100%}
+.plc:hover{filter:brightness(.98)}
+.plc b{display:block;font-size:14.5px}.plc small{color:var(--muted);font-size:12.5px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick{position:relative}
+.pres{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.14);max-height:340px;overflow:auto;padding:4px}
+.pr{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:6px;border-radius:9px;cursor:pointer;font:inherit;color:inherit}
+.pr:hover{background:var(--card)}.pr img{width:40px;height:40px;border-radius:6px;flex:none}.pr b{display:block;font-size:14px}.pr small{color:var(--muted);font-size:12.5px}
+.seeds{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.seed{display:inline-flex;align-items:center;gap:8px;background:var(--card);border-radius:12px;padding:5px 4px 5px 5px;max-width:100%}
+.seed img{width:34px;height:34px;border-radius:6px}.seed b{display:block;font-size:13px}.seed small{color:var(--muted);font-size:12px}
+.arts{display:grid;gap:10px}
+.art-card h3{font-size:16px}
+#player{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:25;width:min(560px,94vw);background:var(--btn);color:var(--btn-ink);border-radius:16px;padding:8px 10px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;box-shadow:0 12px 34px rgba(0,0,0,.28)}
+#player[hidden]{display:none}
+#player .pl-art{width:44px;height:44px;border-radius:8px;object-fit:cover;background:rgba(255,255,255,.15)}
+#player .pl-t{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#player .pl-a{font-size:12.5px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#player .pl-b{display:flex;gap:2px}
+#player button{width:36px;height:36px;border-radius:50%;border:0;background:transparent;color:inherit;display:grid;place-items:center;cursor:pointer;padding:0}
+#player button:hover{background:rgba(255,255,255,.14)}
+#player button.on{color:#fb7185}#player button.on svg{fill:currentColor}
+#player .pl-p{grid-column:1/-1;height:3px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden;margin-top:2px}#player .pl-p i{display:block;height:100%;width:0;background:currentColor}
+@media (min-width:900px){#player{bottom:20px}}
+html.aivm #player{bottom:calc(88px + env(safe-area-inset-bottom))}
+.apple-note{font-size:11.5px;color:var(--soft);margin-top:18px}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="top">
+  <div><h1>AI Music</h1><p class="sub">AI playlists &amp; music discovery</p></div>
+  <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
+ </header>
+ <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of AI Music</b><span>An AIV API key runs every AI Verse app on full-strength AI. One key, every app, no extra setup.</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
+
+ <section class="view" id="v-home"></section>
+ <section class="view" id="v-create"></section>
+ <section class="view" id="v-playlists"></section>
+ <section class="view" id="v-discover"></section>
+ <section class="view" id="v-blend"></section>
+<section class="view" id="v-settings">
+  <div class="row between"><h2 style="margin-top:4px">Settings</h2><a class="btn sm" href="#home">Done</a></div>
+  <div class="box"><h3>About you</h3><br><div class="form-row"><label>Name<input data-prof="name" placeholder="Shown to friends in taste blends (optional)"></label><label style="max-width:160px">Playlist length<select data-set="len"><option>10</option><option>15</option><option>20</option><option>25</option><option>30</option></select></label></div>
+   <label class="check"><input type="checkbox" data-set="learn"> Learn my taste from the songs I save, replay, add to playlists and skip</label>
+   <div class="row wrap"><button class="btn sm" type="button" id="btnClearHist">Clear listening history</button><button class="btn sm" type="button" id="btnClearTaste">Reset taste profile</button></div></div>
+  <div class="box" id="aiCard" style="margin-top:10px">
+   <h3>AI provider</h3>
+   <p class="sub">Choose where your AI DJ runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
+   <div class="seg" id="provSeg"><button type="button" data-p="free">Free</button><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
+   <div data-prov="free">
+    <p class="sub">Free AI from AI Verse, ready to use with no key. Every app includes 20 free daily uses of AI. For unlimited, full-strength AI, <a href="../api.html#plans" target="_blank" rel="noopener">get an AIV key</a>.</p>
+   </div>
+   <div data-prov="aiv">
+    <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
+    <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
+    <label>Model<select data-set="aivModel" id="aivModel"><option value="aiv-1">aiv-1: best quality</option><option value="aiv-1-mini">aiv-1-mini: fastest</option></select></label>
+   </div>
+   <div data-prov="groq">
+    <p class="sub">Free tier, recommended for testing. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
+    <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
+    <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
+   </div>
+   <div data-prov="custom">
+    <p class="sub">Use your own key from any OpenAI-compatible service. A few services block requests from web pages — Test connection will tell you.</p><br>
+    <div class="form-row"><label>Service<select data-set="customPreset" id="customPreset"></select></label><label>API URL<input data-set="customBase" id="customBase" placeholder="https://api.example.com/v1" autocomplete="off"></label></div>
+    <label>API key<span class="row"><input type="password" data-set="customKey" id="customKey" placeholder="sk-…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#customKey">Show</button></span></label>
+    <label>Model<input data-set="customModel" list="modelList" placeholder="Click Test connection to list models" autocomplete="off"></label>
+   </div>
+   <div data-prov="local">
+    <p class="sub">Run a model on your own computer with Ollama or LM Studio. Nothing leaves your machine. Works on the computer running the model.</p><br>
+    <div class="form-row"><label>Server<select id="localPreset"><option value="http://localhost:11434/v1">Ollama</option><option value="http://localhost:1234/v1">LM Studio</option><option value="">Custom address</option></select></label><label>Server URL<input data-set="localBase" id="localBase" autocomplete="off"></label></div>
+    <label>Model<input data-set="localModel" list="modelList" placeholder="e.g. qwen3:8b — click Test connection to list" autocomplete="off"></label>
+    <details><summary>Setup</summary>
+     <p class="sub"><b>Ollama</b></p>
+     <ol class="steps"><li>Install from <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a> and download a model, e.g. <code>ollama pull qwen3:8b</code> (7–8B models or larger work best for planning and email).</li>
+     <li>Allow this site to talk to Ollama by setting <code>OLLAMA_ORIGINS</code> to <code class="originCode"></code>, then restart Ollama.<br>Mac: <code>launchctl setenv OLLAMA_ORIGINS "<span class="originCode"></span>"</code> · Windows: add it under System → Environment Variables · Linux: <code>OLLAMA_ORIGINS=<span class="originCode"></span> ollama serve</code></li></ol>
+     <p class="sub"><b>LM Studio</b></p>
+     <ol class="steps"><li>Load a model, open the Developer tab and start the server.</li><li>Turn on <b>Enable CORS</b> in the server settings.</li></ol>
+     <p class="hint">If your browser asks to let this site access devices on your local network, allow it.</p>
+    </details>
+   </div>
+   <div data-prov="browser">
+    <p class="sub">A small model downloads once into this browser and runs on your graphics card — fully private, and it works offline afterwards. Needs Chrome or Edge with WebGPU. Answers are simpler than cloud models. Song picks from small models are less reliable; cloud models give the best playlists.</p><br>
+    <label>Model<select data-set="webllmModel" id="webllmModel"></select></label>
+    <div class="row wrap"><button class="btn sm" type="button" id="btnLoadLLM">Download &amp; load model</button><span class="hint" id="llmStatus"></span></div>
+   </div>
+   <div class="row wrap" style="margin-top:14px"><button class="btn sm" id="btnTestKey">Test connection</button><span class="hint" id="keyStatus"></span></div>
+   <datalist id="modelList"><option value="openai/gpt-oss-120b"><option value="openai/gpt-oss-20b"></datalist>
+   <p class="hint" id="voiceNote" style="margin-top:10px"></p>
+  </div>
+
+
+  <div class="box" style="margin-top:10px">
+   <h3>Your data</h3><p class="sub">Your playlists, saved songs, taste profile and listening history are stored only in this browser. What you ask the AI goes only to the provider you chose. Song searches go to Apple's free iTunes Search service.</p><br>
+   <div class="row wrap"><button class="btn sm" id="btnExport">Export backup</button><label class="btn sm" style="margin:0;flex:none;font-size:13px;color:var(--ink)">Import backup<input type="file" id="importFile" accept="application/json" hidden></label><button class="btn sm danger" id="btnWipe">Erase everything</button></div>
+  </div>
+ <p class="apple-note">Song details, artwork and 30-second previews are provided by Apple through the iTunes Search API. Listen to full songs on Apple Music, Spotify or YouTube Music.</p>
+ </section>
+</div>
+<nav class="tabs" aria-label="Sections"><a class="side-brand" href="#home"><span class="logo">M</span><span><b>AI Music</b><small>AI playlists &amp; music discovery</small></span></a><div class="in">
+ <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
+ <a href="#create" data-nav="create"><span class="ico"><span data-ic="spark"></span></span>Create</a>
+ <a href="#playlists" data-nav="playlists"><span class="ico"><span data-ic="list"></span></span>Playlists</a>
+ <a href="#discover" data-nav="discover"><span class="ico"><span data-ic="compass"></span></span>Discover</a>
+ <a href="#blend" data-nav="blend"><span class="ico"><span data-ic="users"></span></span>Blend</a>
+</div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
+<div id="player" hidden role="region" aria-label="Preview player"><img class="pl-art" alt=""><div style="min-width:0"><div class="pl-t"></div><div class="pl-a"></div></div><div class="pl-b"><button type="button" id="plLike" aria-label="Save song"></button><button type="button" id="plPlay" aria-label="Play"></button><button type="button" id="plNext" aria-label="Next song"></button></div><div class="pl-p"><i id="plFill"></i></div></div>
+<dialog id="dlg"></dialog>
+<dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
+<div id="toasts" aria-live="polite"></div>
+<div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
+
+<input type="file" id="filePick" hidden>
+<script src="../config.js"></script>
+<script>
+(()=>{
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const DAY=864e5;
+const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone;
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const today=()=>ymd(new Date());
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const sod=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+const addDays=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const parseD=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||'');return m?new Date(+m[1],m[2]-1,+m[3]):new Date(s);};
+const daysAgo=s=>Math.round((sod(new Date())-sod(parseD(s)))/DAY);
+const fmtD=s=>parseD(s).toLocaleDateString([],{month:'short',day:'numeric'});
+const fmtDL=s=>parseD(s).toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});
+const r0=n=>Math.round(n),r1=n=>Math.round(n*10)/10;
+const num=v=>{const n=parseFloat(v);return Number.isFinite(n)?n:null;};
+const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
+const sum=a=>a.reduce((x,y)=>x+(+y||0),0);
+const avg=a=>a.length?sum(a)/a.length:0;
+const cap=s=>String(s||'').replace(/^\w/,c=>c.toUpperCase());
+
+
+/* ---------- toasts ---------- */
+function toast(msg,{err=false,action,fn,ms=4500}={}){const el=document.createElement('div');el.className='toast'+(err?' err':'');el.innerHTML=`<span>${esc(msg)}</span>`;if(action){const b=document.createElement('button');b.textContent=action;b.onclick=()=>{el.remove();fn&&fn();};el.appendChild(b);}$('#toasts').appendChild(el);setTimeout(()=>el.remove(),action?9000:(err?7000:ms));}
+let actx;function beep(n=1){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();for(let i=0;i<n;i++){const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*.25;o.frequency.value=880;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+.22);}}catch(e){}try{navigator.vibrate&&navigator.vibrate([150,80,150]);}catch(e){}}
+async function run(btn,fn){if(btn){btn.disabled=true;btn.classList.add('loading');}try{return await fn();}catch(e){console.error(e);toast(e.message||String(e),{err:true});}finally{if(btn){btn.disabled=false;btn.classList.remove('loading');}}}
+function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
+async function copy(txt){try{await navigator.clipboard.writeText(txt);toast('Copied');}catch(e){toast('Copy failed',{err:true});}}
+
+
+
+/* ---------- AI providers ---------- */
+const DEFAULT_GROQ='openai/gpt-oss-120b';
+const DEFAULT_WEBLLM='Qwen3-0.6B-q4f16_1-MLC';
+const WEBLLM_URL='https://esm.run/@mlc-ai/web-llm@0.2.83';
+const WEBLLM_MODELS=[['Qwen3-0.6B-q4f16_1-MLC','Qwen3 0.6B — about 400 MB, fastest (default)','400 MB'],['Qwen3-1.7B-q4f16_1-MLC','Qwen3 1.7B — about 1 GB, smarter','1 GB'],['Llama-3.2-3B-Instruct-q4f16_1-MLC','Llama 3.2 3B — about 2 GB','2 GB'],['Qwen3-4B-q4f16_1-MLC','Qwen3 4B — about 2.5 GB, best quality, needs a strong GPU','2.5 GB']];
+const modelSize=id=>(WEBLLM_MODELS.find(m=>m[0]===id)||[])[2]||'several hundred MB';
+const APP_SLUG='music',APP_TITLE='AI Music';
+/* AI Verse free AI: this app's own Groq key lives on the AI Verse server; 20 free daily uses per visitor */
+const FREE_BASE=(()=>{const b=((window.AIV_SITE&&window.AIV_SITE.server)||'').replace(/\/+$/,'');return b?b+'/apps/'+APP_SLUG+'/v1':'';})();
+function freeLeft(){const d=new Date().toDateString(),f=S.freeLeft,l=(f&&f.limit)||20;return f&&f.date===d?{n:f.n,limit:l}:{n:l,limit:l};}
+function freeSeen(r){const n=r.headers.get('X-Free-Remaining');if(n===null)return;S.freeLeft={date:new Date().toDateString(),n:Number(n),limit:Number(r.headers.get('X-Free-Limit'))||20};save();try{badge();}catch(e){}}
+function freeLimitHit(){const L=freeLeft().limit;S.freeLeft={date:new Date().toDateString(),n:0,limit:L};save();try{badge();}catch(e){}
+ let d=document.getElementById('freeDlg');
+ if(!d){d=document.createElement('dialog');d.id='freeDlg';d.className='freedlg';d.setAttribute('aria-labelledby','freeDlgT');
+  d.innerHTML=`<div class="fd-in"><b class="fd-t" id="freeDlgT">You've used today's free uses</b><p>${APP_TITLE} includes ${L} free daily uses, and you've used today's. Get an AIV key for unlimited, full-strength AI in every AI Verse app.</p><a class="fd-go" href="../api.html#plans" target="_top">Get AIV key</a><div class="fd-alt"><button type="button" data-fd="key">I have a key</button><button type="button" data-fd="close">Come back tomorrow</button></div></div>`;
+  document.body.appendChild(d);
+  d.addEventListener('click',e=>{const b=e.target.closest('[data-fd]');if(!b)return;d.close();if(b.dataset.fd==='key'){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=document.getElementById('setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},150);}});}
+ if(!d.open){try{d.showModal();}catch(e){d.setAttribute('open','');}}}
+const AIV_BASE=((window.AIV_SITE&&window.AIV_SITE.server)||'https://api.aiverse.it.com').replace(/\/+$/,'')+'/v1';
+const PRESETS={openai:['OpenAI','https://api.openai.com/v1'],anthropic:['Anthropic Claude','https://api.anthropic.com/v1'],openrouter:['OpenRouter','https://openrouter.ai/api/v1'],gemini:['Google Gemini','https://generativelanguage.googleapis.com/v1beta/openai'],mistral:['Mistral','https://api.mistral.ai/v1'],together:['Together AI','https://api.together.xyz/v1'],deepseek:['DeepSeek','https://api.deepseek.com/v1'],other:['Other (OpenAI-compatible)','']};
+const PROV_NAMES={free:'AI Verse free AI',aiv:'your AIV key',groq:'Groq',custom:'your API key',local:'your local model',browser:'in-browser model'};
+const prov=()=>{const p=S.settings.provider;if(p==='site')return'groq';if(p)return p;if(S.settings.aivKey)return'aiv';if(S.settings.groqKey)return'groq';if(FREE_BASE)return'free';return navigator.gpu?'browser':'groq';};
+function setupNeeded(msg){go('settings');throw new Error(msg);}
+function aiConn(){const s=S.settings,p=prov();
+ if(p==='free'){if(!FREE_BASE)setupNeeded('Free AI isn\'t available on this copy of the app. Choose another AI provider in Settings.');return{p,base:FREE_BASE,headers:{}};}
+ if(p==='aiv'){if(!s.aivKey)setupNeeded('Add your AIV API key in Settings (AI provider → AIV key), or choose another AI provider.');return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey}};}
+ if(p==='groq'){if(!s.groqKey)setupNeeded('Add a free Groq API key in Settings, or choose another AI provider.');return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey}};}
+ if(p==='custom'){if(!s.customBase)setupNeeded('Add your AI service\'s URL in Settings.');return{p,base:s.customBase.replace(/\/+$/,''),headers:s.customKey?{Authorization:'Bearer '+s.customKey}:{}};}
+ if(p==='local')return{p,base:(s.localBase||'http://localhost:11434/v1').replace(/\/+$/,''),headers:{}};
+ return{p:'browser'};}
+function aiTarget(){const c=aiConn(),s=S.settings;
+ if(c.p==='free')return{...c,model:'free'};
+ if(c.p==='aiv')return{...c,model:s.aivModel||'aiv-1'};
+ if(c.p==='groq')return{...c,model:s.model||DEFAULT_GROQ};
+ if(c.p==='custom'){if(!s.customModel)setupNeeded('Choose a model for your AI service in Settings (Test connection lists them).');return{...c,model:s.customModel};}
+ if(c.p==='local'){if(!s.localModel)setupNeeded('Choose which local model to use in Settings (Test connection lists them).');return{...c,model:s.localModel};}
+ return{...c,model:s.webllmModel||DEFAULT_WEBLLM};}
+const hasAI=()=>{const s=S.settings,p=prov();return (p==='free'&&!!FREE_BASE)||(p==='aiv'&&!!s.aivKey)||(p==='groq'&&!!s.groqKey)||(p==='custom'&&!!s.customBase&&!!s.customModel)||(p==='local'&&!!s.localModel)||(p==='browser'&&!!navigator.gpu);};
+function baseSystem(){const n=new Date();return `You are the AI DJ inside a music app that makes playlists and finds new music. Today is ${ymd(n)}. Be accurate: never invent songs, artists, albums or facts.`;}
+function parseJSON(t){try{return JSON.parse(t);}catch(e){}const s=t.replace(/```(?:json)?/g,'');const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a>=0&&b>a){try{return JSON.parse(s.slice(a,b+1));}catch(e){}}throw new Error('The AI returned something unreadable — please try again'+(prov()==='browser'||prov()==='local'?' (smaller models sometimes struggle with this; a larger model helps).':'.'));}
+const errMsg=t=>{try{const j=JSON.parse(t);const e=j.error;return(e&&(e.message||(typeof e==='string'?e:'')))||j.message||'';}catch(_){return String(t||'').slice(0,300);}};
+function netErr(T){if(T.p==='local')return `Can't reach your local model at ${T.base}. Make sure ${/:1234/.test(T.base)?'LM Studio\'s server is running with CORS enabled':'Ollama is running and OLLAMA_ORIGINS allows this site'}, and allow local network access if your browser asks — see Settings → Local model → Setup.`;if(T.p==='custom')return `Couldn't reach ${T.base}. Check the URL — or this service may not allow requests from web pages (CORS).`;return 'Network error — check your connection and try again.';}
+async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try{
+ const T=aiTarget();
+ const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
+ if(T.p==='browser')await ensureBrowserModel(T.model);
+ let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});
+ txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
+ return json?parseJSON(txt):txt;
+}catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
+async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
+ if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
+ const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
+ if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
+ if(json)body.response_format={type:'json_object'};
+ if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
+ let r,tries=0;
+ for(;;){
+  try{r=await fetch(T.base+'/chat/completions',{method:'POST',signal,headers:{'Content-Type':'application/json',...T.headers},body:JSON.stringify(body)});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+  if(T.p==='free'){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free daily uses in this app.');}if(r.status===503||r.status===403||r.status===400){let m='';try{m=errMsg(await r.clone().text());}catch(_){}throw new Error(m||'Free AI is unavailable right now. Please try again.');}}
+  if(r.status===429&&tries<3){tries++;await sleep(1500*tries);continue;}
+  if((r.status===400||r.status===422)&&tries<5){const t=await r.text();tries++;
+   if(body.response_format&&/json|response_format/i.test(t)){delete body.response_format;continue;}
+   if(body.reasoning_effort&&/reasoning/i.test(t)){delete body.reasoning_effort;continue;}
+   if(body.max_completion_tokens&&/max_completion_tokens/i.test(t)){body.max_tokens=body.max_completion_tokens;delete body.max_completion_tokens;continue;}
+   if(body.max_tokens&&/max_tokens/i.test(t)){body.max_completion_tokens=body.max_tokens;delete body.max_tokens;continue;}
+   if('temperature'in body&&/temperature/i.test(t)){delete body.temperature;continue;}
+   throw new Error('AI request failed: '+(errMsg(t)||'bad request'));}
+  break;
+ }
+ if(!r.ok){const m=errMsg(await r.text().catch(()=>''));
+  if(r.status===401||r.status===403)throw new Error('The AI service rejected the API key — check it in Settings.'+(m?' ('+m+')':''));if(r.status===429)throw new Error('Rate limit reached — wait a minute and try again.'+(m?' ('+m+')':''));if(r.status===404)throw new Error(T.p==='local'?`The model "${T.model}" isn't on your local server — pull or load it first.`:`Model or URL not found${m?': '+m:''}.`);
+  throw new Error(`AI request failed (${r.status})${m?': '+m:''}`);}
+ const d=await r.json();return d.choices?.[0]?.message?.content||'';
+}
+/* in-browser model (WebLLM + WebGPU) */
+const llm={lib:null,engine:null,model:'',loading:null};
+function llmProgress(text,frac){const g=$('#gate');if(g&&g.open&&text!=null){$('#gateStatus').textContent=text;$('#gateFill').style.width=Math.round((frac||0)*100)+'%';}const bar=$('#llmBar');if(!bar)return;if(g&&g.open&&text!=null){bar.hidden=true;return;}if(text==null){bar.hidden=true;const s=$('#llmStatus');if(s)s.textContent=llm.engine?`Loaded: ${llm.model}`:'';return;}bar.hidden=false;$('#llmText').textContent=text;$('#llmFill').style.width=Math.round((frac||0)*100)+'%';const s=$('#llmStatus');if(s)s.textContent=text;}
+async function getEngine(model){
+ if(llm.engine&&llm.model===model)return llm.engine;
+ if(llm.loading)return llm.loading;
+ if(!navigator.gpu)throw new Error('In-browser AI needs WebGPU — use Chrome or Edge on a computer with a recent graphics card, or choose another AI provider in Settings.');
+ llm.loading=(async()=>{try{llmProgress('Loading the AI engine…',0);llm.lib=llm.lib||await import(WEBLLM_URL);if(llm.engine){try{await llm.engine.unload();}catch(e){}llm.engine=null;}llmProgress('Preparing '+model+' (first time downloads the model)…',0);llm.engine=await llm.lib.CreateMLCEngine(model,{initProgressCallback:p=>llmProgress(p.text,p.progress)},{context_window_size:8192});llm.model=model;return llm.engine;}catch(e){llm.engine=null;throw new Error('Could not load the in-browser model: '+(e?.message||e));}finally{llm.loading=null;llmProgress(null);}})();
+ return llm.loading;
+}
+let dlAsk=null;
+const llmReady=()=>!!llm.engine&&llm.model===(S.settings.webllmModel||DEFAULT_WEBLLM);
+function gateShow({title,text,btns=[]}){const g=$('#gate');$('#gateHide').hidden=true;$('#gateTitle').textContent=title;$('#gateText').textContent=text;$('#gateStatus').textContent='';$('#gateFill').style.width='0%';$('#gateTrack').hidden=!!btns.length;const bw=$('#gateBtns');bw.innerHTML='';btns.forEach(([label,cls,fn])=>{const b=document.createElement('button');b.className='btn '+cls;b.textContent=label;b.onclick=fn;bw.appendChild(b);});if(!g.open)g.showModal();}
+function gateClose(){const g=$('#gate');if(g.open)g.close();}
+function askDownload(model){if(dlAsk)return dlAsk;dlAsk=new Promise(res=>{$('#gate').addEventListener('close',()=>res(false),{once:true});gateShow({title:'Download the AI model',text:`Your AI DJ runs privately on this device. Before you can use it, it needs a one-time download of about ${modelSize(model)} (Wi-Fi recommended). After that it works offline and nothing you type leaves this device.`,btns:[['Not now','ghost',()=>{gateClose();res(false);}],['Use a different AI','ghost',()=>{gateClose();res(false);go('settings');}],['Download now','primary',()=>res(true)]]});}).finally(()=>{dlAsk=null;});return dlAsk;}
+
+/* ---------- AI Verse: AIV key promo + one-click on-device AI ---------- */
+let skipAsk=false;
+function promo(){const el=$('#aivPromo');if(!el)return;let hid=false;try{hid=sessionStorage.getItem('aivPromoHide')==='1';}catch(e){}el.hidden=hid||(prov()==='aiv'&&!!S.settings.aivKey);}
+async function aiBadgeClick(){const p=prov(),m=S.settings.webllmModel||DEFAULT_WEBLLM,need=p==='browser'&&S.settings.llmReady!==m&&!llmReady();
+ if(hasAI()&&!need){go('settings');return;}
+ if(!navigator.gpu){toast('The free on-device AI needs WebGPU (Chrome or Edge on a computer). Add an AIV key or a free Groq key in Settings instead.',{err:true});go('settings');return;}
+ S.settings.provider='browser';save();try{badge();}catch(e){}skipAsk=true;
+ try{await ensureBrowserModel(m);}catch(e){toast(e.message||String(e),{err:true});}finally{skipAsk=false;try{badge();}catch(e){}}}
+document.addEventListener('click',e=>{if(e.target.closest('#aivPromoX')){try{sessionStorage.setItem('aivPromoHide','1');}catch(_){}promo();}else if(e.target.closest('#aivPromoAdd')){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=$('#setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},120);}});
+
+async function ensureBrowserModel(model){
+ if(llm.engine&&llm.model===model)return;
+ if(!navigator.gpu)setupNeeded('This browser can\'t run on-device AI (it needs WebGPU — Chrome or Edge on a computer). Choose another AI provider in Settings.');
+ const cached=S.settings.llmReady===model;
+ if(!cached&&!llm.loading&&!skipAsk){if(!await askDownload(model))throw new Error('AI features need the on-device model — download it or choose another AI provider in Settings.');}
+ if(!cached)gateShow({title:'Downloading the AI model',text:`One-time download of about ${modelSize(model)}. Keep this tab open — you can keep using the rest of the app.`});
+ const hide=$('#gateHide');if(hide)hide.hidden=cached;
+ try{await getEngine(model);S.settings.llmReady=model;save();refresh();if(!cached)toast('AI is ready — running on this device');}
+ finally{gateClose();}
+}
+async function browserChat(model,sys,prompt,{json,temp,max,signal}){
+ const eng=await getEngine(model);if(signal){if(signal.aborted)throw new DOMException('Stopped','AbortError');signal.addEventListener('abort',()=>{try{eng.interruptGenerate();}catch(e){}},{once:true});}const qwen=/qwen3/i.test(model);
+ const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
+ const req={messages:[{role:'system',content:sys},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ if(json)req.response_format={type:'json_object'};
+ llmProgress('Thinking on your device…',1);
+ try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
+}
+/* speech-to-text (Whisper) — only where the provider offers it */
+function whisperTarget(){const s=S.settings,p=prov();
+ if(p==='free'&&FREE_BASE)return{url:FREE_BASE+'/audio/transcriptions',headers:{},model:'whisper-large-v3-turbo',free:true};
+ if(p==='aiv'&&s.aivKey)return{url:AIV_BASE+'/audio/transcriptions',headers:{Authorization:'Bearer '+s.aivKey},model:'whisper'};
+ if(p==='groq'&&s.groqKey)return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.groqKey},model:'whisper-large-v3'};
+ if(p==='custom'&&s.customKey&&/api\.openai\.com/.test(s.customBase))return{url:'https://api.openai.com/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-1'};
+ if(p==='custom'&&s.customKey&&/groq\.com/.test(s.customBase))return{url:'https://api.groq.com/openai/v1/audio/transcriptions',headers:{Authorization:'Bearer '+s.customKey},model:'whisper-large-v3'};
+ return null;}
+const canWhisper=()=>!!whisperTarget();
+async function transcribe(blob){const W=whisperTarget();if(!W)throw new Error('Recorded-audio transcription needs a Groq or OpenAI key. With '+PROV_NAMES[prov()]+', use live dictation in Chrome, Edge or Safari.');if(blob.size>24.5e6)throw new Error('Recording is larger than the 25 MB limit — record shorter segments.');const ext=/mp4|aac|m4a/.test(blob.type)?'m4a':(/ogg/.test(blob.type)?'ogg':'webm');const fd=new FormData();fd.append('file',blob,'audio.'+ext);fd.append('model',W.model);fd.append('response_format','json');let r;try{r=await fetch(W.url,{method:'POST',headers:W.headers,body:fd});}catch(e){throw new Error('Could not reach the transcription service.');}if(W.free){freeSeen(r);if(r.status===402){freeLimitHit();throw new Error('You\'ve used today\'s free daily uses in this app.');}}if(!r.ok){const m=errMsg(await r.text().catch(()=>''));throw new Error('Transcription failed'+(m?': '+m:''));}return((await r.json()).text||'').trim();}
+async function listModels(){const T=aiConn();if(T.p==='browser')return WEBLLM_MODELS.map(m=>m[0]);if(/api\.anthropic\.com/.test(T.base)){const r=await fetch('https://api.anthropic.com/v1/models',{headers:anthropicHeaders()}).catch(()=>{throw new Error(netErr(T));});if(!r.ok)throw new Error(r.status===401?'The service rejected the API key.':'Could not list models ('+r.status+').');return((await r.json()).data||[]).map(m=>m.id);}let r;try{r=await fetch(T.base+'/models',{headers:T.headers});}catch(e){throw new Error(netErr(T));}if(!r.ok)throw new Error(r.status===401||r.status===403?'The service rejected the API key.':'Could not list models ('+r.status+').');const d=await r.json();const arr=d.data||d.models||[];return arr.map(m=>m.id||m.name||m.model).filter(Boolean).filter(id=>!/whisper|tts|embed|guard|orpheus|playai|moderation|dall-e|image|audio|transcribe/i.test(id)).sort();}
+
+
+/* ---------- vision AI (photos) ---------- */
+const DEFAULT_VISION='qwen/qwen3.8-27b';
+function visionTarget(){const s=S.settings,p=prov();
+ if(p==='free'&&FREE_BASE)return{p,base:FREE_BASE,headers:{},model:'free'};
+ if(p==='aiv'&&s.aivKey)return{p,base:AIV_BASE,headers:{Authorization:'Bearer '+s.aivKey},model:s.aivModel||'aiv-1'};
+ if(p==='groq'&&s.groqKey)return{p,base:'https://api.groq.com/openai/v1',headers:{Authorization:'Bearer '+s.groqKey},model:s.visionModel||DEFAULT_VISION};
+ if(p==='custom'&&s.customBase&&(s.customVision||s.customModel))return{...aiConn(),model:s.customVision||s.customModel};
+ if(p==='local'&&s.localVision)return{...aiConn(),model:s.localVision};
+ return null;}
+const canVision=()=>!!visionTarget();
+async function aiVision(prompt,images,{system='',json=false,max=1600,temp=0.3}={}){
+ const T=visionTarget();if(!T)setupNeeded('AI photo analysis needs a vision-capable model: a Groq key, another API key with a vision model, or a local vision model (e.g. qwen2.5vl). Choose one in Settings → AI provider.');
+ const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
+ const content=[{type:'text',text:prompt},...images.map(u=>({type:'image_url',image_url:{url:u}}))];
+ let txt=await remoteChat(T,sys,content,{json,temp,max});txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').trim();return json?parseJSON(txt):txt;}
+
+
+const anthropicHeaders=()=>({'content-type':'application/json','x-api-key':S.settings.customKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'});
+async function anthropicChat(T,sys,prompt,{max,temp,signal}){let r;try{r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal,headers:anthropicHeaders(),body:JSON.stringify({model:T.model,max_tokens:Math.max(max,1024),temperature:Math.min(temp,1),system:sys,messages:[{role:'user',content:prompt}]})});}catch(e){if(e.name==='AbortError')throw e;throw new Error(netErr(T));}
+ const j=await r.json().catch(()=>({}));if(!r.ok){const m=j.error&&j.error.message||'';if(r.status===401||r.status===403)throw new Error('Anthropic rejected the API key — check it in Settings.'+(m?' ('+m+')':''));if(r.status===429)throw new Error('Rate limit reached — wait a minute and try again.');throw new Error(`AI request failed (${r.status})${m?': '+m:''}`);}
+ return(j.content||[]).map(x=>x.text||'').join('');}
+
+/* ---------- charts (inline SVG) ---------- */
+function lineChart(series,{h=170,yfmt=v=>r1(v),xfmt=t=>fmtD(ymd(new Date(t))),band=null,zero=false}={}){
+ const pts=series.flatMap(s=>s.points);if(pts.length<1)return'<p class="empty">Not enough data yet.</p>';
+ const W=600,L=44,Rm=10,Tm=10,B=22;let xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);if(band)ys=ys.concat(band);let x0=Math.min(...xs),x1=Math.max(...xs);if(x0===x1){x0-=DAY;x1+=DAY;}let y0=Math.min(...ys),y1=Math.max(...ys);if(zero)y0=Math.min(0,y0);const pd=(y1-y0)*.12||1;y0-=pd;y1+=pd;if(zero&&y0<0&&Math.min(...ys)>=0)y0=0;
+ const X=x=>L+(x-x0)/(x1-x0)*(W-L-Rm),Y=y=>Tm+(1-(y-y0)/(y1-y0))*(h-Tm-B);
+ let g='<g class="grid">';for(let i=0;i<=3;i++){const v=y0+(y1-y0)*i/3;g+=`<line x1="${L}" x2="${W-Rm}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${esc(yfmt(v))}</text>`;}g+='</g>';
+ if(band)g+=`<rect x="${L}" width="${W-L-Rm}" y="${Y(band[1])}" height="${Math.max(0,Y(band[0])-Y(band[1]))}" fill="currentColor" opacity=".06"/>`;
+ g+=`<text x="${L}" y="${h-4}">${esc(xfmt(x0))}</text><text x="${W-Rm}" y="${h-4}" text-anchor="end">${esc(xfmt(x1))}</text>`;
+ for(const s of series){const p=[...s.points].sort((a,b)=>a.x-b.x);if(!p.length)continue;const c=s.color||'var(--ink)';if(p.length>1)g+=`<polyline fill="none" stroke="${c}" stroke-width="${s.thin?1.5:2.5}" ${s.dash?'stroke-dasharray="5 4"':''} stroke-linejoin="round" stroke-linecap="round" points="${p.map(q=>X(q.x).toFixed(1)+','+Y(q.y).toFixed(1)).join(' ')}"/>`;if(!s.noDots&&p.length<=60)g+=p.map(q=>`<circle cx="${X(q.x).toFixed(1)}" cy="${Y(q.y).toFixed(1)}" r="3" fill="${c}"><title>${esc(xfmt(q.x))}: ${esc(yfmt(q.y))}</title></circle>`).join('');}
+ return `<svg class="chart" viewBox="0 0 ${W} ${h}" role="img">${g}</svg>`+(series.length>1?`<div class="legend">${series.filter(s=>s.label).map(s=>`<span><i style="background:${s.color}"></i>${esc(s.label)}</span>`).join('')}</div>`:'');}
+function hbars(rows,{max,band}={}){const mx=max||Math.max(1,...rows.map(r=>r.v),band?band[1]:0);return rows.map(r=>`<div class="mrow"><span>${esc(r.label)}</span><div class="bar" style="position:relative">${band?`<span style="position:absolute;left:${band[0]/mx*100}%;width:${(band[1]-band[0])/mx*100}%;top:0;bottom:0;background:var(--good);opacity:.18"></span>`:''}<i style="width:${clamp(r.v/mx*100,0,100)}%;background:${r.color||'var(--ink)'};position:relative"></i></div><span class="tiny muted" style="min-width:56px;text-align:right">${esc(r.txt??r1(r.v))}</span></div>`).join('');}
+function ring(val,max,{color='var(--kcal)',label='',sub=''}={}){const p=clamp(val/(max||1),0,1.2),C=2*Math.PI*48;return `<svg class="ring" viewBox="0 0 118 118"><circle cx="59" cy="59" r="48" fill="none" stroke="var(--line)" stroke-width="10"/><circle cx="59" cy="59" r="48" fill="none" stroke="${p>1.05?'var(--bad)':color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 59 59)"/><text x="59" y="58" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">${esc(label)}</text><text x="59" y="76" text-anchor="middle" font-size="11" fill="var(--muted)">${esc(sub)}</text></svg>`;}
+function slope(points){if(points.length<2)return 0;const n=points.length,mx=avg(points.map(p=>p.x)),my=avg(points.map(p=>p.y));let a=0,b=0;for(const p of points){a+=(p.x-mx)*(p.y-my);b+=(p.x-mx)**2;}return b?a/b:0;}
+function movingAvg(points,days=7){return points.map(p=>({x:p.x,y:avg(points.filter(q=>q.x<=p.x&&q.x>p.x-days*DAY).map(q=>q.y))}));}
+
+/* ---------- modal ---------- */
+function openModal(title,html,{onMount,wide}={}){const d=$('#dlg');d.onclick=null;d.innerHTML=`<div class="dlg-h"><h3>${esc(title)}</h3><button class="x" data-close aria-label="Close">×</button></div><div class="dlg-b">${html}</div>`;d.classList.toggle('wide',!!wide);if(!d.open)d.showModal();$$('[data-close]',d).forEach(b=>b.onclick=()=>d.close());icons(d);wireMics(d);onMount&&onMount(d);return d;}
+const closeModal=()=>{const d=$('#dlg');if(d.open)d.close();};
+
+/* ---------- voice dictation ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let activeDict=null;
+function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)return;b._w=1;if(!SR){b.hidden=true;return;}b.innerHTML=ic('mic');b.onclick=e=>{e.preventDefault();const t=root.querySelector('#'+b.dataset.dictate)||$('#'+b.dataset.dictate);if(activeDict){const same=activeDict.b===b;activeDict.rec.stop();activeDict=null;if(same)return;}const rec=new SR();rec.lang=navigator.language||'en-US';rec.interimResults=true;rec.continuous=false;const base=t.value?t.value.replace(/\s*$/,' '):'';rec.onresult=ev=>{let s='';for(const r of ev.results)s+=r[0].transcript;t.value=base+s;};rec.onend=()=>{b.classList.remove('rec');b.style.color='';activeDict=null;if(b.dataset.submit&&t.value.trim())$(b.dataset.submit).click();};rec.onerror=ev=>{if(ev.error==='not-allowed')toast('Microphone access was denied.',{err:true});};rec.start();b.style.color='var(--bad)';activeDict={b,rec};};});}
+
+
+
+/* ---------- icons ---------- */
+const I={
+ home:'<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/>',
+ map:'<circle cx="5" cy="17" r="2.5"/><circle cx="12" cy="6" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="M6.5 15l4-7M13.5 8l4 7M7.5 17h9"/>',
+ doc:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+ flask:'<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/>',
+ pen:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+ spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+ brain:'<path d="M9 4c-2 0-4 1.5-4 4 0 1.5.5 2.5 1 3-1 .7-1.5 2-1 3.5.5 1.2 1.5 2 2.5 2 0 2 1.5 3.5 3.5 3.5V4z"/><path d="M15 4c2 0 4 1.5 4 4 0 1.5-.5 2.5-1 3 1 .7 1.5 2 1 3.5-.5 1.2-1.5 2-2.5 2 0 2-1.5 3.5-3.5 3.5"/>',
+ target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/>',
+ check:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/>',
+ quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ upload:'<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+ play:'<path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/>',
+ pause:'<rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor" stroke="none"/><rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor" stroke="none"/>',
+ next:'<path d="M6 5.5v13l9-6.5z" fill="currentColor" stroke="none"/><path d="M18 5v14"/>',
+ heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+ skip:'<path d="M5 12h10M11 6l6 6-6 6M19 5v14"/>',
+ dots:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',
+ refresh:'<path d="M20 11a8 8 0 0 0-14.7-4.3L4 8M4 4v4h4M4 13a8 8 0 0 0 14.7 4.3L20 16M20 20v-4h-4"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ share:'<path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6"/>',
+ music:'<path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+ disc:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/>',
+ run:'<circle cx="14" cy="4.5" r="1.8"/><path d="M8 21l3-6 3 2v4M7 12l3-4 4 1 3 3 3-1M10 8l-2 6"/>',
+ blend:'<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>',
+ compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+ users:'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A4.5 4.5 0 0 1 21 18.5"/>',
+ list:'<path d="M4 6h11M4 11h11M4 16h7"/><circle cx="17.5" cy="16.5" r="2.5"/><path d="M20 16.5V7l-2.5.8"/>'
+};const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]||''}</svg>`;
+function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
+
+/* ---------- storage ---------- */
+const KEY='aimusic.v1';
+const freshTaste=()=>({tracks:{},artists:{},genres:{}});
+const DEF=()=>({profile:{name:''},settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',learn:true,len:15},taste:freshTaste(),liked:[],recent:[],playlists:[],friends:[],draft:null,setupDone:false});
+function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.taste={...freshTaste(),...(s.taste||{})};['liked','recent','playlists','friends'].forEach(k=>{if(!Array.isArray(d[k]))d[k]=[];});}}catch(e){}return d;}
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},verify:function(a,t){return verify(a,t)},learn:function(t,k){return learn(t,k)}};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
+function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
+
+/* ---------- AI job runner (one at a time, with Stop) ---------- */
+let ctl=null;
+const ask=(p,o={})=>{ctl=new AbortController();return ai(p,{system:o.system||'',temp:o.temp??.6,max:o.max??2500,signal:ctl.signal});};
+const ja=(p,o={})=>{ctl=new AbortController();return ai(p,{system:o.system||'',json:true,temp:o.temp??.7,max:o.max??3500,signal:ctl.signal});};
+async function job(out,stopSel,msg,fn){out.innerHTML=`<p class="muted">${esc(msg)}…</p>`;const st=stopSel&&$(stopSel);if(st){st.hidden=false;st.onclick=()=>ctl&&ctl.abort();}try{await fn();}catch(e){console.error(e);out.innerHTML=e&&e.stopped?'<p class="muted">Stopped.</p>':`<p class="err">${esc((e&&e.message)||'Something went wrong. Try again.')}</p>`;}finally{if(st)st.hidden=true;}}
+
+/* ---------- navigation ---------- */
+const VIEWS=['home','create','playlists','discover','blend','settings'];
+let cur='home';const R={};
+const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
+function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
+function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
+function refresh(){(R[cur]||(()=>{}))();badge();}
+function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='free'?`${freeLeft().n} of ${freeLeft().limit} free daily uses left`:p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI DJ on';}}
+
+/* ---------- song catalog (Apple Music / iTunes Search, no key needed) ---------- */
+const CKEY='aimusic.catalog.v1';
+let CAT={};try{CAT=JSON.parse(localStorage.getItem(CKEY)||'{}')||{};}catch(e){CAT={};}
+function catSave(){try{const k=Object.keys(CAT);if(k.length>900)k.slice(0,k.length-700).forEach(x=>delete CAT[x]);localStorage.setItem(CKEY,JSON.stringify(CAT));}catch(e){}}
+const norm=s=>String(s||'').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g,'').replace(/\s*[\(\[].*?[\)\]]/g,'').replace(/\s+-\s+.*(remaster|version|edit|mix|live).*$/,'').replace(/\b(feat|ft|featuring|with)\b.*$/,'').replace(/&/g,'and').replace(/[^a-z0-9]+/g,' ').trim();
+const tkey=(a,t)=>norm(a)+'|'+norm(t);
+const firstArtist=a=>norm(String(a||'').split(/,|&| x | and |feat\.?|ft\.?/i)[0]);
+let itBusy=Promise.resolve(),itLast=0;
+async function itunes(params){ // gentle pacing: Apple limits how fast one visitor can search
+ const run=async()=>{const wait=Math.max(0,itLast+260-Date.now());if(wait)await sleep(wait);itLast=Date.now();
+  const u='https://itunes.apple.com/'+params+(params.includes('?')?'&':'?')+'country=US';
+  let r;try{r=await fetch(u);}catch(e){throw new Error('Couldn\'t reach the music catalog. Check your connection.');}
+  if(r.status===403||r.status===429)throw new Error('The music catalog is busy. Wait a minute and try again.');
+  if(!r.ok)throw new Error('The music catalog had a problem (error '+r.status+').');
+  return r.json();};
+ const p=itBusy.then(run,run);itBusy=p.catch(()=>{});return p;}
+const fromIt=x=>({id:'it'+x.trackId,t:x.trackName,a:x.artistName,al:x.collectionName||'',art:(x.artworkUrl100||'').replace('100x100bb','200x200bb'),pv:x.previewUrl||'',url:x.trackViewUrl||'',g:x.primaryGenreName||'',y:(x.releaseDate||'').slice(0,4),aid:x.artistId});
+async function searchSongs(q,limit=8){if(!q.trim())return[];const j=await itunes('search?term='+encodeURIComponent(q)+'&entity=song&limit='+limit);return(j.results||[]).filter(x=>x.kind==='song').map(fromIt);}
+/* Find the real song for an AI suggestion. Returns null if Apple doesn't have that exact artist + title. */
+async function verify(artist,title){const k=tkey(artist,title);if(k in CAT)return CAT[k];
+ let res=[];try{const j=await itunes('search?term='+encodeURIComponent(artist+' '+title)+'&entity=song&limit=10');res=(j.results||[]).filter(x=>x.kind==='song');}catch(e){if(/busy|reach/.test(e.message))throw e;res=[];}
+ const na=firstArtist(artist),nt=norm(title);
+ const hit=res.find(x=>{const xa=norm(x.artistName),xt=norm(x.trackName);return(xa===na||xa.includes(na)||na.includes(firstArtist(x.artistName)))&&(xt===nt||xt.startsWith(nt)||nt.startsWith(xt))&&xt.length>0;});
+ const out=hit?fromIt(hit):null;CAT[k]=out;catSave();return out;}
+async function verifyAll(list,want,onProgress){const out=[],seen=new Set(),skipped={dup:0,recent:0,missing:0};const rec=recentSet();
+ for(const s of list){if(out.length>=want)break;if(!s||!s.artist||!s.title)continue;const k=tkey(s.artist,s.title);if(seen.has(k)){skipped.dup++;continue;}seen.add(k);
+  let tr=null;try{tr=await verify(s.artist,s.title);}catch(e){if(out.length)break;throw e;}
+  if(!tr){skipped.missing++;continue;}if(seen.has(tr.id)){skipped.dup++;continue;}seen.add(tr.id);
+  if(rec.has(tr.id)&&!s.keep){skipped.recent++;continue;}
+  out.push({...tr,why:String(s.why||'').slice(0,140),surprise:!!s.surprise});onProgress&&onProgress(out.length,want);}
+ return{tracks:out,skipped};}
+
+/* ---------- taste learning ---------- */
+const W={save:3,add:2,replay:1,play:.5,skip:-2,unsave:-3};
+function learn(tr,kind){if(!tr||!S.settings.learn)return;const T=S.taste,w=W[kind]||0,e=T.tracks[tr.id]||(T.tracks[tr.id]={t:tr.t,a:tr.a,g:tr.g,s:0,plays:0,skips:0,saves:0});
+ e.s=Math.round((e.s+w)*10)/10;if(kind==='play'||kind==='replay')e.plays++;if(kind==='skip')e.skips++;if(kind==='save')e.saves++;e.last=Date.now();
+ if(tr.a)T.artists[tr.a]=Math.round(((T.artists[tr.a]||0)+w)*10)/10;if(tr.g)T.genres[tr.g]=Math.round(((T.genres[tr.g]||0)+w*.6)*10)/10;
+ const ks=Object.keys(T.tracks);if(ks.length>800)ks.sort((a,b)=>(T.tracks[a].last||0)-(T.tracks[b].last||0)).slice(0,200).forEach(x=>delete T.tracks[x]);save();}
+function heard(tr,kind='h'){S.recent.unshift({id:tr.id,a:tr.a,t:tr.t,ts:Date.now(),k:kind});const seen=new Set();S.recent=S.recent.filter(r=>{const x=r.id+r.k;if(seen.has(x))return false;seen.add(x);return true;}).slice(0,500);save();}
+function recentSet(){const now=Date.now(),out=new Set();S.recent.forEach(r=>{if(r.k==='h'&&now-r.ts<45*864e5)out.add(r.id);});return out;}
+const topOf=(o,n,min=0.01)=>Object.entries(o).filter(([,v])=>v>=min).sort((a,b)=>b[1]-a[1]).slice(0,n).map(([k])=>k);
+function tasteSummary(){if(!S.settings.learn)return'';const T=S.taste,arts=topOf(T.artists,10),gen=topOf(T.genres,5),
+ songs=Object.values(T.tracks).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,12).map(x=>`${x.a} – ${x.t}`),
+ nope=Object.entries(T.artists).filter(([,v])=>v<=-2).sort((a,b)=>a[1]-b[1]).slice(0,6).map(([k])=>k);
+ S.liked.slice(0,12).forEach(l=>{const s=`${l.a} – ${l.t}`;if(!songs.includes(s))songs.push(s);});
+ if(!arts.length&&!songs.length)return'';
+ return `What this listener likes (learned from what they save, replay, add to playlists and skip):\n${arts.length?'- Favorite artists: '+arts.join(', ')+'\n':''}${gen.length?'- Favorite genres: '+gen.join(', ')+'\n':''}${songs.length?'- Songs they love: '+songs.slice(0,16).join('; ')+'\n':''}${nope.length?'- Artists they often skip (use sparingly): '+nope.join(', ')+'\n':''}`;}
+function avoidList(extra=[]){const now=Date.now(),h=S.recent.filter(r=>r.k==='h'&&now-r.ts<45*864e5),s=S.recent.filter(r=>r.k==='s'&&now-r.ts<14*864e5);return[...new Set([...extra,...[...h,...s].map(r=>`${r.a} – ${r.t}`)])].slice(0,90);}
+const isLiked=id=>S.liked.some(l=>l.id===id);
+function toggleLike(tr){const i=S.liked.findIndex(l=>l.id===tr.id);if(i>=0){S.liked.splice(i,1);learn(tr,'unsave');toast('Removed from Saved songs');}else{S.liked.unshift(slim(tr));learn(tr,'save');toast('Saved. Your recommendations will learn from it.');}save();}
+const slim=tr=>({id:tr.id,t:tr.t,a:tr.a,al:tr.al,art:tr.art,pv:tr.pv,url:tr.url,g:tr.g,y:tr.y,why:tr.why||''});
+
+/* ---------- player (30-second previews) ---------- */
+const audio=new Audio();audio.preload='none';
+const P={id:null,queue:[],idx:-1,tr:null,started:0};
+const lastPlays={};
+function playTrack(tr,queue){if(!tr||!tr.pv){toast('No preview for this song. Use the Listen links to hear it in full.');return;}
+ if(P.id===tr.id&&!audio.paused){audio.pause();paintPlayer();return;}
+ if(P.id===tr.id&&audio.paused&&audio.src){audio.play().catch(()=>{});paintPlayer();return;}
+ maybeSkip();
+ P.id=tr.id;P.tr=tr;P.started=Date.now();if(queue){P.queue=queue;P.idx=queue.findIndex(x=>x.id===tr.id);}
+ audio.src=tr.pv;audio.play().catch(()=>toast('Your browser blocked playback. Tap play again.',{err:true}));
+ const n=(lastPlays[tr.id]||0)+1;lastPlays[tr.id]=n;learn(tr,n>1||(S.taste.tracks[tr.id]&&S.taste.tracks[tr.id].plays>0)?'replay':'play');heard(tr,'h');paintPlayer();}
+function maybeSkip(){if(P.tr&&!audio.paused&&audio.currentTime>0&&audio.currentTime<8)learn(P.tr,'skip');}
+function nextTrack(by=1){if(!P.queue.length)return;let i=P.idx+by;while(i>=0&&i<P.queue.length&&!P.queue[i].pv)i+=by;if(i<0||i>=P.queue.length){audio.pause();P.id=null;paintPlayer();return;}playTrack(P.queue[i],P.queue);}
+audio.addEventListener('ended',()=>nextTrack(1));
+audio.addEventListener('pause',()=>paintPlayer());audio.addEventListener('play',()=>paintPlayer());
+audio.addEventListener('timeupdate',()=>{const f=$('#plFill');if(f&&audio.duration)f.style.width=(audio.currentTime/audio.duration*100)+'%';});
+function paintPlayer(){const bar=$('#player');if(!bar)return;const tr=P.tr;bar.hidden=!tr;if(!tr)return;
+ bar.querySelector('.pl-art').src=tr.art||'';bar.querySelector('.pl-t').textContent=tr.t;bar.querySelector('.pl-a').textContent=tr.a;
+ const playing=!audio.paused;$('#plPlay').innerHTML=ic(playing?'pause':'play');$('#plPlay').setAttribute('aria-label',playing?'Pause':'Play');
+ $('#plLike').classList.toggle('on',isLiked(tr.id));
+ $$('[data-play]').forEach(b=>{const on=b.dataset.play===tr.id&&playing;b.innerHTML=ic(on?'pause':'play');b.setAttribute('aria-label',on?'Pause preview':'Play preview');b.classList.toggle('on',on);});}
+
+/* ---------- AI playlist engine ---------- */
+const SYS_DJ=`You are an expert music curator and DJ with deep knowledge of songs across every genre, era and country.
+Rules for every song you suggest:
+- Only suggest real, officially released songs that exist on major streaming services. Use the exact artist name and exact song title. Never invent songs or pair a title with the wrong artist.
+- No duplicates, and at most 2 songs by the same artist unless asked.
+- For each song, give a short reason (at most 12 words) that names concrete sound qualities: tempo, energy, vocals, instruments, production, mood or era. Example: "Similar breathy vocals and mellow fingerpicked guitar."
+- Order songs so the playlist flows well, like a good DJ set.`;
+const MODES={
+ like:{label:'More like this',icon:'disc'},mix:{label:'Mix favorites',icon:'heart'},vibe:{label:'Describe the vibe',icon:'spark'},blend:{label:'Blend styles',icon:'blend'},activity:{label:'Activity',icon:'run'}};
+const ACTS=[['workout','Workout'],['study','Studying'],['cook','Cooking'],['commute','Commuting'],['wind','Winding down'],['party','Party'],['focus','Deep focus'],['sleep','Sleep']];
+function describeReq(q){const seeds=(q.seeds||[]).map(s=>`${s.a} – ${s.t}`);
+ switch(q.mode){
+  case'like':return `Make a "more like this" playlist that starts from this song and keeps a very similar sound: ${seeds[0]}. Include the seed song first.`;
+  case'mix':return `Make a playlist that fits naturally with ALL of these favorite songs, finding the sound they share: ${seeds.join('; ')}. Do not include the seed songs themselves.`;
+  case'vibe':return `Make a playlist for this vibe: "${q.text}".`;
+  case'blend':return `Make a playlist that blends these styles into one cohesive mix: ${(q.styles||[]).filter(Boolean).join(' meets ')}. Mix songs that bridge the styles with songs typical of each.`;
+  case'activity':return `Make a playlist for ${q.actLabel||q.act}${q.text?' ('+q.text+')':''}. Match the tempo and energy to the activity from start to finish.`;
+  case'group':return `Make a group playlist that blends these people's tastes so everyone hears something they love and the mix still flows: ${q.people.map(p=>`${p.name} likes ${p.songs.slice(0,10).map(s=>`${s.a} – ${s.t}`).join('; ')}`).join(' | ')}.`;
+  case'artist':return `Make a playlist built around the sound of the artist ${q.artist}: a few of their best songs plus similar artists.`;
+  default:return q.text||'Make a great playlist.';}}
+async function generate(q,onProgress){const n=Math.max(5,Math.min(40,Number(q.n)||S.settings.len||15)),ask=n+Math.ceil(n*.6)+4;
+ const taste=q.useTaste===false?'':tasteSummary(),avoid=avoidList((q.exclude||[]));
+ const prompt=`${describeReq(q)}
+${q.surprise?'Add a few surprises: 2 or 3 songs from outside the obvious picks that still fit. Mark them with "surprise": true.\n':''}${q.newArtists?'Favor lesser-known and up-and-coming artists over the biggest hits.\n':''}${taste?'\n'+taste+'Use this to personalize the picks, but stay faithful to the request.\n':''}${avoid.length?'\nThe listener heard these recently, so do not include them: '+avoid.join('; ')+'\n':''}
+Return JSON exactly like: {"title":"short playlist name, max 5 words","description":"one sentence about the feel","tracks":[{"artist":"","title":"","why":"","surprise":false}]}
+Return ${ask} tracks (some may be filtered out later).`;
+ const j=await ja(prompt,{system:SYS_DJ,max:Math.min(6000,600+ask*60)});
+ const list=Array.isArray(j.tracks)?j.tracks:[];
+ if(q.mode==='like'&&q.seeds&&q.seeds[0]){const s=q.seeds[0];list.unshift({artist:s.a,title:s.t,why:'Your starting song.',keep:true});}
+ const {tracks,skipped}=await verifyAll(list,n,onProgress);
+ if(!tracks.length)throw new Error('The AI\'s picks couldn\'t be matched to real songs. Try again or describe it differently.');
+ return{id:uid(),title:String(j.title||MODES[q.mode]?.label||'New playlist').slice(0,60),desc:String(j.description||'').slice(0,200),q:{...q,n},tracks,created:Date.now(),skipped};}
+async function finetune(pl,instr,onProgress){const n=pl.tracks.length||15,ask=n+8;
+ const prompt=`Here is a playlist titled "${pl.title}"${pl.desc?' ('+pl.desc+')':''}:
+${pl.tracks.map((t,i)=>`${i+1}. ${t.a} – ${t.t}`).join('\n')}
+
+Change it according to this request: "${instr}".
+Keep the songs that still fit (copy them exactly) and replace or reorder the rest. Keep about ${n} songs unless the request asks for more or fewer.
+${tasteSummary()?'\n'+tasteSummary():''}
+Return JSON exactly like: {"title":"","description":"","tracks":[{"artist":"","title":"","why":"","surprise":false}]} with up to ${ask} tracks.`;
+ const j=await ja(prompt,{system:SYS_DJ,max:Math.min(6000,600+ask*60)});
+ const keep=new Set(pl.tracks.map(t=>tkey(t.a,t.t)));const list=(j.tracks||[]).map(t=>({...t,keep:keep.has(tkey(t.artist,t.title))}));
+ const old=Object.fromEntries(pl.tracks.map(t=>[tkey(t.a,t.t),t]));
+ const {tracks}=await verifyAll(list,Math.max(n,(j.tracks||[]).length>n+4?n+4:n),onProgress);
+ tracks.forEach(t=>{const o=old[tkey(t.a,t.t)];if(o&&!t.why)t.why=o.why;});
+ if(!tracks.length)throw new Error('That change didn\'t produce any songs we could find. Try wording it differently.');
+ return{title:String(j.title||pl.title).slice(0,60),desc:String(j.description||pl.desc||'').slice(0,200),tracks};}
+async function refreshPl(pl,onProgress){const n=pl.tracks.length,keepN=Math.max(2,Math.round(n*.4));
+ const ranked=[...pl.tracks].sort((a,b)=>score(b)-score(a)),keepers=ranked.slice(0,keepN);
+ const prompt=`Refresh this playlist titled "${pl.title}" so it keeps the same feel but brings in new discoveries.
+Current songs:\n${pl.tracks.map(t=>`- ${t.a} – ${t.t}`).join('\n')}
+Keep these favorites exactly: ${keepers.map(t=>`${t.a} – ${t.t}`).join('; ')}.
+Replace the other ${n-keepN} songs with NEW songs (not in the current list) that match the playlist's sound, mood and energy.
+${tasteSummary()?'\n'+tasteSummary():''}
+${avoidList().length?'Do not include these recently heard songs: '+avoidList().join('; ')+'\n':''}
+Return JSON exactly like: {"tracks":[{"artist":"","title":"","why":""}]} with the ${keepN} kept songs first, then ${n-keepN+6} new songs.`;
+ const j=await ja(prompt,{system:SYS_DJ,max:Math.min(6000,600+(n+8)*60)});
+ const keepSet=new Set(keepers.map(t=>tkey(t.a,t.t)));const fresh=(j.tracks||[]).filter(t=>!keepSet.has(tkey(t.artist,t.title)));
+ const {tracks}=await verifyAll([...keepers.map(t=>({artist:t.a,title:t.t,why:t.why,keep:true})),...fresh],n,onProgress);
+ const old=Object.fromEntries(pl.tracks.map(t=>[t.id,t]));tracks.forEach(t=>{if(old[t.id]&&!t.why)t.why=old[t.id].why;});
+ return tracks;}
+const score=t=>{const e=S.taste.tracks[t.id];return(e?e.s:0)+(isLiked(t.id)?3:0);};
+function markShown(tracks){tracks.forEach(t=>heard(t,'s'));}
+
+/* ---------- shared UI pieces ---------- */
+const prog=(el,msg)=>(n,w)=>{el.innerHTML=`<p class="muted">${esc(msg)} ${n} of ${w}…</p><div class="bar"><i style="width:${Math.round(n/w*100)}%"></i></div>`;};
+const listen=t=>{const q=encodeURIComponent(t.a+' '+t.t);return`<a href="${esc(t.url||'https://music.apple.com/us/search?term='+q)}" target="_blank" rel="noopener">Apple Music</a><a href="https://open.spotify.com/search/${q}" target="_blank" rel="noopener">Spotify</a><a href="https://music.youtube.com/search?q=${q}" target="_blank" rel="noopener">YouTube Music</a>`;};
+function trackRow(t,i,{removable=true,ctx=''}={}){return`<li class="trk" data-id="${esc(t.id)}">
+ <button class="art" type="button" data-play="${esc(t.id)}" ${t.pv?'':'disabled'} aria-label="Play preview">${t.art?`<img src="${esc(t.art)}" alt="" loading="lazy">`:''}<span class="pi">${ic('play')}</span></button>
+ <div class="tm"><div class="tt">${esc(t.t)}${t.surprise?' <span class="pill">Surprise</span>':''}</div><div class="ta">${esc(t.a)}${t.y?' · '+esc(t.y):''}</div>${t.why?`<div class="why">${esc(t.why)}</div>`:''}</div>
+ <div class="ta2"><button class="tb ${isLiked(t.id)?'on':''}" type="button" data-like="${esc(t.id)}" aria-label="${isLiked(t.id)?'Remove from saved songs':'Save song'}">${ic('heart')}</button>${removable?`<button class="tb" type="button" data-skip="${esc(t.id)}" aria-label="Skip and remove">${ic('skip')}</button>`:''}<details class="more"><summary class="tb" aria-label="Listen in full">${ic('dots')}</summary><div class="menu">${listen(t)}${ctx}</div></details></div></li>`;}
+function bindTracks(root,getList,onRemove){root.onclick=e=>{const b=e.target.closest('[data-play],[data-like],[data-skip],[data-addto]');if(!b)return;const list=getList(),find=id=>list.find(x=>x.id===id)||S.liked.find(x=>x.id===id);
+ if(b.dataset.play){playTrack(find(b.dataset.play),list);}
+ else if(b.dataset.like){const t=find(b.dataset.like);if(!t)return;toggleLike(t);b.classList.toggle('on',isLiked(t.id));paintPlayer();}
+ else if(b.dataset.skip){const t=find(b.dataset.skip);if(!t)return;learn(t,'skip');heard(t,'h');if(P.id===t.id)nextTrack(1);onRemove&&onRemove(t);}
+ else if(b.dataset.addto){addToPlaylist(find(b.dataset.addto));}};}
+function plHtml(pl,{saved=false}={}){const has=pl.tracks.some(t=>t.pv);const sk=pl.skipped&&(pl.skipped.missing+pl.skipped.recent)||0;
+ return`<div class="plh"><div class="cover">${cover(pl)}</div><div class="grow"><h2 class="plt">${esc(pl.title)}</h2>${pl.desc?`<p class="muted small" style="margin:2px 0 0">${esc(pl.desc)}</p>`:''}<p class="tiny muted" style="margin:6px 0 0">${pl.tracks.length} songs${pl.refreshed?' · refreshed '+fmtD(new Date(pl.refreshed)):''}${sk?` · ${pl.skipped.missing?pl.skipped.missing+' AI picks couldn\'t be found and were left out':''}${pl.skipped.missing&&pl.skipped.recent?', ':''}${pl.skipped.recent?pl.skipped.recent+' recently heard skipped':''}`:''}</p></div></div>
+ <div class="row wrap" style="margin:12px 0 4px">${has?`<button class="btn primary sm" type="button" data-act="playall">${ic('play')}Play previews</button>`:''}${saved?`<button class="btn sm" type="button" data-act="refresh">${ic('refresh')}Refresh</button>`:`<button class="btn primary sm" type="button" data-act="save">${ic('plus')}Save playlist</button>`}<button class="btn sm" type="button" data-act="export">${ic('share')}Export</button>${saved?`<button class="btn sm ghost" type="button" data-act="rename">Rename</button><button class="btn sm ghost danger" type="button" data-act="delete">Delete</button>`:''}</div>
+ <div class="soft tune"><div class="row wrap between"><b class="small">Fine-tune the mix</b><span class="tiny muted">Ask for any change</span></div>
+ <div class="chips" style="margin:8px 0">${['More like the first song','Less slow','More upbeat','Add a few surprises','Fewer big hits','More female vocals','Longer playlist'].map(c=>`<button class="chip" type="button" data-tune="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+ <form class="askbar" data-tuneform><input name="t" placeholder="e.g. more 2000s, no explicit lyrics, end calmer" autocomplete="off"><button class="btn primary sm">Apply</button></form><div class="tuneout"></div></div>
+ <ol class="trks">${pl.tracks.map((t,i)=>trackRow(t,i,{ctx:saved?'':`<button type="button" data-addto="${esc(t.id)}">Add to a playlist</button>`})).join('')}</ol>`;}
+function cover(pl){const a=pl.tracks.filter(t=>t.art).slice(0,4);if(a.length<4)return a[0]?`<img src="${esc(a[0].art)}" alt="">`:`<span class="cv0">${ic('music')}</span>`;return`<span class="mos">${a.map(t=>`<img src="${esc(t.art)}" alt="">`).join('')}</span>`;}
+/* Mount a playlist view with all of its actions. `pl` is either a draft or a saved playlist. */
+function mountPl(el,pl,{saved=false,onChange}={}){
+ const paint=()=>{el.innerHTML=plHtml(pl,{saved});icons(el);paintPlayer();wire();};
+ const wire=()=>{const list=()=>pl.tracks;bindTracks(el.querySelector('.trks'),list,t=>{pl.tracks=pl.tracks.filter(x=>x.id!==t.id);commit();paint();toast('Skipped. You\'ll hear less like it.');});
+  el.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>act(b.dataset.act,b));
+  const out=el.querySelector('.tuneout');
+  const tune=async(txt,btn)=>{if(!txt.trim())return;if(!hasAI()){aiBadgeClick();return;}await run(btn,()=>job(out,null,'Re-mixing',async()=>{const r=await finetune(pl,txt,prog(out,'Checking songs'));Object.assign(pl,{title:r.title,desc:r.desc,tracks:r.tracks});markShown(pl.tracks);commit();paint();toast('Playlist updated');}));};
+  el.querySelectorAll('[data-tune]').forEach(c=>c.onclick=()=>tune(c.dataset.tune,c));
+  const f=el.querySelector('[data-tuneform]');f.onsubmit=e=>{e.preventDefault();tune(f.t.value,f.querySelector('button'));};};
+ const commit=()=>{if(saved){save();}else{S.draft=pl;save();}onChange&&onChange();};
+ async function act(a,btn){
+  if(a==='playall'){const f=pl.tracks.find(t=>t.pv);if(f)playTrack(f,pl.tracks);}
+  else if(a==='save'){const copy={...pl,id:uid(),saved:Date.now()};S.playlists.unshift(copy);copy.tracks.forEach(t=>learn(t,'add'));S.draft=null;save();toast('Playlist saved',{action:'Open',fn:()=>{openPl=copy.id;go('playlists');}});}
+  else if(a==='export')exportPl(pl);
+  else if(a==='rename'){const n=prompt('Playlist name',pl.title);if(n&&n.trim()){pl.title=n.trim().slice(0,60);commit();paint();}}
+  else if(a==='delete'){if(!confirm(`Delete "${pl.title}"?`))return;S.playlists=S.playlists.filter(x=>x.id!==pl.id);save();openPl=null;R.playlists();toast('Playlist deleted');}
+  else if(a==='refresh'){if(!hasAI()){aiBadgeClick();return;}const out=el.querySelector('.tuneout');const before=pl.tracks.slice();await run(btn,()=>job(out,null,'Finding new discoveries',async()=>{const t=await refreshPl(pl,prog(out,'Checking songs'));pl.tracks=t;pl.refreshed=Date.now();markShown(t);commit();paint();toast('Refreshed with new discoveries',{action:'Undo',fn:()=>{pl.tracks=before;commit();paint();}});}));}}
+ paint();}
+function exportPl(pl){const txt=pl.title+'\n'+pl.tracks.map((t,i)=>`${i+1}. ${t.a} – ${t.t}`).join('\n');
+ openModal('Export playlist',`<p class="sub">Take “${esc(pl.title)}” to any music app. To import into Spotify, Apple Music or YouTube Music in one step, paste the text into a free playlist transfer service such as TuneMyMusic or Soundiiz.</p><br>
+ <div class="row wrap"><button class="btn sm primary" type="button" id="exCopy">Copy as text</button><button class="btn sm" type="button" id="exCsv">Download CSV</button>${navigator.share?'<button class="btn sm" type="button" id="exShare">Share</button>':''}</div><pre style="margin-top:12px;max-height:260px">${esc(txt)}</pre>`,{onMount:d=>{
+  d.querySelector('#exCopy').onclick=()=>copy(txt);
+  d.querySelector('#exCsv').onclick=()=>{const q=s=>'"'+String(s||'').replace(/"/g,'""')+'"';const csv='Title,Artist,Album,Year,Apple Music link\n'+pl.tracks.map(t=>[t.t,t.a,t.al,t.y,t.url].map(q).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=(pl.title||'playlist').replace(/[^\w -]+/g,'').trim()+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
+  const sh=d.querySelector('#exShare');if(sh)sh.onclick=()=>navigator.share({title:pl.title,text:txt}).catch(()=>{});}});}
+function addToPlaylist(t){if(!t)return;if(!S.playlists.length){toast('Save a playlist first, then you can add songs to it.');return;}
+ openModal('Add to a playlist',`<div class="list">${S.playlists.map(p=>`<button class="btn block" style="justify-content:flex-start" type="button" data-pid="${esc(p.id)}">${esc(p.title)} <span class="muted tiny">· ${p.tracks.length} songs</span></button>`).join('')}</div>`,{onMount:d=>d.querySelectorAll('[data-pid]').forEach(b=>b.onclick=()=>{const p=S.playlists.find(x=>x.id===b.dataset.pid);if(p&&!p.tracks.some(x=>x.id===t.id)){p.tracks.push(slim(t));learn(t,'add');save();}closeModal();toast('Added to '+(p?p.title:'playlist'));})});}
+/* Song picker: search Apple's catalog and pick exact songs */
+function picker(el,{multi=false,onPick,placeholder='Search a song or artist'}={}){
+ el.innerHTML=`<div class="pick"><input type="search" placeholder="${esc(placeholder)}" autocomplete="off" aria-label="${esc(placeholder)}"><div class="pres" hidden></div></div>`;
+ const inp=el.querySelector('input'),res=el.querySelector('.pres');let tmr,seq=0;
+ inp.addEventListener('input',()=>{clearTimeout(tmr);const q=inp.value.trim();if(q.length<2){res.hidden=true;return;}tmr=setTimeout(async()=>{const my=++seq;try{const list=await searchSongs(q,6);if(my!==seq)return;res.hidden=!list.length;res.innerHTML=list.map(t=>`<button type="button" class="pr" data-k="${esc(t.id)}">${t.art?`<img src="${esc(t.art)}" alt="">`:''}<span><b>${esc(t.t)}</b><small>${esc(t.a)}${t.y?' · '+t.y:''}</small></span></button>`).join('');res._list=list;}catch(e){res.hidden=false;res.innerHTML=`<p class="err small" style="margin:8px">${esc(e.message)}</p>`;}},320);});
+ res.onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;const t=(res._list||[]).find(x=>x.id===b.dataset.k);if(t){onPick&&onPick(t);if(multi){inp.value='';res.hidden=true;inp.focus();}else{inp.value=t.t+' – '+t.a;res.hidden=true;}}};
+ document.addEventListener('click',e=>{if(!el.contains(e.target))res.hidden=true;});}
+const seedChip=(t,i)=>`<span class="seed">${t.art?`<img src="${esc(t.art)}" alt="">`:''}<span><b>${esc(t.t)}</b><small>${esc(t.a)}</small></span><button class="x" type="button" data-rm="${i}" aria-label="Remove ${esc(t.t)}">×</button></span>`;
+let openPl=null;
+
+/* ---------- HOME ---------- */
+R.home=()=>{const v=$('#v-home');const T=S.taste,arts=topOf(T.artists,8),gens=topOf(T.genres,6);const nm=S.profile.name?esc(S.profile.name.split(' ')[0]):'';
+ v.innerHTML=`<div class="hero-ask"><h2 style="margin:0 0 4px;font-size:22px;letter-spacing:-.01em">${nm?'Hi '+nm+', w':'W'}hat do you want to hear?</h2><p class="muted small" style="margin:0 0 12px">Describe a vibe, a moment or a mix, and get a playlist of real songs you can preview.</p>
+ <form class="askbar" id="homeVibe" style="margin:0"><input name="t" placeholder="Upbeat indie for a sunny drive" autocomplete="off" aria-label="Describe the vibe"><button class="btn primary">Make playlist</button></form>
+ <div class="chips" style="margin-top:10px">${['Calm music for reading','90s R&B meets modern pop','Rainy day lo-fi','Feel-good throwbacks for cooking','High-energy gym hip-hop'].map(c=>`<button class="chip" type="button" data-vibe="${esc(c)}">${esc(c)}</button>`).join('')}</div></div>
+ <h2>Start from</h2><div class="grid3 acts">
+ ${[['like','disc','One song','More like this'],['mix','heart','Favorites','Playlist from several songs'],['activity','run','An activity','Workout, study, cook…'],['blend','blend','Two styles','Blend genres or eras'],['discover','compass','New artists','Lesser-known gems'],['group','users','Friends','Blend your tastes']].map(([m,i,a,b])=>`<button class="stat" type="button" data-start="${m}">${ic(i)}<b style="font-size:17px;margin-top:10px">${a}</b><span>${b}</span></button>`).join('')}</div>
+ <h2>Your taste</h2><div class="box">${arts.length||gens.length?`${arts.length?`<h4 style="margin-top:0">Top artists</h4><div class="chips">${arts.map(a=>`<span class="chip">${esc(a)}</span>`).join('')}</div>`:''}${gens.length?`<h4>Top genres</h4><div class="chips">${gens.map(g=>`<span class="chip">${esc(g)}</span>`).join('')}</div>`:''}`:`<p class="empty">Your taste profile is empty. Play, save and skip songs, and recommendations get more personal.</p>`}
+ <div class="kv" style="margin-top:12px"><span>Saved songs</span><span>${S.liked.length}</span><span>Playlists</span><span>${S.playlists.length}</span><span>Songs heard recently</span><span>${S.recent.filter(r=>r.k==='h'&&Date.now()-r.ts<45*864e5).length}</span></div>
+ <p class="note">${S.settings.learn?'Learning is on: saves, replays, playlist adds and skips shape your suggestions, and songs you heard recently are kept out of new playlists.':'Learning is off. Turn it on in Settings to personalize suggestions.'}</p></div>
+ <h2>Recent playlists</h2>${S.playlists.length?`<div class="list">${S.playlists.slice(0,4).map(plCard).join('')}</div>`:'<p class="empty">No saved playlists yet. Make one above.</p>'}`;
+ icons(v);
+ $('#homeVibe').onsubmit=e=>{e.preventDefault();const t=e.target.t.value.trim();if(t)startCreate('vibe',{text:t,auto:true});};
+ $$('[data-vibe]',v).forEach(c=>c.onclick=()=>startCreate('vibe',{text:c.dataset.vibe,auto:true}));
+ $$('[data-start]',v).forEach(b=>b.onclick=()=>{const m=b.dataset.start;if(m==='discover')go('discover');else if(m==='group')go('blend');else startCreate(m);});
+ $$('[data-pl]',v).forEach(b=>b.onclick=()=>{openPl=b.dataset.pl;go('playlists');});};
+const plCard=p=>`<button class="plc" type="button" data-pl="${esc(p.id)}"><span class="cover sm">${cover(p)}</span><span class="grow"><b>${esc(p.title)}</b><small>${p.tracks.length} songs${p.desc?' · '+esc(p.desc):''}</small></span></button>`;
+
+/* ---------- CREATE ---------- */
+const C={mode:'vibe',seeds:[],text:'',styles:['',''],act:'workout',actText:'',surprise:false,newArtists:false,useTaste:true};
+function startCreate(mode,o={}){C.mode=mode;if(o.text!==undefined)C.text=o.text;if(o.seeds)C.seeds=o.seeds;go('create');if(o.auto)setTimeout(()=>{const b=$('#cGo');b&&b.click();},60);}
+R.create=()=>{const v=$('#v-create');
+ v.innerHTML=`<h2 style="margin-top:4px">Create a playlist</h2><div class="seg" id="cMode" role="tablist">${Object.entries(MODES).map(([k,m])=>`<button type="button" data-m="${k}" class="${C.mode===k?'on':''}">${m.label}</button>`).join('')}</div>
+ <div class="box" style="margin-top:12px" id="cForm"></div><div id="cOut" style="margin-top:14px"></div>`;
+ const form=$('#cForm'),out=$('#cOut');
+ const opts=()=>`<div class="form-row" style="margin-top:12px;align-items:center"><label style="max-width:150px">Length<select id="cLen">${[10,15,20,25,30].map(n=>`<option ${n==(S.settings.len||15)?'selected':''}>${n}</option>`).join('')}</select></label><label class="check"><input type="checkbox" id="cSur" ${C.surprise?'checked':''}> Add a few surprises</label><label class="check"><input type="checkbox" id="cNew" ${C.newArtists?'checked':''}> Favor lesser-known artists</label><label class="check"><input type="checkbox" id="cTaste" ${C.useTaste?'checked':''}> Use my taste</label></div>
+  <div class="row wrap" style="margin-top:4px"><button class="btn primary" type="button" id="cGo">${ic('spark')}Make playlist</button><button class="btn ghost sm" type="button" id="cStop" hidden>Stop</button></div>`;
+ const seedsBox=(max)=>`<div id="cPick"></div><div class="seeds" id="cSeeds">${C.seeds.map(seedChip).join('')}</div>${S.liked.length?`<details style="margin-top:8px"><summary class="small">Pick from saved songs</summary><div class="chips" style="margin-top:8px">${S.liked.slice(0,30).map(t=>`<button class="chip" type="button" data-liked="${esc(t.id)}">${esc(t.t)} · ${esc(t.a)}</button>`).join('')}</div></details>`:''}`;
+ function paint(){$$('#cMode button').forEach(b=>b.classList.toggle('on',b.dataset.m===C.mode));let h='';
+  if(C.mode==='like'){C.seeds=C.seeds.slice(0,1);h=`<h3>More like this</h3><p class="sub">Start with one song. We'll find tracks with a similar sound.</p><br>${seedsBox(1)}`;}
+  else if(C.mode==='mix')h=`<h3>Playlist from several favorites</h3><p class="sub">Pick 2 to 8 songs you love. We'll find tracks that fit the mix.</p><br>${seedsBox(8)}`;
+  else if(C.mode==='vibe')h=`<h3>Describe the vibe</h3><p class="sub">A mood, a moment, a place, a decade: anything.</p><br><textarea id="cText" rows="2" placeholder="Upbeat indie for a sunny drive">${esc(C.text)}</textarea><div class="chips" style="margin-top:8px">${['Calm music for reading','Late-night city drive','Sunday morning coffee','Songs that feel like summer','Dark and moody electronic'].map(c=>`<button class="chip" type="button" data-fill="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+  else if(C.mode==='blend')h=`<h3>Blend two tastes</h3><p class="sub">Combine artists, genres or eras, like “90s R&B” and “modern pop.”</p><br><div class="form-row"><label>First<input id="cS1" value="${esc(C.styles[0])}" placeholder="90s R&B"></label><label>Second<input id="cS2" value="${esc(C.styles[1])}" placeholder="Modern pop"></label><label>Third (optional)<input id="cS3" value="${esc(C.styles[2]||'')}" placeholder="Afrobeats"></label></div>`;
+  else if(C.mode==='activity')h=`<h3>Match music to an activity</h3><p class="sub">Tempo and energy are tuned to what you're doing.</p><br><div class="chips" id="cActs">${ACTS.map(([k,l])=>`<button class="chip ${C.act===k?'on':''}" type="button" data-act="${k}">${l}</button>`).join('')}</div><label style="margin-top:12px">Anything else? (optional)<input id="cActText" value="${esc(C.actText)}" placeholder="e.g. 45-minute run, no lyrics, mostly rock"></label>`;
+  form.innerHTML=h+opts();icons(form);
+  if(C.mode==='like'||C.mode==='mix'){const max=C.mode==='like'?1:8;picker($('#cPick'),{multi:C.mode==='mix',placeholder:C.mode==='like'?'Search the song to start from':'Search and add songs',onPick:t=>{if(C.mode==='like')C.seeds=[t];else if(!C.seeds.some(s=>s.id===t.id)&&C.seeds.length<max)C.seeds.push(t);$('#cSeeds').innerHTML=C.seeds.map(seedChip).join('');}});
+   $('#cSeeds').onclick=e=>{const b=e.target.closest('[data-rm]');if(b){C.seeds.splice(+b.dataset.rm,1);$('#cSeeds').innerHTML=C.seeds.map(seedChip).join('');}};
+   $$('[data-liked]',form).forEach(b=>b.onclick=()=>{const t=S.liked.find(x=>x.id===b.dataset.liked);if(!t)return;if(C.mode==='like')C.seeds=[t];else if(!C.seeds.some(s=>s.id===t.id)&&C.seeds.length<max)C.seeds.push(t);$('#cSeeds').innerHTML=C.seeds.map(seedChip).join('');});}
+  $$('[data-fill]',form).forEach(c=>c.onclick=()=>{$('#cText').value=c.dataset.fill;C.text=c.dataset.fill;});
+  $$('#cActs [data-act]',form).forEach(c=>c.onclick=()=>{C.act=c.dataset.act;$$('#cActs .chip').forEach(x=>x.classList.toggle('on',x===c));});
+  $('#cGo').onclick=e=>makeIt(e.currentTarget);}
+ async function makeIt(btn){
+  C.surprise=$('#cSur').checked;C.newArtists=$('#cNew').checked;C.useTaste=$('#cTaste').checked;S.settings.len=+$('#cLen').value;save();
+  if($('#cText'))C.text=$('#cText').value.trim();if($('#cS1')){C.styles=[$('#cS1').value.trim(),$('#cS2').value.trim(),$('#cS3').value.trim()];}if($('#cActText'))C.actText=$('#cActText').value.trim();
+  const q={mode:C.mode,n:S.settings.len,surprise:C.surprise,newArtists:C.newArtists,useTaste:C.useTaste};
+  if(C.mode==='like'){if(!C.seeds[0])return toast('Pick a song to start from.',{err:true});q.seeds=C.seeds.slice(0,1);}
+  if(C.mode==='mix'){if(C.seeds.length<2)return toast('Add at least 2 favorite songs.',{err:true});q.seeds=C.seeds.slice();q.exclude=C.seeds.map(s=>`${s.a} – ${s.t}`);}
+  if(C.mode==='vibe'){if(!C.text)return toast('Describe the vibe first.',{err:true});q.text=C.text;}
+  if(C.mode==='blend'){if(C.styles.filter(Boolean).length<2)return toast('Add at least two styles to blend.',{err:true});q.styles=C.styles.filter(Boolean);}
+  if(C.mode==='activity'){q.act=C.act;q.actLabel=(ACTS.find(a=>a[0]===C.act)||[,''])[1].toLowerCase();q.text=C.actText;}
+  if(!hasAI()){aiBadgeClick();return;}
+  await run(btn,()=>job(out,'#cStop','Picking songs',async()=>{const pl=await generate(q,prog(out,'Finding real songs:'));markShown(pl.tracks);S.draft=pl;save();mountPl(out,pl);out.scrollIntoView({behavior:'smooth',block:'start'});}));}
+ $('#cMode').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;C.mode=b.dataset.m;paint();};
+ paint();if(S.draft){mountPl(out,S.draft);}};
+
+/* ---------- PLAYLISTS ---------- */
+R.playlists=()=>{const v=$('#v-playlists');
+ if(openPl){const pl=openPl==='liked'?{id:'liked',title:'Saved songs',desc:'Songs you saved. Recommendations learn from them.',tracks:S.liked}:S.playlists.find(p=>p.id===openPl);
+  if(pl){v.innerHTML=`<button class="btn ghost sm" type="button" id="plBack">← All playlists</button><div id="plOne" style="margin-top:8px"></div>`;$('#plBack').onclick=()=>{openPl=null;R.playlists();};
+   if(openPl==='liked'){const el=$('#plOne');const paint=()=>{el.innerHTML=`<div class="plh"><div class="cover">${cover(pl)}</div><div class="grow"><h2 class="plt">Saved songs</h2><p class="muted small" style="margin:2px 0 0">${S.liked.length} songs · recommendations learn from these</p></div></div><div class="row wrap" style="margin:12px 0 4px">${S.liked.some(t=>t.pv)?`<button class="btn primary sm" type="button" id="lkPlay">${ic('play')}Play previews</button>`:''}${S.liked.length>=2?`<button class="btn sm" type="button" id="lkMix">${ic('spark')}Playlist from these</button>`:''}</div>${S.liked.length?`<ol class="trks">${S.liked.map((t,i)=>trackRow(t,i,{removable:false,ctx:`<button type="button" data-addto="${esc(t.id)}">Add to a playlist</button>`})).join('')}</ol>`:'<p class="empty">Tap the heart on any song to save it here.</p>'}`;icons(el);paintPlayer();bindTracks(el.querySelector('.trks')||el,()=>S.liked);const lp=$('#lkPlay');if(lp)lp.onclick=()=>playTrack(S.liked.find(t=>t.pv),S.liked);const lm=$('#lkMix');if(lm)lm.onclick=()=>startCreate('mix',{seeds:S.liked.slice(0,8)});};paint();}
+   else mountPl($('#plOne'),pl,{saved:true});return;}
+  openPl=null;}
+ v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Your playlists</h2><button class="btn primary sm" type="button" data-go="create">${ic('plus')}New playlist</button></div>
+ <div class="list">${`<button class="plc" type="button" data-pl="liked"><span class="cover sm"><span class="cv0 like">${ic('heart')}</span></span><span class="grow"><b>Saved songs</b><small>${S.liked.length} songs</small></span></button>`}${S.playlists.map(plCard).join('')}</div>${S.playlists.length?'':'<p class="empty" style="margin-top:12px">Playlists you save appear here. You can fine-tune, refresh and export them anytime.</p>'}`;
+ icons(v);$$('[data-pl]',v).forEach(b=>b.onclick=()=>{openPl=b.dataset.pl;R.playlists();window.scrollTo(0,0);});};
+
+/* ---------- DISCOVER (new artists) ---------- */
+let discoverLast=null;
+R.discover=()=>{const v=$('#v-discover');const mine=topOf(S.taste.artists,6);
+ v.innerHTML=`<h2 style="margin-top:4px">Find new artists</h2><div class="box"><p class="sub" style="margin-top:0">Get lesser-known artists who sound like the ones you already love, with a reason for each.</p><br>
+ <label>Artists you love<input id="dArts" value="${esc(mine.join(', '))}" placeholder="e.g. Phoebe Bridgers, Bon Iver, SZA"></label>
+ <div class="form-row" style="align-items:center"><label class="check"><input type="checkbox" id="dDeep" checked> Lesser-known only</label></div>
+ <div class="row wrap"><button class="btn primary" type="button" id="dGo">${ic('compass')}Find artists</button><button class="btn ghost sm" type="button" id="dStop" hidden>Stop</button></div></div><div id="dOut" style="margin-top:14px"></div>`;
+ icons(v);const out=$('#dOut');if(discoverLast)paintArtists(out,discoverLast);
+ $('#dGo').onclick=e=>run(e.currentTarget,async()=>{const arts=$('#dArts').value.split(',').map(s=>s.trim()).filter(Boolean);if(!arts.length){toast('Add at least one artist you love.',{err:true});return;}if(!hasAI()){aiBadgeClick();return;}
+  await job(out,'#dStop','Searching for artists',async()=>{const known=new Set([...arts,...topOf(S.taste.artists,40,-99)].map(norm));
+   const j=await ja(`The listener loves these artists: ${arts.join(', ')}.
+${tasteSummary()}
+Recommend 10 ${$('#dDeep').checked?'lesser-known or up-and-coming (not mainstream household names) ':''}artists who sound like them. Do not include any of the artists listed above.
+For each, say in at most 14 words why they fit (vocals, instruments, production, mood) and which listed artist they are most like.
+Return JSON exactly like: {"artists":[{"name":"","why":"","like":""}]}`,{system:SYS_DJ,max:2200});
+   const list=(j.artists||[]).filter(a=>a&&a.name&&!known.has(norm(a.name)));const found=[];
+   for(const a of list){if(found.length>=8)break;out.innerHTML=`<p class="muted">Checking artists… ${found.length} found</p>`;
+    let r;try{r=await itunes('search?term='+encodeURIComponent(a.name)+'&entity=musicArtist&limit=5');}catch(e){if(found.length)break;throw e;}
+    const hit=(r.results||[]).find(x=>norm(x.artistName)===norm(a.name));if(!hit)continue;
+    let songs=[];try{const s=await itunes('lookup?id='+hit.artistId+'&entity=song&limit=6');songs=(s.results||[]).filter(x=>x.kind==='song').map(fromIt).slice(0,3);}catch(e){}
+    if(!songs.length)continue;songs.forEach(t=>t.why=a.why);found.push({name:hit.artistName,genre:hit.primaryGenreName||'',why:a.why,like:a.like,url:hit.artistLinkUrl||'',songs});}
+   if(!found.length)throw new Error('No matching artists were found in the catalog. Try different artists.');
+   discoverLast=found;paintArtists(out,found);});});};
+function paintArtists(out,found){const all=found.flatMap(a=>a.songs);
+ out.innerHTML=`<div class="arts">${found.map((a,i)=>`<div class="box art-card"><div class="row between wrap"><div><h3>${esc(a.name)}</h3><p class="tiny muted" style="margin:2px 0 0">${esc(a.genre)}${a.like?' · like '+esc(a.like):''}</p></div><button class="btn sm" type="button" data-artpl="${i}">${ic('spark')}Playlist</button></div><p class="small" style="margin:8px 0 4px">${esc(a.why||'')}</p><ol class="trks mini">${a.songs.map((t,k)=>trackRow({...t,why:''},k,{removable:false,ctx:`<button type="button" data-addto="${esc(t.id)}">Add to a playlist</button>`})).join('')}</ol></div>`).join('')}</div>`;
+ icons(out);paintPlayer();bindTracks(out,()=>all);
+ $$('[data-artpl]',out).forEach(b=>b.onclick=e=>{const a=found[+b.dataset.artpl];startCreate('vibe',{text:`The sound of ${a.name}${a.like?' (similar to '+a.like+')':''}: include a few of their songs plus artists like them`,auto:true});});}
+
+/* ---------- BLEND (friends) ---------- */
+const CODE_PREFIX='AIVMUSIC1:';
+function myCode(){const name=(S.profile.name||'A friend').slice(0,30);const songs=[...S.liked.slice(0,15).map(t=>[t.a,t.t]),...Object.values(S.taste.tracks).filter(x=>x.s>0&&!S.liked.some(l=>l.a===x.a&&l.t===x.t)).sort((a,b)=>b.s-a.s).slice(0,10).map(x=>[x.a,x.t])].slice(0,20);
+ return CODE_PREFIX+btoa(unescape(encodeURIComponent(JSON.stringify({n:name,s:songs}))));}
+function parseFriend(txt,fallbackName){txt=String(txt||'').trim();const m=txt.match(/AIVMUSIC1:[A-Za-z0-9+/=]+/);
+ if(m){try{const d=JSON.parse(decodeURIComponent(escape(atob(m[0].slice(CODE_PREFIX.length)))));if(d&&Array.isArray(d.s))return{name:String(fallbackName||d.n||'Friend').slice(0,30),songs:d.s.filter(x=>Array.isArray(x)&&x[0]&&x[1]).slice(0,25).map(([a,t])=>({a:String(a).slice(0,80),t:String(t).slice(0,120)}))};}catch(e){}throw new Error('That taste code isn\'t valid. Ask your friend to copy it again.');}
+ const songs=txt.split('\n').map(l=>l.replace(/^\s*\d+[.)]\s*/,'').trim()).filter(Boolean).map(l=>{const p=l.split(/\s+[–—-]\s+/);return p.length>1?{a:p[0].trim(),t:p.slice(1).join(' - ').trim()}:null;}).filter(Boolean).slice(0,25);
+ if(!songs.length)throw new Error('Paste a taste code, or songs as “Artist – Title”, one per line.');return{name:String(fallbackName||'Friend').slice(0,30),songs};}
+R.blend=()=>{const v=$('#v-blend');const mineN=S.liked.length+Object.values(S.taste.tracks).filter(x=>x.s>0).length;
+ v.innerHTML=`<h2 style="margin-top:4px">Blend tastes with friends</h2>
+ <div class="box"><h3>Your taste code</h3><p class="sub">Share it with friends so they can add you to a group playlist. It includes up to 20 of your favorite songs and nothing else.</p><br>
+ <div class="form-row" style="align-items:flex-end"><label>Your name<input id="bName" value="${esc(S.profile.name)}" placeholder="How friends see you"></label><div class="row" style="margin-bottom:10px"><button class="btn sm primary" type="button" id="bCopy" ${mineN?'':'disabled'}>${ic('share')}Copy my code</button></div></div>${mineN?'':'<p class="hint">Save or play a few songs first so your code has favorites in it.</p>'}</div>
+ <div class="box" style="margin-top:10px"><h3>Friends</h3><p class="sub">Paste a friend's taste code, or type their favorite songs as “Artist – Title”, one per line.</p><br>
+ <div class="form-row"><label style="max-width:200px">Name<input id="fName" placeholder="Friend's name"></label></div><label>Taste code or songs<textarea id="fCode" rows="3" placeholder="AIVMUSIC1:…   or   Frank Ocean – Pink + White"></textarea></label><button class="btn sm" type="button" id="fAdd">${ic('plus')}Add friend</button>
+ <div class="list" style="margin-top:12px" id="fList">${S.friends.map((f,i)=>`<div class="item"><label class="check" style="margin:0;flex:1"><input type="checkbox" data-fi="${i}" ${f.on!==false?'checked':''}> <span><b>${esc(f.name)}</b> <span class="muted tiny">· ${f.songs.length} songs</span></span></label><button class="x" type="button" data-fdel="${i}" aria-label="Remove ${esc(f.name)}">×</button></div>`).join('')||'<p class="empty">No friends added yet.</p>'}</div></div>
+ <div class="box" style="margin-top:10px"><h3>Group playlist</h3><p class="sub">Blends everyone checked above${mineN?' plus you':''} into one playlist that flows.</p><br><div class="row wrap"><label class="check" style="margin:0"><input type="checkbox" id="bMe" ${mineN?'checked':'disabled'}> Include me</label><button class="btn primary" type="button" id="bGo">${ic('users')}Make group playlist</button><button class="btn ghost sm" type="button" id="bStop" hidden>Stop</button></div></div><div id="bOut" style="margin-top:14px"></div>`;
+ icons(v);const out=$('#bOut');
+ $('#bName').oninput=e=>{S.profile.name=e.target.value.trim();save();};
+ $('#bCopy').onclick=()=>copy(myCode());
+ $('#fAdd').onclick=()=>{try{const f=parseFriend($('#fCode').value,$('#fName').value.trim());S.friends.push({...f,on:true,added:Date.now()});save();R.blend();toast(`Added ${f.name}`);}catch(e){toast(e.message,{err:true});}};
+ $('#fList').onclick=e=>{const d=e.target.closest('[data-fdel]');if(d){S.friends.splice(+d.dataset.fdel,1);save();R.blend();}};
+ $('#fList').onchange=e=>{const c=e.target.closest('[data-fi]');if(c){S.friends[+c.dataset.fi].on=c.checked;save();}};
+ $('#bGo').onclick=e=>run(e.currentTarget,async()=>{const people=S.friends.filter(f=>f.on!==false&&f.songs.length).map(f=>({name:f.name,songs:f.songs}));
+  if($('#bMe').checked){const mine=[...S.liked.map(t=>({a:t.a,t:t.t})),...Object.values(S.taste.tracks).filter(x=>x.s>0).map(x=>({a:x.a,t:x.t}))].slice(0,15);if(mine.length)people.unshift({name:S.profile.name||'Me',songs:mine});}
+  if(people.length<2){toast('Add at least one friend (and include yourself or another friend) to blend tastes.',{err:true});return;}
+  if(!hasAI()){aiBadgeClick();return;}
+  await job(out,'#bStop','Blending tastes',async()=>{const pl=await generate({mode:'group',people,n:S.settings.len||15,useTaste:false},prog(out,'Finding real songs:'));pl.title=pl.title||'Group blend';markShown(pl.tracks);S.draft=pl;save();mountPl(out,pl);});});};
+
+/* ---------- SETTINGS (app-specific) ---------- */
+/* ---------- SETTINGS ---------- */
+function renderProv(){const p=prov();$$('#provSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.p===p);});$$('[data-prov]').forEach(d=>d.hidden=d.dataset.prov!==p);const o=location.origin&&location.origin!=='null'?location.origin:'https://your-site.com';$$('.originCode').forEach(c=>c.textContent=o);const lp=$('#localPreset');if(lp)lp.value=[...lp.options].some(x=>x.value===(S.settings.localBase||''))?S.settings.localBase:'';$('#voiceNote').textContent=(SR?'Voice input uses your browser\'s speech recognition. ':'')+(p==='browser'?'Small on-device models know fewer songs, so playlists may be shorter.':'');if(p!=='browser'&&$('#llmStatus'))$('#llmStatus').textContent='';if(p==='browser'&&!navigator.gpu)$('#llmStatus').textContent='This browser doesn\'t support WebGPU — try Chrome or Edge on a computer.';}
+R.settings=()=>{$$('[data-prof]').forEach(el=>{el.value=S.profile[el.dataset.prof]??'';});$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!S.settings[k];else el.value=S.settings[k]??'';});renderProv();};
+function bindSettings(){$$('[data-prof]').forEach(el=>el.addEventListener('input',()=>{S.profile[el.dataset.prof]=el.value;save();}));$$('[data-set]').forEach(el=>el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'?'change':'input',()=>{const k=el.dataset.set;let v=el.type==='checkbox'?el.checked:el.value;if(typeof v==='string')v=v.trim();if(k==='len')v=Number(v)||15;S.settings[k]=v;save();badge();}));}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t)go(t.dataset.go);});
+
+/* ---------- init ---------- */
+function init(){icons();bindSettings();
+ $('#btnSettings').onclick=()=>go('settings');$('#aiBadge').onclick=aiBadgeClick;
+ $('#btnClearHist').onclick=()=>{if(!confirm('Clear your listening history? Songs you heard recently may show up again in new playlists.'))return;S.recent=[];save();toast('Listening history cleared');};
+ $('#btnClearTaste').onclick=()=>{if(!confirm('Reset your taste profile? Saved songs and playlists stay.'))return;S.taste=freshTaste();save();toast('Taste profile reset');};
+ $('#plPlay').onclick=()=>{if(!P.tr)return;if(audio.paused)audio.play().catch(()=>{});else audio.pause();};
+ $('#plNext').onclick=()=>{if(P.tr)learn(P.tr,audio.currentTime<8?'skip':'play');nextTrack(1);};
+ $('#plLike').onclick=()=>{if(!P.tr)return;toggleLike(P.tr);paintPlayer();$$(`[data-like="${P.tr.id}"]`).forEach(b=>b.classList.toggle('on',isLiked(P.tr.id)));};
+ $('#plNext').innerHTML=ic('next');$('#plLike').innerHTML=ic('heart');$('#plPlay').innerHTML=ic('play');
+ document.addEventListener('click',e=>{$$('details.more[open]').forEach(d=>{if(!d.contains(e.target))d.open=false;});});
+
+ $('#btnExport').onclick=()=>{const data={...S,settings:{...S.settings,groqKey:'',customKey:''}};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'}));a.download=`ai-music-backup-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
+ $('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!d.taste||!Array.isArray(d.playlists))throw 0;if(!confirm('Replace your playlists and taste profile with this backup?'))return;const keep={groqKey:S.settings.groqKey,customKey:S.settings.customKey};S={...DEF(),...d,taste:{...freshTaste(),...d.taste},settings:{...DEF().settings,...d.settings}};if(!S.settings.groqKey)S.settings.groqKey=keep.groqKey;if(!S.settings.customKey)S.settings.customKey=keep.customKey;save();refresh();toast('Backup restored');}catch(_){toast('That file is not a valid backup.',{err:true});}e.target.value='';};
+ $('#btnWipe').onclick=()=>{if(!confirm('Erase your playlists, saved songs, taste profile, history and settings from this browser? This cannot be undone.'))return;localStorage.removeItem(KEY);localStorage.removeItem(CKEY);location.reload();};
+ $$('[data-show]').forEach(b=>b.onclick=()=>{const k=$(b.dataset.show);k.type=k.type==='password'?'text':'password';b.textContent=k.type==='password'?'Show':'Hide';});
+ $('#provSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.settings.provider=b.dataset.p;save();$('#keyStatus').textContent='';renderProv();badge();};
+ $('#customPreset').innerHTML=Object.entries(PRESETS).map(([k,[n]])=>`<option value="${k}">${n}</option>`).join('');
+ $('#customPreset').addEventListener('change',e=>{const u=PRESETS[e.target.value]?.[1];if(u){S.settings.customBase=u;$('#customBase').value=u;}S.settings.customModel='';save();R.settings();if(!u)$('#customBase').focus();});
+ $('#localPreset').onchange=e=>{const v=e.target.value;if(v){S.settings.localBase=v;$('#localBase').value=v;save();}else $('#localBase').focus();};
+ $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
+ $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
+ $('#gateHide').onclick=()=>gateClose();
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':p==='free'?'freeModel':'model';st.textContent='Checking…';if(p==='free'){let r;try{r=await fetch(FREE_BASE+'/models');}catch(_){st.textContent='Couldn\'t reach AI Verse free AI. Check your connection.';return;}freeSeen(r);st.textContent=r.ok?`Connected · ${freeLeft().n} of ${freeLeft().limit} free daily uses left`:'Free AI isn\'t available right now.';return;}
+  try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
+   if(listErr&&/rejected/.test(listErr.message))throw listErr;
+   if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}
+   if((p==='local'||p==='custom')&&!S.settings[key])throw listErr||new Error('No models found — download or load one first.');
+   const reply=await ai('Reply with just the word: ready',{temp:0,max:300});
+   st.textContent=`Connected${models.length&&p!=='browser'?` · ${models.length} models available`:''} · ${aiTarget().model} replied “${reply.slice(0,40)}”.`;
+  }catch(err){st.textContent='';throw err;}});
+
+
+ window.addEventListener('hashchange',()=>show(hashView()));
+ show(hashView());
+ if(prov()==='browser'&&navigator.gpu&&S.settings.llmReady&&S.settings.llmReady===(S.settings.webllmModel||DEFAULT_WEBLLM))setTimeout(()=>getEngine(S.settings.llmReady).catch(e=>console.warn('Model warm-up failed',e)),1500);
+}
+init();
+})();
+</script>
+<script src="../legal.js" defer></script>
+<script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
+<script src="aiv-connect.js"></script>
+</body>
+</html>

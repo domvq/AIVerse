@@ -314,7 +314,41 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <p class="notice">Authenticate every request with <span class="inline">Authorization: Bearer YOUR_KEY</span>. Keep keys on your server, not in public web pages or apps.</p>
   </section>
 
-  <section class="sec" id="key" style="scroll-margin-top:100px">
+  <section class="sec" id="mcp" style="scroll-margin-top:100px">
+    <div class="head"><span class="eyebrow">MCP</span><h2>Use AI Verse in Claude, ChatGPT and other AI apps</h2></div>
+    <p>The AI Verse MCP server gives any app that supports the Model Context Protocol a set of free AI Verse tools. Add this address as a custom connector (some apps call it a remote MCP server):</p>
+    <div class="code"><button class="btn line sm cp" type="button" id="copyMcp">Copy</button><pre id="mcpUrl">https://ask-aiv.domhasaball.workers.dev/mcp</pre></div>
+    <p class="notice">Free to try, with a daily limit on AI tools. For unlimited use, set the access token (header) to <span class="inline">Authorization: Bearer YOUR_KEY</span> with your AIV key. Each AI tool call counts as one request.</p>
+    <p>For apps that use a settings file, such as Cursor:</p>
+    <div class="code"><pre id="mcpJson">{
+  "mcpServers": {
+    "ai-verse": {
+      "url": "https://ask-aiv.domhasaball.workers.dev/mcp",
+      "headers": { "Authorization": "Bearer YOUR_KEY" }
+    }
+  }
+}</pre></div>
+    <div class="tbl" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>make_playlist</code></td><td>A playlist of real songs from a description, each checked against Apple&rsquo;s catalog, with links.</td></tr>
+          <tr><td><code>similar_artists</code></td><td>Artists like one you love, with a reason for each.</td></tr>
+          <tr><td><code>job_search_links</code></td><td>Ready-made LinkedIn and Indeed job searches.</td></tr>
+          <tr><td><code>write_cover_letter</code> · <code>improve_resume_bullets</code></td><td>Honest, tailored career writing. Review before you send.</td></tr>
+          <tr><td><code>plan_my_day</code> · <code>draft_email</code></td><td>A time-blocked day with a calendar file, and email drafts. Nothing is sent.</td></tr>
+          <tr><td><code>workout_plan</code></td><td>A weekly plan for your goal and equipment. Not medical advice.</td></tr>
+          <tr><td><code>make_flashcards</code> · <code>explain_topic</code></td><td>Flashcards ready for Anki or Quizlet, and step-by-step explanations.</td></tr>
+          <tr><td><code>explain_finance_term</code></td><td>Plain-words money and investing terms. Education only.</td></tr>
+          <tr><td><code>create_image</code></td><td>An image from a description.</td></tr>
+          <tr><td><code>list_ai_verse_apps</code></td><td>The free AI Verse apps and what each does.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:24px">Every AI Verse app can also use MCP servers: open an app, press the plug button, and choose <b>MCP</b> to run tools from AI Verse or any server you add.</p>
+  </section>
+
+<section class="sec" id="key" style="scroll-margin-top:100px">
     <div class="head"><span class="eyebrow">My key</span><h2>Check usage or replace your key</h2></div>
     <div class="keypanel">
       <div class="card">
@@ -450,5 +484,9 @@ $('rotateYes').onclick=()=>{const k=validKey();if(!k)return;run($('rotateYes'),a
 })();
 </script>
 <script src="auth.js" defer></script>
+<script>
+(function(){var b=(window.AIV_SITE&&(AIV_SITE.apiPublic||AIV_SITE.server)||'').replace(/\/+$/,'');if(b){var u=b+'/mcp',e=document.getElementById('mcpUrl'),j=document.getElementById('mcpJson');if(e)e.textContent=u;if(j)j.textContent=j.textContent.replace(/https:\/\/[^"]+\/mcp/,u);}
+var c=document.getElementById('copyMcp');if(c)c.onclick=function(){var t=document.getElementById('mcpUrl').textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){c.textContent='Copied';setTimeout(function(){c.textContent='Copy'},1500)},function(){});};})();
+</script>
 </body>
 </html>

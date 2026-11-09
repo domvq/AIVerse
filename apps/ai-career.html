@@ -438,7 +438,7 @@ const DEF=()=>({
  settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',srcRemotive:true,srcArbeitnow:true,adzunaId:'',adzunaKey:'',adzunaCountry:'us',useDemo:false},
  resume:emptyResume(),jobs:{},searchCache:{},apps:[],pending:[],chat:[],agent:null,practice:[],linkedin:null,gap:null,paths:null,transition:null,network:null,portfolio:null,lastQuery:'',setupDone:false,insight:null});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.resume={...emptyResume(),...(s.resume||{})};d.resume.contact={...emptyResume().contact,...((s.resume||{}).contact||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},addApp:function(j,s,x){return addApp(j,s,x)}};
 function save(){try{const jobIds=Object.keys(S.jobs);if(jobIds.length>300){const keep=new Set([...S.apps.map(a=>a.jobId),...(S.agent?S.agent.ranked||[]:[]).map(r=>r.id)]);jobIds.sort((a,b)=>(S.jobs[a].seen||0)-(S.jobs[b].seen||0)).slice(0,jobIds.length-250).forEach(id=>{if(!keep.has(id))delete S.jobs[id];});}localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
 const validDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(String(s||''))?s:'';
@@ -1178,6 +1178,7 @@ init();
 </script>
 <script src="../legal.js" defer></script>
 <script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>

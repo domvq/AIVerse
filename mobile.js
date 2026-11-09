@@ -63,6 +63,7 @@
     '@media (prefers-reduced-motion:reduce){.aivm-it,.aivm-sheet,.aivm-scrim{transition:none}}';
 
   var ICON_MORE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>';
+  var ICON_PLUG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v5M15 2v5"/><path d="M6 7h12v4a6 6 0 0 1-12 0V7z"/><path d="M12 17v5"/></svg>';
   var ICON_GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>';
   var ICON_BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
   var ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20"/></svg>';
@@ -128,6 +129,7 @@
     sheet.innerHTML = '<div class="aivm-grab" aria-hidden="true"></div>' +
       (rows ? '<h2>More sections</h2>' + rows + '<div class="aivm-sep"></div>' : '') +
       (hasSettings ? '<button type="button" class="aivm-row" data-k="__settings"><span class="i" aria-hidden="true">' + ICON_GEAR + '</span>Settings</button>' : '') +
+      (document.querySelector('script[src*="connect.js"]') ? '<button type="button" class="aivm-row" data-k="__connect"><span class="i" aria-hidden="true">' + ICON_PLUG + '</span>Connections</button>' : '') +
       '<a class="aivm-row" href="../index.html"><span class="i" aria-hidden="true">' + ICON_BACK + '</span>Back to AI Verse</a>' +
       '<button type="button" class="aivm-row" data-k="__close"><span class="i" aria-hidden="true">' + ICON_X + '</span>Close</button>';
     document.body.appendChild(scrim); document.body.appendChild(sheet);
@@ -147,6 +149,7 @@
       toggleSheet(false);
       if (k === '__close') return;
       if (k === '__settings') { openSettings(); return; }
+      if (k === '__connect') { if (window.AIVConnect) window.AIVConnect.open(); return; }
       go(k);
     });
     scrim.addEventListener('click', function () { toggleSheet(false); });

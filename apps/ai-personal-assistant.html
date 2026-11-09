@@ -615,7 +615,7 @@ const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColo
 const KEY='aide.v1';
 const DEF=()=>({settings:{name:'',provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',googleClientId:'',googleLinked:false,workStart:'09:00',workEnd:'17:30',remindDefault:15,speak:true,lang:'Spanish'},tasks:[],events:[],dates:[],reminders:[],plans:{},trips:[],meetings:[],briefings:{},emailCache:[],fired:{}});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.settings={...DEF().settings,...(s.settings||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},addTask:function(t,s){return addTask(t,s)},addEvent:function(e,s){return addEvent(e,s)}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 (function prune(){const b=ymd(addDays(new Date(),-14)),p=ymd(addDays(new Date(),-45));for(const k of Object.keys(S.briefings))if(k<b)delete S.briefings[k];for(const k of Object.keys(S.plans))if(k<p)delete S.plans[k];const f=Object.keys(S.fired);if(f.length>600)S.fired=Object.fromEntries(f.slice(-300).map(k=>[k,1]));S.reminders=S.reminders.filter(r=>!(r.done&&r.doneAt&&Date.now()-r.doneAt>30*DAY));})();
 
@@ -1299,6 +1299,7 @@ init();
 </script>
 <script src="../legal.js" defer></script>
 <script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>

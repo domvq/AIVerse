@@ -19,6 +19,7 @@
     'stock-and-finance-ai': 'For information and education only. Not investment, financial, tax or legal advice. AI Verse is not a broker or investment adviser. Forecasts are estimates, not promises, and you can lose money investing. Paper trading uses pretend money, and no real trades are ever placed.',
     'health-and-fitness-ai': 'General fitness and nutrition information only, not medical advice. Targets are estimates. Check with a doctor before starting a diet or exercise program. In an emergency, call 911.',
     'career-ai': 'AI can be wrong. Review everything before you send it and make sure it is true. Nothing is submitted without your approval. No job outcome is guaranteed.',
+    'ai-music': 'Song picks come from AI and are checked against Apple\'s music catalog. Song details, artwork and previews are provided by Apple. Listen to full songs on your music service.',
     'photo-ai': 'Only use images you have the rights to. Don\'t create images of real people without their consent or images meant to deceive. AI images can resemble existing works.',
     'study-and-research-ai': 'AI can be wrong. Check facts and sources before you rely on them, and follow your school\'s rules on AI use.',
     'personal-assistant-ai': 'AI can be wrong. Check important dates, details and messages before relying on or sending them.',
@@ -72,6 +73,7 @@
     'study-and-research-ai': ['ai-tools-for-education-and-research.html', 'Guide: AI tools for education and research'],
     'personal-assistant-ai': ['build-a-personal-ai-assistant.html', 'Guide: build a personalized AI assistant'],
     'aide': ['build-a-personal-ai-assistant.html', 'Guide: build a personalized AI assistant'],
+    'ai-music': ['build-a-personal-ai-assistant.html', 'Guide: build a personalized AI assistant'],
     'photo-ai': ['build-an-ai-app.html', 'Guide: build an AI app without code']
   };
   function footer() {

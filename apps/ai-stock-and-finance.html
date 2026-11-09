@@ -482,7 +482,7 @@ const DEF=()=>({
  setupDone:false,watchlist:[],holdings:[],paper:{cash:0,start:0,positions:{},orders:[]},
  tx:[],budgets:{},accounts:[],goals:[],alerts:[],chat:[],pending:[],reports:[],statements:[],lastSym:'',insight:null,tickets:[],predLog:[]});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.paper={...DEF().paper,...(s.paper||{})};}}catch(e){}return d;}
-let S=load();(function(){if(!S.setupDone&&!S.holdings.length&&!S.tx.length&&S.watchlist.join()==='AAPL,MSFT,NVDA,AMZN,SPY'&&S.paper.start===100000&&!S.paper.orders.length){S.watchlist=[];S.paper={cash:0,start:0,positions:{},orders:[]};S.lastSym='';if(+S.profile.age===35)S.profile.age='';try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}})();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+let S=load();(function(){if(!S.setupDone&&!S.holdings.length&&!S.tx.length&&S.watchlist.join()==='AAPL,MSFT,NVDA,AMZN,SPY'&&S.paper.start===100000&&!S.paper.orders.length){S.watchlist=[];S.paper={cash:0,start:0,positions:{},orders:[]};S.lastSym='';if(+S.profile.age===35)S.profile.age='';try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}})();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 const isDemo=()=>!S.settings.finnhubKey;
 const demoTag=()=>isDemo()?' <span class="demo" title="Simulated data — add a free Finnhub key in Settings for live data">DEMO</span>':'';
@@ -1344,6 +1344,7 @@ init();
 </script>
 <script src="../legal.js" defer></script>
 <script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>
