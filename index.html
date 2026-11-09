@@ -204,13 +204,13 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 
 /* ===== shared site header (identical on every page) ===== */
 header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
 .sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
 .sitehead .brand span{white-space:nowrap}
 .sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
 .sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
-.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs a{flex:0 0 auto;min-width:0;text-align:center;padding:9px 12px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
 .sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
 .sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
 .sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
@@ -233,6 +233,46 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .learn-grid span{font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .learn-grid b{font-weight:500;font-size:16.5px;line-height:1.3}
 @media (max-width:900px){.learn-grid{grid-template-columns:1fr 1fr}}@media (max-width:560px){.learn-grid{grid-template-columns:1fr}}
+
+/* homepage: Ask AIV hero */
+.ask{max-width:780px;margin:0 auto;text-align:center;padding:96px 0 72px}
+.xpromo+.promo{margin-top:24px}
+.ask-mark{display:block;height:34px;width:auto;margin:0 auto 22px;color:var(--fg)}
+.ask-title{font:500 clamp(40px,6.4vw,72px)/1.02 var(--display);letter-spacing:-.035em;margin:0 auto 32px;max-width:none;text-align:center}
+.ask-box{position:relative;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:28px;padding:16px 16px 12px 20px;box-shadow:0 10px 40px rgba(0,0,0,.06);transition:border-color .15s,box-shadow .15s}
+.ask-box:focus-within{border-color:color-mix(in srgb,var(--fg) 30%,var(--line));box-shadow:0 10px 40px rgba(0,0,0,.1)}
+.ask-box textarea{display:block;width:100%;border:0;outline:0;resize:none;background:transparent;color:var(--fg);font:400 16px/1.5 var(--body);min-height:48px;max-height:200px;padding:0}
+.ask-box textarea::placeholder{color:var(--soft,var(--muted))}
+.ask-row{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:6px}
+.ask-hint{font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ask-send{width:38px;height:38px;border-radius:50%;border:0;background:var(--ink-btn);color:var(--ink-btn-fg);display:grid;place-items:center;cursor:pointer;flex:none;transition:opacity .15s}
+.ask-send svg{width:18px;height:18px}
+.ask-send:disabled{opacity:.25;cursor:default}
+.ask-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+.ask-chips a{border:1px solid var(--line);border-radius:999px;padding:10px 16px;font:400 14.5px/1 var(--body);color:var(--fg);text-decoration:none;background:var(--bg);transition:background .15s}
+.ask-chips a:hover{background:var(--pill)}
+.ask-x{display:inline-flex;align-items:center;gap:10px;margin-top:30px;background:var(--ink-btn);color:var(--ink-btn-fg);border-radius:999px;padding:12px 22px 12px 16px;font:500 15px/1 var(--body);text-decoration:none}
+.ask-x .xlogo{display:inline-flex;height:20px}.ask-x .xlogo svg{height:20px;width:auto}
+.ask-x>svg{width:14px;height:14px}
+.ask-tag{margin:26px 0 0;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ask-thread{text-align:left;max-height:min(52vh,520px);overflow:auto;margin:0 0 16px;padding:4px 2px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.ask-m{max-width:88%;font-size:15.5px;line-height:1.6}
+.ask-m.me{align-self:flex-end;background:var(--pill);border-radius:20px 20px 6px 20px;padding:10px 16px;white-space:pre-wrap}
+.ask-m.ai{align-self:flex-start;display:flex;gap:12px}
+.ask-m.ai .av{flex:none;width:30px;height:30px;border-radius:50%;background:var(--card);display:grid;place-items:center}
+.ask-m.ai .av svg{width:18px;height:auto}
+.ask-m.ai .md p{margin:0 0 10px}.ask-m.ai .md p:last-child{margin:0}
+.ask-m.ai .md ul,.ask-m.ai .md ol{margin:0 0 10px;padding-left:20px}
+.ask-m.ai .md pre{background:var(--card);border-radius:10px;padding:10px 12px;overflow:auto;font:13px/1.5 var(--mono)}
+.ask-m.ai .md h4{margin:10px 0 6px;font-size:15.5px}
+.ask-m.err .md{color:#b42318}
+.ask-dots{display:inline-flex;gap:4px;padding:8px 0}.ask-dots i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:askd 1s infinite}.ask-dots i:nth-child(2){animation-delay:.15s}.ask-dots i:nth-child(3){animation-delay:.3s}
+@keyframes askd{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.ask-more{display:flex;justify-content:center;gap:18px;margin-top:12px;font-size:14px}
+.ask-more a,.ask-more button{color:var(--muted);background:none;border:0;font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:640px){.ask{padding:56px 0 48px}.ask-box{border-radius:22px;padding:14px 12px 10px 16px}.ask-chips a{font-size:13.5px;padding:9px 13px}}
+@media (prefers-reduced-motion:reduce){.ask-dots i{animation:none}.ask-thread{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -261,6 +301,8 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <a href="data.html">Data</a>
       <a href="#apps">Apps</a>
       <a href="api.html">API</a>
+      <a href="research.html">Research</a>
+      <a href="partners.html">Partners</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="acts"><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
@@ -269,17 +311,43 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 <main id="top">
   <div class="wrap">
-    <section class="hero">
-      <svg viewBox="0 0 1044 394" class="mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
-      <h1>Build Your AI Future.</h1>
-      <p class="lede">Create your own AI apps and discover AI tools designed to make everyday life easier.</p>
-      <div class="cta">
-        <a class="btn dark" href="introducing-aiv-x.html">Build an AI App <svg><use href="#arrow"/></svg></a>
-        <a class="btn pill" href="#apps">Explore Free AI Apps</a>
-      </div>
-      <a class="keylink" href="business.html">We build your AI <svg><use href="#arrow"/></svg></a>
+    <section class="ask" aria-labelledby="askTitle">
+      <svg viewBox="0 0 1044 394" class="ask-mark" role="img" aria-label="AI Verse"><use href="#aiv"/></svg>
+      <h1 class="ask-title" id="askTitle">Build Your AI Future.</h1>
+      <div class="ask-thread" id="askThread" hidden aria-live="polite"></div>
+      <form class="ask-box" id="askForm" autocomplete="off">
+        <label class="sr" for="askInput">Ask AIV</label>
+        <textarea id="askInput" rows="2" placeholder="What can I help with?"></textarea>
+        <div class="ask-row">
+          <button class="ask-send" id="askSend" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </form>
+      <div class="ask-more" id="askMore" hidden><a href="chat.html">Continue in Ask AIV</a><button type="button" id="askNew">New chat</button></div>
+      <nav class="ask-chips" aria-label="Explore">
+        <a href="#apps">Explore free AI apps</a>
+        <a href="builder.html">Build your own AI</a>
+        <a href="business.html">AI for business</a>
+        <a href="research.html">Research</a>
+        <a href="api.html">AIV API</a>
+      </nav>
+      <a class="ask-x" href="https://aiv-x.com" target="_blank" rel="noopener"><span class="xlogo" data-aivx-logo="AIV X"></span>Open AIV X <svg><use href="#arrow"/></svg></a>
     </section>
 
+
+    <section class="xpromo" id="aivx" aria-labelledby="xTitle">
+      <div>
+        <span class="xlogo" data-aivx-logo="AIV X"></span>
+        <h2 id="xTitle">AIV X: the AI platform that builds AI apps</h2>
+        <p>AIV X is our no-code AI app builder and everyday AI. Describe the AI application you want and AIV X builds it. It can also chat, search, research, create images and read your files, and it turns into any AI Verse app in one tap. One account works on AI Verse and AIV X.</p>
+        <div class="promo-cta"><a class="btn" href="https://aiv-x.com" target="_blank" rel="noopener">Open AIV X <svg><use href="#arrow"/></svg></a><a class="btn ghost" href="introducing-aiv-x.html">Learn more</a></div>
+      </div>
+      <ul>
+        <li>Chat, voice, files and photos</li>
+        <li>Web search and deep research</li>
+        <li>Image creation and building AI apps</li>
+        <li>Memory, and every AI Verse app built in</li>
+      </ul>
+    </section>
 
     <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
       <div class="promo-copy">
@@ -298,21 +366,6 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
           <div class="pd-b bot">Sure. Keep the sauce on the side and steam the broccoli soft.</div>
         </div>
       </div>
-    </section>
-
-    <section class="xpromo" id="aivx" aria-labelledby="xTitle">
-      <div>
-        <span class="xlogo" data-aivx-logo="AIV X"></span>
-        <h2 id="xTitle">AIV X: the AI platform that builds AI apps</h2>
-        <p>AIV X is our no-code AI app builder and everyday AI. Describe the AI application you want and AIV X builds it. It can also chat, search, research, create images and read your files, and it turns into any AI Verse app in one tap. One account works on AI Verse and AIV X.</p>
-        <div class="promo-cta"><a class="btn" href="https://aiv-x.com" target="_blank" rel="noopener">Open AIV X <svg><use href="#arrow"/></svg></a><a class="btn ghost" href="introducing-aiv-x.html">Learn more</a></div>
-      </div>
-      <ul>
-        <li>Chat, voice, files and photos</li>
-        <li>Web search and deep research</li>
-        <li>Image creation and building AI apps</li>
-        <li>Memory, and every AI Verse app built in</li>
-      </ul>
     </section>
 
     <section class="split apps-intro" id="apps" aria-labelledby="appsTitle">
@@ -439,13 +492,57 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="#top"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="#setup">Key setup</a>
+        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
   </div>
 </footer>
 
+<script src="config.js"></script>
+<script>
+/* Ask AIV on the homepage. Shares its conversation with chat.html. */
+(function(){
+'use strict';
+var API=((window.AIV_SITE&&window.AIV_SITE.askAiv)||'').replace(/\/+$/,'');
+var $=function(id){return document.getElementById(id)};
+var form=$('askForm'),inp=$('askInput'),send=$('askSend'),thread=$('askThread'),more=$('askMore');
+var STORE='aiv.chat.v1',msgs=[],busy=false,ctl=null;
+try{msgs=JSON.parse(sessionStorage.getItem(STORE)||'[]');if(!Array.isArray(msgs))msgs=[]}catch(e){msgs=[]}
+function save(){try{sessionStorage.setItem(STORE,JSON.stringify(msgs.slice(-40)))}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function inline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/\[([^\]]+)\]\(((?:https?:\/\/|apps\/|[a-z-]+\.html)[^)\s]*)\)/g,function(m,x,u){return '<a href="'+u+'"'+(/^https?:/.test(u)?' target="_blank" rel="noopener"':'')+'>'+x+'</a>'})}
+function md(t){var parts=esc(t).split(/```[\w-]*\n?/);return parts.map(function(p,i){if(i%2)return '<pre>'+p.replace(/\n$/,'')+'</pre>';var h='',L=null;function close(){if(L){h+='</'+L+'>';L=null}}p.split('\n').forEach(function(l){var m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul'}h+='<li>'+inline(m[1])+'</li>';return}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol'}h+='<li>'+inline(m[1])+'</li>';return}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+='<h4>'+inline(m[1])+'</h4>';return}if(l.trim())h+='<p>'+inline(l)+'</p>'});close();return h}).join('')}
+var AV='<span class="av" aria-hidden="true"><svg viewBox="0 0 1044 394"><use href="#aiv"/></svg></span>';
+function bubble(m){return m.role==='user'?'<div class="ask-m me">'+esc(m.content)+'</div>':'<div class="ask-m ai'+(m.error?' err':'')+'">'+AV+'<div class="md">'+md(m.content)+'</div></div>'}
+function render(){var on=msgs.length>0;thread.hidden=!on;more.hidden=!on;thread.innerHTML=msgs.map(bubble).join('');thread.scrollTop=thread.scrollHeight}
+function grow(){inp.style.height='auto';inp.style.height=Math.min(inp.scrollHeight,200)+'px';send.disabled=busy?false:!inp.value.trim()}
+function setBusy(b){busy=b;send.setAttribute('aria-label',b?'Stop':'Send');send.innerHTML=b?'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';grow()}
+async function ask(){
+  var i=msgs.push({role:'assistant',content:''})-1;render();
+  var el=thread.lastElementChild.querySelector('.md');el.innerHTML='<span class="ask-dots" aria-label="AIV is typing"><i></i><i></i><i></i></span>';
+  ctl=new AbortController();setBusy(true);var text='',raf=0;
+  function paint(){raf=0;el.innerHTML=md(text.replace(/<think>[\s\S]*?(<\/think>|$)/g,''));thread.scrollTop=thread.scrollHeight}
+  try{
+    if(!API)throw new Error('Ask AIV isn\'t connected right now. Please try again later.');
+    var r=await fetch(API+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs.slice(0,i).slice(-16).map(function(m){return{role:m.role,content:m.content}})}),signal:ctl.signal});
+    if(!r.ok){var em='';try{var j=await r.json();em=j.error&&j.error.message}catch(_){}throw new Error(em||'AIV ran into a problem (error '+r.status+'). Please try again.')}
+    var rd=r.body.getReader(),dec=new TextDecoder(),buf='';
+    outer:for(;;){var x=await rd.read();if(x.done)break;buf+=dec.decode(x.value,{stream:true});var k;while((k=buf.indexOf('\n'))>=0){var line=buf.slice(0,k).trim();buf=buf.slice(k+1);if(line.indexOf('data:')!==0)continue;var d=line.slice(5).trim();if(d==='[DONE]')break outer;try{var jj=JSON.parse(d);var dt=jj.choices&&jj.choices[0]&&jj.choices[0].delta&&jj.choices[0].delta.content;if(dt){text+=dt;if(!raf)raf=requestAnimationFrame(paint)}}catch(e){}}}
+    text=text.replace(/<think>[\s\S]*?<\/think>/g,'').trim();msgs[i].content=text||'I don\'t have an answer for that. Try rephrasing your question.';
+  }catch(e){
+    if(e.name==='AbortError'){msgs[i].content=(text.trim()?text.trim()+'\n\n':'')+'*Stopped.*'}
+    else{msgs[i]={role:'assistant',content:(e&&e.message)||'AIV couldn\'t reach its server. Check your connection and try again.',error:true}}
+  }finally{ctl=null;setBusy(false);save();render();inp.focus({preventScroll:true})}
+}
+function go(){var v=inp.value.trim();if(!v||busy)return;msgs=msgs.filter(function(m){return !m.error});msgs.push({role:'user',content:v});inp.value='';grow();render();ask()}
+form.addEventListener('submit',function(e){e.preventDefault();if(busy){ctl&&ctl.abort();return}go()});
+inp.addEventListener('input',grow);
+inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();go()}});
+$('askNew').addEventListener('click',function(){if(busy&&ctl)ctl.abort();msgs=[];save();render();inp.focus()});
+render();grow();
+})();
+</script>
 <script src="auth.js" defer></script>
 </body>
 </html>
