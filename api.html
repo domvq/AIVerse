@@ -235,12 +235,12 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <nav class="tabs" aria-label="Main">
       <a href="index.html">Home</a>
       <a href="chat.html">Ask AIV</a>
-      <a href="builder.html">Build AI</a>
+      <a href="ai-business.html">AI Business</a>
       <a href="introducing-aiv-x.html">AIV X</a>
-      <a href="business.html">Business</a>
       <a href="data.html">Data</a>
       <a href="index.html#apps">Apps</a>
       <a href="api.html" aria-current="page">API</a>
+      <a href="mcp.html">MCP</a>
       <a href="research.html">Research</a>
       <a href="partners.html">Partners</a>
       <a href="contact.html">Contact</a>
@@ -317,13 +317,13 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
   <section class="sec" id="mcp" style="scroll-margin-top:100px">
     <div class="head"><span class="eyebrow">MCP</span><h2>Use AI Verse in Claude, ChatGPT and other AI apps</h2></div>
     <p>The AI Verse MCP server gives any app that supports the Model Context Protocol a set of free AI Verse tools. Add this address as a custom connector (some apps call it a remote MCP server):</p>
-    <div class="code"><button class="btn line sm cp" type="button" id="copyMcp">Copy</button><pre id="mcpUrl">https://ask-aiv.domhasaball.workers.dev/mcp</pre></div>
+    <div class="code"><button class="btn line sm cp" type="button" id="copyMcp">Copy</button><pre id="mcpUrl">https://api.aiverse.it.com/mcp</pre></div>
     <p class="notice">Free to try, with a daily limit on AI tools. For unlimited use, set the access token (header) to <span class="inline">Authorization: Bearer YOUR_KEY</span> with your AIV key. Each AI tool call counts as one request.</p>
     <p>For apps that use a settings file, such as Cursor:</p>
     <div class="code"><pre id="mcpJson">{
   "mcpServers": {
     "ai-verse": {
-      "url": "https://ask-aiv.domhasaball.workers.dev/mcp",
+      "url": "https://api.aiverse.it.com/mcp",
       "headers": { "Authorization": "Bearer YOUR_KEY" }
     }
   }
@@ -386,7 +386,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Payments are processed by Stripe. AIV models are served by third-party model providers.</p>

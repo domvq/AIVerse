@@ -277,12 +277,12 @@ main.legal{padding-bottom:96px}
     <nav class="tabs" aria-label="Main">
       <a href="index.html">Home</a>
       <a href="chat.html">Ask AIV</a>
-      <a href="builder.html">Build AI</a>
+      <a href="ai-business.html">AI Business</a>
       <a href="introducing-aiv-x.html">AIV X</a>
-      <a href="business.html">Business</a>
       <a href="data.html">Data</a>
       <a href="index.html#apps">Apps</a>
       <a href="api.html">API</a>
+      <a href="mcp.html" aria-current="page">MCP</a>
       <a href="research.html">Research</a>
       <a href="partners.html">Partners</a>
       <a href="contact.html">Contact</a>
@@ -296,7 +296,7 @@ main.legal{padding-bottom:96px}
     <span class="eyebrow">AI Verse MCP</span>
     <h1>Use AI Verse inside your favorite AI app</h1>
     <p class="lede">The AI Verse MCP server brings our free AI tools to Claude, ChatGPT, Cursor, VS Code and any app that supports the Model Context Protocol. Make playlists, plan your day, write cover letters, build flashcards and more, without leaving the chat.</p>
-    <div class="mx-addr"><code id="mcpUrl">https://ask-aiv.domhasaball.workers.dev/mcp</code><button class="btn dark sm" type="button" data-copy="mcpUrl">Copy</button></div>
+    <div class="mx-addr"><code id="mcpUrl">https://api.aiverse.it.com/mcp</code><button class="btn dark sm" type="button" data-copy="mcpUrl">Copy</button></div>
     <div class="mx-btns"><a class="btn pill sm" href="#connect">How to connect</a><a class="btn pill sm" href="#try">Try a tool</a><a class="btn pill sm" href="#tools">See all tools</a></div>
   </section>
 
@@ -325,7 +325,7 @@ main.legal{padding-bottom:96px}
         <div class="mx-code"><button class="btn pill sm" type="button" data-copy="cfg1">Copy</button><pre id="cfg1">{
   "mcpServers": {
     "ai-verse": {
-      "url": "https://ask-aiv.domhasaball.workers.dev/mcp"
+      "url": "https://api.aiverse.it.com/mcp"
     }
   }
 }</pre></div></div>
@@ -334,7 +334,7 @@ main.legal{padding-bottom:96px}
   "servers": {
     "ai-verse": {
       "type": "http",
-      "url": "https://ask-aiv.domhasaball.workers.dev/mcp"
+      "url": "https://api.aiverse.it.com/mcp"
     }
   }
 }</pre></div></div>
@@ -398,7 +398,7 @@ main.legal{padding-bottom:96px}
     <div class="foot">
       <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice.</p>
@@ -407,7 +407,7 @@ main.legal{padding-bottom:96px}
 <script src="config.js"></script>
 <script>
 (function(){
-  var base=((window.AIV_SITE&&(AIV_SITE.apiPublic||AIV_SITE.server))||'https://ask-aiv.domhasaball.workers.dev').replace(/\/+$/,''),URL=base+'/mcp';
+  var base=((window.AIV_SITE&&(AIV_SITE.apiPublic||AIV_SITE.server))||'https://api.aiverse.it.com').replace(/\/+$/,''),URL=base+'/mcp';
   ['mcpUrl','cfg1','cfg2'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=e.textContent.replace(/https:\/\/[^"\s]+\/mcp/,URL);});
   document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.dataset.copy).textContent;var ok=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1500)};if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){});});});
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};

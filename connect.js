@@ -24,7 +24,7 @@
   var base = new URL('../', me ? me.src : location.href).href;
   var SITE = window.AIV_SITE || {};
   var CFG = SITE.connect || {};
-  var SERVER = (SITE.server || 'https://ask-aiv.domhasaball.workers.dev').replace(/\/+$/, '');
+  var SERVER = (SITE.server || 'https://api.aiverse.it.com').replace(/\/+$/, '');
   var REDIRECT = CFG.redirectUri || (base + 'oauth-callback.html');
   var file = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '');
   var APPS = {

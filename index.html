@@ -171,7 +171,11 @@ footer{border-top:1px solid var(--line);padding-block:40px 56px;margin-top:40px;
 .apps-intro{margin-top:80px;padding-block:72px}
 .rowi a.k{color:var(--fg);text-decoration:none}
 .rowi a.k:hover{text-decoration:underline;text-underline-offset:3px}
-#app-list{scroll-margin-top:90px;padding-bottom:16px}
+#mcp{scroll-margin-top:90px}
+.mcp-addr{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:12px;padding:8px 8px 8px 14px;margin-top:22px;max-width:420px}
+.split .intro .mcp-addr .btn{margin-top:0}
+.mcp-addr code{flex:1;font:500 13px/1.4 var(--mono);word-break:break-all}
+.split .intro .mcp-addr+.btn{margin-top:16px}
 
 /* AIV-X promo */
 .xpromo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;background:#000;color:#f2f2f2;border-radius:22px;padding:44px;margin-bottom:16px;background-image:radial-gradient(ellipse 60% 70% at 85% 20%,rgba(122,184,255,.18),transparent 70%)}
@@ -295,12 +299,12 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <nav class="tabs" aria-label="Main">
       <a href="#top" aria-current="page">Home</a>
       <a href="chat.html">Ask AIV</a>
-      <a href="builder.html">Build AI</a>
+      <a href="ai-business.html">AI Business</a>
       <a href="introducing-aiv-x.html">AIV X</a>
-      <a href="business.html">Business</a>
       <a href="data.html">Data</a>
       <a href="#apps">Apps</a>
       <a href="api.html">API</a>
+      <a href="mcp.html">MCP</a>
       <a href="research.html">Research</a>
       <a href="partners.html">Partners</a>
       <a href="contact.html">Contact</a>
@@ -325,8 +329,8 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <div class="ask-more" id="askMore" hidden><a href="chat.html">Continue in Ask AIV</a><button type="button" id="askNew">New chat</button></div>
       <nav class="ask-chips" aria-label="Explore">
         <a href="#apps">Explore free AI apps</a>
-        <a href="builder.html">Build your own AI</a>
-        <a href="business.html">AI for business</a>
+        <a href="ai-business.html">Build your own AI</a>
+        <a href="ai-business.html#for-business">AI for business</a>
         <a href="research.html">Research</a>
         <a href="api.html">AIV API</a>
       </nav>
@@ -351,10 +355,10 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
     <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
       <div class="promo-copy">
-        <span class="eyebrow">New · Build AI</span>
+        <span class="eyebrow">New · AI Business</span>
         <h2 id="promoTitle">Build a personal AI assistant in minutes</h2>
         <p>Turn your notes, goals and routine into a personal AI: a meal planner, a study buddy, a trip planner or a budget helper. No coding needed. Try it free with 3 messages.</p>
-        <div class="promo-cta"><a class="btn dark" href="builder.html">Build your AI <svg><use href="#arrow"/></svg></a><span class="promo-price">Free to try · no coding</span></div>
+        <div class="promo-cta"><a class="btn dark" href="ai-business.html">Build your AI <svg><use href="#arrow"/></svg></a><span class="promo-price">Free to try · no coding</span></div>
       </div>
       <div class="promo-demo" aria-label="Example conversation">
         <div class="pd-head"><span class="pd-av">D</span><span><b>Dinner Buddy</b><small>Example personal AI</small></span></div>
@@ -372,7 +376,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <div class="intro">
         <h2 id="appsTitle">AI tools for everyday life</h2>
         <p>Seven focused apps for studying, money, planning, health, photos, music and careers. Every app includes 20 free daily uses of AI, no key or account needed. For unlimited use, one AIV key runs every app at full strength.</p>
-        <a class="btn pill" href="#app-list">Explore the apps</a>
+        <a class="btn pill" href="#mcp">Use them in your AI app</a>
       </div>
       <div class="rows">
         <div class="rowi"><a class="k" href="apps/ai-study-and-research.html">AI Study and Research</a><div class="v">An adaptive tutor that maps any subject, finds your gaps and quizzes you, plus a lab for reading papers and practicing scientific writing.</div></div>
@@ -385,56 +389,22 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       </div>
     </section>
 
-    <section id="app-list" aria-label="All apps">
-      <div class="apps">
-        <article class="app" id="learning">
-          <div class="top"><h3>AI Study and Research</h3><span class="eyebrow">Education</span></div>
-          <p>An adaptive tutor for any topic. It maps the subject into concepts, finds your gaps with a quick diagnostic, then adjusts lessons, quizzes and difficulty as you improve. A research lab helps you read papers with verified citations, plan experiments and practice scientific writing.</p>
-          <div class="tags"><span>20 free daily uses</span><span>Knowledge map</span><span>Adaptive quizzes</span><span>Flashcards</span><span>Paper reader</span><span>Writing scores</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-study-and-research.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
-
-        <article class="app" id="finance">
-          <div class="top"><h3>AI Stock and Finance</h3><span class="eyebrow">Money</span></div>
-          <p>Your markets and money center. Watch prices live with a stock predictor that gives the odds of a stock closing higher and its likely range, tested honestly against its own past. Analyze stocks, follow your portfolio, practice with paper trading, and budget from uploaded bank statements.</p>
-          <div class="tags"><span>20 free daily uses</span><span>Live predictor</span><span>Stock analysis</span><span>Paper trading</span><span>Budgeting</span><span>Reports</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-stock-and-finance.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
-
-        <article class="app" id="aide">
-          <div class="top"><h3>AI Personal Assistant</h3><span class="eyebrow">Personal assistant</span></div>
-          <p>A personal assistant that plans your day around fixed events and deadlines. It keeps your calendar, tasks, reminders and birthdays in one place, plans trips, writes and translates messages, summarizes meetings, and triages Gmail. Just type or say what you need.</p>
-          <div class="tags"><span>20 free daily uses</span><span>Daily planner</span><span>Calendar</span><span>Voice commands</span><span>Inbox triage</span><span>Travel plans</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-personal-assistant.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
-
-        <article class="app" id="fitness">
-          <div class="top"><h3>AI Health and Fitness</h3><span class="eyebrow">Health &amp; training</span></div>
-          <p>An AI coach for training and nutrition. It builds a program for your goal and equipment, logs every set and sets your next weights automatically, tracks measurements and progress photos, and counts calories and macros with photo food recognition.</p>
-          <div class="tags"><span>20 free daily uses</span><span>Workout plans</span><span>Auto progression</span><span>Body tracking</span><span>Macros</span><span>Meal plans</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-health-and-fitness.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
-
-        <article class="app" id="photo">
-          <div class="top"><h3>AI Photo</h3><span class="eyebrow">Creative</span></div>
-          <p>An AI photo editor you can talk to. Describe an edit in plain words, remove backgrounds and objects, enhance and upscale, generate new images and professional headshots, read text in photos, and design social posts, with a before-and-after view and a history of everything you create.</p>
-          <div class="tags"><span>20 free daily uses</span><span>Prompt editing</span><span>Background removal</span><span>Upscaling</span><span>Headshots</span><span>Social posts</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-photo.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
-
-        <article class="app" id="music">
-          <div class="top"><h3>AI Music</h3><span class="eyebrow">Music</span></div>
-          <p>An AI DJ that makes playlists of real songs you can preview. Start from one song, a handful of favorites, a vibe or an activity, blend genres or friends' tastes, and find lesser-known artists who sound like the ones you love. It learns from what you save, replay and skip, explains why each song fits, and keeps recommendations fresh.</p>
-          <div class="tags"><span>20 free daily uses</span><span>More like this</span><span>Vibe playlists</span><span>New artists</span><span>Taste learning</span><span>Friend blends</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-music.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
-
-        <article class="app" id="career">
-          <div class="top"><h3>AI Career</h3><span class="eyebrow">Careers</span></div>
-          <p>An AI career coach and job application assistant. Upload your resume and goals, and it finds matching jobs, explains where you fit and where you fall short, tailors your resume and cover letter, prepares you for interviews, and tracks every application. It only fills in applications with your approval.</p>
-          <div class="tags"><span>20 free daily uses</span><span>Job matching</span><span>Resume tailoring</span><span>Cover letters</span><span>Interview prep</span><span>Application tracker</span></div>
-          <div class="acts"><a class="btn dark sm" href="apps/ai-career.html">Open app <svg><use href="#arrow"/></svg></a><a class="btn pill sm" href="api.html#plans">Use tools to their full potential</a></div>
-        </article>
+    <section class="split" id="mcp" aria-labelledby="mcpTitle">
+      <div class="intro">
+        <span class="eyebrow">AI Verse MCP</span>
+        <h2 id="mcpTitle" style="margin-top:14px">Use these apps inside your AI</h2>
+        <p>Add the free AI Verse MCP server to Claude, ChatGPT, Cursor or VS Code, and use AI Verse tools right in your chat. No account needed.</p>
+        <div class="mcp-addr"><code id="homeMcpUrl">https://api.aiverse.it.com/mcp</code><button class="btn dark sm" type="button" id="homeMcpCopy">Copy</button></div>
+        <a class="btn pill" href="mcp.html">How to connect <svg><use href="#arrow"/></svg></a>
+      </div>
+      <div class="rows">
+        <div class="rowi"><a class="k" href="mcp.html#tools">Music</a><div class="v"><b>Make a playlist</b> of real songs checked against Apple’s catalog, and <b>find similar artists</b>.</div></div>
+        <div class="rowi"><a class="k" href="mcp.html#tools">Career</a><div class="v"><b>Job search links</b> for LinkedIn and Indeed, <b>cover letters</b> and stronger <b>resume bullets</b>.</div></div>
+        <div class="rowi"><a class="k" href="mcp.html#tools">Personal assistant</a><div class="v"><b>Plan my day</b> with a calendar file, and <b>draft an email</b>. Nothing is sent.</div></div>
+        <div class="rowi"><a class="k" href="mcp.html#tools">Health and fitness</a><div class="v">A <b>workout plan</b> for your goal, schedule and equipment.</div></div>
+        <div class="rowi"><a class="k" href="mcp.html#tools">Study and research</a><div class="v"><b>Flashcards</b> ready for Anki or Quizlet, and step-by-step <b>explanations</b>.</div></div>
+        <div class="rowi"><a class="k" href="mcp.html#tools">Stock and finance</a><div class="v"><b>Explain a finance term</b> in plain words. Education only.</div></div>
+        <div class="rowi"><a class="k" href="mcp.html#tools">Photo</a><div class="v"><b>Create an image</b> from a description.</div></div>
       </div>
     </section>
 
@@ -484,7 +454,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
       <div class="learn-head"><h2 id="learnTitle">Learn to build and use AI</h2><a class="btn pill" href="guides.html">All guides</a></div>
       <div class="learn-grid">
         <a href="build-an-ai-app.html"><span>AIV X</span><b>How to build an AI app without code</b></a>
-        <a href="build-a-personal-ai-assistant.html"><span>Build AI</span><b>How to build a personalized AI assistant</b></a>
+        <a href="build-a-personal-ai-assistant.html"><span>AI Business</span><b>How to build a personalized AI assistant</b></a>
         <a href="ai-tools-for-education-and-research.html"><span>Study</span><b>AI tools for education and research</b></a>
         <a href="ai-health-and-fitness-tools.html"><span>Fitness</span><b>AI health and fitness tools</b></a>
         <a href="ai-finance-and-career-tools.html"><span>Money &amp; careers</span><b>AI finance and career tools</b></a>
@@ -500,7 +470,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="#top"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="builder.html">Build AI</a><a href="introducing-aiv-x.html">AIV X</a><a href="business.html">Business</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="#setup">Key setup</a>
+        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
@@ -552,5 +522,10 @@ render();grow();
 })();
 </script>
 <script src="auth.js" defer></script>
+<script>
+(function(){var c=document.getElementById('homeMcpUrl'),b=document.getElementById('homeMcpCopy');if(!c||!b)return;
+var base=((window.AIV_SITE&&(AIV_SITE.apiPublic||AIV_SITE.server))||'').replace(/\/+$/,'');if(base)c.textContent=base+'/mcp';
+b.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(c.textContent).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)},function(){});});})();
+</script>
 </body>
 </html>
