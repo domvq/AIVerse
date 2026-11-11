@@ -125,13 +125,13 @@ main{flex:1;min-height:0;display:flex;flex-direction:column}
 
 /* ===== shared site header (identical on every page) ===== */
 header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:none;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sitehead .bar{max-width:1232px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .sitehead .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
 .sitehead .brand svg{height:22px;width:auto;display:block;flex:none}
 .sitehead .brand span{white-space:nowrap}
 .sitehead .brand span{font:600 15px/1 var(--body);letter-spacing:-.01em}
 .sitehead .tabs{display:flex;justify-content:center;gap:2px;min-width:0}
-.sitehead .tabs a{flex:0 0 auto;min-width:0;text-align:center;padding:9px 12px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.sitehead .tabs a{flex:0 0 auto;min-width:80px;text-align:center;padding:9px 11px;border-radius:999px;font:500 14px/1 var(--body);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
 .sitehead .tabs a:hover{color:var(--fg);background:var(--pill)}
 .sitehead .tabs a[aria-current="page"]{color:var(--fg);background:var(--pill)}
 .sitehead .acts{display:flex;justify-content:flex-end;align-items:center;gap:8px}
@@ -163,14 +163,12 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <nav class="tabs" aria-label="Main">
       <a href="index.html">Home</a>
       <a href="chat.html" aria-current="page">Ask AIV</a>
-      <a href="ai-business.html">AI Business</a>
+      <a href="builder.html">Build AI</a>
       <a href="introducing-aiv-x.html">AIV X</a>
+      <a href="business.html">Business</a>
       <a href="data.html">Data</a>
       <a href="index.html#apps">Apps</a>
       <a href="api.html">API</a>
-      <a href="mcp.html">MCP</a>
-      <a href="research.html">Research</a>
-      <a href="partners.html">Partners</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="acts"><button class="hb line" id="newChat" type="button" hidden><svg><use href="#new"/></svg>New chat</button><a class="hb solid" href="api.html#plans">Get AIV key</a></div>
@@ -239,7 +237,7 @@ function grow(){const t=input();t.style.height='auto';t.style.height=Math.min(t.
 
 /* rendering */
 const avatar='<div class="av" aria-hidden="true"><svg><use href="#aiv"/></svg></div>';
-function bubble(m,i){if(m.role==='user')return`<div class="msg me">${esc(m.content)}</div>`;return`<div class="msg ai">${avatar}<div><div class="md${m.error?' err':''}">${md(m.content)}</div>${m.error?'':`<div class="tools"><button type="button" data-copy="${i}">Copy</button>${i===msgs.length-1?'<button type="button" data-retry>Regenerate</button>':''}</div>`}</div></div>`;}
+function bubble(m,i){if(m.role==='user')return`<div class="msg me">${esc(m.content)}</div>`;return`<div class="msg ai">${avatar}<div><div class="md${m.error?' err':''}">${md(m.content)}</div>${m.error?(i===msgs.length-1?'<div class="tools"><button type="button" data-retry>Try again</button></div>':''):`<div class="tools"><button type="button" data-copy="${i}">Copy</button>${i===msgs.length-1?'<button type="button" data-retry>Regenerate</button>':''}</div>`}</div></div>`;}
 function render(){place();$('thread').innerHTML=msgs.map(bubble).join('');}
 const toBottom=()=>{const s=$('scroll');s.scrollTop=s.scrollHeight;};
 
@@ -264,7 +262,10 @@ async function reply(){
   let text='',raf=0;
   const paint=()=>{raf=0;el.innerHTML=md(text.replace(/<think>[\s\S]*?(<\/think>|$)/g,''));const s=$('scroll');if(s.scrollHeight-s.scrollTop-s.clientHeight<160)toBottom();};
   try{await callAI(msgs.slice(0,i),t=>{text+=t;if(!raf)raf=requestAnimationFrame(paint);},ctl.signal);
-    text=text.replace(/<think>[\s\S]*?<\/think>/g,'').trim();msgs[i].content=text||'I don\'t have an answer for that. Try rephrasing your question.';}
+    text=text.replace(/<think>[\s\S]*?<\/think>/g,'').trim();
+    // the server sometimes sends back an empty answer: ask once more before giving up
+    if(!text){text='';await callAI(msgs.slice(0,i),t=>{text+=t;if(!raf)raf=requestAnimationFrame(paint);},ctl.signal);text=text.replace(/<think>[\s\S]*?<\/think>/g,'').trim();}
+    if(text)msgs[i].content=text;else msgs[i]={role:'assistant',content:'AIV didn\'t get an answer back that time. Tap Try again.',error:true};}
   catch(e){if(e.name==='AbortError'){msgs[i].content=(text.trim()||'')+(text.trim()?'\n\n*Stopped.*':'*Stopped.*');}else{msgs[i]={role:'assistant',content:e.message,error:true};}}
   finally{ctl=null;setBusy(false);persist();render();toBottom();input().focus();}
 }

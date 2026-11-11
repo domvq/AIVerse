@@ -109,11 +109,17 @@ async function send(text){
   const el=document.createElement('div');el.className='b bot';el.innerHTML='<span class="dots" aria-label="Typing"><i></i><i></i><i></i></span>';$('body').appendChild(el);$('body').scrollTop=$('body').scrollHeight;
   let out='';
   try{
-    const r=await fetch(`${SERVER}/bots/${encodeURIComponent(id)}/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({stream:true,messages:msgs.slice(-12)})});
-    if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error((j.error&&j.error.message)||'Something went wrong. Please try again.');}
-    const reader=r.body.getReader(),dec=new TextDecoder();let buf='';
-    outer:for(;;){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i).trim();buf=buf.slice(i+1);if(!line.startsWith('data:'))continue;const d=line.slice(5).trim();if(d==='[DONE]')break outer;try{const t=JSON.parse(d).choices?.[0]?.delta?.content;if(t){out+=t;el.innerHTML=md(out);$('body').scrollTop=$('body').scrollHeight;}}catch(_){}}}
-    msgs.push({role:'assistant',content:out.trim()||'Sorry, I don\'t have an answer for that.'});
+    const once=async()=>{
+      const r=await fetch(`${SERVER}/bots/${encodeURIComponent(id)}/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({stream:true,messages:msgs.slice(-12)})});
+      if(!r.ok){const j=await r.json().catch(()=>({}));throw new Error((j.error&&j.error.message)||'Something went wrong. Please try again.');}
+      const reader=r.body.getReader(),dec=new TextDecoder();let buf='';
+      outer:for(;;){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i).trim();buf=buf.slice(i+1);if(!line.startsWith('data:'))continue;const d=line.slice(5).trim();if(d==='[DONE]')break outer;try{const t=JSON.parse(d).choices?.[0]?.delta?.content;if(t){out+=t;el.innerHTML=md(out);$('body').scrollTop=$('body').scrollHeight;}}catch(_){}}}
+    };
+    await once();
+    // the server sometimes sends back an empty answer: ask once more before giving up
+    if(!out.trim()){out='';await once();}
+    if(out.trim())msgs.push({role:'assistant',content:out.trim()});
+    else msgs.push({role:'assistant',content:'Sorry, I couldn\'t answer just now. Please send your message again.',error:true});
   }catch(e){msgs.push({role:'assistant',content:e.message.includes('fetch')?'Couldn\'t connect. Check your internet and try again.':e.message,error:true});}
   finally{busy=false;persist();render();$('input').focus({preventScroll:true});}
 }
