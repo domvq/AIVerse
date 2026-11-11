@@ -575,7 +575,7 @@
     var el = addBubble("a", ""), steps = [], srcs = [], shown = "";
     var msgs = [{ role: "system", content: "" }].concat(P.history.slice(-12).map(function (m) { return { role: m.role, content: m.content }; }));
     bump();
-    var step = 0, retried = false;
+    var step = 0, retried = false, retriedEmpty = false, changed = false;
     function loop() {
       drawAI(el, steps, shown, srcs, step ? "Working…" : "Thinking…");
       msgs[0] = { role: "system", content: systemFor(context()) };
@@ -584,6 +584,13 @@
         var vis = stripActs(reply);
         if (vis) shown = shown ? shown + "\n\n" + vis : vis;
         var found = findActs(reply);
+        if (!found && !vis.trim() && !retriedEmpty) {
+          // the AI sent back nothing: ask once more instead of showing "Done."
+          retriedEmpty = true; step++;
+          if (reply.trim()) msgs.push({ role: "assistant", content: reply.slice(0, 4000) });
+          msgs.push({ role: "user", content: "(Your last reply came through empty. Answer my message now in plain words" + (steps.length ? ", using the tool results above" : "") + ".)" });
+          return loop();
+        }
         if (!found || step >= 5) return finish();
         var acts = parseActs(found.raw);
         if (!acts && !found.fenced && shown) return finish();
@@ -614,6 +621,7 @@
             if (k === "look" || k === "read") { results.push("looked at the screen"); return; }
             if (["go", "click", "type", "fill", "check"].indexOf(k) < 0) { results.push("\"" + a.do + "\" isn't one of your tools. Answer the user directly in plain words."); return; }
             if (k === "click" && DESTRUCTIVE.test(String(a.text || "")) && !DESTRUCTIVE.test(text)) { steps.push("Skipped “" + a.text + "” — ask me directly if you want that"); results.push("skipped " + a.text + ": the user didn't ask for that"); return; }
+            changed = true;
             return runActions([a]).then(function (r) { (r.results || []).forEach(function (x) { steps.push(x.charAt(0).toUpperCase() + x.slice(1)); results.push(x); }); });
           });
         });
@@ -626,7 +634,11 @@
       });
     }
     function finish() {
-      if (!shown) shown = "Done.";
+      if (!shown) {
+        if (changed && steps.length) shown = "Here's what I did:\n" + steps.map(function (s) { return "- " + s; }).join("\n");
+        else if (steps.length) shown = "I looked into it, but I couldn't put an answer together that time. Please ask again.";
+        else throw new Error("AIV didn't get an answer back that time. Please ask again.");
+      }
       drawAI(el, steps, shown, srcs, "");
       P.history.push({ role: "assistant", content: shown + (steps.length ? "\n(Did: " + steps.join("; ") + ")" : "") });
       P.history = P.history.slice(-30);

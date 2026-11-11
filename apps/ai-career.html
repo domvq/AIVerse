@@ -438,7 +438,7 @@ const DEF=()=>({
  settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',srcRemotive:true,srcArbeitnow:true,adzunaId:'',adzunaKey:'',adzunaCountry:'us',useDemo:false},
  resume:emptyResume(),jobs:{},searchCache:{},apps:[],pending:[],chat:[],agent:null,practice:[],linkedin:null,gap:null,paths:null,transition:null,network:null,portfolio:null,lastQuery:'',setupDone:false,insight:null});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.resume={...emptyResume(),...(s.resume||{})};d.resume.contact={...emptyResume().contact,...((s.resume||{}).contact||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},addApp:function(j,s,x){return addApp(j,s,x)}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
 function save(){try{const jobIds=Object.keys(S.jobs);if(jobIds.length>300){const keep=new Set([...S.apps.map(a=>a.jobId),...(S.agent?S.agent.ranked||[]:[]).map(r=>r.id)]);jobIds.sort((a,b)=>(S.jobs[a].seen||0)-(S.jobs[b].seen||0)).slice(0,jobIds.length-250).forEach(id=>{if(!keep.has(id))delete S.jobs[id];});}localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
 const validDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(String(s||''))?s:'';
@@ -850,7 +850,8 @@ async function askCoach(q,btn){q=String(q||'').trim();if(!q)return;S.chat.push({
    const ok={add_application:a.title&&a.company,update_status:a.app&&STAGES.some(s=>s[0]===a.status)&&findApp(a.app),set_followup:a.app&&validDate(a.date)&&findApp(a.app),add_interview:a.app&&validDate(a.date)&&findApp(a.app),update_resume:['summary','headline'].includes(a.field)&&typeof a.value==='string'||a.field==='add_skills'&&Array.isArray(a.value)}[a.type];if(!ok)continue;
    const desc={add_application:`Add “${a.title}” at ${a.company} to your tracker (${a.status||'saved'})`,update_status:`Move ${findApp(a.app)?.title} @ ${findApp(a.app)?.company} to “${stageName(a.status)}”`,set_followup:`Set a follow-up for ${findApp(a.app)?.company} on ${a.date}`,add_interview:`Add a ${a.kind||'interview'} with ${findApp(a.app)?.company} on ${a.date}`,update_resume:a.field==='add_skills'?`Add skills to your resume: ${a.value.join(', ')}`:`Replace your resume ${a.field} with: “${String(a.value).slice(0,140)}${String(a.value).length>140?'…':''}”`}[a.type];
    S.pending.push({...a,id:uid(),desc,ts:Date.now()});queued++;}
-  S.chat.push({role:'ai',text:String(out.reply||'Done.')+(queued?`\n\n*${queued} change${queued>1?'s':''} waiting for your approval.*`:'')});save();if(cur==='home')R.home();else renderChat();if(after)setTimeout(after,300);});}
+  if(!String(out.reply||'').trim()&&!queued&&!after){try{out.reply=await ai(prompt,{system:COACH_SYS.split('You can propose')[0],temp:.4,max:2000});}catch(e){}}
+  S.chat.push({role:'ai',text:String(String(out.reply||'').trim()||(queued?'Here\'s what I suggest.':after?'Opening that for you.':'I couldn\'t put an answer together that time. Please ask again.'))+(queued?`\n\n*${queued} change${queued>1?'s':''} waiting for your approval.*`:'')});save();if(cur==='home')R.home();else renderChat();if(after)setTimeout(after,300);});}
 
 /* ---------- HOME ---------- */
 function insights(){const out=[];const at=atsScore();if(!hasResume())out.push('Upload your resume and add target roles — the agent will find matching jobs, tailor your materials and prepare you for interviews.');else if(at.score<70)out.push(`Your resume scores ${at.score}/100 for applicant-tracking systems. The biggest fix: ${(at.items.find(i=>!i.ok)||{}).fix||'add more quantified results'}.`);
@@ -1177,8 +1178,6 @@ init();
 })();
 </script>
 <script src="../legal.js" defer></script>
-<script src="../mobile.js" defer></script>
-<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>

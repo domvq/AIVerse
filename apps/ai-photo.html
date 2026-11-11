@@ -447,7 +447,7 @@ function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document
 const KEY='photointel.v1';
 const DEF=()=>({settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',visionModel:'qwen/qwen3.8-27b',customVision:'',localVision:'',imgProvider:'aiverse',pollModel:'flux',openaiKey:'',openaiImgModel:'gpt-image-2',geminiKey:'',geminiImgModel:'gemini-2.5-flash-image',hfKey:'',hfModel:'black-forest-labs/FLUX.1-schnell',sdBase:'http://127.0.0.1:7860',bgModel:'rmbg',ocrLang:'eng',autoIndex:false},stats:{edits:0,generated:0,weekEdits:{}},chat:[],recentPrompts:[],social:null});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.settings={...DEF().settings,...(s.settings||{})};d.stats={...DEF().stats,...(s.stats||{})};if(!d.settings.imgMigrated){if(d.settings.imgProvider==='pollinations')d.settings.imgProvider='aiverse';d.settings.imgMigrated=true;}}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},openFile:function(f){return openFile(f)}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},addImage:async function(src,name,prompt){const c=await blobToCanvas(await(await fetch(src)).blob());const it=await saveItem({c,name:name||"AIV X image",source:"generated",prompt:prompt||""});await openItem(it.id);return true;}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save settings.',{err:true});}}
 const weekKey=()=>{const d=sod(new Date());return ymd(addDays(d,-((d.getDay()+6)%7)));};
 function countEdit(){S.stats.edits++;const k=weekKey();S.stats.weekEdits[k]=(S.stats.weekEdits[k]||0)+1;save();}
@@ -942,7 +942,8 @@ async function askAssistant(q,btn){q=String(q||'').trim();if(!q)return;S.chat.pu
    else if(a.type==='search'&&a.query){after=()=>{LS.q=String(a.query);go('library');};notes.push('Searching your library.');}
    else if(a.type==='social'){after=()=>{if(SOC_T[a.template])SOC.t=a.template;go('social');if(a.topic)setTimeout(()=>{const t=$('#soTopic');if(t){t.value=a.topic;$('#soAI').click();}},150);};notes.push('Opening the social post designer.');}
    else if(a.type==='open'&&VIEWS.includes(a.view))after=()=>go(a.view);}
-  S.chat.push({role:'ai',text:String(out.reply||'Done.')+(notes.length?`\n\n*${notes.join(' ')}*`:'')});save();renderChat();if(after)setTimeout(after,350);});}
+  if(!String(out.reply||'').trim()&&!notes.length&&!after){try{out.reply=await ai(prompt,{system:ASSIST_SYS.split('You can also run')[0],temp:.4,max:1200});}catch(e){}}
+  S.chat.push({role:'ai',text:String(String(out.reply||'').trim()||(notes.length||after?'On it.':'I couldn\'t put an answer together that time. Please ask again.'))+(notes.length?`\n\n*${notes.join(' ')}*`:'')});save();renderChat();if(after)setTimeout(after,350);});}
 
 /* ---------- HOME ---------- */
 R.home=async()=>{const v=$('#v-home');await refreshLib();const wk=S.stats.weekEdits[weekKey()]||0;const recent=LIB.slice(0,8);
@@ -1167,8 +1168,6 @@ init();
 })();
 </script>
 <script src="../legal.js" defer></script>
-<script src="../mobile.js" defer></script>
-<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>
