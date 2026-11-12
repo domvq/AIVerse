@@ -159,6 +159,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .legal article a{text-underline-offset:2px}
 .legal .caps{font-size:14px!important;text-transform:uppercase;letter-spacing:.01em;line-height:1.6}
 @media (max-width:860px){.doc{grid-template-columns:1fr;gap:24px}.toc{position:static;max-height:none;flex-direction:row;flex-wrap:wrap;gap:6px 14px;border-left:0;padding-left:0;border-bottom:1px solid var(--line);padding-bottom:16px}}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

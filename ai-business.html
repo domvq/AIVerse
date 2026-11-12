@@ -364,6 +364,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .biz .biz-head p{color:var(--muted);font-size:17px;line-height:1.6;margin:0 0 20px;max-width:60ch}
 .biz .biz-head .cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}
 .biz>section{margin-top:40px}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

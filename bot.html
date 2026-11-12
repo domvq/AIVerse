@@ -56,6 +56,9 @@ body:not(.embed) .app{border-inline:1px solid var(--line)}
 .foot{flex:none;text-align:center;font-size:11.5px;color:var(--soft);padding:0 0 10px}
 .foot a{color:inherit}
 :focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

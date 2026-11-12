@@ -229,6 +229,9 @@ main.legal{padding-bottom:96px}
 .pd-card h2{font:500 17px/1.3 var(--body);margin:18px 0 8px;letter-spacing:0}
 .pd-card p{margin:0 0 18px;font-size:14.5px;line-height:1.6;color:var(--fg);opacity:.85}
 .pd-tags{margin-top:auto;font-size:12.5px;color:var(--fg)}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

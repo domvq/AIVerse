@@ -277,6 +277,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:640px){.ask{padding:56px 0 48px}.ask-box{border-radius:22px;padding:14px 12px 10px 16px}.ask-chips a{font-size:13.5px;padding:9px 13px}}
 @media (prefers-reduced-motion:reduce){.ask-dots i{animation:none}.ask-thread{scroll-behavior:auto}}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>
@@ -503,11 +506,17 @@ async function ask(){
   function paint(){raf=0;el.innerHTML=md(text.replace(/<think>[\s\S]*?(<\/think>|$)/g,''));thread.scrollTop=thread.scrollHeight}
   try{
     if(!API)throw new Error('Ask AIV isn\'t connected right now. Please try again later.');
+    var once=async function(){text='';
     var r=await fetch(API+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs.slice(0,i).slice(-16).map(function(m){return{role:m.role,content:m.content}})}),signal:ctl.signal});
-    if(!r.ok){var em='';try{var j=await r.json();em=j.error&&j.error.message}catch(_){}throw new Error(em||'AIV ran into a problem (error '+r.status+'). Please try again.')}
-    var rd=r.body.getReader(),dec=new TextDecoder(),buf='';
-    outer:for(;;){var x=await rd.read();if(x.done)break;buf+=dec.decode(x.value,{stream:true});var k;while((k=buf.indexOf('\n'))>=0){var line=buf.slice(0,k).trim();buf=buf.slice(k+1);if(line.indexOf('data:')!==0)continue;var d=line.slice(5).trim();if(d==='[DONE]')break outer;try{var jj=JSON.parse(d);var dt=jj.choices&&jj.choices[0]&&jj.choices[0].delta&&jj.choices[0].delta.content;if(dt){text+=dt;if(!raf)raf=requestAnimationFrame(paint)}}catch(e){}}}
-    text=text.replace(/<think>[\s\S]*?<\/think>/g,'').trim();msgs[i].content=text||'I don\'t have an answer for that. Try rephrasing your question.';
+      if(!r.ok){var em='';try{var j=await r.json();em=j.error&&j.error.message}catch(_){}throw new Error(em||'AIV ran into a problem (error '+r.status+'). Please try again.')}
+      var rd=r.body.getReader(),dec=new TextDecoder(),buf='';
+      outer:for(;;){var x=await rd.read();if(x.done)break;buf+=dec.decode(x.value,{stream:true});var k;while((k=buf.indexOf('\n'))>=0){var line=buf.slice(0,k).trim();buf=buf.slice(k+1);if(line.indexOf('data:')!==0)continue;var d=line.slice(5).trim();if(d==='[DONE]')break outer;try{var jj=JSON.parse(d);var dt=jj.choices&&jj.choices[0]&&jj.choices[0].delta&&jj.choices[0].delta.content;if(dt){text+=dt;if(!raf)raf=requestAnimationFrame(paint)}}catch(e){}}}
+      text=text.replace(/<think>[\s\S]*?<\/think>/g,'').trim();
+    };
+    await once();
+    // the server sometimes sends back an empty answer: ask once more before giving up
+    if(!text)await once();
+    if(text)msgs[i].content=text;else msgs[i]={role:'assistant',content:'AIV didn\'t get an answer back that time. Please send your message again.',error:true};
   }catch(e){
     if(e.name==='AbortError'){msgs[i].content=(text.trim()?text.trim()+'\n\n':'')+'*Stopped.*'}
     else{msgs[i]={role:'assistant',content:(e&&e.message)||'AIV couldn\'t reach its server. Check your connection and try again.',error:true}}

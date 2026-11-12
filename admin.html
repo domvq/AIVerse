@@ -60,6 +60,9 @@ td small{display:block;color:var(--muted);font-size:12.5px;overflow-wrap:anywher
 .msg{margin:12px 0 0;font-size:13.5px}.msg.bad{color:var(--bad)}.msg.good{color:var(--good)}
 .dot{width:12px;height:12px;border-radius:50%;display:inline-block;vertical-align:-1px;margin-right:6px;border:1px solid var(--line)}
 @media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

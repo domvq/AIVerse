@@ -213,6 +213,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .pt-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.pt-btns .btn{text-decoration:none}
 .pt-fine{font-size:12.5px;color:var(--muted);margin:32px 0 96px}
 main.legal{padding-bottom:96px}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

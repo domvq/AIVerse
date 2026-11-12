@@ -180,6 +180,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 .gcard{background:var(--card);border-radius:18px;padding:26px 26px 24px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:background .15s}
 .gcard:hover{background:var(--pill)}
 .gcard h2{font:500 21px/1.25 var(--display);letter-spacing:-.015em;margin:0}.gcard p{margin:0;color:var(--muted);font-size:14.5px}
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>

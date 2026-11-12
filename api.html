@@ -220,6 +220,9 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
  .sitehead .tabs::-webkit-scrollbar{display:none}
  .sitehead .tabs a{min-width:0;flex:1 0 auto}
 }
+
+/* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
+@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
 </style>
 </head>
 <body>
