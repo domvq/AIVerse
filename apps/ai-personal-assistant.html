@@ -675,9 +675,13 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500}={}){
  const T=aiTarget();
  const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
  if(T.p==='browser')await ensureBrowserModel(T.model);
- let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max}):await remoteChat(T,sys,prompt,{json,temp,max});
- txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
- return json?parseJSON(txt):txt;
+ // ask once, and once more if the answer comes back empty or unreadable
+ const once=async()=>{const t=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max}):await remoteChat(T,sys,prompt,{json,temp,max});return String(t||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();};
+ let txt=await once();
+ if(!txt)txt=await once();
+ if(!txt)throw new Error('The AI didn\'t send an answer that time. Please try again.');
+ if(!json)return txt;
+ try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }
 async function remoteChat(T,sys,prompt,{json,temp,max}){
  const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
@@ -898,7 +902,8 @@ ${ctxRems()}`;
  }}catch(err){console.error(err);}}
  save();
  const say=out.say||'';
- const body=(answer?md(answer):'')+(lines.length?md(lines.map(l=>'- '+l).join('\n')):'')+(!answer&&!lines.length&&say?md(say):'');
+ let body=(answer?md(answer):'')+(lines.length?md(lines.map(l=>'- '+l).join('\n')):'')+(!answer&&!lines.length&&say?md(say):'');
+ if(!body&&!nav&&!post)body=md('I couldn\'t work out what to do with that. Try saying it another way, like "remind me to call mom at 5pm".');
  lastUndo=undo.length?undo:null;
  const box=$('#cmdRes');box.hidden=!body;box.innerHTML=`<div class="card-h"><h3>${ic('spark')} AI Personal Assistant</h3><div class="row">${lastUndo?'<button class="btn ghost sm" id="cmdUndo">Undo</button>':''}<button class="iconbtn" id="cmdClose" aria-label="Close">×</button></div></div><div class="md">${body}</div>`;
  $('#cmdClose').onclick=()=>box.hidden=true;

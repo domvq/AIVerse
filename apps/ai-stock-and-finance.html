@@ -658,9 +658,13 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500}={}){
  const T=aiTarget();
  const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
  if(T.p==='browser')await ensureBrowserModel(T.model);
- let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max}):await remoteChat(T,sys,prompt,{json,temp,max});
- txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
- return json?parseJSON(txt):txt;
+ // ask once, and once more if the answer comes back empty or unreadable
+ const once=async()=>{const t=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max}):await remoteChat(T,sys,prompt,{json,temp,max});return String(t||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();};
+ let txt=await once();
+ if(!txt)txt=await once();
+ if(!txt)throw new Error('The AI didn\'t send an answer that time. Please try again.');
+ if(!json)return txt;
+ try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }
 async function remoteChat(T,sys,prompt,{json,temp,max}){
  const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
@@ -882,7 +886,9 @@ async function finContext(q=''){
 async function askAdvisor(q,btn){q=q.trim();if(!q)return;S.chat.push({role:'user',text:q});S.chat=S.chat.slice(-30);save();renderChat();
  await run(btn,async()=>{const ctx=await finContext(q);const hist=S.chat.slice(-7,-1).map(m=>`${m.role==='user'?'Me':'Advisor'}: ${m.text.slice(0,500)}`).join('\n');const prompt=`${hist?'Earlier:\n'+hist+'\n\n':''}My message: ${q}\n\nMY DATA\n${ctx}`;let out;
   try{out=await ai(prompt,{system:ADVISOR_SYS,json:true,temp:.4,max:2500});}catch(e){if(!/unreadable/.test(e.message))throw e;out={reply:await ai(prompt,{system:ADVISOR_SYS_TEXT,temp:.4,max:2000}),actions:[]};}
-  const reply=String(out.reply||out.answer||'').trim()||'Done.';const acts=Array.isArray(out.actions)?out.actions:[];const queued=await handleActions(acts);
+  let reply=String(out.reply||out.answer||'').trim();const acts=Array.isArray(out.actions)?out.actions:[];
+  if(!reply&&!acts.length){try{reply=String(await ai(prompt,{system:ADVISOR_SYS_TEXT,temp:.4,max:2000})||'').trim();}catch(e){}}
+  const queued=await handleActions(acts);if(!reply)reply=queued?'Here\'s what I suggest.':'I couldn\'t put an answer together that time. Please ask again.';
   S.chat.push({role:'ai',text:reply+(queued?`\n\n*${queued} action${queued>1?'s':''} waiting for your approval below.*`:'')});save();if(cur==='home')R.home();else renderChat();});}
 function renderChat(){const c=$('#chat');if(!c)return;const m=S.chat.slice(-8);c.innerHTML=m.map(x=>x.role==='user'?`<div class="msg me">${esc(x.text)}</div>`:`<div class="msg ai"><div class="md">${md(x.text)}</div></div>`).join('')+(m.length?'<div class="row end"><button class="btn ghost sm" id="chatClear">Clear chat</button></div>':'');const cl=$('#chatClear');if(cl)cl.onclick=()=>{S.chat=[];save();renderChat();};}
 const VALID_SYM=/^[A-Z][A-Z0-9.\-]{0,9}$/;

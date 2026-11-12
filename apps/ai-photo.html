@@ -447,7 +447,7 @@ function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document
 const KEY='photointel.v1';
 const DEF=()=>({settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',visionModel:'qwen/qwen3.8-27b',customVision:'',localVision:'',imgProvider:'aiverse',pollModel:'flux',openaiKey:'',openaiImgModel:'gpt-image-2',geminiKey:'',geminiImgModel:'gemini-2.5-flash-image',hfKey:'',hfModel:'black-forest-labs/FLUX.1-schnell',sdBase:'http://127.0.0.1:7860',bgModel:'rmbg',ocrLang:'eng',autoIndex:false},stats:{edits:0,generated:0,weekEdits:{}},chat:[],recentPrompts:[],social:null});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.settings={...DEF().settings,...(s.settings||{})};d.stats={...DEF().stats,...(s.stats||{})};if(!d.settings.imgMigrated){if(d.settings.imgProvider==='pollinations')d.settings.imgProvider='aiverse';d.settings.imgMigrated=true;}}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},addImage:async function(src,name,prompt){const c=await blobToCanvas(await(await fetch(src)).blob());const it=await saveItem({c,name:name||"AIV X image",source:"generated",prompt:prompt||""});await openItem(it.id);return true;}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},addImage:async function(src,name,prompt){const c=await blobToCanvas(await(await fetch(src)).blob());const it=await saveItem({c,name:name||"AIV X image",source:"generated",prompt:prompt||""});await openItem(it.id);return true;},ai:function(p,o){return ai(p,o||{})},openFile:function(f){return openFile(f)}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save settings.',{err:true});}}
 const weekKey=()=>{const d=sod(new Date());return ymd(addDays(d,-((d.getDay()+6)%7)));};
 function countEdit(){S.stats.edits++;const k=weekKey();S.stats.weekEdits[k]=(S.stats.weekEdits[k]||0)+1;save();}
@@ -655,9 +655,13 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try
  const T=aiTarget();
  const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
  if(T.p==='browser')await ensureBrowserModel(T.model);
- let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});
- txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
- return json?parseJSON(txt):txt;
+ // ask once, and once more if the answer comes back empty or unreadable
+ const once=async()=>{const t=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});return String(t||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();};
+ let txt=await once();
+ if(!txt)txt=await once();
+ if(!txt)throw new Error('The AI didn\'t send an answer that time. Please try again.');
+ if(!json)return txt;
+ try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
 async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
  if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
@@ -1168,6 +1172,8 @@ init();
 })();
 </script>
 <script src="../legal.js" defer></script>
+<script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>

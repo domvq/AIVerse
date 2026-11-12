@@ -438,7 +438,7 @@ const DEF=()=>({
  settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',srcRemotive:true,srcArbeitnow:true,adzunaId:'',adzunaKey:'',adzunaCountry:'us',useDemo:false},
  resume:emptyResume(),jobs:{},searchCache:{},apps:[],pending:[],chat:[],agent:null,practice:[],linkedin:null,gap:null,paths:null,transition:null,network:null,portfolio:null,lastQuery:'',setupDone:false,insight:null});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.resume={...emptyResume(),...(s.resume||{})};d.resume.contact={...emptyResume().contact,...((s.resume||{}).contact||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}}};
+let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},addApp:function(j,s,x){return addApp(j,s,x)}};
 function save(){try{const jobIds=Object.keys(S.jobs);if(jobIds.length>300){const keep=new Set([...S.apps.map(a=>a.jobId),...(S.agent?S.agent.ranked||[]:[]).map(r=>r.id)]);jobIds.sort((a,b)=>(S.jobs[a].seen||0)-(S.jobs[b].seen||0)).slice(0,jobIds.length-250).forEach(id=>{if(!keep.has(id))delete S.jobs[id];});}localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
 const validDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(String(s||''))?s:'';
@@ -622,9 +622,13 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try
  const T=aiTarget();
  const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
  if(T.p==='browser')await ensureBrowserModel(T.model);
- let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});
- txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
- return json?parseJSON(txt):txt;
+ // ask once, and once more if the answer comes back empty or unreadable
+ const once=async()=>{const t=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});return String(t||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();};
+ let txt=await once();
+ if(!txt)txt=await once();
+ if(!txt)throw new Error('The AI didn\'t send an answer that time. Please try again.');
+ if(!json)return txt;
+ try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
 async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
  if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
@@ -1178,6 +1182,8 @@ init();
 })();
 </script>
 <script src="../legal.js" defer></script>
+<script src="../mobile.js" defer></script>
+<script src="../connect.js" defer></script>
 <script src="aiv-connect.js"></script>
 </body>
 </html>

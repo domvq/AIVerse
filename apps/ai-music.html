@@ -493,9 +493,13 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try
  const T=aiTarget();
  const sys=baseSystem()+(system?'\n\n'+system:'')+(json?'\n\nRespond with one valid JSON object only — no prose, no code fences.':'');
  if(T.p==='browser')await ensureBrowserModel(T.model);
- let txt=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});
- txt=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();
- return json?parseJSON(txt):txt;
+ // ask once, and once more if the answer comes back empty or unreadable
+ const once=async()=>{const t=T.p==='browser'?await browserChat(T.model,sys,prompt,{json,temp,max,signal}):await remoteChat(T,sys,prompt,{json,temp,max,signal});return String(t||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/^[\s\S]*?<\/think>/i,'').trim();};
+ let txt=await once();
+ if(!txt)txt=await once();
+ if(!txt)throw new Error('The AI didn\'t send an answer that time. Please try again.');
+ if(!json)return txt;
+ try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
 async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
  if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
