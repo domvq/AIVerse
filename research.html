@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Research: AIV Models and How We Test Them | AI Verse</title>
-<meta name="description" content="Meet the AI models behind AI Verse and AIV X, like AIV-1 and AIV Code, how we measure their effectiveness, and EMARI, our medical AI research team.">
+<title>Research: AIV Eco, AIV Models and How We Test Them | AI Verse</title>
+<meta name="description" content="AI Verse research: AIV Eco, our water-saving AI platform, plus the AIV models behind AI Verse and AIV X and how we measure them.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://aiverse.it.com/research.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI Verse">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="AI Verse research and AIV models">
-<meta property="og:description" content="Meet the AI models behind AI Verse and AIV X, like AIV-1 and AIV Code, how we measure their effectiveness, and EMARI, our medical AI research team.">
+<meta property="og:description" content="AI Verse research: AIV Eco, our water-saving AI platform, plus the AIV models behind AI Verse and AIV X and how we measure them.">
 <meta property="og:url" content="https://aiverse.it.com/research.html">
 <meta property="og:image" content="https://aiverse.it.com/icons/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="AI Verse research">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI Verse research and AIV models">
-<meta name="twitter:description" content="Meet the AI models behind AI Verse and AIV X, like AIV-1 and AIV Code, how we measure their effectiveness, and EMARI, our medical AI research team.">
+<meta name="twitter:description" content="AI Verse research: AIV Eco, our water-saving AI platform, plus the AIV models behind AI Verse and AIV X and how we measure them.">
 <meta name="twitter:image" content="https://aiverse.it.com/icons/og-image.jpg">
 <meta name="twitter:image:alt" content="AI Verse research">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","alternateName":"AIV","url":"https://aiverse.it.com/","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"CollectionPage","url":"https://aiverse.it.com/research.html","name":"AI Verse research","about":{"@id":"https://aiverse.it.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://aiverse.it.com/research.html"}]}]}</script>
@@ -216,6 +216,65 @@ main.legal{padding-bottom:96px}
 
 /* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
 @media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
+
+/* AIV Eco */
+:root{--c-std:#4a6fd8;--c-eco:#1f8a4c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-std:#6f8fe8;--c-eco:#35a366}}
+[data-theme="dark"]{--c-std:#6f8fe8;--c-eco:#35a366}
+.eco-pill{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;margin:24px 0 0;padding:12px 18px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:14.5px}
+.eco-pill .em-k{font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--eco-green);display:inline-flex;align-items:center;gap:8px}.eco-pill .em-k::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--eco-green)}
+.eco-pill .em-t{flex:1 1 260px}
+.eco-pill .em-go{display:inline-flex;align-items:center;gap:6px;font-weight:500;white-space:nowrap}.eco-pill svg{width:16px;height:16px}
+.eco-pill:hover{background:var(--pill)}
+.eco-pill+.emari{margin-top:10px}
+@media (max-width:640px){.eco-pill{border-radius:18px;padding:14px 16px}}
+.eco-hero{padding:64px 0 8px;max-width:860px}
+.eco-hero h1{text-align:left;font:500 clamp(38px,5.4vw,62px)/1.04 var(--display);letter-spacing:-.035em;margin:14px 0 18px}
+.eco-hero .lede{margin:0;max-width:40em;text-align:left}
+.eco-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.eco-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:36px 0 0}
+.eco-tile{background:var(--card);border-radius:16px;padding:20px 22px}
+.eco-tile b{display:block;font:500 clamp(28px,3.4vw,38px)/1.05 var(--display);letter-spacing:-.03em}
+.eco-tile span{display:block;margin-top:8px;color:var(--muted);font-size:14px;line-height:1.5}
+.eco-h{font:500 clamp(24px,3vw,32px)/1.15 var(--display);letter-spacing:-.02em;margin:64px 0 12px;scroll-margin-top:84px}
+.eco-p{max-width:72ch;font-size:15.5px;line-height:1.65;margin:0 0 14px}
+.eco-p.muted,.eco-note{color:var(--muted)}
+.eco-note{font-size:13px;line-height:1.6;max-width:80ch;margin:10px 0 0}
+.eco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px}
+.eco-card{background:var(--card);border-radius:16px;padding:20px}
+.eco-card h3{font:500 17px/1.3 var(--body);margin:0 0 6px}
+.eco-card p{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.eco-card .k{display:block;font:500 11px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.eco-fig{border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px;margin:20px 0 0}
+.eco-fig h3{font:500 16px/1.35 var(--body);margin:0}
+.eco-fig .sub{color:var(--muted);font-size:13.5px;margin:4px 0 0}
+.eco-legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 4px;font-size:13.5px;color:var(--fg)}
+.eco-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.eco-rows{display:grid;gap:16px;margin-top:14px}
+.eco-row{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:6px 16px;align-items:center}
+.eco-row .lab{font-size:14px;line-height:1.35}
+.eco-row .lab small{display:block;color:var(--muted);font-size:12.5px}
+.eco-bars{display:grid;gap:2px;border-left:1px solid var(--line);padding:2px 0}
+.eco-bar{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;min-width:0}
+.eco-bar i{display:block;height:14px;border-radius:0 4px 4px 0;min-width:2px;flex:none}
+.eco-bar.std i{background:var(--c-std)}.eco-bar.eco i{background:var(--c-eco)}
+.eco-bar span{font:500 12.5px/1 var(--mono);color:var(--fg);white-space:nowrap}
+.eco-bar span em{font-style:normal;color:var(--muted);font-weight:400}
+@media (max-width:560px){.eco-row{grid-template-columns:1fr}.eco-fig{padding:18px 16px 14px}.eco-bar{flex-wrap:wrap;row-gap:4px}.eco-bar span{white-space:normal}}
+.eco-src{font-size:14px;line-height:1.7;padding-left:20px;max-width:80ch;margin:10px 0 0}
+.eco-src li{margin:0 0 6px}
+.eco-faq details{border-bottom:1px solid var(--line);padding:16px 0;max-width:80ch}
+.eco-faq summary{cursor:pointer;font-weight:500;font-size:16px}
+.eco-faq p{margin:10px 0 0;line-height:1.65;font-size:15px;color:var(--fg);opacity:.85}
+.eco-feature{background:var(--card);border-radius:22px;padding:32px;border-left:4px solid var(--eco-green);margin:8px 0 0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:center}
+.eco-feature h2{font:500 clamp(26px,3.2vw,36px)/1.1 var(--display);letter-spacing:-.025em;margin:12px 0 12px}
+.eco-feature p{margin:0 0 12px;font-size:15.5px;line-height:1.65;max-width:56ch}
+.eco-feature .eco-fig{background:var(--bg);margin:0}
+@media (max-width:860px){.eco-feature{grid-template-columns:1fr;padding:24px 20px}}
+
+:root{--eco-green:#16a34a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--eco-green:#22c55e}}
+[data-theme="dark"]{--eco-green:#22c55e}
 </style>
 </head>
 <body>
@@ -245,6 +304,11 @@ main.legal{padding-bottom:96px}
 </header>
 
 <main class="wrap legal">
+  <a class="eco-pill" href="https://aiv-eco.com" target="_blank" rel="noopener">
+    <span class="em-k">Water-saving AI</span>
+    <span class="em-t"><b>AIV Eco</b> · The AI assistant built to use less water and energy, by AI Verse</span>
+    <span class="em-go">Visit aiv-eco.com <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
   <a class="emari" href="https://emari.it.com" target="_blank" rel="noopener">
     <span class="em-k">Medical AI research</span>
     <span class="em-t"><b>EMARI</b> · Emergency Medicine AI Research Initiative, by AI Verse</span>
@@ -252,7 +316,28 @@ main.legal{padding-bottom:96px}
   </a>
   <section class="hero">
     <h1>Research</h1>
-    <p class="lede">The AI models behind AI Verse and AIV X, what each one is built for, and how we measure how well they work.</p>
+    <p class="lede">How we make AI use less water and energy with AIV Eco, the AI models behind AI Verse and AIV X, and how we measure how well they work.</p>
+  </section>
+
+  <section class="eco-feature" id="aiv-eco" aria-labelledby="ecoFeat">
+    <div>
+      <span class="eyebrow">Featured research · AIV Eco</span>
+      <h2 id="ecoFeat">AI that uses up to 60–90% less water on certain tasks</h2>
+      <p>AIV Eco is our AI platform for using your own AI models, like ChatGPT, Claude and Gemini, in a way that is friendlier to water and the environment. It keeps answers short, reads fewer sources and answers in one pass, so each request needs less computing, less electricity and less cooling water.</p>
+      <p class="eco-note" style="margin:0 0 4px">Estimated from published research on AI energy and water use. Not yet measured directly or independently verified.</p>
+      <div class="eco-btns" style="margin-top:20px"><a class="btn dark" href="aiv-eco.html">Read the AIV Eco research</a><a class="btn pill" href="https://aiv-eco.com" target="_blank" rel="noopener">Open AIV Eco</a></div>
+    </div>
+    <figure class="eco-fig" aria-labelledby="ecoC2r">
+      <h3 id="ecoC2r">Estimated water use per task, standard AI use compared with AIV Eco</h3>
+      <p class="sub">Index: standard use = 100. Lower is better. Estimates, not measurements.</p>
+      <div class="eco-legend" aria-hidden="true"><span><i style="background:var(--c-std)"></i>Standard AI use</span><span><i style="background:var(--c-eco)"></i>AIV Eco (estimated)</span></div>
+      <div class="eco-rows">
+        <div class="eco-row"><div class="lab">Quick question<small>One short answer</small></div><div class="eco-bars"><div class="eco-bar std" title="100"><i style="width:60.0%"></i><span>100</span></div><div class="eco-bar eco" title="100 about the same"><i style="width:60.0%"></i><span>100 <em>about the same</em></span></div></div></div>
+        <div class="eco-row"><div class="lab">Explanation or summary<small>Long answer made concise</small></div><div class="eco-bars"><div class="eco-bar std" title="100"><i style="width:60.0%"></i><span>100</span></div><div class="eco-bar eco" title="42 about 60% less"><i style="width:25.2%"></i><span>42 <em>about 60% less</em></span></div></div></div>
+        <div class="eco-row"><div class="lab">Web research<small>Many sources, long report</small></div><div class="eco-bars"><div class="eco-bar std" title="100"><i style="width:60.0%"></i><span>100</span></div><div class="eco-bar eco" title="15 about 85% less"><i style="width:9.0%"></i><span>15 <em>about 85% less</em></span></div></div></div>
+        <div class="eco-row"><div class="lab">Deep reasoning<small>Repeated thinking passes</small></div><div class="eco-bars"><div class="eco-bar std" title="100"><i style="width:60.0%"></i><span>100</span></div><div class="eco-bar eco" title="14 about 85 to 90% less"><i style="width:8.4%"></i><span>14 <em>about 85 to 90% less</em></span></div></div></div>
+      </div>
+    </figure>
   </section>
 
   <h2 class="rs-h" id="models">Our models</h2>
@@ -309,7 +394,7 @@ main.legal{padding-bottom:96px}
     <div class="foot">
       <a class="brand" href="index.html"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
+        <a href="index.html">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="index.html#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="aiv-eco.html">AIV Eco</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="index.html#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice.</p>

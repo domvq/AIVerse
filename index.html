@@ -280,6 +280,32 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
 
 /* phones: tapping a text box never zooms the page (iOS zooms text under 16px) */
 @media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}
+
+/* AIV Eco feature: black and white, with green as the accent */
+.eco-mark{height:1em;width:auto;display:block;overflow:visible}
+.ecopromo{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center;border-radius:22px;padding:44px;margin-top:16px;background:var(--card);color:var(--fg);border:1px solid var(--line);position:relative;overflow:hidden}
+.ecopromo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--eco-green)}
+.ecopromo .ecologo{display:block;font-size:44px;line-height:0;color:var(--fg);margin-bottom:22px}
+.ecopromo h2{font:500 clamp(30px,3.6vw,44px)/1.08 var(--display);letter-spacing:-.03em;margin:0;color:var(--fg)}
+.ecopromo h2 em{font-style:normal;color:var(--eco-green)}
+.ecopromo p{color:var(--muted);max-width:48ch;margin:16px 0 0}
+.ecopromo .btn{background:var(--ink-btn);color:var(--ink-btn-fg)}
+.ecopromo .btn:hover{opacity:.9}
+.ecopromo .btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.ecopromo .btn.ghost:hover{background:var(--pill)}
+.ecopromo ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.ecopromo li{border-top:1px solid var(--line);padding:12px 0 0 26px;color:var(--fg);font-size:15px;position:relative}
+.ecopromo li::before{content:"";position:absolute;left:2px;top:17px;width:12px;height:6px;border-left:2px solid var(--eco-green);border-bottom:2px solid var(--eco-green);transform:rotate(-45deg)}
+.ecopromo li b{font-weight:500}
+.ecopromo .note{font-size:12.5px;color:var(--muted);margin-top:14px}
+.ecopromo .btn:focus-visible{outline:2px solid var(--eco-green);outline-offset:2px}
+@media (max-width:900px){.ecopromo{grid-template-columns:1fr;padding:32px 24px;gap:24px}}
+.ecopromo+.promo{margin-top:24px}
+
+/* AIV Eco logo colors: "AIV" follows the text color, "Eco" is green */
+:root{--eco-green:#16a34a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--eco-green:#22c55e}}
+[data-theme="dark"]{--eco-green:#22c55e}
 </style>
 </head>
 <body>
@@ -354,6 +380,24 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
         <li>Image creation and building AI apps</li>
         <li>Memory, and every AI Verse app built in</li>
       </ul>
+    </section>
+
+    <section class="ecopromo" id="aiveco" aria-labelledby="ecoTitle">
+      <div>
+        <span class="ecologo"><svg class="eco-mark" viewBox="70 200 1660 630" fill="none" role="img" aria-label="AIV Eco"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48"><path d="M125 640 L283 388 L430 640"/><path d="M256 557 H300"/><path d="M525 392 V640"/><path d="M625 392 L765 642 L905 392"/></g><text x="1010" y="640" style="fill:var(--eco-green,#16a34a)" font-family="Geist,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="350" font-weight="600" letter-spacing="-6">Eco</text></svg></span>
+        <h2 id="ecoTitle">AIV Eco: the AI that uses <em>less water</em></h2>
+        <p>Use your favorite AI models, like ChatGPT, Claude and Gemini, in a platform built around water and the environment. AIV Eco keeps answers short, reads fewer sources and answers in one pass, so every request needs less computing, less electricity and less cooling water.</p>
+        <div class="promo-cta"><a class="btn" href="https://aiv-eco.com" target="_blank" rel="noopener">Open AIV Eco <svg><use href="#arrow"/></svg></a><a class="btn ghost" href="aiv-eco.html">See the research</a></div>
+      </div>
+      <div>
+        <ul>
+          <li><b>Up to 60–90% less water</b> on certain tasks (our estimate)</li>
+          <li><b>Your own AI models</b>, or start free with AIV and no key</li>
+          <li><b>Short, focused answers</b> with fewer sources</li>
+          <li><b>Impact view</b> that shows your estimated footprint</li>
+        </ul>
+        <p class="note">Savings are estimates for tasks like research and long reports, based on published research. Quick questions save little.</p>
+      </div>
     </section>
 
     <section class="promo" id="builderPromo" aria-labelledby="promoTitle">
@@ -473,7 +517,7 @@ header.sitehead{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;flex:
     <div class="foot">
       <a class="brand" href="#top"><svg viewBox="0 0 1044 394" role="img" aria-label="AIV logo"><use href="#aiv"/></svg><span>AI Verse</span></a>
       <nav aria-label="Footer">
-        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="#setup">Key setup</a>
+        <a href="#top">Home</a><a href="chat.html">Ask AIV</a><a href="ai-business.html">AI Business</a><a href="introducing-aiv-x.html">AIV X</a><a href="data.html">Data</a><a href="#apps">Apps</a><a href="api.html">API</a><a href="mcp.html">MCP</a><a href="contact.html">Contact</a><a href="research.html">Research</a><a href="aiv-eco.html">AIV Eco</a><a href="partners.html">Partners</a><a href="about.html">About</a><a href="guides.html">Guides</a><a href="updates.html">Updates</a><a href="press.html">Press</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="terms.html#refunds">Refunds</a><a href="#setup">Key setup</a>
       </nav>
     </div>
     <p class="fine">© 2026 AI Verse · team@aiverse.it.com. Our tools give general information and education. They are not financial, medical, legal or tax advice. Market forecasts are probabilities, not promises. Groq is a trademark of its owner; AI Verse is not affiliated with Groq.</p>
