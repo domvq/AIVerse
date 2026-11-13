@@ -13,6 +13,8 @@
   var AIVX_ORIGINS = [
     "https://aiv-x.com",
     "https://www.aiv-x.com",
+    "https://aiv-eco.com",
+    "https://www.aiv-eco.com",
     "https://domvq.github.io",
     "http://localhost:8000",
     "http://127.0.0.1:8000"
