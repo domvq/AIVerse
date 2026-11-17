@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="A free AI personal assistant that plans your day, manages your calendar, reminders and tasks, plans trips and drafts emails. Includes 20 free AI uses a day.">
 <meta name="twitter:image" content="https://aiverse.it.com/icons/og-image.jpg">
 <meta name="twitter:image:alt" content="AI Personal Assistant by AI Verse">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","alternateName":"AIV","url":"https://aiverse.it.com/","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"WebApplication","name":"AI Personal Assistant","url":"https://aiverse.it.com/apps/ai-personal-assistant.html","applicationCategory":"LifestyleApplication","operatingSystem":"Web browser","description":"A free AI personal assistant that plans your day, manages your calendar, reminders and tasks, plans trips and drafts emails. Includes 20 free AI uses a day.","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"20 free AI uses per day"},"publisher":{"@id":"https://aiverse.it.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"AI Personal Assistant","item":"https://aiverse.it.com/apps/ai-personal-assistant.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","legalName":"AI Verse, LLC","alternateName":"AIV","url":"https://aiverse.it.com/","foundingDate":"2026-11-09","foundingLocation":"California","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"WebApplication","name":"AI Personal Assistant","url":"https://aiverse.it.com/apps/ai-personal-assistant.html","applicationCategory":"LifestyleApplication","operatingSystem":"Web browser","description":"A free AI personal assistant that plans your day, manages your calendar, reminders and tasks, plans trips and drafts emails. Includes 20 free AI uses a day.","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"20 free AI uses per day"},"publisher":{"@id":"https://aiverse.it.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"AI Personal Assistant","item":"https://aiverse.it.com/apps/ai-personal-assistant.html"}]}]}</script>
 <meta name="theme-color" content="#2d6a5a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232d6a5a'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='white' font-family='Georgia,serif'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,7 +269,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <body>
 <div class="app">
 <aside id="nav" aria-label="Main navigation">
- <div class="brand"><span class="logo">P</span><div><b>AI Personal Assistant</b><small>Plans, tasks, and reminders</small></div></div>
+ <div class="brand"><span class="logo">P</span><div><b>AI Personal Assistant</b><small>Plans and tasks</small></div></div>
  <nav>
   <div class="navgroup">Plan</div>
   <a href="#today" data-nav="today"><span data-ic="sun"></span>Today</a>
@@ -304,12 +304,12 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <button class="btn ghost sm menu" id="btnMenu" aria-label="Open menu">☰</button>
   <form class="cmd" id="cmdForm" autocomplete="off">
    <span data-ic="spark"></span>
-   <input id="cmdIn" aria-label="Command" placeholder="Ask or tell it what to do — “dentist Tuesday 3pm”, “what's due this week?”">
+   <input id="cmdIn" aria-label="Command" placeholder="Ask or tell">
    <button type="button" class="mic-btn" id="cmdMic" title="Speak a command" aria-label="Speak a command"></button>
   </form>
   <button class="aibadge off" id="aiBadge" type="button" title="AI provider">AI off</button>
  </div>
- <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of AI Personal Assistant</b><span>An AIV API key runs every AI Verse app on full-strength AI. One key, every app, no extra setup.</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
+ <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of AI Personal Assistant</b><span>Full-strength AI</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
  <div class="card cmdres" id="cmdRes" hidden></div>
 
  <!-- TODAY -->
@@ -317,7 +317,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <header class="vh"><div><h1 id="greet">Hello</h1><p class="sub" id="todayDate"></p></div>
    <div class="row"><button class="btn primary" id="btnBrief"><span data-ic="spark"></span><span>Daily briefing</span></button></div></header>
   <div class="card banner" id="setupBanner" hidden>
-   <b>Welcome to AI Personal Assistant.</b> Everything works without AI, but to turn on the smart features <a href="#settings">pick an AI provider in Settings</a> — a free Groq key, your own API key, a model on your computer, or one that runs right in your browser.
+   <a href="#settings">Set up AI</a>
   </div>
   <div class="stats" id="stats"></div>
   <div class="card brief" id="briefCard" hidden>
@@ -334,10 +334,10 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- PLANNER -->
  <section class="view" id="v-planner">
-  <header class="vh"><div><h1>Daily planner</h1><p class="sub">AI Personal Assistant builds a time-blocked day around your fixed events, priorities, deadlines and energy.</p></div></header>
+  <header class="vh"><div><h1>Daily planner</h1><p class="sub">Time-blocked day</p></div></header>
   <div class="card">
    <div class="form-row"><label>Day<input type="date" id="planDate"></label><label>Day starts<input type="time" id="planStart"></label><label>Day ends<input type="time" id="planEnd"></label></div>
-   <label>Anything to factor in?<span class="dict"><textarea id="planNotes" rows="3" placeholder="e.g. Low energy after lunch, gym sometime, need 2 focused hours for the grant report, pick up kids at 3:30"></textarea><button type="button" class="mic-btn" data-dictate="planNotes" aria-label="Dictate"></button></span></label>
+   <label>Anything to factor in?<span class="dict"><textarea id="planNotes" rows="3" placeholder="Notes for today"></textarea><button type="button" class="mic-btn" data-dictate="planNotes" aria-label="Dictate"></button></span></label>
    <label class="check"><input type="checkbox" id="planBreaks" checked> Include breaks and a meal</label>
    <div class="row wrap" style="margin-top:8px"><button class="btn primary" id="btnPlan"><span data-ic="spark"></span><span>Build my day</span></button><span class="hint" id="planCtx"></span></div>
   </div>
@@ -352,7 +352,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- CALENDAR -->
  <section class="view" id="v-calendar">
-  <header class="vh"><div><h1 id="calTitle">Calendar</h1><p class="sub">Events, appointments, birthdays and task due dates in one place.</p></div>
+  <header class="vh"><div><h1 id="calTitle">Calendar</h1><p class="sub">All your dates</p></div>
    <div class="row wrap"><button class="btn ghost sm" id="calPrev" aria-label="Previous month">‹</button><button class="btn ghost sm" id="calToday">Today</button><button class="btn ghost sm" id="calNext" aria-label="Next month">›</button><button class="btn ghost sm" id="btnGcalSync" hidden>Sync Google</button><button class="btn sm" id="btnFindTime">Find a time</button><button class="btn primary sm" id="btnAddEvent">+ Event</button></div></header>
   <div class="cal-wrap">
    <div class="cal" id="calGrid"></div>
@@ -362,9 +362,9 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- TASKS -->
  <section class="view" id="v-tasks">
-  <header class="vh"><div><h1>Tasks</h1><p class="sub">Capture everything, then let AI Personal Assistant rank it by urgency, impact and effort.</p></div><div class="row"><button class="btn primary" id="btnPrioritize"><span data-ic="spark"></span><span>Prioritize</span></button></div></header>
+  <header class="vh"><div><h1>Tasks</h1><p class="sub">Ranked by AI</p></div><div class="row"><button class="btn primary" id="btnPrioritize"><span data-ic="spark"></span><span>Prioritize</span></button></div></header>
   <form class="card addbar" id="taskQuick" autocomplete="off">
-   <input id="taskQuickIn" aria-label="New task" placeholder="Add a task… “Submit expense report by Friday, high priority, 30 min”">
+   <input id="taskQuickIn" aria-label="New task" placeholder="Add a task">
    <button type="button" class="mic-btn" data-dictate="taskQuickIn" aria-label="Dictate"></button>
    <button class="btn primary sm" type="submit">Add</button><button class="btn ghost sm" type="button" id="btnTaskForm">Details…</button>
   </form>
@@ -375,9 +375,9 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- REMINDERS -->
  <section class="view" id="v-reminders">
-  <header class="vh"><div><h1>Reminders &amp; dates</h1><p class="sub">Timed reminders, follow-ups, birthdays and anniversaries.</p></div><div class="row"><button class="btn ghost sm" id="btnNotif">Enable notifications</button></div></header>
+  <header class="vh"><div><h1>Reminders &amp; dates</h1><p class="sub">Reminders and dates</p></div><div class="row"><button class="btn ghost sm" id="btnNotif">Enable notifications</button></div></header>
   <form class="card addbar" id="remQuick" autocomplete="off">
-   <input id="remQuickIn" aria-label="New reminder" placeholder="“Remind me to call the pharmacy tomorrow at 9am”">
+   <input id="remQuickIn" aria-label="New reminder" placeholder="Add a reminder">
    <button type="button" class="mic-btn" data-dictate="remQuickIn" aria-label="Dictate"></button>
    <button class="btn primary sm" type="submit">Add</button><button class="btn ghost sm" type="button" id="btnRemForm">Details…</button>
   </form>
@@ -385,18 +385,18 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
    <div class="card"><div class="card-h"><h3>Reminders &amp; follow-ups</h3></div><div id="remList" class="list"></div></div>
    <div class="card"><div class="card-h"><h3>Birthdays &amp; important dates</h3><button class="btn ghost sm" id="btnAddDate">+ Add</button></div><div id="dateList" class="list"></div></div>
   </div>
-  <p class="hint">Reminders alert you with a sound, an on-screen banner and a system notification while AI Personal Assistant is open in a browser tab (a pinned tab works well). Event reminders use the lead time set on each event.</p>
+  <p class="hint">Keep tab open</p>
  </section>
 
  <!-- TRAVEL -->
  <section class="view" id="v-travel">
-  <header class="vh"><div><h1>Travel &amp; events</h1><p class="sub">Itineraries, prep checklists, packing lists and budgets — then push them to your calendar and tasks.</p></div></header>
+  <header class="vh"><div><h1>Travel &amp; events</h1><p class="sub">Plan any trip</p></div></header>
   <div class="card">
    <div class="seg" id="travKind"><button data-k="trip" class="on" type="button">Trip</button><button data-k="event" type="button">Event or party</button></div>
    <div class="form-row"><label><span id="travWhatL">Destination</span><input id="travWhat" placeholder="Lisbon, Portugal"></label><label id="travFromL">Traveling from<input id="travFrom" placeholder="Your home city"></label></div>
    <div class="form-row"><label>Start<input type="date" id="travStart"></label><label>End<input type="date" id="travEnd"></label><label>People<input type="number" id="travPeople" min="1" value="1"></label><label>Budget<input id="travBudget" placeholder="$1,500 total"></label></div>
-   <label>Interests, must-haves, constraints<span class="dict"><textarea id="travNotes" rows="2" placeholder="Food, museums, slow mornings, one day trip, kid-friendly, step-free access…"></textarea><button type="button" class="mic-btn" data-dictate="travNotes" aria-label="Dictate"></button></span></label>
-   <div class="row"><button class="btn primary" id="btnTravPlan"><span data-ic="spark"></span><span>Plan it</span></button><span class="hint">Prices, hours and availability are estimates — confirm before booking.</span></div>
+   <label>Interests, must-haves, constraints<span class="dict"><textarea id="travNotes" rows="2" placeholder="Trip preferences"></textarea><button type="button" class="mic-btn" data-dictate="travNotes" aria-label="Dictate"></button></span></label>
+   <div class="row"><button class="btn primary" id="btnTravPlan"><span data-ic="spark"></span><span>Plan it</span></button><span class="hint">Confirm before booking</span></div>
   </div>
   <div id="travOut"></div>
   <div class="card"><div class="card-h"><h3>Saved plans</h3></div><div id="travSaved" class="list"></div></div>
@@ -404,16 +404,16 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- INBOX -->
  <section class="view" id="v-inbox">
-  <header class="vh"><div><h1>Inbox</h1><p class="sub">AI triage, summaries, replies, follow-ups and spam filtering for Gmail.</p></div><div class="row"><button class="btn ghost sm" id="btnInboxRefresh" hidden>Refresh</button><button class="btn primary sm" id="btnGConnect2">Connect Gmail</button></div></header>
+  <header class="vh"><div><h1>Inbox</h1><p class="sub">AI inbox triage</p></div><div class="row"><button class="btn ghost sm" id="btnInboxRefresh" hidden>Refresh</button><button class="btn primary sm" id="btnGConnect2">Connect Gmail</button></div></header>
   <div class="card" id="inboxConnect">
    <h3>Connect your Gmail</h3>
-   <p class="sub">AI Personal Assistant reads your 25 most recent inbox messages, sorts them into important, needs-reply, promotions and likely spam, summarizes each one, drafts replies into your Gmail drafts folder, and sets follow-up reminders. It never sends email on its own. Requires a Google OAuth Client ID in <a href="#settings">Settings</a>. No Gmail? Paste an email below.</p>
+   <p class="sub">Sorts your inbox</p>
   </div>
   <div class="seg" id="inboxFilter" hidden></div>
   <div class="inbox-wrap solo" id="inboxWrap"><div id="inboxList" class="list"></div><div id="inboxDetail" class="card" hidden></div></div>
   <details class="card" id="pasteBox" style="margin-top:16px">
-   <summary>Paste an email (works without Gmail)</summary>
-   <label>Email text<textarea id="pasteEmail" rows="6" placeholder="Paste the full email, including who it's from"></textarea></label>
+   <summary>Paste an email</summary>
+   <label>Email text<textarea id="pasteEmail" rows="6" placeholder="Paste the email"></textarea></label>
    <div class="form-row"><label>Reply tone<select id="pasteTone"></select></label><label>What do you want to say?<input id="pasteIntent" placeholder="optional"></label></div>
    <div class="row wrap"><button class="btn sm" id="btnPasteSum">Summarize</button><button class="btn primary sm" id="btnPasteReply">Draft reply</button><button class="btn ghost sm" id="btnPasteFollow">Set follow-up</button></div>
    <div id="pasteOut" class="out"></div>
@@ -422,34 +422,34 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- COMPOSE -->
  <section class="view" id="v-compose">
-  <header class="vh"><div><h1>Write &amp; translate</h1><p class="sub">Emails, texts, polish, translation and voice-to-text.</p></div></header>
+  <header class="vh"><div><h1>Write &amp; translate</h1><p class="sub">Write anything</p></div></header>
   <div class="seg" id="compTabs"><button data-t="email" class="on">Email</button><button data-t="text">Text message</button><button data-t="polish">Polish</button><button data-t="translate">Translate</button><button data-t="dictate">Voice-to-text</button></div>
   <div class="card">
    <div data-pane="email">
-    <div class="form-row"><label>To<input id="ceTo" placeholder="e.g. my manager, Dr. Patel's office, a new client"></label><label>Tone<select id="ceTone"></select></label><label>Length<select id="ceLen"><option>Short</option><option selected>Medium</option><option>Detailed</option></select></label></div>
-    <label>Replying to (optional)<textarea id="ceCtx" rows="3" placeholder="Paste the message you're answering"></textarea></label>
-    <label>What do you want to say?<span class="dict"><textarea id="ceIntent" rows="3" placeholder="Ask to move Thursday's meeting to next week and share the updated budget"></textarea><button type="button" class="mic-btn" data-dictate="ceIntent" aria-label="Dictate"></button></span></label>
+    <div class="form-row"><label>To<input id="ceTo" placeholder="Recipient"></label><label>Tone<select id="ceTone"></select></label><label>Length<select id="ceLen"><option>Short</option><option selected>Medium</option><option>Detailed</option></select></label></div>
+    <label>Replying to (optional)<textarea id="ceCtx" rows="3" placeholder="Paste the message"></textarea></label>
+    <label>What do you want to say?<span class="dict"><textarea id="ceIntent" rows="3" placeholder="What to say"></textarea><button type="button" class="mic-btn" data-dictate="ceIntent" aria-label="Dictate"></button></span></label>
     <button class="btn primary" id="btnCe"><span data-ic="spark"></span><span>Draft email</span></button>
    </div>
    <div data-pane="text" hidden>
-    <div class="form-row"><label>Who's it to?<input id="ctTo" placeholder="e.g. my landlord, Sam (close friend), my team"></label><label>Tone<select id="ctTone"><option>Casual</option><option>Warm</option><option>Professional</option><option>Funny</option><option>Apologetic</option><option>Firm</option></select></label></div>
-    <label>What do you want to say?<span class="dict"><textarea id="ctIntent" rows="3" placeholder="Running 15 minutes late, start without me"></textarea><button type="button" class="mic-btn" data-dictate="ctIntent" aria-label="Dictate"></button></span></label>
+    <div class="form-row"><label>Who's it to?<input id="ctTo" placeholder="Recipient"></label><label>Tone<select id="ctTone"><option>Casual</option><option>Warm</option><option>Professional</option><option>Funny</option><option>Apologetic</option><option>Firm</option></select></label></div>
+    <label>What do you want to say?<span class="dict"><textarea id="ctIntent" rows="3" placeholder="What to say"></textarea><button type="button" class="mic-btn" data-dictate="ctIntent" aria-label="Dictate"></button></span></label>
     <button class="btn primary" id="btnCt"><span data-ic="spark"></span><span>Draft texts</span></button>
    </div>
    <div data-pane="polish" hidden>
-    <label>Your draft<span class="dict"><textarea id="cpIn" rows="6" placeholder="Paste anything — an email, a message, a LinkedIn post"></textarea><button type="button" class="mic-btn" data-dictate="cpIn" aria-label="Dictate"></button></span></label>
+    <label>Your draft<span class="dict"><textarea id="cpIn" rows="6" placeholder="Paste your text"></textarea><button type="button" class="mic-btn" data-dictate="cpIn" aria-label="Dictate"></button></span></label>
     <div class="form-row"><label>Make it…<select id="cpMode"><option>Professional and polished</option><option>Clear and concise</option><option>Warmer and friendlier</option><option>More confident and assertive</option><option>Diplomatic (tricky situation)</option><option>Fix grammar and spelling only</option></select></label></div>
     <button class="btn primary" id="btnCp"><span data-ic="spark"></span><span>Polish</span></button>
    </div>
    <div data-pane="translate" hidden>
-    <label>Text<span class="dict"><textarea id="ctrIn" rows="5" placeholder="Type, paste or dictate"></textarea><button type="button" class="mic-btn" data-dictate="ctrIn" aria-label="Dictate"></button></span></label>
-    <div class="form-row"><label>Into<select id="ctrLang"></select></label><label id="ctrOtherL" hidden>Language<input id="ctrOther" placeholder="e.g. Swahili"></label><label>Register<select id="ctrReg"><option>Natural</option><option>Formal</option><option>Casual</option></select></label></div>
+    <label>Text<span class="dict"><textarea id="ctrIn" rows="5" placeholder="Type or dictate"></textarea><button type="button" class="mic-btn" data-dictate="ctrIn" aria-label="Dictate"></button></span></label>
+    <div class="form-row"><label>Into<select id="ctrLang"></select></label><label id="ctrOtherL" hidden>Language<input id="ctrOther" placeholder="Language"></label><label>Register<select id="ctrReg"><option>Natural</option><option>Formal</option><option>Casual</option></select></label></div>
     <button class="btn primary" id="btnCtr"><span data-ic="spark"></span><span>Translate</span></button>
    </div>
    <div data-pane="dictate" hidden class="center">
     <button class="bigmic" id="dicBtn" aria-label="Start dictation"><span data-ic="mic"></span></button>
-    <p class="hint" id="dicStatus">Tap to start talking. Tap again to stop.</p>
-    <textarea id="dicText" rows="8" placeholder="Your words appear here"></textarea>
+    <p class="hint" id="dicStatus">Tap to talk</p>
+    <textarea id="dicText" rows="8" placeholder="Your words"></textarea>
     <div class="row wrap" style="justify-content:center;margin-top:10px"><button class="btn sm" id="dicClean"><span data-ic="spark"></span><span>Clean up</span></button><button class="btn ghost sm" data-copy="#dicText">Copy</button><button class="btn ghost sm" data-send="email">→ Email</button><button class="btn ghost sm" data-send="text">→ Text</button><button class="btn ghost sm" data-send="polish">→ Polish</button><button class="btn ghost sm" data-send="translate">→ Translate</button><button class="btn ghost sm" id="dicClear">Clear</button></div>
    </div>
    <div id="compOut" class="out"></div>
@@ -458,12 +458,12 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- MEETINGS -->
  <section class="view" id="v-meetings">
-  <header class="vh"><div><h1>Meeting summaries</h1><p class="sub">Record or paste a meeting — get the summary, decisions, action items and a follow-up email.</p></div></header>
+  <header class="vh"><div><h1>Meeting summaries</h1><p class="sub">Summaries and actions</p></div></header>
   <div class="card">
    <div class="form-row"><label>Meeting<input id="mtTitle" placeholder="Weekly team sync"></label><label>Date<input id="mtDate" type="date"></label></div>
-   <label>Transcript or notes<textarea id="mtText" rows="8" placeholder="Paste a transcript or rough notes, or record the meeting below"></textarea></label>
+   <label>Transcript or notes<textarea id="mtText" rows="8" placeholder="Paste meeting notes"></textarea></label>
    <div class="row wrap"><button class="btn" id="btnMtRec"><span data-ic="mic"></span><span>Record</span></button><span class="hint" id="mtRecStatus"></span><span style="flex:1"></span><button class="btn primary" id="btnMtSum"><span data-ic="spark"></span><span>Summarize</span></button></div>
-   <p class="hint">Recordings are transcribed with Whisper when your AI provider offers it (about 45 minutes per recording), otherwise live in the browser. Make sure everyone knows they're being recorded.</p>
+   <p class="hint">Get recording consent</p>
   </div>
   <div id="mtOut"></div>
   <div class="card"><div class="card-h"><h3>Past meetings</h3></div><div id="mtList" class="list"></div></div>
@@ -471,51 +471,51 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 
  <!-- SETTINGS -->
  <section class="view" id="v-settings">
-  <header class="vh"><div><h1>Settings</h1><p class="sub">Everything is stored in this browser only.</p></div></header>
+  <header class="vh"><div><h1>Settings</h1><p class="sub">Stored in browser</p></div></header>
   <div class="card">
    <h3>About you</h3><br>
-   <div class="form-row"><label>Your name<input data-set="name" placeholder="Used to sign emails and greet you"></label><label>Workday starts<input type="time" data-set="workStart"></label><label>Workday ends<input type="time" data-set="workEnd"></label></div>
+   <div class="form-row"><label>Your name<input data-set="name" placeholder="Your name"></label><label>Workday starts<input type="time" data-set="workStart"></label><label>Workday ends<input type="time" data-set="workEnd"></label></div>
    <div class="form-row"><label>Default event reminder<select data-set="remindDefault" id="setRemind"></select></label><label>Preferred translation language<select data-set="lang" id="setLang"></select></label></div>
-   <label class="check"><input type="checkbox" data-set="speak"> Speak answers aloud when I use voice commands</label>
+   <label class="check"><input type="checkbox" data-set="speak"> Speak answers aloud</label>
   </div>
   <div class="card" id="aiCard">
    <h3>AI provider</h3>
-   <p class="sub">Choose where AI Personal Assistant's AI runs. Keys stay in this browser and are only sent to the service you pick.</p><br>
+   <p class="sub">Keys stay private</p><br>
    <div class="seg" id="provSeg"><button type="button" data-p="free">Free</button><button type="button" data-p="aiv">AIV key</button><button type="button" data-p="groq">Groq key</button><button type="button" data-p="custom">Other API key</button><button type="button" data-p="local">Local model</button><button type="button" data-p="browser">In-browser</button></div>
    <div data-prov="free">
-    <p class="sub">Free AI from AI Verse, ready to use with no key. Every app includes 20 free daily uses of AI. For unlimited, full-strength AI, <a href="../api.html#plans" target="_blank" rel="noopener">get an AIV key</a>.</p>
+    <p class="sub">No key needed</p>
    </div>
    <div data-prov="aiv">
-    <p class="sub">Full-strength AI from AI Verse, recommended for full use. One key works in every AI Verse app. <a href="../api.html#plans" target="_blank" rel="noopener">Get an AIV key</a></p><br>
+    <p class="sub">Full-strength AI</p><br>
     <label>AIV API key<span class="row"><input type="password" data-set="aivKey" id="setAivKey" placeholder="aiv_live_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setAivKey">Show</button></span></label>
     <label>Model<select data-set="aivModel" id="aivModel"><option value="aiv-1">aiv-1: best quality</option><option value="aiv-1-mini">aiv-1-mini: fastest</option></select></label>
    </div>
    <div data-prov="groq">
-    <p class="sub">Free tier, recommended for testing. Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
+    <p class="sub">Get a key: <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p><br>
     <label>Groq API key<span class="row"><input type="password" data-set="groqKey" id="setKey" placeholder="gsk_…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#setKey">Show</button></span></label>
     <label>Model<input data-set="model" list="modelList" placeholder="openai/gpt-oss-120b" autocomplete="off"></label>
    </div>
    <div data-prov="custom">
-    <p class="sub">Use your own key from any OpenAI-compatible service. A few services block requests from web pages — Test connection will tell you.</p><br>
+    <p class="sub">Bring your key</p><br>
     <div class="form-row"><label>Service<select data-set="customPreset" id="customPreset"></select></label><label>API URL<input data-set="customBase" id="customBase" placeholder="https://api.example.com/v1" autocomplete="off"></label></div>
     <label>API key<span class="row"><input type="password" data-set="customKey" id="customKey" placeholder="sk-…" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other"><button class="btn ghost sm" type="button" data-show="#customKey">Show</button></span></label>
-    <label>Model<input data-set="customModel" list="modelList" placeholder="Click Test connection to list models" autocomplete="off"></label>
+    <label>Model<input data-set="customModel" list="modelList" placeholder="Test connection first" autocomplete="off"></label>
    </div>
    <div data-prov="local">
-    <p class="sub">Run a model on your own computer with Ollama or LM Studio. Nothing leaves your machine. Works on the computer running the model.</p><br>
+    <p class="sub">Runs locally</p><br>
     <div class="form-row"><label>Server<select id="localPreset"><option value="http://localhost:11434/v1">Ollama</option><option value="http://localhost:1234/v1">LM Studio</option><option value="">Custom address</option></select></label><label>Server URL<input data-set="localBase" id="localBase" autocomplete="off"></label></div>
-    <label>Model<input data-set="localModel" list="modelList" placeholder="e.g. qwen3:8b — click Test connection to list" autocomplete="off"></label>
+    <label>Model<input data-set="localModel" list="modelList" placeholder="Model name" autocomplete="off"></label>
     <details><summary>Setup</summary>
      <p class="sub"><b>Ollama</b></p>
      <ol class="steps"><li>Install from <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a> and download a model, e.g. <code>ollama pull qwen3:8b</code> (7–8B models or larger work best for planning and email).</li>
      <li>Allow this site to talk to Ollama by setting <code>OLLAMA_ORIGINS</code> to <code class="originCode"></code>, then restart Ollama.<br>Mac: <code>launchctl setenv OLLAMA_ORIGINS "<span class="originCode"></span>"</code> · Windows: add it under System → Environment Variables · Linux: <code>OLLAMA_ORIGINS=<span class="originCode"></span> ollama serve</code></li></ol>
      <p class="sub"><b>LM Studio</b></p>
      <ol class="steps"><li>Load a model, open the Developer tab and start the server.</li><li>Turn on <b>Enable CORS</b> in the server settings.</li></ol>
-     <p class="hint">If your browser asks to let this site access devices on your local network, allow it.</p>
+     <p class="hint">Allow local access</p>
     </details>
    </div>
    <div data-prov="browser">
-    <p class="sub">A small model downloads once into this browser and runs on your graphics card — fully private, and it works offline afterwards. Needs Chrome or Edge with WebGPU. Answers are simpler than cloud models.</p><br>
+    <p class="sub">Private, works offline</p><br>
     <label>Model<select data-set="webllmModel" id="webllmModel"></select></label>
     <div class="row wrap"><button class="btn sm" type="button" id="btnLoadLLM">Download &amp; load model</button><span class="hint" id="llmStatus"></span></div>
    </div>
@@ -525,10 +525,10 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   </div>
   <div class="card">
    <h3>Google — Gmail &amp; Calendar</h3>
-   <p class="sub">Optional. Lets AI Personal Assistant read and triage your inbox, save reply drafts, move spam, and sync Google Calendar.</p><br>
+   <p class="sub">Optional</p><br>
    <label>Google OAuth Client ID<input data-set="googleClientId" placeholder="1234-abc.apps.googleusercontent.com"></label>
    <div class="row wrap"><button class="btn sm" id="btnGConnect">Connect Google</button><span class="hint" id="gStatus"></span></div>
-   <details style="margin-top:12px"><summary>How to get a Client ID (about 5 minutes)</summary>
+   <details style="margin-top:12px"><summary>How to connect</summary>
     <ol class="steps">
      <li>Open <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Console</a> and create a project.</li>
      <li>Under <b>APIs &amp; Services → Library</b>, enable the <b>Gmail API</b> and <b>Google Calendar API</b>.</li>
@@ -536,7 +536,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
      <li>Under <b>Credentials → Create credentials → OAuth client ID</b>, pick <b>Web application</b> and add this site's address as an Authorized JavaScript origin: <code id="originHint"></code></li>
      <li>Copy the Client ID here and click Connect.</li>
     </ol>
-    <p class="hint">While the app is in "Testing" mode only the test users you add can sign in — perfect for personal use. Sign-in lasts about an hour per session; AI Personal Assistant asks again when needed.</p>
+    
    </details>
   </div>
   <div class="card">
@@ -546,9 +546,9 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   </div>
   <div class="card">
    <h3>Your data</h3>
-   <p class="sub">Back up or move your tasks, events, dates, plans and notes. Your API key is not included in exports.</p><br>
+   <p class="sub">Keys not included</p><br>
    <div class="row wrap"><button class="btn sm" id="btnExport">Export backup</button><label class="btn sm" style="margin:0;flex:none;color:var(--ink);font-size:13px">Import backup<input type="file" id="importFile" accept="application/json" hidden></label><button class="btn ghost sm danger" id="btnWipe">Erase everything</button></div>
-   <p class="hint" style="margin-top:12px">Privacy: text you send to AI features (tasks, events, email content, transcripts) goes to Groq for processing. Gmail and Calendar data go directly between your browser and Google.</p>
+   <p class="hint" style="margin-top:12px">See Privacy Policy</p>
   </div>
  </section>
 </main>
@@ -623,7 +623,7 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast(
 function toast(msg,{err=false,action,fn,ms=4500}={}){const el=document.createElement('div');el.className='toast'+(err?' err':'');el.innerHTML=`<span>${esc(msg)}</span>`;if(action){const b=document.createElement('button');b.textContent=action;b.onclick=()=>{el.remove();fn&&fn();};el.appendChild(b);}$('#toasts').appendChild(el);setTimeout(()=>el.remove(),action?9000:(err?7000:ms));}
 let actx;function beep(){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=880;g.gain.setValueAtTime(.0001,actx.currentTime);g.gain.exponentialRampToValueAtTime(.15,actx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.4);o.connect(g).connect(actx.destination);o.start();o.stop(actx.currentTime+.45);}catch(e){}}
 function notify(title,body){toast(title+(body?' — '+body:''),{ms:10000});beep();try{if('Notification'in window&&Notification.permission==='granted')new Notification(title,{body:body||'',tag:title});}catch(e){}}
-async function askNotif(){if(!('Notification'in window)){toast('This browser does not support notifications.',{err:true});return;}const p=await Notification.requestPermission();toast(p==='granted'?'Notifications are on.':'Notifications are blocked — you can allow them in your browser\'s site settings.',{err:p!=='granted'});refresh();}
+async function askNotif(){if(!('Notification'in window)){toast('This browser does not support notifications.',{err:true});return;}const p=await Notification.requestPermission();toast(p==='granted'?'Notifications are on.':'Notifications blocked',{err:p!=='granted'});refresh();}
 
 /* ---------- markdown-lite ---------- */
 function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
@@ -643,7 +643,7 @@ function freeSeen(r){const n=r.headers.get('X-Free-Remaining');if(n===null)retur
 function freeLimitHit(){const L=freeLeft().limit;S.freeLeft={date:new Date().toDateString(),n:0,limit:L};save();try{badge();}catch(e){}
  let d=document.getElementById('freeDlg');
  if(!d){d=document.createElement('dialog');d.id='freeDlg';d.className='freedlg';d.setAttribute('aria-labelledby','freeDlgT');
-  d.innerHTML=`<div class="fd-in"><b class="fd-t" id="freeDlgT">You've used today's free uses</b><p>${APP_TITLE} includes ${L} free daily uses, and you've used today's. Get an AIV key for unlimited, full-strength AI in every AI Verse app.</p><a class="fd-go" href="../api.html#plans" target="_top">Get AIV key</a><div class="fd-alt"><button type="button" data-fd="key">I have a key</button><button type="button" data-fd="close">Come back tomorrow</button></div></div>`;
+  d.innerHTML=`<div class="fd-in"><b class="fd-t" id="freeDlgT">Daily limit reached</b><a class="fd-go" href="../api.html#plans" target="_top">Get AIV key</a><div class="fd-alt"><button type="button" data-fd="key">I have a key</button><button type="button" data-fd="close">Come back tomorrow</button></div></div>`;
   document.body.appendChild(d);
   d.addEventListener('click',e=>{const b=e.target.closest('[data-fd]');if(!b)return;d.close();if(b.dataset.fd==='key'){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=document.getElementById('setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},150);}});}
  if(!d.open){try{d.showModal();}catch(e){d.setAttribute('open','');}}}
@@ -733,7 +733,7 @@ async function aiBadgeClick(){const p=prov(),m=S.settings.webllmModel||DEFAULT_W
  try{await ensureBrowserModel(m);}catch(e){toast(e.message||String(e),{err:true});}finally{skipAsk=false;try{badge();}catch(e){}}}
 document.addEventListener('click',e=>{if(e.target.closest('#aivPromoX')){try{sessionStorage.setItem('aivPromoHide','1');}catch(_){}promo();}else if(e.target.closest('#aivPromoAdd')){S.settings.provider='aiv';save();go('settings');setTimeout(()=>{const k=$('#setAivKey');if(k){k.scrollIntoView({block:'center'});k.focus();}},120);}});
 
-function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='aibadge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='aibadge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='aibadge';b.textContent=p==='free'?`${freeLeft().n} of ${freeLeft().limit} free daily uses left`:p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI on';b.title='AI provider settings';}}
+function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='aibadge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='aibadge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='aibadge';b.textContent=p==='free'?'AI on':p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI on';b.title='AI provider settings';}}
 setTimeout(()=>{const b=$('#aiBadge');if(b)b.onclick=aiBadgeClick;badge();setInterval(badge,2000);},0);
 
 async function ensureBrowserModel(model){
@@ -930,14 +930,14 @@ R.today=()=>{
  $('#todayDate').textContent=new Date().toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});
  {const bn=$('#setupBanner');const needDl=prov()==='browser'&&!!navigator.gpu&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();bn.hidden=hasAI()&&!needDl;if(needDl)bn.innerHTML=`<div class="row wrap between"><div><b>Turn on AI.</b> Download a small AI model (about ${modelSize(S.settings.webllmModel||DEFAULT_WEBLLM)}, one time) and AI Personal Assistant's smart features run privately on this device. <a href="#settings">Other options</a></div><button class="btn primary sm" id="btnBannerDl">Download AI model</button></div>`;const bd=$('#btnBannerDl');if(bd)bd.onclick=e=>run(e.currentTarget,()=>ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM));}
  const t=todayStr(),evs=eventsOn(t),due=S.tasks.filter(x=>!x.done&&x.due&&x.due<=t),rems=S.reminders.filter(r=>!r.done&&r.at.slice(0,10)<=t),dts=upcomingDates(7);
- $('#stats').innerHTML=[[evs.length,evs.length===1?'event today':'events today'],[due.length,'tasks due or overdue'],[rems.length,'reminders today'],[dts.length,'birthdays & dates this week']].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+ $('#stats').innerHTML=[[evs.length,evs.length===1?'event today':'events today'],[due.length,'tasks due'],[rems.length,'reminders today'],[dts.length,'dates this week']].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
  const cf=conflicts(t);
- $('#todayAgenda').innerHTML=(cf.length?`<p class="od" style="font-size:13px">Conflict: ${esc(cf.join('; '))}</p>`:'')+(evs.length?evs.map(e=>miniEvent(e,false)).join(''):'<p class="empty">Nothing scheduled today.</p>')+`<p style="margin:10px 0 0"><a href="#planner" class="hint">${S.plans[t]?'View today\'s plan →':'Build a plan for today →'}</a></p>`;
- const top=openTasks().slice(0,5);$('#todayTasks').innerHTML=top.length?top.map(taskItem).join(''):'<p class="empty">No open tasks. Add one with the bar above.</p>';
+ $('#todayAgenda').innerHTML=(cf.length?`<p class="od" style="font-size:13px">Conflict: ${esc(cf.join('; '))}</p>`:'')+(evs.length?evs.map(e=>miniEvent(e,false)).join(''):'<p class="empty">Nothing scheduled today.</p>')+`<p style="margin:10px 0 0"><a href="#planner" class="hint">${S.plans[t]?'View plan →':'Plan today →'}</a></p>`;
+ const top=openTasks().slice(0,5);$('#todayTasks').innerHTML=top.length?top.map(taskItem).join(''):'<p class="empty">No open tasks</p>';
  const soon=S.reminders.filter(r=>!r.done&&daysUntil(r.at)<=3).sort((a,b)=>a.at.localeCompare(b.at)).slice(0,5);const ds=upcomingDates(14).slice(0,4);
- $('#todayUpcoming').innerHTML=(soon.map(r=>`<div class="mini"><span class="time">${esc(relDay(r.at).replace(/^\w/,c=>c.toUpperCase()))}</span><div class="grow"><div class="t">${esc(r.title)}</div><div class="m">${fmtTime(r.at)}${r.type==='followup'?' · follow-up':''}</div></div></div>`).join('')+ds.map(d=>`<div class="mini"><span class="time">${d.in===0?'Today':d.in===1?'Tomorrow':'In '+d.in+'d'}</span><div class="grow"><div class="t">${esc(d.name)}'s ${esc(d.kind==='other'?'date':d.kind)}</div><div class="m">${d.next.toLocaleDateString([],{month:'short',day:'numeric'})}</div></div></div>`).join(''))||'<p class="empty">Nothing in the next few days.</p>';
+ $('#todayUpcoming').innerHTML=(soon.map(r=>`<div class="mini"><span class="time">${esc(relDay(r.at).replace(/^\w/,c=>c.toUpperCase()))}</span><div class="grow"><div class="t">${esc(r.title)}</div><div class="m">${fmtTime(r.at)}${r.type==='followup'?' · follow-up':''}</div></div></div>`).join('')+ds.map(d=>`<div class="mini"><span class="time">${d.in===0?'Today':d.in===1?'Tomorrow':'In '+d.in+'d'}</span><div class="grow"><div class="t">${esc(d.name)}'s ${esc(d.kind==='other'?'date':d.kind)}</div><div class="m">${d.next.toLocaleDateString([],{month:'short',day:'numeric'})}</div></div></div>`).join(''))||'<p class="empty">Nothing coming up</p>';
  const mails=mailSrc().filter(m=>m.ai&&(m.ai.needsReply||m.ai.priority===1)&&m.ai.category!=='spam').slice(0,5);
- $('#todayInbox').innerHTML=mails.length?mails.map(m=>`<div class="mini"><span class="time">${esc(shortDate(m.date))}</span><div class="grow"><div class="t">${esc(nameOf(m.from))}</div><div class="m">${esc(m.ai.summary||m.subject)}</div></div></div>`).join(''):`<p class="empty">${S.settings.googleLinked||S.emailCache.length?'All caught up.':'Connect Gmail in the Inbox to see messages that need you.'}</p>`;
+ $('#todayInbox').innerHTML=mails.length?mails.map(m=>`<div class="mini"><span class="time">${esc(shortDate(m.date))}</span><div class="grow"><div class="t">${esc(nameOf(m.from))}</div><div class="m">${esc(m.ai.summary||m.subject)}</div></div></div>`).join(''):`<p class="empty">${S.settings.googleLinked||S.emailCache.length?'All caught up.':'Connect Gmail'}</p>`;
  const b=S.briefings[t];$('#briefCard').hidden=!b;if(b)$('#briefOut').innerHTML=md(b.text);
 };
 async function genBriefing(btn,force){
@@ -1025,7 +1025,7 @@ function renderDay(){const ds=calSel;const[,m,d]=ds.split('-').map(Number);$('#d
  $('#dayList').innerHTML=(cf.length?`<p class="od" style="font-size:13px">Conflict: ${esc(cf.join('; '))}</p>`:'')+(evs.map(e=>miniEvent(e,true)).join('')||'<p class="empty">No events.</p>')+(dts.length?'<h4>Dates</h4>'+dts.map(x=>`<div class="mini"><div class="grow"><div class="t">${esc(x.name)}'s ${esc(x.kind==='other'?'date':x.kind)}</div></div></div>`).join(''):'')+(tks.length?'<h4>Tasks due</h4><div class="list">'+tks.map(taskItem).join('')+'</div>':'');}
 function findSlots({dur,from,to,early,late,wk}){const res=[];const end=parseLocal(to);for(let d=parseLocal(from);d<=end&&res.length<18;d=addDays(d,1)){if(wk&&(d.getDay()===0||d.getDay()===6))continue;const ds=ymd(d);const busy=S.events.filter(e=>!e.allDay&&e.start.slice(0,10)===ds).map(e=>[parseLocal(e.start).getTime(),parseLocal(e.end||e.start).getTime()]);let t=parseLocal(ds+'T'+early).getTime();const lim=parseLocal(ds+'T'+late).getTime();let per=0;while(t+dur*6e4<=lim&&per<3){const s=t,e=t+dur*6e4;if(s>Date.now()+15*6e4&&!busy.some(([a,b])=>s<b+5*6e4&&e>a-5*6e4)){res.push(new Date(s));per++;t=e+60*6e4;continue;}t+=15*6e4;}}return res;}
 function findTime(){
- openModal('Find a time',`<label>Describe it (optional)<span class="row"><input id="ftDesc" placeholder="45-min dentist next week, mornings only"><button class="btn sm" type="button" id="ftAI">Fill in</button></span></label>
+ openModal('Find a time',`<label>Describe it (optional)<span class="row"><input id="ftDesc" placeholder="What to schedule"><button class="btn sm" type="button" id="ftAI">Fill in</button></span></label>
  <div class="form-row"><label>Title<input id="ftTitle" placeholder="Appointment"></label><label>Duration (min)<input id="ftDur" type="number" min="5" step="5" value="30"></label></div>
  <div class="form-row"><label>Location<input id="ftLoc" placeholder="optional"></label></div>
  <div class="form-row"><label>From<input id="ftFrom" type="date" value="${todayStr()}"></label><label>To<input id="ftTo" type="date" value="${ymd(addDays(new Date(),7))}"></label></div>
@@ -1033,14 +1033,14 @@ function findTime(){
  <label class="check"><input type="checkbox" id="ftWk" checked> Weekdays only</label>
  <div class="row" style="margin-top:8px"><button class="btn primary" type="button" id="ftGo">Show open slots</button></div><div id="ftSlots" class="slots"></div>`,{wide:true,onMount:dl=>{
   $('#ftAI',dl).onclick=e=>run(e.currentTarget,async()=>{const t=$('#ftDesc',dl).value.trim();if(!t)return;const o=await ai(t,{system:'Extract appointment-scheduling constraints. Return {"title":string,"duration":minutes,"from":"YYYY-MM-DD","to":"YYYY-MM-DD","earliest":"HH:MM","latest":"HH:MM","weekdaysOnly":boolean,"location":string|null}. Use sensible defaults (business hours, the next 7 days) for anything unspecified.',json:true,temp:0.1});if(o.title)$('#ftTitle',dl).value=o.title;if(num(o.duration))$('#ftDur',dl).value=num(o.duration);if(validDate(o.from))$('#ftFrom',dl).value=o.from;if(validDate(o.to))$('#ftTo',dl).value=o.to;if(validHM(o.earliest))$('#ftEarly',dl).value=o.earliest;if(validHM(o.latest))$('#ftLate',dl).value=o.latest;if(typeof o.weekdaysOnly==='boolean')$('#ftWk',dl).checked=o.weekdaysOnly;if(o.location)$('#ftLoc',dl).value=o.location;$('#ftGo',dl).click();});
-  $('#ftGo',dl).onclick=()=>{const sl=findSlots({dur:num($('#ftDur',dl).value)||30,from:$('#ftFrom',dl).value,to:$('#ftTo',dl).value,early:$('#ftEarly',dl).value||'09:00',late:$('#ftLate',dl).value||'17:00',wk:$('#ftWk',dl).checked});$('#ftSlots',dl).innerHTML=sl.length?'<p class="hint" style="width:100%;margin:0">Open slots (avoiding your existing events) — pick one to book it:</p>'+sl.map(s=>`<button class="btn sm" data-slot="${localISO(s)}">${fmtDate(localISO(s))} · ${fmtTime(localISO(s))}</button>`).join(''):'<p class="empty">No open slots in that range — widen the dates or hours.</p>';};
+  $('#ftGo',dl).onclick=()=>{const sl=findSlots({dur:num($('#ftDur',dl).value)||30,from:$('#ftFrom',dl).value,to:$('#ftTo',dl).value,early:$('#ftEarly',dl).value||'09:00',late:$('#ftLate',dl).value||'17:00',wk:$('#ftWk',dl).checked});$('#ftSlots',dl).innerHTML=sl.length?'<p class="hint" style="width:100%;margin:0">Pick a slot</p>'+sl.map(s=>`<button class="btn sm" data-slot="${localISO(s)}">${fmtDate(localISO(s))} · ${fmtTime(localISO(s))}</button>`).join(''):'<p class="empty">No open slots</p>';};
   $('#ftSlots',dl).onclick=e=>{const b=e.target.closest('[data-slot]');if(!b)return;const dur=num($('#ftDur',dl).value)||30;const title=$('#ftTitle',dl).value.trim()||'Appointment';const ev=addEvent({title,start:b.dataset.slot,end:localISO(new Date(parseLocal(b.dataset.slot).getTime()+dur*6e4)),kind:'appointment',location:$('#ftLoc',dl).value.trim(),remindMin:60});dl.close();calSel=ev.start.slice(0,10);refresh();toast(`Booked ${title} — ${fmtDT(ev.start)}`,{action:'Draft confirmation',fn:()=>composeGo('text',{ctIntent:`Confirming ${title} on ${fmtDate(ev.start)} at ${fmtTime(ev.start)}${ev.location?' at '+ev.location:''}. Ask them to let me know if that doesn't work.`,ctTone:'Professional'})});};
  }});
 }
 
 /* ---------- TASKS ---------- */
 let taskFilter='open';
-R.tasks=()=>{const t=todayStr();let list=taskFilter==='done'?S.tasks.filter(x=>x.done).sort((a,b)=>(b.doneAt||0)-(a.doneAt||0)):openTasks();if(taskFilter==='today')list=list.filter(x=>x.due===t);if(taskFilter==='overdue')list=list.filter(isOverdue);$('#taskList').innerHTML=list.length?list.map(taskItem).join(''):`<p class="empty">${taskFilter==='open'?'Nothing open. Add a task above — or say it to AI Personal Assistant.':'Nothing here.'}</p>`;$$('#taskFilter button').forEach(b=>b.classList.toggle('on',b.dataset.f===taskFilter));};
+R.tasks=()=>{const t=todayStr();let list=taskFilter==='done'?S.tasks.filter(x=>x.done).sort((a,b)=>(b.doneAt||0)-(a.doneAt||0)):openTasks();if(taskFilter==='today')list=list.filter(x=>x.due===t);if(taskFilter==='overdue')list=list.filter(isOverdue);$('#taskList').innerHTML=list.length?list.map(taskItem).join(''):`<p class="empty">${taskFilter==='open'?'No open tasks':'Nothing here.'}</p>`;$$('#taskFilter button').forEach(b=>b.classList.toggle('on',b.dataset.f===taskFilter));};
 async function quickTask(text){
  const t=addTask({title:text});
  if(!hasAI()||!/\b(today|tonight|tomorrow|mon|tue|wed|thu|fri|sat|sun|next|by|due|week|month|urgent|asap|high|low|priority|min|mins|minutes|hour|hours|hr|remind)\b|\d/i.test(text))return;
@@ -1053,7 +1053,7 @@ My calendar for the next 3 days:
 ${ctxEvents(new Date(),3)}`,{system:'Rank tasks using urgency (deadlines, overdue), importance/impact, dependencies and effort (quick wins count). Return {"tasks":[{"id":"…","rank":1,"priority":"high"|"medium"|"low","reason":"under 15 words"}],"focus":"2–3 sentences: what to do first today and what can safely wait or be dropped"}. Include every task id exactly once.',json:true,temp:0.2,max:4000});for(const x of out.tasks||[]){const t=taskById(x.id);if(t){t.rank=Number(x.rank)||null;if(PRI[x.priority]!=null)t.priority=x.priority;t.reason=x.reason||'';}}save();$('#focusCard').hidden=!out.focus;$('#focusOut').innerHTML=md('**Focus:** '+(out.focus||''));taskFilter='open';refresh();});}
 
 /* ---------- REMINDERS & DATES ---------- */
-R.reminders=()=>{const rs=S.reminders.filter(r=>!r.done).sort((a,b)=>a.at.localeCompare(b.at));$('#remList').innerHTML=rs.length?rs.map(remItem).join(''):'<p class="empty">No reminders. Try “remind me to water the plants Sunday at 10”.</p>';const ds=[...S.dates].sort((a,b)=>nextOcc(a)-nextOcc(b));$('#dateList').innerHTML=ds.length?ds.map(dateItem).join(''):'<p class="empty">Add birthdays and anniversaries — AI Personal Assistant reminds you ahead of time and helps with messages and gift ideas.</p>';const p='Notification'in window?Notification.permission:'unsupported';$('#btnNotif').hidden=p==='granted'||p==='unsupported';};
+R.reminders=()=>{const rs=S.reminders.filter(r=>!r.done).sort((a,b)=>a.at.localeCompare(b.at));$('#remList').innerHTML=rs.length?rs.map(remItem).join(''):'<p class="empty">No reminders</p>';const ds=[...S.dates].sort((a,b)=>nextOcc(a)-nextOcc(b));$('#dateList').innerHTML=ds.length?ds.map(dateItem).join(''):'<p class="empty">No dates yet</p>';const p='Notification'in window?Notification.permission:'unsupported';$('#btnNotif').hidden=p==='granted'||p==='unsupported';};
 async function quickReminder(text){
  if(!hasAI()){remForm(null,{title:text});return;}
  const o=await ai(text,{system:'Parse this reminder request. Return {"title":"what to be reminded about, as a short imperative","at":"YYYY-MM-DDTHH:MM","followup":boolean}. If no time is given, use 9:00 for a future day or one hour from now for today.',json:true,temp:0.1,max:600});
@@ -1064,7 +1064,7 @@ async function dateIdeas(d,btn){await run(btn,async()=>{const n=nextOcc(d);const
 
 /* ---------- TRAVEL ---------- */
 let travKind='trip',curTrip=null;
-R.travel=()=>{const s=[...S.trips].sort((a,b)=>(a.start||'').localeCompare(b.start||''));$('#travSaved').innerHTML=s.length?s.map(t=>`<div class="item" data-kind="trip" data-id="${t.id}"><div class="grow"><div class="t">${esc(t.plan.title||t.what)}</div><div class="m">${t.kind==='event'?'Event':'Trip'}${t.start?' · '+fmtDate(t.start)+(t.end&&t.end!==t.start?' – '+fmtDate(t.end):''):''}</div></div><div class="acts" style="opacity:1"><button class="btn ghost sm" data-act="open">Open</button><button class="iconbtn" data-act="del" title="Delete">×</button></div></div>`).join(''):'<p class="empty">Plans you save appear here.</p>';};
+R.travel=()=>{const s=[...S.trips].sort((a,b)=>(a.start||'').localeCompare(b.start||''));$('#travSaved').innerHTML=s.length?s.map(t=>`<div class="item" data-kind="trip" data-id="${t.id}"><div class="grow"><div class="t">${esc(t.plan.title||t.what)}</div><div class="m">${t.kind==='event'?'Event':'Trip'}${t.start?' · '+fmtDate(t.start)+(t.end&&t.end!==t.start?' – '+fmtDate(t.end):''):''}</div></div><div class="acts" style="opacity:1"><button class="btn ghost sm" data-act="open">Open</button><button class="iconbtn" data-act="del" title="Delete">×</button></div></div>`).join(''):'<p class="empty">No plans yet</p>';};
 function setTravKind(k){travKind=k;$$('#travKind button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));$('#travWhatL').textContent=k==='trip'?'Destination':'What & where';$('#travWhat').placeholder=k==='trip'?'Lisbon, Portugal':'Mom\'s 60th birthday dinner at home';$('#travFromL').hidden=k!=='trip';}
 async function planTravel(btn){await run(btn,async()=>{
  const what=$('#travWhat').value.trim();if(!what){toast(travKind==='trip'?'Where are you going?':'What\'s the event?',{err:true});return;}
@@ -1083,7 +1083,7 @@ function renderTrip(p,kind,savedId){
  $('#travOut').innerHTML=`<div class="card"><div class="card-h"><h3>${esc(p.title||'Your plan')}</h3><div class="row wrap">${savedId?'':'<button class="btn sm" id="trSave">Save</button>'}<button class="btn sm" id="trCal">Add to calendar</button><button class="btn sm" id="trTasks">Add checklist to tasks</button><button class="btn ghost sm" id="trCopy">Copy</button></div></div><p>${esc(p.overview||'')}</p>${days}
  <div class="grid2" style="margin-top:12px"><div><h4>${kind==='trip'?'Bookings & prep':'Prep checklist'}</h4><div class="md">${list(p.checklist,c=>`<li>${esc(c.task)}${c.due&&validDate(c.due)?` <span class="m">by ${fmtDate(c.due)}</span>`:''}</li>`)}</div></div><div><h4>${kind==='trip'?'Packing list':'Supplies & shopping'}</h4><div class="md">${list(p.packing,x=>`<li>${esc(x)}</li>`)}</div></div></div>
  ${p.budget?.length?`<h4>Budget estimate</h4><div class="kv">${p.budget.map(b=>`<span>${esc(b.item)}</span><span>${esc(b.estimate)}</span>`).join('')}</div>`:''}
- ${p.tips?.length?`<h4>Tips</h4><div class="md">${list(p.tips,x=>`<li>${esc(x)}</li>`)}</div>`:''}<p class="hint" style="margin-top:12px">Estimates only — confirm prices, hours and availability before booking.</p></div>`;
+ ${p.tips?.length?`<h4>Tips</h4><div class="md">${list(p.tips,x=>`<li>${esc(x)}</li>`)}</div>`:''}<p class="hint" style="margin-top:12px">Estimates only</p></div>`;
  const src=savedId?S.trips.find(t=>t.id===savedId):curTrip;
  if(!savedId)$('#trSave').onclick=e=>{S.trips.push({id:uid(),...curTrip});save();R.travel();e.currentTarget.remove();toast('Plan saved');};
  $('#trCal').onclick=()=>{let n=0;for(const d of p.days||[]){if(!validDate(d.date))continue;const items=(d.items||[]).filter(i=>validHM(i.time));items.forEach((i,ix)=>{const s=`${d.date}T${i.time}`;let e=localISO(new Date(parseLocal(s).getTime()+3600e3));const nx=items[ix+1];if(nx&&nx.time>i.time){const ne=`${d.date}T${nx.time}`;e=ne<localISO(new Date(parseLocal(s).getTime()+3*3600e3))?ne:e;}addEvent({title:i.activity,start:s,end:e,kind:kind==='trip'?'travel':'event',notes:i.note||'',remindMin:30},true);n++;});}save();refresh();toast(n?`Added ${n} items to your calendar`:'No timed items to add');};
@@ -1131,7 +1131,7 @@ function renderInbox(){
  const fl=$('#inboxFilter');fl.hidden=!src.length;fl.innerHTML=F.map(([k,l])=>`<button data-f="${k}" class="${k===inboxFilter?'on':''}">${l} <span class="hint">${src.filter(m=>mailMatch(m,k)).length}</span></button>`).join('');
  const list=src.filter(m=>mailMatch(m,inboxFilter));
  $('#inboxList').innerHTML=(inboxLoading&&!src.length)?'<p class="empty">Loading your inbox…</p>':list.length?list.map(m=>`<div class="item mail ${m.unread?'unread':''} ${openMsg?.id===m.id?'sel':''}" data-kind="mail" data-id="${m.id}" data-act="open" tabindex="0"><div class="grow"><div class="row between"><span class="t">${esc(nameOf(m.from))}</span><span class="m">${esc(shortDate(m.date))}</span></div><div class="subj">${esc(m.subject)}</div><div class="m">${esc(m.ai?.summary||m.snippet||'')}</div>${m.ai?`<div style="margin-top:4px">${m.ai.needsReply?'<span class="chip reply">needs reply</span>':''}<span class="chip ${esc(m.ai.category)}">${esc(m.ai.category)}</span>${m.ai.followUp?`<span class="chip followup">follow up ${esc(relDay(m.ai.followUp))}</span>`:''}</div>`:''}</div></div>`).join(''):src.length?`<p class="empty">Nothing in this view.${inboxFilter==='important'?' Nice.':''}</p>`:'';
- if(!inbox.length&&S.emailCache.length&&!gOK())$('#inboxList').insertAdjacentHTML('afterbegin','<p class="hint">Showing your last triage. Connect Gmail to refresh and open messages.</p>');
+ if(!inbox.length&&S.emailCache.length&&!gOK())$('#inboxList').insertAdjacentHTML('afterbegin','<p class="hint">Showing last triage</p>');
  $('#inboxWrap').classList.toggle('solo',!openMsg);$('#inboxDetail').hidden=!openMsg;
 }
 async function inboxRefresh(btn){inboxLoading=true;renderInbox();await run(btn,async()=>{const list=await gmailList(25);const cache={};S.emailCache.forEach(c=>cache[c.id]=c);inbox=list.map(m=>cache[m.id]?.ai?{...m,ai:cache[m.id].ai}:m);inboxLoading=false;renderInbox();badges();const need=inbox.filter(m=>!m.ai);if(need.length&&hasAI())await triage(need);});inboxLoading=false;renderInbox();}
@@ -1153,9 +1153,9 @@ function renderDetail(){const m=openMsg,d=$('#inboxDetail');d.innerHTML=`<div cl
  <div class="row wrap"><button class="btn sm" id="mdSum">Summarize</button><button class="btn sm" id="mdTask">Make task</button><select id="mdFollow" style="width:auto;padding:5px 8px;font-size:13px"><option value="">Follow up…</option><option value="1">Tomorrow</option><option value="3">In 3 days</option><option value="7">In a week</option><option value="c">Pick a date…</option></select><button class="btn ghost sm danger" id="mdSpam">Mark spam</button><a class="btn ghost sm" target="_blank" rel="noopener" href="https://mail.google.com/mail/u/0/#inbox/${encodeURIComponent(m.threadId)}">Open in Gmail</a></div>
  <div id="mdSumOut" class="md out"></div><pre class="mail-body">${esc(m.body||m.snippet)}</pre>
  <h4>Reply</h4><div class="form-row"><label>Tone<select id="mdTone">${TONE_OPTS}</select></label><label>Length<select id="mdLen"><option>Short</option><option selected>Medium</option><option>Detailed</option></select></label></div>
- <label>What do you want to say?<span class="dict"><textarea id="mdIntent" rows="2" placeholder="e.g. Yes to Thursday, ask if 2pm works"></textarea><button type="button" class="mic-btn" data-dictate="mdIntent" aria-label="Dictate"></button></span></label>
+ <label>What do you want to say?<span class="dict"><textarea id="mdIntent" rows="2" placeholder="Your reply"></textarea><button type="button" class="mic-btn" data-dictate="mdIntent" aria-label="Dictate"></button></span></label>
  <button class="btn primary sm" id="mdDraft"><span data-ic="spark"></span><span>Draft reply</span></button>
- <div id="mdReplyWrap" class="out" hidden><textarea id="mdReply" rows="10"></textarea><div class="row wrap" style="margin-top:8px"><button class="btn sm" id="mdSave">Save to Gmail drafts</button><button class="btn ghost sm" data-copy="#mdReply">Copy</button><span class="hint">Review it, then send from Gmail.</span></div></div>`;
+ <div id="mdReplyWrap" class="out" hidden><textarea id="mdReply" rows="10"></textarea><div class="row wrap" style="margin-top:8px"><button class="btn sm" id="mdSave">Save to Gmail drafts</button><button class="btn ghost sm" data-copy="#mdReply">Copy</button><span class="hint">Review, then send</span></div></div>`;
  icons(d);wireMics(d);
  $('#mdClose').onclick=()=>{openMsg=null;renderInbox();};
  $('#mdSum').onclick=e=>run(e.currentTarget,async()=>{$('#mdSumOut').innerHTML=md(await ai(`From: ${m.from}\nSubject: ${m.subject}\n\n${(m.body||'').slice(0,9000)}`,{system:sumSys,temp:0.2}));});
@@ -1176,7 +1176,7 @@ async function compEmail(btn){await run(btn,async()=>{const intent=$('#ceIntent'
  $('#compOut').innerHTML=`<label>Subject<input id="ceSubj" value="${esc(o.subject||'')}"></label><label>Body<textarea id="ceBody" rows="12">${esc(o.body||'')}</textarea></label><div class="row wrap"><button class="btn ghost sm" data-copy="#ceBody">Copy body</button><a class="btn ghost sm" id="ceMail" href="#">Open in mail app</a>${S.settings.googleClientId?'<button class="btn sm" id="ceDraft">Save to Gmail drafts</button>':''}</div>`;
  $('#ceMail').onclick=e=>{e.preventDefault();location.href=`mailto:?subject=${encodeURIComponent($('#ceSubj').value)}&body=${encodeURIComponent($('#ceBody').value)}`;};
  const dr=$('#ceDraft');if(dr)dr.onclick=e=>run(e.currentTarget,async()=>{await gmailDraft({subject:$('#ceSubj').value,body:$('#ceBody').value});toast('Saved to Gmail drafts — add the recipient there');});});}
-async function compText(btn){await run(btn,async()=>{const intent=$('#ctIntent').value.trim();if(!intent){toast('What do you want to say?',{err:true});return;}const o=await ai(`To: ${$('#ctTo').value||'someone'}\nTone: ${$('#ctTone').value}\nWhat I want to say: ${intent}`,{system:'Write 3 different text messages I could send — natural, phone-length, sounding like a real person (not an AI), varied in approach. Emoji only if it fits the tone and relationship. Return {"variants":["…","…","…"]}.',json:true,temp:0.85});const v=(o.variants||[]).slice(0,4);$('#compOut').innerHTML=v.map((t,i)=>`<div class="variant"><div class="grow" id="tv${i}">${esc(t)}</div><button class="btn ghost sm" data-copy="#tv${i}">Copy</button></div>`).join('')+'<p class="hint">Tap Copy, then paste into your messaging app.</p>';});}
+async function compText(btn){await run(btn,async()=>{const intent=$('#ctIntent').value.trim();if(!intent){toast('What do you want to say?',{err:true});return;}const o=await ai(`To: ${$('#ctTo').value||'someone'}\nTone: ${$('#ctTone').value}\nWhat I want to say: ${intent}`,{system:'Write 3 different text messages I could send — natural, phone-length, sounding like a real person (not an AI), varied in approach. Emoji only if it fits the tone and relationship. Return {"variants":["…","…","…"]}.',json:true,temp:0.85});const v=(o.variants||[]).slice(0,4);$('#compOut').innerHTML=v.map((t,i)=>`<div class="variant"><div class="grow" id="tv${i}">${esc(t)}</div><button class="btn ghost sm" data-copy="#tv${i}">Copy</button></div>`).join('')+'<p class="hint">Copy and paste</p>';});}
 async function compPolish(btn){await run(btn,async()=>{const t=$('#cpIn').value.trim();if(!t){toast('Paste something to polish.',{err:true});return;}const o=await ai(t,{system:`Rewrite my text so it is: ${$('#cpMode').value}. Keep my meaning, facts and voice; don't add new claims. Return {"text":"the rewrite","changes":["up to 5 short notes on what you changed and why"]}.`,json:true,temp:0.4,max:4000});$('#compOut').innerHTML=`<label>Polished<textarea id="cpOut" rows="10">${esc(o.text||'')}</textarea></label><div class="row wrap"><button class="btn ghost sm" data-copy="#cpOut">Copy</button><button class="btn ghost sm" id="cpUse">Replace my draft</button></div>${o.changes?.length?'<h4>What changed</h4><div class="md">'+md(o.changes.map(c=>'- '+c).join('\n'))+'</div>':''}`;$('#cpUse').onclick=()=>{$('#cpIn').value=$('#cpOut').value;};});}
 async function compTranslate(btn){await run(btn,async()=>{const t=$('#ctrIn').value.trim();if(!t){toast('Enter text to translate.',{err:true});return;}let lang=$('#ctrLang').value;if(lang==='Other…')lang=$('#ctrOther').value.trim();if(!lang){toast('Pick a language.',{err:true});return;}const o=await ai(t,{system:`Translate the text into ${lang} with a ${$('#ctrReg').value.toLowerCase()} register, preserving meaning, tone and formatting. Return {"translation":"…","detected":"source language name","pronunciation":"romanization if ${lang} uses a non-Latin script, else null","notes":"one short note on any idiom or cultural nuance, or null"}.`,json:true,temp:0.2,max:4000});const code=langCode(lang);$('#compOut').innerHTML=`<p class="hint">From ${esc(o.detected||'detected language')} → ${esc(lang)}</p><div class="variant"><div class="grow" id="trOut">${esc(o.translation||'')}</div></div>${o.pronunciation?`<p class="m"><i>${esc(o.pronunciation)}</i></p>`:''}${o.notes?`<p class="m">${esc(o.notes)}</p>`:''}<div class="row wrap"><button class="btn ghost sm" data-copy="#trOut">Copy</button><button class="btn ghost sm" id="trSpeak">Listen</button></div>`;$('#trSpeak').onclick=()=>speak(o.translation||'',code);});}
 let dicRec=null,dicSR=null;
@@ -1189,7 +1189,7 @@ function dictatePad(){const btn=$('#dicBtn'),ta=$('#dicText'),st=$('#dicStatus')
 
 /* ---------- MEETINGS ---------- */
 let mtRec=null,mtTimer=null;
-R.meetings=()=>{if(!$('#mtDate').value)$('#mtDate').value=todayStr();$('#mtList').innerHTML=S.meetings.length?S.meetings.map(m=>`<div class="item" data-kind="mtg" data-id="${m.id}"><div class="grow"><div class="t">${esc(m.title)}</div><div class="m">${m.date?fmtDate(m.date)+' · ':''}${(m.actionItems||[]).length} action items</div></div><div class="acts" style="opacity:1"><button class="btn ghost sm" data-act="open">Open</button><button class="iconbtn" data-act="del" title="Delete">×</button></div></div>`).join(''):'<p class="empty">Summaries you create are saved here.</p>';};
+R.meetings=()=>{if(!$('#mtDate').value)$('#mtDate').value=todayStr();$('#mtList').innerHTML=S.meetings.length?S.meetings.map(m=>`<div class="item" data-kind="mtg" data-id="${m.id}"><div class="grow"><div class="t">${esc(m.title)}</div><div class="m">${m.date?fmtDate(m.date)+' · ':''}${(m.actionItems||[]).length} action items</div></div><div class="acts" style="opacity:1"><button class="btn ghost sm" data-act="open">Open</button><button class="iconbtn" data-act="del" title="Delete">×</button></div></div>`).join(''):'<p class="empty">No summaries yet</p>';};
 let mtLive=null;
 function mtLiveToggle(){const btn=$('#btnMtRec'),st=$('#mtRecStatus'),lbl=btn.querySelector('span:last-child');
  if(mtLive){mtLive.active=false;try{mtLive.rec.stop();}catch(e){}mtLive=null;btn.classList.remove('rec');lbl.textContent='Record';st.textContent='Live transcript stopped.';return;}
@@ -1216,8 +1216,8 @@ function renderMeeting(m){const L=a=>a?.length?md(a.map(x=>'- '+x).join('\n')):'
 }
 
 /* ---------- SETTINGS ---------- */
-function renderProv(){const p=prov();$$('#provSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.p===p);});$$('[data-prov]').forEach(d=>d.hidden=d.dataset.prov!==p);const o=location.origin&&location.origin!=='null'?location.origin:'https://your-site.com';$$('.originCode').forEach(c=>c.textContent=o);const lp=$('#localPreset');if(lp)lp.value=[...lp.options].some(x=>x.value===(S.settings.localBase||''))?S.settings.localBase:'';$('#voiceNote').textContent=(SR?'Voice commands and dictation use your browser\'s speech recognition. ':'')+(canWhisper()?'Recorded meetings are transcribed with Whisper.':SR?'Meeting recording uses live transcription in the browser — keep the tab open.':'Voice input isn\'t available with this provider in this browser.');if(p!=='browser'&&$('#llmStatus'))$('#llmStatus').textContent='';if(p==='browser'&&!navigator.gpu)$('#llmStatus').textContent='This browser doesn\'t support WebGPU — try Chrome or Edge on a computer.';}
-R.settings=()=>{renderProv();$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!S.settings[k];else el.value=S.settings[k]??'';});$('#originHint').textContent=location.origin&&location.origin!=='null'?location.origin:'https://your-username.github.io';const p='Notification'in window?Notification.permission:'unsupported';$('#notifStatus').textContent=p==='granted'?'Notifications are on.':p==='denied'?'Notifications are blocked — allow them in your browser\'s site settings.':p==='unsupported'?'This browser does not support notifications.':'Turn on notifications so reminders reach you while AI Personal Assistant is in another tab.';$('#btnNotif2').hidden=p==='granted'||p==='unsupported';gUI();};
+function renderProv(){const p=prov();$$('#provSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.p===p);});$$('[data-prov]').forEach(d=>d.hidden=d.dataset.prov!==p);const o=location.origin&&location.origin!=='null'?location.origin:'https://your-site.com';$$('.originCode').forEach(c=>c.textContent=o);const lp=$('#localPreset');if(lp)lp.value=[...lp.options].some(x=>x.value===(S.settings.localBase||''))?S.settings.localBase:'';$('#voiceNote').textContent='';if(p!=='browser'&&$('#llmStatus'))$('#llmStatus').textContent='';if(p==='browser'&&!navigator.gpu)$('#llmStatus').textContent='This browser doesn\'t support WebGPU — try Chrome or Edge on a computer.';}
+R.settings=()=>{renderProv();$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!S.settings[k];else el.value=S.settings[k]??'';});$('#originHint').textContent=location.origin&&location.origin!=='null'?location.origin:'https://your-username.github.io';const p='Notification'in window?Notification.permission:'unsupported';$('#notifStatus').textContent=p==='granted'?'Notifications are on.':p==='denied'?'Notifications blocked':p==='unsupported'?'This browser does not support notifications.':'Turn on notifications so reminders reach you while AI Personal Assistant is in another tab.';$('#btnNotif2').hidden=p==='granted'||p==='unsupported';gUI();};
 
 /* ---------- icons injection & init ---------- */
 function icons(root=document){$$('[data-ic]',root).forEach(el=>{if(el._i)return;el._i=1;const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
@@ -1280,7 +1280,7 @@ function init(){
  $('#webllmModel').innerHTML=WEBLLM_MODELS.map(([id,l])=>`<option value="${id}">${l}</option>`).join('');
  $('#btnLoadLLM').onclick=e=>run(e.currentTarget,async()=>{await ensureBrowserModel(S.settings.webllmModel||DEFAULT_WEBLLM);$('#llmStatus').textContent='Ready: '+llm.model;});
  $('#gateHide').onclick=()=>gateClose();
- $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':p==='free'?'freeModel':'model';st.textContent='Checking…';if(p==='free'){let r;try{r=await fetch(FREE_BASE+'/models');}catch(_){st.textContent='Couldn\'t reach AI Verse free AI. Check your connection.';return;}freeSeen(r);st.textContent=r.ok?`Connected · ${freeLeft().n} of ${freeLeft().limit} free daily uses left`:'Free AI isn\'t available right now.';return;}
+ $('#btnTestKey').onclick=e=>run(e.currentTarget,async()=>{const st=$('#keyStatus'),p=prov(),key=p==='local'?'localModel':p==='custom'?'customModel':p==='aiv'?'aivModel':p==='free'?'freeModel':'model';st.textContent='Checking…';if(p==='free'){let r;try{r=await fetch(FREE_BASE+'/models');}catch(_){st.textContent='Couldn\'t reach AI Verse free AI. Check your connection.';return;}freeSeen(r);st.textContent=r.ok?'Connected':'Free AI isn\'t available right now.';return;}
   try{let models=[],listErr=null;try{models=await listModels();}catch(err){listErr=err;}
    if(listErr&&/rejected/.test(listErr.message))throw listErr;
    if(models.length&&p!=='browser'){$('#modelList').innerHTML=models.map(i=>`<option value="${esc(i)}">`).join('');if((p==='local'||p==='custom')&&!S.settings[key]){S.settings[key]=models[0];save();R.settings();}}
