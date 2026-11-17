@@ -813,15 +813,15 @@ R.home=async()=>{
  v.innerHTML=`${!S.setupDone?`<div class="soft" style="margin-bottom:10px"><div class="row between wrap"><div class="grow"><b>Personalize your advisor</b><div class="small muted">Add your goals</div></div><a class="btn primary sm" href="#settings">Set up</a></div></div>`:''}
  <div class="grid">
   <button class="stat" data-go="budget"><span class="c-lift">${ic('bank')}</span><b id="hNW">…</b><span>Net worth</span></button>
-  <button class="stat" data-go="portfolio"><span class="c-kcal">${ic('trend')}</span><b id="hPV">…</b><span id="hPVs">Portfolio value</span></button>
-  <button class="stat" data-go="budget"><span class="c-pro">${ic('card')}</span><b>${money0(ms.spend)}</b><span>Spent this month${bud?` · budget ${money0(bud)}`:''}</span></button>
-  <button class="stat" data-go="budget"><span class="c-sleep">${ic('piggy')}</span><b>${ms.rate!=null?r0(ms.rate)+'%':'—'}</b><span>Savings rate</span></button>
+  <button class="stat" data-go="portfolio"><span class="c-kcal">${ic('trend')}</span><b id="hPV">…</b><span id="hPVs">Portfolio</span></button>
+  <button class="stat" data-go="budget"><span class="c-pro">${ic('card')}</span><b>${money0(ms.spend)}</b><span>Spent</span></button>
+  <button class="stat" data-go="budget"><span class="c-sleep">${ic('piggy')}</span><b>${ms.rate!=null?r0(ms.rate)+'%':'—'}</b><span>Savings</span></button>
  </div>
  <h2>Today's Markets${demoTag()}</h2><div class="box" id="hMk"><p class="empty">Loading quotes…</p></div>
  ${S.pending.length?`<h2>Waiting for your approval</h2><div class="box approve" id="pendBox">${renderPending()}</div>`:''}
  <h2>AI Advisor</h2>
- <div class="soft"><div class="coach-head"><span class="c-lift">${ic('bot')}</span>Your Financial AI<span class="grow"></span><button class="btn ghost sm" id="hInsight">${ic('spark')} Fresh take</button></div>
-  <p style="margin:0 0 10px" id="hIns">${ins?'“'+esc(ins)+'”':''}</p>
+ <div class="soft"><div class="coach-head"><span class="c-lift">${ic('bot')}</span>Your Financial AI<span class="grow"></span><button class="btn ghost sm" id="hInsight" hidden>${ic('spark')} Fresh take</button></div>
+  <p style="margin:0 0 10px" id="hIns" hidden>${ins?'“'+esc(ins)+'”':''}</p>
   
   <div class="chat" id="chat"></div>
   <form class="askbar" id="askForm" autocomplete="off"><input id="askIn" placeholder="Ask your advisor" aria-label="Ask your advisor"><button type="button" class="icon-btn" data-dictate="askIn" data-submit="#askBtn" title="Speak"></button><button class="btn primary" id="askBtn">Ask</button></form>
@@ -830,7 +830,7 @@ R.home=async()=>{
  icons(v);wireMics(v);renderChat();bindPending();
  $('#askForm').onsubmit=e=>{e.preventDefault();const q=$('#askIn').value;$('#askIn').value='';askAdvisor(q,$('#askBtn'));};
  $('#hInsight').onclick=e=>run(e.currentTarget,async()=>{const txt=await ai(`Give me today's single most useful observation about my finances or portfolio in 2 sentences, with specific numbers. No buy/sell recommendations.\n\nMY DATA\n${await finContext('')}`,{system:ADVISOR_SYS_TEXT,temp:.5,max:500});S.insight={date:today(),text:txt.replace(/^["“]|["”]$/g,'')};save();$('#hIns').textContent='“'+S.insight.text+'”';});
- try{const pf=S.holdings.length?await portfolioRows():null;const sn=snapshot(pf?pf.value:0);if(cur!=='home')return;$('#hNW').textContent=money0(sn.netWorth);$('#hPV').textContent=pf?money0(pf.value):'$0';$('#hPVs').innerHTML=pf?`Portfolio · <span class="${cls(pf.day)}">${pct(pf.dayPct)} today</span>`:'Portfolio value';if(!ins){const L=await insights(pf,sn);if(L.length&&cur==='home')$('#hIns').textContent='“'+L[new Date().getDate()%L.length]+'”';}}catch(e){$('#hPV').textContent='—';}
+ try{const pf=S.holdings.length?await portfolioRows():null;const sn=snapshot(pf?pf.value:0);if(cur!=='home')return;$('#hNW').textContent=money0(sn.netWorth);$('#hPV').textContent=pf?money0(pf.value):'$0';$('#hPVs').innerHTML=pf?`Portfolio · <span class="${cls(pf.day)}">${pct(pf.dayPct)}</span>`:'Portfolio';if(!ins){const L=await insights(pf,sn);if(L.length&&cur==='home')$('#hIns').textContent='“'+L[new Date().getDate()%L.length]+'”';}}catch(e){$('#hPV').textContent='—';}
  try{const Q=await quotes([...INDICES.map(x=>x[0]),...S.watchlist]);const st=marketStatus();const movers=S.watchlist.map(s=>({s,q:Q[s]})).filter(x=>x.q&&x.q.dp!=null).sort((a,b)=>Math.abs(b.q.dp)-Math.abs(a.q.dp)).slice(0,3);if(cur!=='home')return;
   $('#hMk').innerHTML=`<div class="row between"><span class="pill ${st.open?'good':''}">${st.txt}</span><a class="small" href="#markets">Markets →</a></div><table class="tbl" style="margin-top:6px">${INDICES.map(([s,n])=>{const q=Q[s]||{};return `<tr class="click" data-sym="${s}"><td><b>${n}</b> <span class="muted tiny">${s}</span></td><td>${money(q.c)}</td><td class="${cls(q.dp)}">${pct(q.dp)}</td></tr>`;}).join('')}</table>${movers.length?`<h4>Biggest moves on your watchlist</h4><table class="tbl">${movers.map(x=>`<tr class="click" data-sym="${x.s}"><td class="sym">${x.s}</td><td>${money(x.q.c)}</td><td class="${cls(x.q.dp)}">${pct(x.q.dp)}</td></tr>`).join('')}</table>`:''}`;}catch(e){fail($('#hMk'),e);}
  checkAlerts();

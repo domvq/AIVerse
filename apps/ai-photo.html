@@ -952,10 +952,10 @@ async function askAssistant(q,btn){q=String(q||'').trim();if(!q)return;S.chat.pu
 /* ---------- HOME ---------- */
 R.home=async()=>{const v=$('#v-home');await refreshLib();const wk=S.stats.weekEdits[weekKey()]||0;const recent=LIB.slice(0,8);
  v.innerHTML=`<div class="grid">
-  <button class="stat" data-go="library"><span class="c-lift">${ic('save')}</span><b>${LIB.length}</b><span>Creations saved</span></button>
-  <button class="stat" data-go="edit"><span class="c-pro">${ic('wand')}</span><b>${wk}</b><span>Edits this week</span></button>
-  <button class="stat" data-go="create"><span class="c-kcal">${ic('spark')}</span><b>${S.stats.generated}</b><span>Images generated</span></button>
-  <button class="stat" data-go="settings"><span class="c-water">${ic('grid')}</span><b id="libSize">—</b><span>Library size</span></button>
+  <button class="stat" data-go="library"><span class="c-lift">${ic('save')}</span><b>${LIB.length}</b><span>Saved</span></button>
+  <button class="stat" data-go="edit"><span class="c-pro">${ic('wand')}</span><b>${wk}</b><span>Edits</span></button>
+  <button class="stat" data-go="create"><span class="c-kcal">${ic('spark')}</span><b>${S.stats.generated}</b><span>Generated</span></button>
+  <button class="stat" data-go="settings"><span class="c-water">${ic('grid')}</span><b id="libSize">—</b><span>Library</span></button>
  </div>
  <h2>Quick tools</h2><div class="tool-tiles">
   <button class="tile" data-qt="upload"><span class="c-lift">${ic('upload')}</span><b>Edit a photo</b><span>Prompts and filters</span></button>

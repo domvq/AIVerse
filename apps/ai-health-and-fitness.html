@@ -913,15 +913,15 @@ R.home=()=>{
  const ins=S.insight&&S.insight.date===today()?S.insight.text:(insights()[new Date().getDate()%Math.max(1,insights().length)]||'');
  v.innerHTML=`${!S.setupDone?`<div class="soft" style="margin-bottom:10px"><div class="row between wrap"><div class="grow"><b>Personalize your coach</b><div class="small muted">Fit your plan</div></div><a class="btn primary sm" href="#settings">Set up</a></div></div>`:''}
  <div class="grid">
-  <button class="stat" data-go="nutrition"><span class="c-kcal">${ic('flame')}</span><b>${t.kcal.toLocaleString()}</b><span>${tot.kcal.toLocaleString()} eaten</span></button>
-  <button class="stat" data-go="training"><span class="c-lift">${ic('dumbbell')}</span><b>${sessionsThisWeek()} / ${S.plan?S.plan.days.length:S.profile.days}</b><span>Weekly workouts</span></button>
-  <button class="stat" data-go="nutrition"><span class="c-pro">${ic('protein')}</span><b>${tot.p} g</b><span>Protein · goal ${t.pro} g</span></button>
-  <button class="stat" id="hSleep"><span class="c-sleep">${ic('moon')}</span><b>${sleepTxt}</b><span>${sl!=null?'Sleep duration':'Log sleep'}</span></button>
+  <button class="stat" data-go="nutrition"><span class="c-kcal">${ic('flame')}</span><b>${tot.kcal.toLocaleString()} <small>/ ${t.kcal.toLocaleString()}</small></b><span>Calories</span></button>
+  <button class="stat" data-go="training"><span class="c-lift">${ic('dumbbell')}</span><b>${sessionsThisWeek()} / ${S.plan?S.plan.days.length:S.profile.days}</b><span>Workouts</span></button>
+  <button class="stat" data-go="nutrition"><span class="c-pro">${ic('protein')}</span><b>${tot.p} <small>/ ${t.pro} g</small></b><span>Protein</span></button>
+  <button class="stat" id="hSleep"><span class="c-sleep">${ic('moon')}</span><b>${sleepTxt}</b><span>Sleep</span></button>
  </div>
  <h2>Today's Training</h2><div class="box">${train}</div>
  <h2>AI Coach</h2>
- <div class="soft"><div class="coach-head"><span class="c-lift">${ic('coach')}</span>Your Fitness AI<span class="grow"></span><button class="btn ghost sm" id="hInsight">${ic('spark')} Fresh take</button></div>
-  <p style="margin:0 0 10px">${ins?'“'+esc(ins)+'”':''}</p>
+ <div class="soft"><div class="coach-head"><span class="c-lift">${ic('coach')}</span>Your Fitness AI<span class="grow"></span><button class="btn ghost sm" id="hInsight" hidden>${ic('spark')} Fresh take</button></div>
+  <p style="margin:0 0 10px" hidden>${ins?'“'+esc(ins)+'”':''}</p>
   
   <div class="chat" id="chat"></div>
   <form class="askbar" id="askForm" autocomplete="off"><input id="askIn" placeholder="Ask your coach" aria-label="Ask your coach"><button type="button" class="icon-btn" data-dictate="askIn" data-submit="#askBtn" title="Speak"></button><button class="btn primary" id="askBtn">Ask</button></form>

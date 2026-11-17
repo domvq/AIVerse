@@ -868,10 +868,10 @@ function insights(){const out=[];const at=atsScore();if(!hasResume())out.push(''
 R.home=()=>{const v=$('#v-home'),at=atsScore(),best=Math.max(0,...S.apps.map(a=>a.match||0),...(S.agent?S.agent.ranked.map(r=>r.score):[0]));const gapN=S.gap?S.gap.rows.filter(r=>!r.have&&r.pct>=15).length:null;const ins=S.insight&&S.insight.date===today()?S.insight.text:(insights()[new Date().getDate()%Math.max(1,insights().length)]||'');
  const up=upcomingInterviews(),due=S.apps.filter(a=>a.followUp&&a.followUp<=ymd(addDays(new Date(),2))&&['applied','interview'].includes(a.status));
  v.innerHTML=`<div class="grid">
-  <button class="stat" data-go="tracker"><span class="c-lift">${ic('send')}</span><b>${submitted().length}</b><span>Applications submitted</span></button>
-  <button class="stat" data-go="tracker"><span class="c-lift">${ic('cal')}</span><b>${up.length||S.apps.filter(a=>a.status==='interview').length}</b><span>Interviews scheduled</span></button>
-  <button class="stat" data-go="jobs"><span class="c-lift">${ic('target')}</span><b>${best?best+'%':'—'}</b><span>Best job match</span></button>
-  <button class="stat" data-go="growth"><span class="c-lift">${ic('cap')}</span><b>${gapN!=null?gapN:'—'}</b><span>Skills to develop</span></button>
+  <button class="stat" data-go="tracker"><span class="c-lift">${ic('send')}</span><b>${submitted().length}</b><span>Applied</span></button>
+  <button class="stat" data-go="tracker"><span class="c-lift">${ic('cal')}</span><b>${up.length||S.apps.filter(a=>a.status==='interview').length}</b><span>Interviews</span></button>
+  <button class="stat" data-go="jobs"><span class="c-lift">${ic('target')}</span><b>${best?best+'%':'—'}</b><span>Best match</span></button>
+  <button class="stat" data-go="growth"><span class="c-lift">${ic('cap')}</span><b>${gapN!=null?gapN:'—'}</b><span>Skill gaps</span></button>
  </div>
  <h2>Career Agent</h2><div class="box">${!hasResume()||!targetRoles().length?`
   <div class="row wrap"><button class="btn ${hasResume()?'':'primary'}" id="agUp">${ic('upload')} ${hasResume()?'Resume uploaded ✓ — replace':'Upload resume'}</button></div>
@@ -884,8 +884,8 @@ R.home=()=>{const v=$('#v-home'),at=atsScore(),best=Math.max(0,...S.apps.map(a=>
  ${agentResults()}
  <h2>Application Tracker</h2><div class="box">${S.apps.length?S.apps.slice(0,4).map(a=>`<div class="item" style="cursor:pointer" data-app="${a.id}"><div class="grow"><div class="t">${esc(a.title)}</div><div class="tiny muted">${esc(a.company)}${a.followUp&&['applied','interview'].includes(a.status)?` · follow up ${relD(a.followUp)}`:''}${(a.interviews||[]).some(i=>i.date>=today())?' · interview '+relD((a.interviews.filter(i=>i.date>=today()).sort((x,y)=>x.date.localeCompare(y.date))[0]).date):''}</div></div><span class="pill ${stagePill(a.status)}">${stageName(a.status)}</span></div>`).join('')+`<p class="small" style="margin:8px 0 0"><a href="#tracker">All ${S.apps.length} applications →</a></p>`:'<p class="empty">No applications yet</p>'}</div>
  ${due.length?`<h2>Follow-ups due</h2><div class="box">${due.map(a=>`<div class="item"><div class="grow"><div class="t small">${esc(a.company)} — ${esc(a.title)}</div><div class="tiny muted">${a.followUp<today()?'overdue':'due'} ${relD(a.followUp)}</div></div><button class="btn sm" data-fu="${a.id}">Draft follow-up</button><button class="btn sm ghost" data-fudone="${a.id}">Done</button></div>`).join('')}</div>`:''}
- <h2>AI Career Coach</h2><div class="soft"><div class="coach-head"><span class="c-lift">${ic('brain')}</span>Career insight<span class="grow"></span><button class="btn ghost sm" id="hIns">${ic('spark')} Fresh take</button></div>
-  <p style="margin:0 0 10px">${ins?'“'+esc(ins)+'”':''}</p>
+ <h2>AI Career Coach</h2><div class="soft"><div class="coach-head"><span class="c-lift">${ic('brain')}</span>Your Career AI<span class="grow"></span><button class="btn ghost sm" id="hIns" hidden>${ic('spark')} Fresh take</button></div>
+  <p style="margin:0 0 10px" hidden>${ins?'“'+esc(ins)+'”':''}</p>
   
   <div class="chat" id="chat"></div>
   <form class="askbar" id="askForm" autocomplete="off"><input id="askIn" placeholder="Ask your coach" aria-label="Ask your career coach"><button type="button" class="icon-btn" data-dictate="askIn" data-submit="#askBtn" title="Speak"></button><button class="btn primary" id="askBtn">Ask</button></form></div>`;
