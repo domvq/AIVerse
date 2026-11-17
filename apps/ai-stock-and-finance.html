@@ -225,6 +225,7 @@ code{background:var(--card);padding:1px 5px;border-radius:5px;font-size:12.5px}
 .dbar i{position:absolute;top:0;bottom:0;border-radius:9px}
 
 /* demo-data notice */
+.demobar.setupbar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 10px;background:var(--panel2,var(--box));border-color:var(--line)}.demobar.setupbar[hidden]{display:none}.demobar.setupbar .h{grid-column:1}.demobar.setupbar .small{grid-column:1;color:var(--muted)}.demobar.setupbar .acts{grid-column:2;grid-row:1/3;margin:0!important}
 .demobar{background:var(--warn-bg);color:var(--ink);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:14px;padding:14px 16px;margin:0 0 14px}
 .demobar .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700;font-size:14.5px}
 .demobar p{margin:6px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink)}
@@ -293,9 +294,10 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <div><h1>AI Stock and Finance</h1><p class="sub">Markets and money</p></div>
   <div class="hdr-r"><button class="badge off" id="aiBadge" title="AI provider">AI off</button><button class="icon-btn" id="btnSettings" aria-label="Settings"><span data-ic="gear"></span></button></div>
  </header>
- <div class="demobar" id="demoBar" role="region" aria-label="Demo data notice" hidden>
-  <div class="h"><span class="demo">DEMO</span> Practice data, not real prices</div>
-  <div class="acts"><button type="button" id="demoGo">Add my keys</button><button type="button" class="hide" id="demoHide">Hide</button></div>
+ <div class="demobar setupbar" id="demoBar" role="region" aria-label="Get set up" hidden>
+  <div class="h">Get set up</div>
+  <div class="small" id="setupSub">Your info, then live prices</div>
+  <div class="acts"><button type="button" id="demoGo">Get set up</button><button type="button" class="hide" id="demoHide">Later</button></div>
  </div>
  <div class="aivpromo" id="aivPromo" hidden><div class="t"><b>Get the full power of AI Stock and Finance</b><span>Full-strength AI</span></div><a class="go" href="../api.html#plans" target="_top">Get AIV key</a><button class="add" type="button" id="aivPromoAdd">I have a key</button><button class="x" type="button" id="aivPromoX" aria-label="Hide for now">×</button></div>
 
@@ -390,6 +392,24 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  <a href="#budget" data-nav="budget"><span class="ico"><span data-ic="wallet"></span></span>Budget</a>
 </div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
 <dialog id="dlg"></dialog>
+<dialog id="setupDlg" aria-labelledby="setupT"><div class="dlg-b">
+ <div class="row between"><b id="setupT">Your info</b><span class="small muted" id="setupStep">Step 1 of 2</span></div>
+ <form id="setupF1" autocomplete="off" style="margin-top:10px">
+  <label>Name<input name="name" placeholder="Optional"></label>
+  <div class="grid2"><label>Age<input name="age" type="number" min="16" max="100"></label><label>Monthly income ($)<input name="income" type="number" min="0" step="50"></label></div>
+  <label>Risk tolerance<select name="risk"><option value="conservative">Conservative</option><option value="moderate">Moderate</option><option value="aggressive">Aggressive</option></select></label>
+  <div class="grid2"><label>Horizon<select name="horizon"><option value="short">Under 3 years</option><option value="medium">3–10 years</option><option value="long">10+ years</option></select></label><label>Experience<select name="experience"><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label></div>
+  <label>Goals<textarea name="goalsText" rows="2" placeholder="Your goals"></textarea></label>
+  <div class="row end" style="gap:8px;margin-top:6px"><button type="button" class="btn ghost" data-setup-close>Cancel</button><button class="btn primary">Next</button></div>
+ </form>
+ <div id="setupS2" hidden style="margin-top:10px">
+  <p class="small" style="margin:0 0 10px">Live prices need a free market-data key.</p>
+  <a class="btn primary" href="https://finnhub.io/register" target="_blank" rel="noopener" style="width:100%;justify-content:center">Get free key ↗</a>
+  <label style="margin-top:12px">Paste your key<input id="setupKey" type="password" autocomplete="new-password" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" data-form-type="other" placeholder="Paste key"></label>
+  <p class="small muted" id="setupMsg" style="min-height:1.2em;margin:4px 0 0"></p>
+  <div class="row end" style="gap:8px;margin-top:6px"><button type="button" class="btn ghost" data-setup-close>Skip for now</button><button type="button" class="btn primary" id="setupSave">Save key</button></div>
+ </div>
+</div></dialog>
 <dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
 <div id="toasts" aria-live="polite"></div>
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
@@ -793,10 +813,15 @@ function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)r
 const VIEWS=['home','markets','research','predict','portfolio','budget','settings'];
 let cur='home';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
-function demoBar(){const b=document.getElementById('demoBar');if(!b)return;let hid=false;try{hid=sessionStorage.getItem('sfai_demo_hide')==='1';}catch(e){}b.hidden=!isDemo()||hid||cur==='settings';}
+function demoBar(){const b=document.getElementById('demoBar');if(!b)return;let hid=false;try{hid=sessionStorage.getItem('sfai_demo_hide')==='1';}catch(e){}b.hidden=(!isDemo()&&S.setupDone)||hid||cur==='settings';const t=document.getElementById('setupSub');if(t)t.textContent=S.setupDone?'Add your free key':'Your info, then live prices';}
 function show(v){if(cur==='predict'&&v!=='predict')predStop();cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();demoBar();window.scrollTo(0,0);}
 function go(v){if(location.hash==='#'+v)show(v);else location.hash=v;}
-document.getElementById('demoGo').addEventListener('click',()=>{go('settings');setTimeout(()=>{const h=document.getElementById('mdHead');if(h){h.scrollIntoView({block:'start'});h.focus({preventScroll:true});}const k=document.getElementById('fhKey');if(k)setTimeout(()=>k.focus({preventScroll:true}),50);},120);});
+function setupStep(n){const two=n===2;document.getElementById('setupF1').hidden=two;document.getElementById('setupS2').hidden=!two;document.getElementById('setupT').textContent=two?'Get your free key':'Your info';document.getElementById('setupStep').textContent=two?'Step 2 of 2':'Step 1 of 2';}
+function openSetup(){const d=document.getElementById('setupDlg'),f=document.getElementById('setupF1');['name','age','income','risk','horizon','experience','goalsText'].forEach(k=>{if(f.elements[k]&&S.profile[k]!=null&&S.profile[k]!=='')f.elements[k].value=S.profile[k];});document.getElementById('setupKey').value='';document.getElementById('setupMsg').textContent='';setupStep(S.setupDone&&isDemo()?2:1);try{d.showModal();}catch(e){d.setAttribute('open','');}}
+document.getElementById('demoGo').addEventListener('click',openSetup);
+document.getElementById('setupF1').addEventListener('submit',e=>{e.preventDefault();const f=e.currentTarget;['name','age','income','risk','horizon','experience','goalsText'].forEach(k=>{if(f.elements[k])S.profile[k]=f.elements[k].value.trim();});S.setupDone=true;save();if(isDemo())setupStep(2);else{document.getElementById('setupDlg').close();refresh();demoBar();}});
+document.getElementById('setupSave').addEventListener('click',()=>{const v=document.getElementById('setupKey').value.trim();if(!v){document.getElementById('setupMsg').textContent='Paste your key first';return;}S.settings.finnhubKey=v;mem.clear();save();document.getElementById('setupDlg').close();toast('Live prices on');refresh();demoBar();});
+document.querySelectorAll('[data-setup-close]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('setupDlg').close();refresh();demoBar();}));
 document.getElementById('demoHide').addEventListener('click',()=>{try{sessionStorage.setItem('sfai_demo_hide','1');}catch(e){}demoBar();});
 function refresh(){(R[cur]||(()=>{}))();badge();}
 function badge(){promo();const b=$('#aiBadge');if(!b)return;const p=prov();const need=p==='browser'&&S.settings.llmReady!==(S.settings.webllmModel||DEFAULT_WEBLLM)&&!llmReady();if(!hasAI()){b.className='badge off';b.textContent='AI off';b.title='Click to download the free on-device AI';}else if(need){b.className='badge off';b.textContent='AI: download needed';b.title='Click to download the free on-device AI';}else{b.className='badge';b.textContent=p==='free'?'AI on':p==='aiv'?'AIV AI on':p==='browser'?'On-device AI':p==='local'?'Local AI':'AI advisor on';}}
@@ -810,7 +835,7 @@ const EXAMPLES=['How is my portfolio doing?','Analyze NVDA for me','What is the 
 R.home=async()=>{
  const v=$('#v-home'),mk=ymKey(today()),ms=monthStats(mk),bud=sum(Object.values(S.budgets).map(Number).filter(x=>x>0));
  const ins=S.insight&&S.insight.date===today()?S.insight.text:null;
- v.innerHTML=`${!S.setupDone?`<div class="soft" style="margin-bottom:10px"><div class="row between wrap"><div class="grow"><b>Personalize your advisor</b><div class="small muted">Add your goals</div></div><a class="btn primary sm" href="#settings">Set up</a></div></div>`:''}
+ v.innerHTML=`
  <div class="grid">
   <button class="stat" data-go="budget"><span class="c-lift">${ic('bank')}</span><b id="hNW">…</b><span>Net worth</span></button>
   <button class="stat" data-go="portfolio"><span class="c-kcal">${ic('trend')}</span><b id="hPV">…</b><span id="hPVs">Portfolio</span></button>
