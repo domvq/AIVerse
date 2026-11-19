@@ -410,7 +410,7 @@ html.aivm #player{bottom:calc(88px + env(safe-area-inset-bottom))}
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
-<script src="../config.js"></script>
+<script src="../config.js?v=20261118c"></script>
 <script>
 (()=>{
 'use strict';
@@ -442,7 +442,7 @@ const cap=s=>String(s||'').replace(/^\w/,c=>c.toUpperCase());
 function toast(msg,{err=false,action,fn,ms=4500}={}){const el=document.createElement('div');el.className='toast'+(err?' err':'');el.innerHTML=`<span>${esc(msg)}</span>`;if(action){const b=document.createElement('button');b.textContent=action;b.onclick=()=>{el.remove();fn&&fn();};el.appendChild(b);}$('#toasts').appendChild(el);setTimeout(()=>el.remove(),action?9000:(err?7000:ms));}
 let actx;function beep(n=1){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();for(let i=0;i<n;i++){const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*.25;o.frequency.value=880;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+.22);}}catch(e){}try{navigator.vibrate&&navigator.vibrate([150,80,150]);}catch(e){}}
 async function run(btn,fn){if(btn){btn.disabled=true;btn.classList.add('loading');}try{return await fn();}catch(e){console.error(e);toast(e.message||String(e),{err:true});}finally{if(btn){btn.disabled=false;btn.classList.remove('loading');}}}
-function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
+function md(t){t=String(t||'').replace(/^\s*#{1,6}\s+/gm,'').replace(/\*\*|__/g,'').replace(/^\s*[*•]\s+/gm,'- ').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]\uFE0F?/gu,'');const lines=esc(t).split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
 async function copy(txt){try{await navigator.clipboard.writeText(txt);toast('Copied');}catch(e){toast('Copy failed',{err:true});}}
 
 
@@ -503,7 +503,7 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try
 }catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
 async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
  if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
- const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
+ const body={model:T.model,messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:prompt}],temperature:temp};
  if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
  if(json)body.response_format={type:'json_object'};
  if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
@@ -565,7 +565,7 @@ async function ensureBrowserModel(model){
 async function browserChat(model,sys,prompt,{json,temp,max,signal}){
  const eng=await getEngine(model);if(signal){if(signal.aborted)throw new DOMException('Stopped','AbortError');signal.addEventListener('abort',()=>{try{eng.interruptGenerate();}catch(e){}},{once:true});}const qwen=/qwen3/i.test(model);
  const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
- const req={messages:[{role:'system',content:sys},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ const req={messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
  if(json)req.response_format={type:'json_object'};
  llmProgress('Thinking on your device…',1);
  try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
@@ -670,6 +670,7 @@ const KEY='aimusic.v1';
 const freshTaste=()=>({tracks:{},artists:{},genres:{}});
 const DEF=()=>({profile:{name:''},settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',learn:true,len:15},taste:freshTaste(),liked:[],recent:[],playlists:[],friends:[],draft:null,setupDone:false});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.taste={...freshTaste(),...(s.taste||{})};['liked','recent','playlists','friends'].forEach(k=>{if(!Array.isArray(d[k]))d[k]=[];});}}catch(e){}return d;}
+const AIV_STYLE='\n\nWriting style: answer like a friendly expert talking to a person, in plain natural sentences and short paragraphs. Do not use markdown headings, bold or italic markers, tables, code formatting, emojis or decorative symbols. When a list really helps, use simple bullet points that start with "- ". Keep answers brief.';
 let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},verify:function(a,t){return verify(a,t)},learn:function(t,k){return learn(t,k)}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
@@ -915,8 +916,8 @@ R.create=()=>{const v=$('#v-create');
   if(C.mode==='like'){C.seeds=C.seeds.slice(0,1);h=`<h3>More like this</h3><p class="sub">Find similar tracks</p><br>${seedsBox(1)}`;}
   else if(C.mode==='mix')h=`<h3>Playlist from several favorites</h3><p class="sub">Pick 2–8 songs</p><br>${seedsBox(8)}`;
   else if(C.mode==='vibe')h=`<h3>Describe the vibe</h3><p class="sub">Describe any vibe</p><br><textarea id="cText" rows="2" placeholder="Describe your playlist">${esc(C.text)}</textarea>`;
-  else if(C.mode==='blend')h=`<h3>Blend two tastes</h3><p class="sub">Blend two styles</p><br><div class="form-row"><label>First<input id="cS1" value="${esc(C.styles[0])}" placeholder="90s R&B"></label><label>Second<input id="cS2" value="${esc(C.styles[1])}" placeholder="Modern pop"></label><label>Third (optional)<input id="cS3" value="${esc(C.styles[2]||'')}" placeholder="Afrobeats"></label></div>`;
-  else if(C.mode==='activity')h=`<h3>Match music to an activity</h3><p class="sub">Matched to activity</p><br><div class="chips" id="cActs">${ACTS.map(([k,l])=>`<button class="chip ${C.act===k?'on':''}" type="button" data-act="${k}">${l}</button>`).join('')}</div><label style="margin-top:12px">Anything else? (optional)<input id="cActText" value="${esc(C.actText)}" placeholder="Extra details"></label>`;
+  else if(C.mode==='blend')h=`<h3>Blend two tastes</h3><p class="sub">Blend two styles</p><br><div class="form-row"><label>First<input id="cS1" value="${esc(C.styles[0])}" placeholder="Enter a style"></label><label>Second<input id="cS2" value="${esc(C.styles[1])}" placeholder="Enter a style"></label><label>Third (optional)<input id="cS3" value="${esc(C.styles[2]||'')}" placeholder="Enter a style"></label></div>`;
+  else if(C.mode==='activity')h=`<h3>Match music to an activity</h3><p class="sub">Matched to activity</p><br><div class="chips" id="cActs">${ACTS.map(([k,l])=>`<button class="chip ${C.act===k?'on':''}" type="button" data-act="${k}">${l}</button>`).join('')}</div><label style="margin-top:12px">Anything else? (optional)<input id="cActText" value="${esc(C.actText)}" placeholder="Enter extra details"></label>`;
   form.innerHTML=h+opts();icons(form);
   if(C.mode==='like'||C.mode==='mix'){const max=C.mode==='like'?1:8;picker($('#cPick'),{multi:C.mode==='mix',placeholder:C.mode==='like'?'Search the song to start from':'Search and add songs',onPick:t=>{if(C.mode==='like')C.seeds=[t];else if(!C.seeds.some(s=>s.id===t.id)&&C.seeds.length<max)C.seeds.push(t);$('#cSeeds').innerHTML=C.seeds.map(seedChip).join('');}});
    $('#cSeeds').onclick=e=>{const b=e.target.closest('[data-rm]');if(b){C.seeds.splice(+b.dataset.rm,1);$('#cSeeds').innerHTML=C.seeds.map(seedChip).join('');}};
@@ -953,7 +954,7 @@ R.playlists=()=>{const v=$('#v-playlists');
 let discoverLast=null;
 R.discover=()=>{const v=$('#v-discover');const mine=topOf(S.taste.artists,6);
  v.innerHTML=`<h2 style="margin-top:4px">Find new artists</h2><div class="box"><p class="sub" style="margin-top:0">Find similar artists</p><br>
- <label>Artists you love<input id="dArts" value="${esc(mine.join(', '))}" placeholder="Artists you like"></label>
+ <label>Artists you love<input id="dArts" value="${esc(mine.join(', '))}" placeholder="Enter artists you like"></label>
  <div class="form-row" style="align-items:center"><label class="check"><input type="checkbox" id="dDeep" checked> Lesser-known only</label></div>
  <div class="row wrap"><button class="btn primary" type="button" id="dGo">${ic('compass')}Find artists</button><button class="btn ghost sm" type="button" id="dStop" hidden>Stop</button></div></div><div id="dOut" style="margin-top:14px"></div>`;
  icons(v);const out=$('#dOut');if(discoverLast)paintArtists(out,discoverLast);
@@ -988,9 +989,9 @@ function parseFriend(txt,fallbackName){txt=String(txt||'').trim();const m=txt.ma
 R.blend=()=>{const v=$('#v-blend');const mineN=S.liked.length+Object.values(S.taste.tracks).filter(x=>x.s>0).length;
  v.innerHTML=`<h2 style="margin-top:4px">Blend tastes with friends</h2>
  <div class="box"><h3>Your taste code</h3><p class="sub">Share with friends</p><br>
- <div class="form-row" style="align-items:flex-end"><label>Your name<input id="bName" value="${esc(S.profile.name)}" placeholder="Your name"></label><div class="row" style="margin-bottom:10px"><button class="btn sm primary" type="button" id="bCopy" ${mineN?'':'disabled'}>${ic('share')}Copy my code</button></div></div>${mineN?'':'<p class="hint">Save songs first</p>'}</div>
+ <div class="form-row" style="align-items:flex-end"><label>Your name<input id="bName" value="${esc(S.profile.name)}" placeholder="Enter your name"></label><div class="row" style="margin-bottom:10px"><button class="btn sm primary" type="button" id="bCopy" ${mineN?'':'disabled'}>${ic('share')}Copy my code</button></div></div>${mineN?'':'<p class="hint">Save songs first</p>'}</div>
  <div class="box" style="margin-top:10px"><h3>Friends</h3><p class="sub">Add a friend</p><br>
- <div class="form-row"><label style="max-width:200px">Name<input id="fName" placeholder="Friend's name"></label></div><label>Taste code or songs<textarea id="fCode" rows="3" placeholder="Code or songs"></textarea></label><button class="btn sm" type="button" id="fAdd">${ic('plus')}Add friend</button>
+ <div class="form-row"><label style="max-width:200px">Name<input id="fName" placeholder="Enter friend's name"></label></div><label>Taste code or songs<textarea id="fCode" rows="3" placeholder="Enter code or songs"></textarea></label><button class="btn sm" type="button" id="fAdd">${ic('plus')}Add friend</button>
  <div class="list" style="margin-top:12px" id="fList">${S.friends.map((f,i)=>`<div class="item"><label class="check" style="margin:0;flex:1"><input type="checkbox" data-fi="${i}" ${f.on!==false?'checked':''}> <span><b>${esc(f.name)}</b> <span class="muted tiny">· ${f.songs.length} songs</span></span></label><button class="x" type="button" data-fdel="${i}" aria-label="Remove ${esc(f.name)}">×</button></div>`).join('')||'<p class="empty">No friends yet</p>'}</div></div>
  <div class="box" style="margin-top:10px"><h3>Group playlist</h3><p class="sub">One shared playlist</p><br><div class="row wrap"><label class="check" style="margin:0"><input type="checkbox" id="bMe" ${mineN?'checked':'disabled'}> Include me</label><button class="btn primary" type="button" id="bGo">${ic('users')}Make group playlist</button><button class="btn ghost sm" type="button" id="bStop" hidden>Stop</button></div></div><div id="bOut" style="margin-top:14px"></div>`;
  icons(v);const out=$('#bOut');
@@ -1051,9 +1052,9 @@ function init(){icons();bindSettings();
 init();
 })();
 </script>
-<script src="../legal.js" defer></script>
-<script src="../mobile.js" defer></script>
-<script src="../connect.js" defer></script>
-<script src="aiv-connect.js"></script>
+<script src="../legal.js?v=20261118c" defer></script>
+<script src="../mobile.js?v=20261118c" defer></script>
+<script src="../connect.js?v=20261118c" defer></script>
+<script src="aiv-connect.js?v=20261118c"></script>
 </body>
 </html>
