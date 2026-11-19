@@ -337,7 +337,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <header class="vh"><div><h1>Daily planner</h1><p class="sub">Time-blocked day</p></div></header>
   <div class="card">
    <div class="form-row"><label>Day<input type="date" id="planDate"></label><label>Day starts<input type="time" id="planStart"></label><label>Day ends<input type="time" id="planEnd"></label></div>
-   <label>Anything to factor in?<span class="dict"><textarea id="planNotes" rows="3" placeholder="Notes for today"></textarea><button type="button" class="mic-btn" data-dictate="planNotes" aria-label="Dictate"></button></span></label>
+   <label>Anything to factor in?<span class="dict"><textarea id="planNotes" rows="3" placeholder="Enter notes for today"></textarea><button type="button" class="mic-btn" data-dictate="planNotes" aria-label="Dictate"></button></span></label>
    <label class="check"><input type="checkbox" id="planBreaks" checked> Include breaks and a meal</label>
    <div class="row wrap" style="margin-top:8px"><button class="btn primary" id="btnPlan"><span data-ic="spark"></span><span>Build my day</span></button><span class="hint" id="planCtx"></span></div>
   </div>
@@ -393,9 +393,9 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <header class="vh"><div><h1>Travel &amp; events</h1><p class="sub">Plan any trip</p></div></header>
   <div class="card">
    <div class="seg" id="travKind"><button data-k="trip" class="on" type="button">Trip</button><button data-k="event" type="button">Event or party</button></div>
-   <div class="form-row"><label><span id="travWhatL">Destination</span><input id="travWhat" placeholder="Lisbon, Portugal"></label><label id="travFromL">Traveling from<input id="travFrom" placeholder="Your home city"></label></div>
-   <div class="form-row"><label>Start<input type="date" id="travStart"></label><label>End<input type="date" id="travEnd"></label><label>People<input type="number" id="travPeople" min="1" value="1"></label><label>Budget<input id="travBudget" placeholder="$1,500 total"></label></div>
-   <label>Interests, must-haves, constraints<span class="dict"><textarea id="travNotes" rows="2" placeholder="Trip preferences"></textarea><button type="button" class="mic-btn" data-dictate="travNotes" aria-label="Dictate"></button></span></label>
+   <div class="form-row"><label><span id="travWhatL">Destination</span><input id="travWhat" placeholder="Enter destination"></label><label id="travFromL">Traveling from<input id="travFrom" placeholder="Enter your home city"></label></div>
+   <div class="form-row"><label>Start<input type="date" id="travStart"></label><label>End<input type="date" id="travEnd"></label><label>People<input type="number" id="travPeople" min="1" value="1"></label><label>Budget<input id="travBudget" placeholder="Enter budget"></label></div>
+   <label>Interests, must-haves, constraints<span class="dict"><textarea id="travNotes" rows="2" placeholder="Enter trip preferences"></textarea><button type="button" class="mic-btn" data-dictate="travNotes" aria-label="Dictate"></button></span></label>
    <div class="row"><button class="btn primary" id="btnTravPlan"><span data-ic="spark"></span><span>Plan it</span></button><span class="hint">Confirm before booking</span></div>
   </div>
   <div id="travOut"></div>
@@ -426,14 +426,14 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <div class="seg" id="compTabs"><button data-t="email" class="on">Email</button><button data-t="text">Text message</button><button data-t="polish">Polish</button><button data-t="translate">Translate</button><button data-t="dictate">Voice-to-text</button></div>
   <div class="card">
    <div data-pane="email">
-    <div class="form-row"><label>To<input id="ceTo" placeholder="Recipient"></label><label>Tone<select id="ceTone"></select></label><label>Length<select id="ceLen"><option>Short</option><option selected>Medium</option><option>Detailed</option></select></label></div>
+    <div class="form-row"><label>To<input id="ceTo" placeholder="Enter recipient"></label><label>Tone<select id="ceTone"></select></label><label>Length<select id="ceLen"><option>Short</option><option selected>Medium</option><option>Detailed</option></select></label></div>
     <label>Replying to (optional)<textarea id="ceCtx" rows="3" placeholder="Paste the message"></textarea></label>
-    <label>What do you want to say?<span class="dict"><textarea id="ceIntent" rows="3" placeholder="What to say"></textarea><button type="button" class="mic-btn" data-dictate="ceIntent" aria-label="Dictate"></button></span></label>
+    <label>What do you want to say?<span class="dict"><textarea id="ceIntent" rows="3" placeholder="Enter what to say"></textarea><button type="button" class="mic-btn" data-dictate="ceIntent" aria-label="Dictate"></button></span></label>
     <button class="btn primary" id="btnCe"><span data-ic="spark"></span><span>Draft email</span></button>
    </div>
    <div data-pane="text" hidden>
-    <div class="form-row"><label>Who's it to?<input id="ctTo" placeholder="Recipient"></label><label>Tone<select id="ctTone"><option>Casual</option><option>Warm</option><option>Professional</option><option>Funny</option><option>Apologetic</option><option>Firm</option></select></label></div>
-    <label>What do you want to say?<span class="dict"><textarea id="ctIntent" rows="3" placeholder="What to say"></textarea><button type="button" class="mic-btn" data-dictate="ctIntent" aria-label="Dictate"></button></span></label>
+    <div class="form-row"><label>Who's it to?<input id="ctTo" placeholder="Enter recipient"></label><label>Tone<select id="ctTone"><option>Casual</option><option>Warm</option><option>Professional</option><option>Funny</option><option>Apologetic</option><option>Firm</option></select></label></div>
+    <label>What do you want to say?<span class="dict"><textarea id="ctIntent" rows="3" placeholder="Enter what to say"></textarea><button type="button" class="mic-btn" data-dictate="ctIntent" aria-label="Dictate"></button></span></label>
     <button class="btn primary" id="btnCt"><span data-ic="spark"></span><span>Draft texts</span></button>
    </div>
    <div data-pane="polish" hidden>
@@ -443,7 +443,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
    </div>
    <div data-pane="translate" hidden>
     <label>Text<span class="dict"><textarea id="ctrIn" rows="5" placeholder="Type or dictate"></textarea><button type="button" class="mic-btn" data-dictate="ctrIn" aria-label="Dictate"></button></span></label>
-    <div class="form-row"><label>Into<select id="ctrLang"></select></label><label id="ctrOtherL" hidden>Language<input id="ctrOther" placeholder="Language"></label><label>Register<select id="ctrReg"><option>Natural</option><option>Formal</option><option>Casual</option></select></label></div>
+    <div class="form-row"><label>Into<select id="ctrLang"></select></label><label id="ctrOtherL" hidden>Language<input id="ctrOther" placeholder="Enter language"></label><label>Register<select id="ctrReg"><option>Natural</option><option>Formal</option><option>Casual</option></select></label></div>
     <button class="btn primary" id="btnCtr"><span data-ic="spark"></span><span>Translate</span></button>
    </div>
    <div data-pane="dictate" hidden class="center">
@@ -460,7 +460,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  <section class="view" id="v-meetings">
   <header class="vh"><div><h1>Meeting summaries</h1><p class="sub">Summaries and actions</p></div></header>
   <div class="card">
-   <div class="form-row"><label>Meeting<input id="mtTitle" placeholder="Weekly team sync"></label><label>Date<input id="mtDate" type="date"></label></div>
+   <div class="form-row"><label>Meeting<input id="mtTitle" placeholder="Enter meeting name"></label><label>Date<input id="mtDate" type="date"></label></div>
    <label>Transcript or notes<textarea id="mtText" rows="8" placeholder="Paste meeting notes"></textarea></label>
    <div class="row wrap"><button class="btn" id="btnMtRec"><span data-ic="mic"></span><span>Record</span></button><span class="hint" id="mtRecStatus"></span><span style="flex:1"></span><button class="btn primary" id="btnMtSum"><span data-ic="spark"></span><span>Summarize</span></button></div>
    <p class="hint">Get recording consent</p>
@@ -474,7 +474,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <header class="vh"><div><h1>Settings</h1><p class="sub">Stored in browser</p></div></header>
   <div class="card">
    <h3>About you</h3><br>
-   <div class="form-row"><label>Your name<input data-set="name" placeholder="Your name"></label><label>Workday starts<input type="time" data-set="workStart"></label><label>Workday ends<input type="time" data-set="workEnd"></label></div>
+   <div class="form-row"><label>Your name<input data-set="name" placeholder="Enter your name"></label><label>Workday starts<input type="time" data-set="workStart"></label><label>Workday ends<input type="time" data-set="workEnd"></label></div>
    <div class="form-row"><label>Default event reminder<select data-set="remindDefault" id="setRemind"></select></label><label>Preferred translation language<select data-set="lang" id="setLang"></select></label></div>
    <label class="check"><input type="checkbox" data-set="speak"> Speak answers aloud</label>
   </div>
@@ -558,7 +558,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
-<script src="../config.js"></script>
+<script src="../config.js?v=20261118b"></script>
 <script>
 (()=>{
 'use strict';
@@ -615,6 +615,7 @@ const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColo
 const KEY='aide.v1';
 const DEF=()=>({settings:{name:'',provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',googleClientId:'',googleLinked:false,workStart:'09:00',workEnd:'17:30',remindDefault:15,speak:true,lang:'Spanish'},tasks:[],events:[],dates:[],reminders:[],plans:{},trips:[],meetings:[],briefings:{},emailCache:[],fired:{}});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.settings={...DEF().settings,...(s.settings||{})};}}catch(e){}return d;}
+const AIV_STYLE='\n\nWriting style: answer like a friendly expert talking to a person, in plain natural sentences and short paragraphs. Do not use markdown headings, bold or italic markers, tables, code formatting, emojis or decorative symbols. When a list really helps, use simple bullet points that start with "- ". Keep answers brief.';
 let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})},addTask:function(t,s){return addTask(t,s)},addEvent:function(e,s){return addEvent(e,s)}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 (function prune(){const b=ymd(addDays(new Date(),-14)),p=ymd(addDays(new Date(),-45));for(const k of Object.keys(S.briefings))if(k<b)delete S.briefings[k];for(const k of Object.keys(S.plans))if(k<p)delete S.plans[k];const f=Object.keys(S.fired);if(f.length>600)S.fired=Object.fromEntries(f.slice(-300).map(k=>[k,1]));S.reminders=S.reminders.filter(r=>!(r.done&&r.doneAt&&Date.now()-r.doneAt>30*DAY));})();
@@ -626,7 +627,7 @@ function notify(title,body){toast(title+(body?' — '+body:''),{ms:10000});beep(
 async function askNotif(){if(!('Notification'in window)){toast('This browser does not support notifications.',{err:true});return;}const p=await Notification.requestPermission();toast(p==='granted'?'Notifications are on.':'Notifications blocked',{err:p!=='granted'});refresh();}
 
 /* ---------- markdown-lite ---------- */
-function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
+function md(t){t=String(t||'').replace(/^\s*#{1,6}\s+/gm,'').replace(/\*\*|__/g,'').replace(/^\s*[*•]\s+/gm,'- ').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]\uFE0F?/gu,'');const lines=esc(t).split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
 const plain=t=>String(t||'').replace(/[*#`_>]/g,'').replace(/\n+/g,'. ');
 
 /* ---------- AI providers ---------- */
@@ -684,7 +685,7 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500}={}){
  try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }
 async function remoteChat(T,sys,prompt,{json,temp,max}){
- const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
+ const body={model:T.model,messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:prompt}],temperature:temp};
  if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
  if(json)body.response_format={type:'json_object'};
  if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
@@ -749,7 +750,7 @@ async function ensureBrowserModel(model){
 async function browserChat(model,sys,prompt,{json,temp,max}){
  const eng=await getEngine(model);const qwen=/qwen3/i.test(model);
  const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
- const req={messages:[{role:'system',content:sys},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ const req={messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
  if(json)req.response_format={type:'json_object'};
  llmProgress('Thinking on your device…',1);
  try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
@@ -1025,8 +1026,8 @@ function renderDay(){const ds=calSel;const[,m,d]=ds.split('-').map(Number);$('#d
  $('#dayList').innerHTML=(cf.length?`<p class="od" style="font-size:13px">Conflict: ${esc(cf.join('; '))}</p>`:'')+(evs.map(e=>miniEvent(e,true)).join('')||'<p class="empty">No events.</p>')+(dts.length?'<h4>Dates</h4>'+dts.map(x=>`<div class="mini"><div class="grow"><div class="t">${esc(x.name)}'s ${esc(x.kind==='other'?'date':x.kind)}</div></div></div>`).join(''):'')+(tks.length?'<h4>Tasks due</h4><div class="list">'+tks.map(taskItem).join('')+'</div>':'');}
 function findSlots({dur,from,to,early,late,wk}){const res=[];const end=parseLocal(to);for(let d=parseLocal(from);d<=end&&res.length<18;d=addDays(d,1)){if(wk&&(d.getDay()===0||d.getDay()===6))continue;const ds=ymd(d);const busy=S.events.filter(e=>!e.allDay&&e.start.slice(0,10)===ds).map(e=>[parseLocal(e.start).getTime(),parseLocal(e.end||e.start).getTime()]);let t=parseLocal(ds+'T'+early).getTime();const lim=parseLocal(ds+'T'+late).getTime();let per=0;while(t+dur*6e4<=lim&&per<3){const s=t,e=t+dur*6e4;if(s>Date.now()+15*6e4&&!busy.some(([a,b])=>s<b+5*6e4&&e>a-5*6e4)){res.push(new Date(s));per++;t=e+60*6e4;continue;}t+=15*6e4;}}return res;}
 function findTime(){
- openModal('Find a time',`<label>Describe it (optional)<span class="row"><input id="ftDesc" placeholder="What to schedule"><button class="btn sm" type="button" id="ftAI">Fill in</button></span></label>
- <div class="form-row"><label>Title<input id="ftTitle" placeholder="Appointment"></label><label>Duration (min)<input id="ftDur" type="number" min="5" step="5" value="30"></label></div>
+ openModal('Find a time',`<label>Describe it (optional)<span class="row"><input id="ftDesc" placeholder="Enter what to schedule"><button class="btn sm" type="button" id="ftAI">Fill in</button></span></label>
+ <div class="form-row"><label>Title<input id="ftTitle" placeholder="Enter appointment"></label><label>Duration (min)<input id="ftDur" type="number" min="5" step="5" value="30"></label></div>
  <div class="form-row"><label>Location<input id="ftLoc" placeholder="optional"></label></div>
  <div class="form-row"><label>From<input id="ftFrom" type="date" value="${todayStr()}"></label><label>To<input id="ftTo" type="date" value="${ymd(addDays(new Date(),7))}"></label></div>
  <div class="form-row"><label>Earliest start<input id="ftEarly" type="time" value="${S.settings.workStart}"></label><label>Latest end<input id="ftLate" type="time" value="${S.settings.workEnd}"></label></div>
@@ -1153,7 +1154,7 @@ function renderDetail(){const m=openMsg,d=$('#inboxDetail');d.innerHTML=`<div cl
  <div class="row wrap"><button class="btn sm" id="mdSum">Summarize</button><button class="btn sm" id="mdTask">Make task</button><select id="mdFollow" style="width:auto;padding:5px 8px;font-size:13px"><option value="">Follow up…</option><option value="1">Tomorrow</option><option value="3">In 3 days</option><option value="7">In a week</option><option value="c">Pick a date…</option></select><button class="btn ghost sm danger" id="mdSpam">Mark spam</button><a class="btn ghost sm" target="_blank" rel="noopener" href="https://mail.google.com/mail/u/0/#inbox/${encodeURIComponent(m.threadId)}">Open in Gmail</a></div>
  <div id="mdSumOut" class="md out"></div><pre class="mail-body">${esc(m.body||m.snippet)}</pre>
  <h4>Reply</h4><div class="form-row"><label>Tone<select id="mdTone">${TONE_OPTS}</select></label><label>Length<select id="mdLen"><option>Short</option><option selected>Medium</option><option>Detailed</option></select></label></div>
- <label>What do you want to say?<span class="dict"><textarea id="mdIntent" rows="2" placeholder="Your reply"></textarea><button type="button" class="mic-btn" data-dictate="mdIntent" aria-label="Dictate"></button></span></label>
+ <label>What do you want to say?<span class="dict"><textarea id="mdIntent" rows="2" placeholder="Enter your reply"></textarea><button type="button" class="mic-btn" data-dictate="mdIntent" aria-label="Dictate"></button></span></label>
  <button class="btn primary sm" id="mdDraft"><span data-ic="spark"></span><span>Draft reply</span></button>
  <div id="mdReplyWrap" class="out" hidden><textarea id="mdReply" rows="10"></textarea><div class="row wrap" style="margin-top:8px"><button class="btn sm" id="mdSave">Save to Gmail drafts</button><button class="btn ghost sm" data-copy="#mdReply">Copy</button><span class="hint">Review, then send</span></div></div>`;
  icons(d);wireMics(d);
@@ -1302,9 +1303,9 @@ function init(){
 init();
 })();
 </script>
-<script src="../legal.js" defer></script>
-<script src="../mobile.js" defer></script>
-<script src="../connect.js" defer></script>
-<script src="aiv-connect.js"></script>
+<script src="../legal.js?v=20261118b" defer></script>
+<script src="../mobile.js?v=20261118b" defer></script>
+<script src="../connect.js?v=20261118b" defer></script>
+<script src="aiv-connect.js?v=20261118b"></script>
 </body>
 </html>

@@ -343,7 +343,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
-<script src="../config.js"></script>
+<script src="../config.js?v=20261118b"></script>
 <script>
 (()=>{
 'use strict';
@@ -375,7 +375,7 @@ const cap=s=>String(s||'').replace(/^\w/,c=>c.toUpperCase());
 function toast(msg,{err=false,action,fn,ms=4500}={}){const el=document.createElement('div');el.className='toast'+(err?' err':'');el.innerHTML=`<span>${esc(msg)}</span>`;if(action){const b=document.createElement('button');b.textContent=action;b.onclick=()=>{el.remove();fn&&fn();};el.appendChild(b);}$('#toasts').appendChild(el);setTimeout(()=>el.remove(),action?9000:(err?7000:ms));}
 let actx;function beep(n=1){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();for(let i=0;i<n;i++){const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*.25;o.frequency.value=880;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+.2);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+.22);}}catch(e){}try{navigator.vibrate&&navigator.vibrate([150,80,150]);}catch(e){}}
 async function run(btn,fn){if(btn){btn.disabled=true;btn.classList.add('loading');}try{return await fn();}catch(e){console.error(e);toast(e.message||String(e),{err:true});}finally{if(btn){btn.disabled=false;btn.classList.remove('loading');}}}
-function md(t){const lines=esc(t||'').split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
+function md(t){t=String(t||'').replace(/^\s*#{1,6}\s+/gm,'').replace(/\*\*|__/g,'').replace(/^\s*[*•]\s+/gm,'- ').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]\uFE0F?/gu,'');const lines=esc(t).split('\n');let h='',L=null;const inl=s=>s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>').replace(/`([^`]+)`/g,'<code>$1</code>');const close=()=>{if(L){h+=`</${L}>`;L=null;}};for(const l of lines){let m;if((m=l.match(/^\s*[-*•]\s+(.*)/))){if(L!=='ul'){close();h+='<ul>';L='ul';}h+=`<li>${inl(m[1])}</li>`;continue;}if((m=l.match(/^\s*\d+[.)]\s+(.*)/))){if(L!=='ol'){close();h+='<ol>';L='ol';}h+=`<li>${inl(m[1])}</li>`;continue;}close();if((m=l.match(/^#{1,6}\s+(.*)/))){h+=`<h4>${inl(m[1])}</h4>`;continue;}if(l.trim())h+=`<p>${inl(l)}</p>`;}close();return h;}
 async function copy(txt){try{await navigator.clipboard.writeText(txt);toast('Copied');}catch(e){toast('Copy failed',{err:true});}}
 
 
@@ -436,7 +436,7 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500,signal}={}){try
 }catch(e){if(e&&(e.name==='AbortError'||signal&&signal.aborted))throw Object.assign(new Error('Stopped.'),{stopped:true});throw e;}}
 async function remoteChat(T,sys,prompt,{json,temp,max,signal}){
  if(/api\.anthropic\.com/.test(T.base))return anthropicChat(T,sys,prompt,{max,temp,signal});
- const body={model:T.model,messages:[{role:'system',content:sys},{role:'user',content:prompt}],temperature:temp};
+ const body={model:T.model,messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:prompt}],temperature:temp};
  if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
  if(json)body.response_format={type:'json_object'};
  if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
@@ -498,7 +498,7 @@ async function ensureBrowserModel(model){
 async function browserChat(model,sys,prompt,{json,temp,max,signal}){
  const eng=await getEngine(model);if(signal){if(signal.aborted)throw new DOMException('Stopped','AbortError');signal.addEventListener('abort',()=>{try{eng.interruptGenerate();}catch(e){}},{once:true});}const qwen=/qwen3/i.test(model);
  const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
- const req={messages:[{role:'system',content:sys},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ const req={messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
  if(json)req.response_format={type:'json_object'};
  llmProgress('Thinking on your device…',1);
  try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
@@ -588,7 +588,8 @@ const KEY='learnintel.v1';
 const freshTutor=()=>({topic:'',lvl:'Beginner',nodes:[],hist:[],sel:null});
 const DEF=()=>({profile:{name:''},settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:''},tutor:freshTutor(),lab:{lvl:'Undergraduate',hist:[],ptitle:'',ptext:''},chat:[],mchat:[],setupDone:false});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.tutor={...freshTutor(),...(s.tutor||{})};d.lab={...DEF().lab,...(s.lab||{})};}}catch(e){}return d;}
-let S=load();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})}};
+const AIV_STYLE='\n\nWriting style: answer like a friendly expert talking to a person, in plain natural sentences and short paragraphs. Do not use markdown headings, bold or italic markers, tables, code formatting, emojis or decorative symbols. When a list really helps, use simple bullet points that start with "- ". Keep answers brief.';
+let S=load();S.chat=[];window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();S.chat=[];try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
 function tmd(t){const parts=String(t||'').split(/```[\w-]*\n?/);return parts.map((p,i)=>i%2?`<pre>${esc(p)}</pre>`:md(p)).join('');}
 
@@ -649,7 +650,7 @@ R.home=()=>{const v=$('#v-home'),t=TU(),mast=t.nodes.filter(n=>(n.m||0)>=.7).len
   <button class="stat" data-go="learn"><span class="c-kcal">${ic('quiz')}</span><b>${t.hist.length}</b><span>Quizzes</span></button>
   <button class="stat" data-go="writing"><span class="c-sleep">${ic('pen')}</span><b>${wavg!=null?r1(wavg)+' <small>/ 5</small>':'—'}</b><span>Writing</span></button>
  </div>
- <h2>Continue learning</h2><div class="box">${t.nodes.length?`<div class="row between wrap"><div><h3>${esc(t.topic)}</h3><div class="small muted">${esc(t.lvl)} · ${t.nodes.length} concepts</div></div><span class="pill">${Math.round(masteryAvg()*100)}% mastery</span></div><p style="margin:10px 0 0">${nx?`Study next: <b>${esc(nx.name)}</b>${nx.m!=null?` (${Math.round(nx.m*100)}%)`:''}`:'Every concept is mastered — take a practice test to lock it in.'}</p><div class="row wrap" style="margin-top:12px"><button class="btn primary" id="hNext">${nx?'Open next concept':'Practice test'}</button><a class="btn" href="#learn">Knowledge map</a></div>`:`<div class="row wrap"><input id="hTopic" placeholder="Topic to learn" style="flex:1;min-width:200px"><select id="hLvl" style="width:auto"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><button class="btn primary" id="hBuild">Build my learning path</button></div>`}</div>
+ <h2>Continue learning</h2><div class="box">${t.nodes.length?`<div class="row between wrap"><div><h3>${esc(t.topic)}</h3><div class="small muted">${esc(t.lvl)} · ${t.nodes.length} concepts</div></div><span class="pill">${Math.round(masteryAvg()*100)}% mastery</span></div><p style="margin:10px 0 0">${nx?`Study next: <b>${esc(nx.name)}</b>${nx.m!=null?` (${Math.round(nx.m*100)}%)`:''}`:'Every concept is mastered — take a practice test to lock it in.'}</p><div class="row wrap" style="margin-top:12px"><button class="btn primary" id="hNext">${nx?'Open next concept':'Practice test'}</button><a class="btn" href="#learn">Knowledge map</a></div>`:`<div class="row wrap"><input id="hTopic" placeholder="Enter study topic" style="flex:1;min-width:200px"><select id="hLvl" style="width:auto"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><button class="btn primary" id="hBuild">Build my learning path</button></div>`}</div>
  <h2>Research lab</h2><div class="grid">${[['papers','doc','Read a paper','Verified summaries'],['methods','flask','Methodology tutor','Design and statistics'],['methods','target','Plan an experiment','Critique a plan'],['writing','pen','Writing practice','Scored feedback']].map(([h,i,t,s])=>`<button class="tile" data-go="${h}"><span class="c-lift">${ic(i)}</span><b>${t}</b><span>${s}</span></button>`).join('')}</div>
  <h2>AI Tutor</h2><div class="soft"><div class="coach-head"><span class="c-lift">${ic('brain')}</span>Your AI tutor</div>
   
@@ -666,7 +667,7 @@ async function askTutor(q,btn){q=String(q||'').trim();if(!q)return;S.chat.push({
 
 /* ---------- LEARN ---------- */
 R.learn=()=>{const v=$('#v-learn'),t=TU();
- v.innerHTML=`<div class="box"><div class="row wrap"><input id="topic" aria-label="Topic" placeholder="Topic to learn" value="${esc(t.topic)}" style="flex:1;min-width:200px"><select id="lvl" aria-label="Level" style="width:auto">${['Beginner','Intermediate','Advanced'].map(l=>`<option ${l===t.lvl?'selected':''}>${l}</option>`).join('')}</select><button class="btn primary" id="go">${t.nodes.length?'Rebuild path':'Build my learning path'}</button><button class="btn" id="reset">Start over</button></div></div>
+ v.innerHTML=`<div class="box"><div class="row wrap"><input id="topic" aria-label="Topic" placeholder="Enter study topic" value="${esc(t.topic)}" style="flex:1;min-width:200px"><select id="lvl" aria-label="Level" style="width:auto">${['Beginner','Intermediate','Advanced'].map(l=>`<option ${l===t.lvl?'selected':''}>${l}</option>`).join('')}</select><button class="btn primary" id="go">${t.nodes.length?'Rebuild path':'Build my learning path'}</button><button class="btn" id="reset">Start over</button></div></div>
  <div id="app" ${t.nodes.length?'':'hidden'}>
   <h2>Knowledge map</h2><div class="box"><div class="row between wrap"><span class="small muted" id="ov"></span><span class="lg muted">Tap a concept<i style="background:var(--soft)"></i>Not tested<i style="background:var(--bad)"></i>Gap<i style="background:var(--carb)"></i>Developing<i style="background:var(--good)"></i>Mastered</span></div><div id="map" style="margin-top:6px"></div><p id="next" class="small"></p><div class="row"><span class="muted small">Mastery over time</span><svg id="spark" width="220" height="40" role="img" aria-label="Mastery trend"></svg></div></div>
   <h2 id="sel"></h2><div class="box"><div class="row wrap" id="tools"></div>
@@ -700,7 +701,7 @@ function splitParas(t){let a=t.split(/\n\s*\n/).map(s=>s.trim()).filter(s=>s.len
 R.papers=()=>{const v=$('#v-papers'),L=paperLimit();
  v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Read a paper</h2>${lvlSelect()}</div>
  <div class="box"><p class="small" style="margin-top:0">Paste a paper</p>
-  <input id="ptitle" aria-label="Paper title" placeholder="Paper title (optional)" value="${esc(S.lab.ptitle)}">
+  <input id="ptitle" aria-label="Paper title" placeholder="Enter paper title (optional)" value="${esc(S.lab.ptitle)}">
   <textarea id="ptext" aria-label="Paper text" rows="9" style="margin-top:8px" placeholder="Paste paper text">${esc(S.lab.ptext)}</textarea>
   <div class="row wrap" style="margin-top:8px"><button class="btn" id="pfile">${ic('upload')} Load a file</button><span class="hint grow" id="pinfo"></span><button class="btn primary" id="sum">${ic('spark')} Summarize with citations</button><button class="btn danger" id="stop0" hidden>Stop</button></div></div>
  <div id="o0" class="out" aria-live="polite" style="margin-top:12px"></div><div class="src" id="src" hidden></div>`;
@@ -724,7 +725,7 @@ R.methods=()=>{const v=$('#v-methods');
   <div class="chat" id="mchat"></div>
   <form class="askbar" id="mForm" autocomplete="off"><input id="cin" placeholder="Ask about methods" aria-label="Your question"><button type="button" class="icon-btn" data-dictate="cin" data-submit="#csend" title="Speak"></button><button class="btn primary" id="csend">Send</button><button type="button" class="btn danger" id="stop1" hidden>Stop</button></form></div>
  <h2>Hypothesis &amp; experiment planner</h2><div class="box"><p class="small" style="margin-top:0">Draft, then critique</p>
-  <label>Research question<input id="hq" placeholder="Your research question"></label>
+  <label>Research question<input id="hq" placeholder="Enter research question"></label>
   <label>Your hypothesis<textarea id="hh" rows="3"></textarea></label>
   <label>Your experiment plan<textarea id="hp" rows="5"></textarea></label>
   <div class="row wrap"><button class="btn primary" id="crit">Critique my plan</button><button class="btn" id="draft">Help me draft one</button><button class="btn danger" id="stop2" hidden>Stop</button></div>
@@ -799,9 +800,9 @@ function init(){icons();bindSettings();
 init();
 })();
 </script>
-<script src="../legal.js" defer></script>
-<script src="../mobile.js" defer></script>
-<script src="../connect.js" defer></script>
-<script src="aiv-connect.js"></script>
+<script src="../legal.js?v=20261118b" defer></script>
+<script src="../mobile.js?v=20261118b" defer></script>
+<script src="../connect.js?v=20261118b" defer></script>
+<script src="aiv-connect.js?v=20261118b"></script>
 </body>
 </html>
