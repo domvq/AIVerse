@@ -444,6 +444,8 @@
       '.lim{margin:0 16px 10px;padding:10px 12px;border-radius:10px;background:#fef3c7;color:#7c4a03;font-size:13px}.lim a{color:#7c4a03;font-weight:600}' +
       '@media (prefers-color-scheme: dark){.pn{background:#0f0f11;color:#f4f4f5;border-color:#26262b}.hd{border-color:#26262b}.u{background:#1f1f23}.st,.src a,.ch button{border-color:#2a2a30;color:#c4c4c8;background:transparent}.cp{border-color:#1f1f23}.cp textarea,.si input,.si button{background:#141416;color:#f4f4f5;border-color:#2a2a30}.cp button,.si .pr{background:#f4f4f5;color:#0a0a0b}.ib{color:#c4c4c8}.ib:hover{background:#1b1b1f}.a code{background:#1b1b1f}.lim{background:#3a2a07;color:#fcd98a}.lim a{color:#fcd98a}.ag{color:#c4c4c8}.ag a{color:#93c5fd}}' +
       '@media (max-width:820px){.fab{bottom:84px}.pn{width:100vw;border-left:0}}' +
+      /* no AIV copilot on phones (computers keep it); sync for signed-in users keeps running */
+      '@media (max-width:820px){.fab,.pn{display:none!important}}' +
       '</style>' +
       '<button class="fab" part="fab" title="Ask AIV"><i></i>AIV</button>' +
       '<section class="pn" role="dialog" aria-label="AIV assistant">' +

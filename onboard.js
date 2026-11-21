@@ -104,7 +104,7 @@
       ]
     },
     'ai-stock-and-finance': {
-      nick: 'Ticker', role: 'your money advisor', name: 'AI Stock and Finance', banner: false,
+      nick: 'Ticker', role: 'your money advisor', name: 'AI Stock and Finance', barSub: 'Your info, then live prices',
       steps: [
         { title: 'About you', sub: 'Used to tailor your insights', fields: [
           { sel: '[data-prof="name"]', label: 'Your name', ph: 'Enter your name' },
@@ -147,19 +147,36 @@
   if (!C) return;
   var KEY = 'aiv.onboard.' + slug + '.v1';
   function get() { try { return localStorage.getItem(KEY); } catch (e) { return 'done'; } }
-  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} if (v === 'done' || v === 'dismissed') remember(); }
+  /* also keep it in the app's own saved data, which syncs with the user's account, so the same person never sees it again on another device */
+  function remember() {
+    try {
+      var a = window.AIV_APP; if (!a || !a.S) return;
+      if (a.S.onboard && a.S.onboard.seen) return;
+      a.S.onboard = { seen: true, at: Date.now() };
+      localStorage.setItem(a.key, JSON.stringify(a.S));
+      if (a.reload) a.reload();
+    } catch (e) {}
+  }
+  function seenBefore() { try { var a = window.AIV_APP; return !!(a && a.S && a.S.onboard && a.S.onboard.seen); } catch (e) { return false; } }
 
   var css = '' +
     '.logo.aiv-logo{background:none!important;padding:0!important;border:0!important;overflow:hidden;display:inline-flex;align-items:center;justify-content:center}' +
     '.logo.aiv-logo img{width:100%;height:100%;display:block;border-radius:inherit}' +
-    '.aivob-bar{display:flex;align-items:center;gap:10px;margin:10px 16px 0;padding:8px 10px;border:1px solid rgba(0,0,0,.1);border-radius:14px;background:#fff;color:#111;font:500 14px/1.2 inherit}' +
+    '.aivob-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2px 12px;margin:10px 16px 14px;padding:14px 16px;border:1px solid var(--line,#e6e6e9);border-radius:14px;background:var(--panel2,var(--box,#fff));color:var(--ink,#111214);font-family:inherit}' +
+    '.aivob-bar img{grid-row:1/3;width:40px;height:40px;border-radius:11px;flex:none}' +
+    '.aivob-bar .ob-bt{grid-column:2;font-weight:700;font-size:14.5px;line-height:1.25;min-width:0}' +
+    '.aivob-bar .ob-bs{grid-column:2;font-size:13px;color:var(--muted,#6b6d72);line-height:1.3;min-width:0}' +
+    '.aivob-bar .ob-ba{grid-column:3;grid-row:1/3;display:flex;align-items:center;gap:4px}' +
+    'html .aivob-bar .ob-go{font:inherit;font-size:13px;font-weight:600;border-radius:99px;padding:8px 15px;cursor:pointer;border:1px solid var(--btn,#111214);background:var(--btn,#111214);color:var(--btn-ink,#fff);white-space:nowrap;min-height:36px}' +
+    '.aivob-bar .ob-later{font:inherit;font-size:13px;font-weight:500;border:0;background:transparent;color:var(--muted,#6b6d72);padding:8px 10px;cursor:pointer;white-space:nowrap;min-height:36px}' +
     '.aiv-nick{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:#f1f1f1;color:#444;font-size:12px;font-weight:600;line-height:1.5;vertical-align:middle;letter-spacing:0;font-family:inherit}' +
     '.aivob-bar img{width:26px;height:26px;border-radius:7px;flex:none}' +
     '.aivob-bar b{flex:1;font-weight:600}' +
     '.aivob-bar .ob-go{background:#111;color:#fff;border:0;border-radius:999px;padding:8px 14px;font:600 13px inherit;cursor:pointer;min-height:36px}' +
     '.aivob-bar .ob-x{background:none;border:0;color:#888;font-size:18px;width:36px;height:36px;cursor:pointer}' +
     '.aivob{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);font-family:inherit;color:#111}' +
-    '.aivob.tour{background:rgba(0,0,0,.12)}' +
+    '.aivob.tour{background:rgba(0,0,0,.18)}' +
     '.aivob *,.aivob *::before{box-sizing:border-box}html.aivm .aivob h2,html.aivm .aivob p,html.aivm .aivob label,html.aivm .aivob form,html.aivm .aivob input,html.aivm .aivob select,html.aivm .aivob button,html.aivm .aivob .ob-grid,.aivob h2,.aivob p,.aivob label,.aivob form,.aivob input,.aivob select,.aivob button,.aivob .ob-grid{margin:0!important}.aivob button{opacity:1!important;filter:none!important;text-transform:none!important;letter-spacing:normal!important}' +
     '.aivob .ob-card{margin:0!important;background:#fff;width:min(440px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow:auto;border-radius:22px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}' +
     '.aivob .ob-hd{display:flex!important;align-items:center;gap:12px;margin:0 0 18px!important;padding:0!important}' +
@@ -189,7 +206,20 @@
     '.aivob .ob-dots i{width:7px;height:7px;border-radius:50%;background:#ddd}' +
     '.aivob .ob-dots i.on{background:#111;width:18px;border-radius:4px}' +
     '.aivob-hl{outline:3px solid #111!important;outline-offset:3px;border-radius:10px;position:relative;z-index:2147482999}' +
+    '@media (prefers-color-scheme:dark){' +
+      '.aivob{color:#ececee;background:rgba(0,0,0,.55)}.aivob.tour{background:rgba(0,0,0,.3)}' +
+      '.aivob .ob-card{background:#2a2b30;box-shadow:0 20px 60px rgba(0,0,0,.6)}' +
+      '.aivob .ob-nick,.aivob .ob-tt{color:#ececee}.aivob .ob-tx{color:#c9cbd0}.aivob .ob-sub,.aivob .ob-sub2,.aivob .ob-step{color:#a1a3a8}' +
+      '.aivob label{color:#c9cbd0}.aivob .ob-all,.aivob .ob-acts .ob-s{color:#a1a3a8!important}' +
+      'html .aivob.aivob input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]),html .aivob.aivob select,html .aivob.aivob textarea{background-color:#3a3b41!important;color:#ececee!important;border-color:transparent!important}.aivob input::placeholder,.aivob textarea::placeholder{color:#8e9096}' +
+      '.aivob input:focus,.aivob select:focus,.aivob textarea:focus{background:#44454c;border-color:#8e9096}' +
+      '.aivob .ob-acts .ob-p{background:#c9cbd0;color:#111214}.aivob .ob-link{border-color:#ececee;color:#ececee}' +
+      '.aivob .ob-dots i{background:#4a4b52}.aivob .ob-dots i.on{background:#ececee}.aivob-hl{outline-color:#ececee!important}' +
+            '.aiv-nick{background:#2a2b30;color:#c9cbd0}' +
+      'html .aivob-bar .ob-go{background:#ececee!important;border-color:#ececee!important;color:#111214!important}.aivob-bar{background:#1b1b1e;border-color:#2c2c31}' +
+    '}' +
     '@media (max-width:820px){.aivob{align-items:flex-end}.aivob .ob-card{width:100%;border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))}.aivob.tour .ob-card{margin:0}}';
+  if (slug === 'ai-stock-and-finance') css += '#demoBar.setupbar{display:none!important}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   /* colored logo in the app's brand mark */
@@ -347,9 +377,9 @@
     var dots = steps.map(function (_, j) { return '<i' + (j === i ? ' class="on"' : '') + '></i>'; }).join('');
     ov.innerHTML = '<div class="ob-card" role="dialog" aria-modal="true" aria-label="Quick tour"><div class="ob-step">Quick tour · ' + (i + 1) + ' of ' + steps.length + '</div>' +
       '<p class="ob-tt">' + esc(s[1]) + '</p><p class="ob-tx">' + esc(s[2]) + '</p><div class="ob-dots">' + dots + '</div>' +
-      '<div class="ob-acts"><button type="button" class="ob-s" data-a="skip">Skip tour</button><button type="button" class="ob-p" data-a="next">' + (i === steps.length - 1 ? 'Done' : 'Next') + '</button></div></div>';
+      '<div class="ob-acts">' + (i > 0 ? '<button type="button" class="ob-s" data-a="back">Back</button>' : '') + '<button type="button" class="ob-p" data-a="next">' + (i === steps.length - 1 ? 'Done' : 'Next') + '</button></div></div>';
     ov.querySelector('[data-a="next"]').onclick = function () { tour(i + 1); };
-    ov.querySelector('[data-a="skip"]').onclick = function () { tour(steps.length); };
+    var bk = ov.querySelector('[data-a="back"]'); if (bk) bk.onclick = function () { tour(i - 1); };
   }
 
   function visibleSteps() {
@@ -361,7 +391,7 @@
 
   function step(i) {
     var steps = visibleSteps();
-    if (i >= steps.length) { set('done'); removeBar(); tour(0); return; }
+    if (i >= steps.length) { set('tour'); removeBar(); tour(0); return; }
     var st = steps[i];
     if (!ov) { ov = document.createElement('div'); document.body.appendChild(ov); }
     ov.className = 'aivob';
@@ -380,7 +410,7 @@
     var card = ov.querySelector('.ob-card');
     if (C.health && !st.key) { prefillHeight(card); var u = card.querySelector('[data-k="0"]'); if (u) u.addEventListener('change', function () { syncUnits(card); }); syncUnits(card); }
     var f = card.querySelector('form'); if (f) f.addEventListener('submit', function (e) { e.preventDefault(); });
-    card.querySelector('[data-a="all"]').onclick = function () { set(i > 0 ? 'done' : 'skipped'); close(); if (i === 0) showBar(); else go(C.home || 'home'); };
+    card.querySelector('[data-a="all"]').onclick = function () { set('tour'); removeBar(); tour(0); };
     card.querySelector('[data-a="skip"]').onclick = function () { step(i + 1); };
     card.querySelector('[data-a="go"]').onclick = function () {
       if (st.key) {
@@ -396,9 +426,8 @@
       ov = document.createElement('div'); ov.className = 'aivob'; document.body.appendChild(ov);
       ov.innerHTML = '<div class="ob-card" role="dialog" aria-modal="true" aria-labelledby="aivobT"><div class="ob-hd"><img src="' + LOGO + '" alt=""><div><h2 id="aivobT">Get started</h2><div class="ob-nick">Meet ' + esc(C.nick) + ', ' + esc(C.role) + '</div></div></div>' +
         '<p class="ob-tx">Welcome to ' + esc(C.name) + '. ' + esc(C.nick) + ' will show you around. It takes 20 seconds.</p>' +
-        '<div class="ob-acts"><button type="button" class="ob-s" data-a="skip">Skip</button><button type="button" class="ob-p" data-a="go">Start tour</button></div></div>';
-      ov.querySelector('[data-a="skip"]').onclick = function () { set('skipped'); close(); showBar(); };
-      ov.querySelector('[data-a="go"]').onclick = function () { set('done'); removeBar(); tour(0); };
+        '<div class="ob-acts"><button type="button" class="ob-p" data-a="go">Start tour</button></div></div>';
+      ov.querySelector('[data-a="go"]').onclick = function () { set('tour'); removeBar(); tour(0); };
       return;
     }
     step(0);
@@ -418,9 +447,9 @@
     try { if (sessionStorage.getItem(KEY + '.hide') === '1') return; } catch (e) {}
     var b = document.createElement('div');
     b.id = 'aivobBar'; b.className = 'aivob-bar'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Get started');
-    b.innerHTML = '<img src="' + LOGO + '" alt=""><b>Get started with ' + esc(C.nick) + '</b><button type="button" class="ob-go">Start</button><button type="button" class="ob-x" aria-label="Hide for now">×</button>';
+    b.innerHTML = '<img src="' + LOGO + '" alt=""><div class="ob-bt">Get started with ' + esc(C.nick) + '</div><div class="ob-bs">' + esc(C.barSub || 'Your info, then a quick tour') + '</div><div class="ob-ba"><button type="button" class="ob-go">Get set up</button><button type="button" class="ob-later">Later</button></div>';
     b.querySelector('.ob-go').onclick = open;
-    b.querySelector('.ob-x').onclick = function () { try { sessionStorage.setItem(KEY + '.hide', '1'); } catch (e) {} b.remove(); };
+    b.querySelector('.ob-later').onclick = function () { set('dismissed'); b.remove(); };
     var top = document.querySelector('header.top');
     var tb = document.querySelector('main .topbar');
     if (top && top.parentNode) top.parentNode.insertBefore(b, top.nextSibling);
@@ -432,6 +461,9 @@
     logos();
     nickTags(); setTimeout(nickTags, 600); setTimeout(prefill, 300);
     var s = get();
+    if (!s && seenBefore()) { try { localStorage.setItem(KEY, 'done'); } catch (e) {} return; }
+    if (s === 'dismissed' || s === 'done') return;
+    if (s === 'tour') { setTimeout(function () { tour(0); }, 350); return; }
     if (!s) {
       /* people who already set up the app before this existed skip straight past it */
       try { var a = app(); if (a && a.S && a.S.setupDone) { set('done'); return; } } catch (e) {}
