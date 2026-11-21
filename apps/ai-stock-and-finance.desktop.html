@@ -26,7 +26,7 @@
 <meta name="twitter:image:alt" content="AI Stock and Finance by AI Verse">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aiverse.it.com/#org","name":"AI Verse","legalName":"AI Verse, LLC","alternateName":"AIV","url":"https://aiverse.it.com/","foundingDate":"2026-11-09","foundingLocation":"California","logo":"https://aiverse.it.com/icons/icon-512.png","email":"team@aiverse.it.com","slogan":"Build Your AI Future.","description":"AI Verse offers free AI apps and tools for everyday life, a free AI assistant, and AIV X, the AI platform that builds AI apps. It also builds AI chatbots and custom AI for businesses.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["AI app builder","No-code AI app development","Personal AI assistant","AI tools for everyday life"],"brand":[{"@type":"Brand","name":"AIV X"},{"@type":"Brand","name":"AIV"}]},{"@type":"WebApplication","name":"AI Stock and Finance","url":"https://aiverse.it.com/apps/ai-stock-and-finance.html","applicationCategory":"FinanceApplication","operatingSystem":"Web browser","description":"Free AI tools for stock analysis, market forecasts, portfolio tracking, paper trading and budgeting. Learn and plan with AI. Educational, not advice.","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"20 free AI uses per day"},"publisher":{"@id":"https://aiverse.it.com/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"AI Verse","item":"https://aiverse.it.com/"},{"@type":"ListItem","position":2,"name":"AI Stock and Finance","item":"https://aiverse.it.com/apps/ai-stock-and-finance.html"}]}]}</script>
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111'/%3E%3Cpath d='M14 44l12-12 8 8 16-18' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+<link rel="icon" href="../assets/logos/ai-stock-and-finance.svg?v=1" type="image/svg+xml"><link rel="apple-touch-icon" href="../assets/logos/ai-stock-and-finance-180.png?v=1">
 <style>
 [hidden]{display:none!important}
 
@@ -417,7 +417,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
-<script src="../config.js?v=20261118d"></script>
+<script src="../config.js?v=20261121c"></script>
 <script>
 (()=>{
 'use strict';
@@ -497,6 +497,7 @@ const DEF=()=>({
  setupDone:false,watchlist:[],holdings:[],paper:{cash:0,start:0,positions:{},orders:[]},
  tx:[],budgets:{},accounts:[],goals:[],alerts:[],chat:[],pending:[],reports:[],statements:[],lastSym:'',insight:null,tickets:[],predLog:[]});
 function load(){const d=DEF();try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object'){Object.assign(d,s);d.profile={...DEF().profile,...(s.profile||{})};d.settings={...DEF().settings,...(s.settings||{})};d.paper={...DEF().paper,...(s.paper||{})};}}catch(e){}return d;}
+const AIV_ABOUT=()=>{try{const a=window.AIVOnboard&&window.AIVOnboard.about&&window.AIVOnboard.about();return a?'\n\n'+a:'';}catch(e){return '';}};
 const AIV_STYLE='\n\nWriting style: answer like a friendly expert talking to a person, in plain natural sentences and short paragraphs. Do not use markdown headings, bold or italic markers, tables, code formatting, emojis or decorative symbols. When a list really helps, use simple bullet points that start with "- ". Keep answers brief.';
 let S=load();S.chat=[];(function(){if(!S.setupDone&&!S.holdings.length&&!S.tx.length&&S.watchlist.join()==='AAPL,MSFT,NVDA,AMZN,SPY'&&S.paper.start===100000&&!S.paper.orders.length){S.watchlist=[];S.paper={cash:0,start:0,positions:{},orders:[]};S.lastSym='';if(+S.profile.age===35)S.profile.age='';try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}})();window.AIV_APP={key:KEY,get S(){return S},reload:function(){S=load();S.chat=[];try{refresh()}catch(e){}try{if(typeof badges==="function")badges()}catch(e){}},go:function(v){go(v)},screen:function(){try{return cur}catch(e){return ""}},ai:function(p,o){return ai(p,o||{})}};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Could not save — browser storage is full or blocked.',{err:true});}}
@@ -683,7 +684,7 @@ async function ai(prompt,{system='',json=false,temp=0.5,max=2500}={}){
  try{return parseJSON(txt);}catch(e){if(T.p==='browser'||T.p==='local')throw e;const again=await once();if(!again)throw e;return parseJSON(again);}
 }
 async function remoteChat(T,sys,prompt,{json,temp,max}){
- const body={model:T.model,messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:prompt}],temperature:temp};
+ const body={model:T.model,messages:[{role:'system',content:json?sys:sys+AIV_ABOUT()+AIV_STYLE},{role:'user',content:prompt}],temperature:temp};
  if(T.p==='local')body.max_tokens=max;else body.max_completion_tokens=max;
  if(json)body.response_format={type:'json_object'};
  if(T.p==='groq'&&/gpt-oss/.test(T.model))body.reasoning_effort='low';
@@ -745,7 +746,7 @@ async function ensureBrowserModel(model){
 async function browserChat(model,sys,prompt,{json,temp,max}){
  const eng=await getEngine(model);const qwen=/qwen3/i.test(model);
  const room=Math.max(4000,20000-sys.length);const p=prompt.length>room?prompt.slice(0,room)+'\n…(truncated)':prompt;
- const req={messages:[{role:'system',content:json?sys:sys+AIV_STYLE},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
+ const req={messages:[{role:'system',content:json?sys:sys+AIV_ABOUT()+AIV_STYLE},{role:'user',content:p+(qwen?' /no_think':'')}],temperature:temp,max_tokens:Math.min(max,1500)};
  if(json)req.response_format={type:'json_object'};
  llmProgress('Thinking on your device…',1);
  try{let res;try{res=await eng.chat.completions.create(req);}catch(e){if(!json)throw e;delete req.response_format;res=await eng.chat.completions.create(req);}return res.choices?.[0]?.message?.content||'';}finally{llmProgress(null);}
@@ -1369,9 +1370,9 @@ function init(){
 init();
 })();
 </script>
-<script src="../legal.js?v=20261118d" defer></script>
-<script src="../mobile.js?v=20261118d" defer></script>
-<script src="../connect.js?v=20261118d" defer></script>
-<script src="aiv-connect.js?v=20261118d"></script>
+<script src="../legal.js?v=20261121c" defer></script>
+<script src="../mobile.js?v=20261121c" defer></script><script src="../onboard.js?v=20261121c" defer></script>
+<script src="../connect.js?v=20261121c" defer></script>
+<script src="aiv-connect.js?v=20261121c"></script>
 </body>
 </html>

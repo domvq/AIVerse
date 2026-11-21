@@ -26,7 +26,7 @@
   var CFG = SITE.connect || {};
   var SERVER = (SITE.server || 'https://api.aiverse.it.com').replace(/\/+$/, '');
   var REDIRECT = CFG.redirectUri || (base + 'oauth-callback.html');
-  var file = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '');
+  var file = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '').replace(/\.desktop$/i, '');
   var APPS = {
     'ai-music': 'music', 'ai-career': 'career', 'career-ai': 'career',
     'ai-personal-assistant': 'aide', 'personal-assistant-ai': 'aide', 'aide': 'aide',

@@ -38,7 +38,7 @@
     nz.textContent = "@media (pointer:coarse),(max-width:900px){input,textarea,select,[contenteditable]{font-size:16px!important}}";
     (document.head || document.documentElement).appendChild(nz);
   } catch (e) {}
-  var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "");
+  var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "").replace(/\.desktop$/i, "");
   var APP_ID = FILE_TO_ID[file] || file || "app";
 
   /* ---------- access the app's own state (S, KEY, load, save, refresh, go) ---------- */

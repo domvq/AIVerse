@@ -11,7 +11,7 @@
 
   var base = new URL('../', document.currentScript ? document.currentScript.src : location.href).href;
   var terms = base + 'terms.html', privacy = base + 'privacy.html';
-  var file = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '');
+  var file = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '').replace(/\.desktop$/i, '');
   var ALIAS = {'ai-personal-assistant':'personal-assistant-ai','ai-study-and-research':'study-and-research-ai','ai-stock-and-finance':'stock-and-finance-ai','ai-health-and-fitness':'health-and-fitness-ai','ai-photo':'photo-ai','ai-career':'career-ai'};
   file = ALIAS[file] || file;
 
