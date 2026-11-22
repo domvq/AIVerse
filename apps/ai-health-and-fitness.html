@@ -915,7 +915,7 @@ R.home=()=>{
  else if(nd){const d=nd.day,rec=recovery();const tired=[...new Set(d.slots.map(s=>EX[s.exId]?.pri).filter(m=>rec[m]?.status==='fatigued'))];
   train=`<div class="row between"><h3>${esc(d.name)}</h3><span class="pill ${doneToday?'good':''}">${doneToday?'Done today ✓':`Day ${nd.i+1} of ${S.plan.days.length}`}</span></div><ul class="ex">${d.slots.map(s=>{const sg=suggest(s.exId,s);return `<li>${esc(EX[s.exId]?.name)} — ${s.sets} × ${s.lo===s.hi?s.lo:s.lo+'–'+s.hi}${EX[s.exId]?.timed?' s':''}${sg.w?` <span class="muted">@ ${fW(sg.w)} ${wU()}</span>`:''}</li>`;}).join('')}</ul>${tired.length?`<p class="small" style="color:var(--warn);margin:8px 0 0">${esc(cap(tired.join(', ')))} trained under 24 h ago — go lighter or train another day first.</p>`:''}<div class="row wrap" style="margin-top:12px"><button class="btn primary" data-start="${nd.i}">${ic('play')} Start workout</button><a class="btn" href="#training">View plan</a></div><p class="note">Weights update automatically</p>`;}
  const ins=S.insight&&S.insight.date===today()?S.insight.text:(insights()[new Date().getDate()%Math.max(1,insights().length)]||'');
- v.innerHTML=`${!S.setupDone?`<div class="soft" style="margin-bottom:10px"><div class="row between wrap"><div class="grow"><b>Personalize your coach</b><div class="small muted">Fit your plan</div></div><a class="btn primary sm" href="#settings">Set up</a></div></div>`:''}
+ v.innerHTML=`
  <div class="grid">
   <button class="stat" data-go="nutrition"><span class="c-kcal">${ic('flame')}</span><b>${tot.kcal.toLocaleString()} <small>/ ${t.kcal.toLocaleString()}</small></b><span>Calories</span></button>
   <button class="stat" data-go="training"><span class="c-lift">${ic('dumbbell')}</span><b>${sessionsThisWeek()} / ${S.plan?S.plan.days.length:S.profile.days}</b><span>Workouts</span></button>
@@ -1180,8 +1180,9 @@ init();
 })();
 </script>
 <script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261121c" defer></script><script src="../onboard.js?v=20261121c" defer></script>
+<script src="../mobile.js?v=20261121h" defer></script><script src="../onboard.js?v=20261121f" defer></script>
 <script src="../connect.js?v=20261121c" defer></script>
-<script src="aiv-connect.js?v=20261121c"></script>
+<script src="aiv-connect.js?v=20261121f"></script>
+<script src="../askai.js?v=20261121h" defer></script>
 </body>
 </html>
