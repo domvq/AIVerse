@@ -9,7 +9,7 @@
   if (window.__aivAskAI) return; window.__aivAskAI = true;
   var slug = (location.pathname.split('/').pop() || '').replace(/\.desktop\.html$|\.html$/, '');
   var NICK = { 'ai-career': 'Climb', 'ai-health-and-fitness': 'Pulse', 'ai-music': 'Riff', 'ai-photo': 'Prism',
-    'ai-stock-and-finance': 'Ticker', 'ai-study-and-research': 'Sage', 'ai-personal-assistant': 'your assistant' };
+    'ai-stock-and-finance': 'Ticker', 'ai-study-and-research': 'Sage', 'ai-personal-assistant': 'Orbit' };
   var NAME = { 'ai-career': 'AI Career', 'ai-health-and-fitness': 'AI Health and Fitness', 'ai-music': 'AI Music', 'ai-photo': 'AI Photo and Art',
     'ai-stock-and-finance': 'AI Stock and Finance', 'ai-study-and-research': 'AI Study and Research', 'ai-personal-assistant': 'AI Personal Assistant' };
   var ROLE = { 'ai-career': 'career coach', 'ai-health-and-fitness': 'fitness and nutrition coach', 'ai-music': 'music guide', 'ai-photo': 'photo and art assistant',
@@ -56,7 +56,28 @@
     /* spacing on phones: the app's airy 54px gaps stay between sections, but a tab's title row and the Ask box sit snug at the top */
     'html.aivm .view>.aiv-ask.aiv-ask{margin:0 0 30px!important}' +
     'html.aivm .view>.aiv-ask.aiv-ask+*{margin-top:0!important}' +
-    'html:not(.aivm) .view>.aiv-ask{margin:0 0 18px}';
+    'html:not(.aivm) .view>.aiv-ask{margin:0 0 18px}' +
+    /* phones: every Home AI sits at the top of the page as a single-line box, like AI Music (its title stays) */
+    'html.aivm .view>h2.aiv-hometitle{margin:6px 0 10px!important}' +
+    'html.aivm .view>.aiv-homeai.aiv-homeai{margin:0 0 30px!important;padding:8px 8px 8px 14px!important;background:var(--box)!important;border:1px solid var(--line)!important;border-radius:var(--r,14px)!important;box-shadow:none!important}' +
+    'html.aivm .view>h2.aiv-hometitle+.aiv-homeai{margin-top:0!important}' +
+    'html.aivm .view>.aiv-homeai+*{margin-top:0!important}' +
+    'html.aivm .aiv-homeai .coach-head{display:none!important}' +
+    'html.aivm .aiv-homeai .askbar{display:flex!important;align-items:center!important;gap:8px!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;min-height:0!important}' +
+    'html.aivm .aiv-homeai .askbar input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]){flex:1;min-width:0;background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;padding:8px 0!important;font-size:16px!important;min-height:0!important}' +
+    'html.aivm .aiv-homeai .askbar .btn.primary,html.aivm .aiv-homeai .askbar button[type=submit],html.aivm .aiv-homeai .askbar button:last-child{border-radius:99px!important;padding:8px 16px!important;min-height:36px!important;font-size:13.5px!important}' +
+    'html.aivm .aiv-homeai .aiv-ic{display:inline-flex;flex:none;color:var(--muted,#6b6d72)}' +
+    'html.aivm .aiv-homeai .chat:not(:empty){margin:4px 0 10px}' +
+    'html.aivm .aiv-homeai .note,html.aivm .aiv-homeai>p{margin:8px 0 2px!important;font-size:12px}' +
+    /* AI Personal Assistant on phones: app name on top, then its Ask box in the same single-line style */
+    'html.aivm .aiv-pahead{display:flex;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top)) 0 0}' +
+    'html.aivm .aiv-pahead h1{margin:0!important;font-size:15px!important;font-weight:700!important;display:flex;align-items:center;gap:6px}' +
+    'html.aivm .aiv-pahead .aiv-nick{display:inline-flex;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--ink,#111214) 13%,transparent);color:var(--muted,#6b6d72);padding:2px 9px;border-radius:999px}' +
+    'html.aivm.aiv-pa .topbar{padding-top:10px!important}' +
+    'html.aivm.aiv-pa .topbar .cmd{background:var(--box,#fff)!important;border:1px solid var(--line,#e6e6e9)!important;border-radius:var(--r,14px)!important;min-height:52px!important;padding:8px 8px 8px 14px!important;gap:8px!important}' +
+    'html.aivm.aiv-pa .topbar .cmd input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]){font-size:16px!important;padding:8px 0!important;background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important}' +
+    
+    'html.aivm.aiv-pa .topbar .cmd .aiv-go{flex:none;font:inherit;font-size:13.5px;font-weight:600;border-radius:99px;padding:8px 16px;border:1px solid var(--btn,#111214);background:var(--btn,#111214);color:var(--btn-ink,#fff);cursor:pointer;min-height:36px}';
   var st = document.createElement('style'); st.textContent = css; (document.head || document.documentElement).appendChild(st);
 
   var SPARK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>';
@@ -145,14 +166,38 @@
     if (head) head.after(box); else view.insertBefore(box, first);
     draw(box, id);
   }
+  function phone() { return document.documentElement.classList.contains('aivm'); }
+  // phones: move the Home AI (its title and box) to the top of the page and make it one line
+  function arrangeHome(view) {
+    var bar = view.querySelector('.askbar'); if (!bar) return;
+    var card = bar.closest('.soft,.card,.box'); if (!card || card.parentElement !== view) return;
+    var title = card.previousElementSibling && card.previousElementSibling.tagName === 'H2' ? card.previousElementSibling : null;
+    card.classList.add('aiv-homeai'); if (title) title.classList.add('aiv-hometitle');
+    if (!bar.querySelector('.aiv-ic')) { var ic = document.createElement('span'); ic.className = 'aiv-ic'; ic.innerHTML = SPARK; bar.insertBefore(ic, bar.firstChild); }
+    // the move to the top is done by mobile.js, which lays out the phone Home page
+  }
+  function arrangeAssistant() {
+    if (slug !== 'ai-personal-assistant') return;
+    document.documentElement.classList.add('aiv-pa');
+    var tb = document.querySelector('main > .topbar'); if (!tb) return;
+    if (!document.querySelector('.aiv-pahead')) {
+      var hd = document.createElement('div'); hd.className = 'aiv-pahead';
+      hd.innerHTML = '<h1>AI Personal Assistant<span class="aiv-nick">Orbit</span></h1>';
+      tb.parentNode.insertBefore(hd, tb);
+    }
+    var f = document.getElementById('cmdForm');
+    if (f && !f.querySelector('.aiv-go')) { var b = document.createElement('button'); b.type = 'submit'; b.className = 'aiv-go'; b.textContent = 'Ask'; f.appendChild(b); }
+    var inp = document.getElementById('cmdIn'); if (inp && inp.placeholder !== 'Ask Orbit anything') { inp.placeholder = 'Ask Orbit anything'; inp.setAttribute('aria-label', 'Ask Orbit anything'); }
+  }
   var busy = false;
   function refresh() {
     if (busy) return; busy = true;
     try {
+      if (phone()) arrangeAssistant();
       var id = cur(); if (!id || id === 'settings') return;
       var view = document.getElementById('v-' + id); if (!view || !view.classList.contains('on')) return;
       if (globalAsk()) return;
-      if (hasOwnAsk(view)) { var old = view.querySelector(':scope > .aiv-ask'); if (old) old.remove(); return; }
+      if (hasOwnAsk(view)) { var old = view.querySelector(':scope > .aiv-ask'); if (old) old.remove(); if (phone() && (id === 'home' || id === 'today')) arrangeHome(view); return; }
       var box = view.querySelector(':scope > .aiv-ask');
       if (!box || box.dataset.id !== id) place(view, id);
     } finally { busy = false; }
