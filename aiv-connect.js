@@ -238,12 +238,25 @@
     } catch (e) {}
     return url && BACK_OK.test(url) ? url : "";
   }
-  function setBackLinks(onClick, href) {
-    backLinks().forEach(function (a) {
-      a.textContent = "\u2190 Back to AIV X";
-      if (href) a.href = href;
-      if (onClick) a.addEventListener("click", function (e) { e.preventDefault(); onClick(); });
+  // relabel every "Back to AI Verse" link, including ones added later (like the phone More sheet), keeping any icon
+  function relabel(a, href) {
+    var done = false;
+    Array.prototype.forEach.call(a.childNodes, function (n) {
+      if (n.nodeType === 3 && /back to ai ?verse/i.test(n.nodeValue)) { n.nodeValue = n.nodeValue.replace(/(\u2190\s*)?back to ai ?verse/i, function (m, arrow) { return (arrow || "") + "Back to AIV X"; }); done = true; }
     });
+    if (!done && /back to ai ?verse/i.test(a.textContent || "")) a.textContent = "\u2190 Back to AIV X";
+    a.setAttribute("data-aivx-back", "1");
+    if (href) a.href = href;
+  }
+  function setBackLinks(onClick, href) {
+    var run = function () { backLinks().forEach(function (a) { relabel(a, href); }); };
+    run();
+    try { new MutationObserver(function () { if (backLinks().length) run(); }).observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
+    if (onClick) document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest && e.target.closest("a[data-aivx-back]");
+      if (!a) return;
+      e.preventDefault(); e.stopPropagation(); onClick();
+    }, true);
   }
 
   /* =====================================================================
@@ -290,7 +303,8 @@
           .then(function () { send({ type: "answer", id: d.id, result: { ok: true } }); }, function (e) { send({ type: "answer", id: d.id, result: { ok: false, error: String(e && e.message || e) } }); });
       }
     });
-    setBackLinks(function () { send({ type: "close" }); });
+    // "Back to AIV X": close the app and start a new chat in AIV X
+    setBackLinks(function () { send({ type: "close", newChat: true }); });
     send({ type: "hello", v: 1, title: document.title, screens: context().screens });
     window.addEventListener("hashchange", function () { send({ type: "screen", screen: location.hash.replace("#", "") }); });
     return;
