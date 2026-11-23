@@ -45,33 +45,57 @@
      The apps switch themes with @media (prefers-color-scheme: dark). Inside AIV X (and the iPhone app)
      that media query can be out of date or differ from AIV X's own Theme setting, so AIV X sends
      the theme to use and these rules are turned on or off to match. On their own, apps follow the device. */
-  var THEME_RULES = null;
+  // Every style sheet is checked each time (apps, mobile.js and other scripts add their styles at different
+  // moments), and anything added later is matched to AIV X's theme too.
+  var ORIG = typeof WeakMap === "function" ? new WeakMap() : null;
   function themeRules() {
-    if (THEME_RULES) return THEME_RULES;
-    THEME_RULES = [];
+    var out = [];
     for (var i = 0; i < document.styleSheets.length; i++) {
       var rules; try { rules = document.styleSheets[i].cssRules; } catch (e) { continue; }
       (function walk(rs) {
         for (var j = 0; j < rs.length; j++) {
-          var r = rs[j];
-          if (r.media && /prefers-color-scheme\s*:\s*dark/i.test(r.media.mediaText)) THEME_RULES.push({ r: r, orig: r.media.mediaText });
-          else if (r.cssRules) walk(r.cssRules);
+          var r = rs[j], orig = ORIG && ORIG.get(r);
+          if (r.media && (orig || /prefers-color-scheme\s*:\s*(dark|light)/i.test(r.media.mediaText))) {
+            if (!orig) { orig = r.media.mediaText; if (ORIG) ORIG.set(r, orig); }
+            out.push({ r: r, orig: orig, dark: /prefers-color-scheme\s*:\s*dark/i.test(orig) });
+          }
+          if (r.cssRules) walk(r.cssRules);
         }
       })(rules);
     }
-    return THEME_RULES;
+    return out;
   }
-  var currentTheme = "";
+  var currentTheme = "", themeObs = null, themeTimer = null;
+  function paintTheme() {
+    var t = currentTheme;
+    themeRules().forEach(function (x) {
+      var want = t === "" ? x.orig : ((t === "dark") === x.dark ? "all" : "not all");
+      try { if (x.r.media.mediaText !== want) x.r.media.mediaText = want; } catch (e) {}
+    });
+  }
   function applyAivTheme(t) {
     t = t === "dark" || t === "light" ? t : "";
-    if (t === currentTheme) return;
+    var changed = t !== currentTheme;
     currentTheme = t;
-    themeRules().forEach(function (x) { try { x.r.media.mediaText = t === "dark" ? "all" : (t === "light" ? "not all" : x.orig); } catch (e) {} });
+    paintTheme();
     var root = document.documentElement;
     if (t) root.setAttribute("data-aiv-theme", t); else root.removeAttribute("data-aiv-theme");
     root.style.colorScheme = t || "";
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta && t) meta.setAttribute("content", t === "dark" ? "#0b0b0c" : "#ffffff");
+    if (!themeObs && t && typeof MutationObserver === "function") {
+      themeObs = new MutationObserver(function (list) {
+        if (!currentTheme) return;
+        if (list.some(function (m) { return [].some.call(m.addedNodes, function (n) { return n.nodeName === "STYLE" || n.nodeName === "LINK"; }) || (m.target && m.target.nodeName === "STYLE"); })) {
+          clearTimeout(themeTimer); themeTimer = setTimeout(paintTheme, 0);
+        }
+      });
+      themeObs.observe(document.head || document.documentElement, { childList: true, subtree: true, characterData: true });
+      if (document.body) themeObs.observe(document.body, { childList: true });
+      window.addEventListener("load", function () { if (currentTheme) paintTheme(); });
+    }
     // let charts and canvases redraw with the new colors
-    try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+    if (changed) { try { window.dispatchEvent(new Event("resize")); } catch (e) {} }
   }
 
   /* ---------- access the app's own state (S, KEY, load, save, refresh, go) ---------- */
