@@ -4,7 +4,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>/* desktop version of this app lives in its own file; phones and narrow panels keep the mobile layout */(function(){try{if(!matchMedia('(max-width: 820px)').matches){var f=location.pathname.replace(/\.html$/,'.desktop.html');if(!/\.desktop\.html$/.test(location.pathname))location.replace(f+location.search+location.hash);}}catch(e){}})();</script>
+<script>/* desktop version of this app lives in its own file; phones and narrow panels keep the mobile layout */(function(){try{if(window.top===window.self&&!matchMedia('(max-width: 820px)').matches){var f=location.pathname.replace(/\.html$/,'.desktop.html');if(!/\.desktop\.html$/.test(location.pathname))location.replace(f+location.search+location.hash);}}catch(e){}})();</script>
 <title>AI Personal Assistant: Free AI Planner &amp; Assistant | AI Verse</title>
 <meta name="description" content="A free AI personal assistant that plans your day, manages your calendar, reminders and tasks, plans trips and drafts emails. Includes 20 free AI uses a day.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -560,7 +560,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
-<script src="../config.js?v=20261123a"></script>
+<script src="../config.js?v=20261123b"></script>
 <script>
 (()=>{
 'use strict';
@@ -1306,9 +1306,9 @@ function init(){
 init();
 })();
 </script>
-<script src="../legal.js?v=20261123a" defer></script>
-<script src="../mobile.js?v=20261123a" defer></script><script src="../onboard.js?v=20261123a" defer></script>
-<script src="../connect.js?v=20261123a" defer></script>
-<script src="aiv-connect.js?v=20261123a"></script>
+<script src="../legal.js?v=20261123b" defer></script>
+<script src="../mobile.js?v=20261123b" defer></script><script src="../onboard.js?v=20261123b" defer></script>
+<script src="../connect.js?v=20261123b" defer></script>
+<script src="aiv-connect.js?v=20261123b"></script>
 </body>
 </html>
