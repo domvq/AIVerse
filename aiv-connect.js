@@ -41,6 +41,39 @@
   var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "").replace(/\.desktop$/i, "");
   var APP_ID = FILE_TO_ID[file] || file || "app";
 
+  /* ---------- light / dark: follow AIV X's theme when the app runs inside AIV X ----------
+     The apps switch themes with @media (prefers-color-scheme: dark). Inside AIV X (and the iPhone app)
+     that media query can be out of date or differ from AIV X's own Theme setting, so AIV X sends
+     the theme to use and these rules are turned on or off to match. On their own, apps follow the device. */
+  var THEME_RULES = null;
+  function themeRules() {
+    if (THEME_RULES) return THEME_RULES;
+    THEME_RULES = [];
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var rules; try { rules = document.styleSheets[i].cssRules; } catch (e) { continue; }
+      (function walk(rs) {
+        for (var j = 0; j < rs.length; j++) {
+          var r = rs[j];
+          if (r.media && /prefers-color-scheme\s*:\s*dark/i.test(r.media.mediaText)) THEME_RULES.push({ r: r, orig: r.media.mediaText });
+          else if (r.cssRules) walk(r.cssRules);
+        }
+      })(rules);
+    }
+    return THEME_RULES;
+  }
+  var currentTheme = "";
+  function applyAivTheme(t) {
+    t = t === "dark" || t === "light" ? t : "";
+    if (t === currentTheme) return;
+    currentTheme = t;
+    themeRules().forEach(function (x) { try { x.r.media.mediaText = t === "dark" ? "all" : (t === "light" ? "not all" : x.orig); } catch (e) {} });
+    var root = document.documentElement;
+    if (t) root.setAttribute("data-aiv-theme", t); else root.removeAttribute("data-aiv-theme");
+    root.style.colorScheme = t || "";
+    // let charts and canvases redraw with the new colors
+    try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+  }
+
   /* ---------- access the app's own state (S, KEY, load, save, refresh, go) ---------- */
   // Each app exposes a tiny handle: window.AIV_APP = { key, S, reload(), go(screen), screen() }
   var H = window.AIV_APP || null;
@@ -238,12 +271,25 @@
     } catch (e) {}
     return url && BACK_OK.test(url) ? url : "";
   }
-  function setBackLinks(onClick, href) {
-    backLinks().forEach(function (a) {
-      a.textContent = "\u2190 Back to AIV X";
-      if (href) a.href = href;
-      if (onClick) a.addEventListener("click", function (e) { e.preventDefault(); onClick(); });
+  // relabel every "Back to AI Verse" link, including ones added later (like the phone More sheet), keeping any icon
+  function relabel(a, href) {
+    var done = false;
+    Array.prototype.forEach.call(a.childNodes, function (n) {
+      if (n.nodeType === 3 && /back to ai ?verse/i.test(n.nodeValue)) { n.nodeValue = n.nodeValue.replace(/(\u2190\s*)?back to ai ?verse/i, function (m, arrow) { return (arrow || "") + "Back to AIV X"; }); done = true; }
     });
+    if (!done && /back to ai ?verse/i.test(a.textContent || "")) a.textContent = "\u2190 Back to AIV X";
+    a.setAttribute("data-aivx-back", "1");
+    if (href) a.href = href;
+  }
+  function setBackLinks(onClick, href) {
+    var run = function () { backLinks().forEach(function (a) { relabel(a, href); }); };
+    run();
+    try { new MutationObserver(function () { if (backLinks().length) run(); }).observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
+    if (onClick) document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest && e.target.closest("a[data-aivx-back]");
+      if (!a) return;
+      e.preventDefault(); e.stopPropagation(); onClick();
+    }, true);
   }
 
   /* =====================================================================
@@ -276,6 +322,8 @@
       var d = e.data || {};
       if (!d.aivx) return;
       if (d.type === "reply" && waiting[d.id]) { var w = waiting[d.id]; delete waiting[d.id]; d.error ? w[1](new Error(d.error)) : w[0](d.result); return; }
+      if ((d.type === "welcome" || d.type === "theme") && d.theme) applyAivTheme(d.theme);
+      if (d.type === "theme") return;
       if (d.type === "welcome" && OK && d.signedIn) {
         pusher = function () { ask("push", { at: localAt(), data: localData() }).catch(function () {}); };
         reconcile(function () { return ask("pull", {}); }, function (at, data) { return ask("push", { at: at, data: data }); })
@@ -290,7 +338,8 @@
           .then(function () { send({ type: "answer", id: d.id, result: { ok: true } }); }, function (e) { send({ type: "answer", id: d.id, result: { ok: false, error: String(e && e.message || e) } }); });
       }
     });
-    setBackLinks(function () { send({ type: "close" }); });
+    // "Back to AIV X": close the app and start a new chat in AIV X
+    setBackLinks(function () { send({ type: "close", newChat: true }); });
     send({ type: "hello", v: 1, title: document.title, screens: context().screens });
     window.addEventListener("hashchange", function () { send({ type: "screen", screen: location.hash.replace("#", "") }); });
     return;
@@ -444,6 +493,8 @@
       '.lim{margin:0 16px 10px;padding:10px 12px;border-radius:10px;background:#fef3c7;color:#7c4a03;font-size:13px}.lim a{color:#7c4a03;font-weight:600}' +
       '@media (prefers-color-scheme: dark){.pn{background:#0f0f11;color:#f4f4f5;border-color:#26262b}.hd{border-color:#26262b}.u{background:#1f1f23}.st,.src a,.ch button{border-color:#2a2a30;color:#c4c4c8;background:transparent}.cp{border-color:#1f1f23}.cp textarea,.si input,.si button{background:#141416;color:#f4f4f5;border-color:#2a2a30}.cp button,.si .pr{background:#f4f4f5;color:#0a0a0b}.ib{color:#c4c4c8}.ib:hover{background:#1b1b1f}.a code{background:#1b1b1f}.lim{background:#3a2a07;color:#fcd98a}.lim a{color:#fcd98a}.ag{color:#c4c4c8}.ag a{color:#93c5fd}}' +
       '@media (max-width:820px){.fab{bottom:84px}.pn{width:100vw;border-left:0}}' +
+      /* no AIV copilot on phones (computers keep it); sync for signed-in users keeps running */
+      '@media (max-width:820px){.fab,.pn{display:none!important}}' +
       '</style>' +
       '<button class="fab" part="fab" title="Ask AIV"><i></i>AIV</button>' +
       '<section class="pn" role="dialog" aria-label="AIV assistant">' +
