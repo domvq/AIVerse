@@ -139,6 +139,7 @@
     var v = document.getElementById('v-' + id), b = v && v.querySelector(':scope > .aiv-ask');
     if (b) draw(b, id); else refresh();
   }
+  var DO_RE = /\b(make|build|create|generate|design|write|log|add|track|record|set|plan|schedule|start|quiz|test me|save|put|update|change|remove|delete|move|remind|book|turn|apply|edit)\b/i;
   function ask(id, q, extra) {
     q = String(q || '').trim(); if (!q) return;
     var a = app(); if (!a || !a.ai) return;
@@ -150,7 +151,9 @@
       'Answer about that tab and what they are doing on it. Be brief, practical and specific: a short answer, then at most 5 bullet points or steps. ' +
       'Use what is on their screen and what they typed when it helps. If you need something they have not told you, ask one short question. Never make up facts, numbers, sources or quotes. No emojis.';
     var prompt = 'On screen (' + label + ' tab):\n' + (ctx.txt || '(empty)') + (ctx.typed ? '\n\nWhat the user typed on this tab:\n' + ctx.typed : '') + (extra ? '\n\n' + extra : '') + '\n\nQuestion: ' + q;
-    Promise.resolve().then(function () { return a.ai(prompt, { system: system, temp: 0.4, max: 1200 }); }).then(function (r) {
+    // requests to DO something (build, log, add, plan…) go to the app's own AI, which can carry them out
+    var doIt = typeof a.act === 'function' && !extra && DO_RE.test(q);
+    Promise.resolve().then(function () { return doIt ? a.act(q) : a.ai(prompt, { system: system, temp: 0.4, max: 1200 }); }).then(function (r) {
       m.busy = false; m.a = String(typeof r === 'string' ? r : (r && (r.text || r.reply)) || '').trim() || 'I could not get an answer. Try asking again.';
     }, function (e) {
       m.busy = false; m.a = (e && e.message) ? 'Sorry, that did not work: ' + e.message : 'Sorry, that did not work. Try again.';
