@@ -369,7 +369,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
-<script src="../config.js?v=20261121c"></script>
+<script src="../config.js?v=20261123a"></script>
 <script>
 (()=>{
 'use strict';
@@ -830,7 +830,7 @@ function execAction(p){switch(p.type){
 
 /* ---------- coach chat ---------- */
 const COACH_SYS=`You are an expert, candid career coach and job-search strategist. Use ONLY the candidate's data below; quote specifics (job titles, match scores, dates). Give a direct recommendation, the reasoning, then 2–4 concrete next steps. Under 250 words, short markdown. ${NOFAB}
-You can propose app actions; they run only after the user approves, so propose them only when the user asks you to do, add, update, schedule or change something. Types:
+You can take app actions; they run right away, so use them whenever the user asks you to do, add, update, schedule or change something, and say in the reply what you did. Types:
 - {"type":"search_jobs","query":"role keywords","location":""}   (runs immediately, no approval)
 - {"type":"add_application","title":"","company":"","url":"","status":"saved|applied"}
 - {"type":"update_status","app":"company or title","status":"saved|applied|interview|offer|rejected|withdrawn"}
@@ -854,12 +854,12 @@ function renderChat(){const c=$('#chat');if(!c)return;const m=S.chat.slice(-8);c
 async function askCoach(q,btn){q=String(q||'').trim();if(!q)return;S.chat.push({role:'user',text:q});S.chat=S.chat.slice(-30);save();renderChat();
  await run(btn,async()=>{const hist=S.chat.slice(-7,-1).map(m=>`${m.role==='user'?'Me':'Coach'}: ${m.text.slice(0,500)}`).join('\n');const prompt=`${hist?'Earlier:\n'+hist+'\n\n':''}My message: ${q}\n\nMY DATA\n${careerContext(q)}`;let out;
   try{out=await ai(prompt,{system:COACH_SYS,json:true,temp:.4,max:2400});}catch(e){if(!/unreadable/.test(e.message))throw e;out={reply:await ai(prompt,{system:COACH_SYS.split('You can propose')[0],temp:.4,max:2000}),actions:[]};}
-  let queued=0,after=null;for(const a of(Array.isArray(out.actions)?out.actions:[])){if(!a||!a.type)continue;if(a.type==='search_jobs'&&a.query){after=()=>{jobsQ=String(a.query);jobsWhere=String(a.location||'');go('jobs');};continue;}if(a.type==='open'&&VIEWS.includes(a.view)){after=()=>go(a.view);continue;}
+  let queued=0,after=null;const doneL=[];for(const a of(Array.isArray(out.actions)?out.actions:[])){if(!a||!a.type)continue;if(a.type==='search_jobs'&&a.query){after=()=>{jobsQ=String(a.query);jobsWhere=String(a.location||'');go('jobs');};continue;}if(a.type==='open'&&VIEWS.includes(a.view)){after=()=>go(a.view);continue;}
    const ok={add_application:a.title&&a.company,update_status:a.app&&STAGES.some(s=>s[0]===a.status)&&findApp(a.app),set_followup:a.app&&validDate(a.date)&&findApp(a.app),add_interview:a.app&&validDate(a.date)&&findApp(a.app),update_resume:['summary','headline'].includes(a.field)&&typeof a.value==='string'||a.field==='add_skills'&&Array.isArray(a.value)}[a.type];if(!ok)continue;
    const desc={add_application:`Add “${a.title}” at ${a.company} to your tracker (${a.status||'saved'})`,update_status:`Move ${findApp(a.app)?.title} @ ${findApp(a.app)?.company} to “${stageName(a.status)}”`,set_followup:`Set a follow-up for ${findApp(a.app)?.company} on ${a.date}`,add_interview:`Add a ${a.kind||'interview'} with ${findApp(a.app)?.company} on ${a.date}`,update_resume:a.field==='add_skills'?`Add skills to your resume: ${a.value.join(', ')}`:`Replace your resume ${a.field} with: “${String(a.value).slice(0,140)}${String(a.value).length>140?'…':''}”`}[a.type];
-   S.pending.push({...a,id:uid(),desc,ts:Date.now()});queued++;}
-  if(!String(out.reply||'').trim()&&!queued&&!after){try{out.reply=await ai(prompt,{system:COACH_SYS.split('You can propose')[0],temp:.4,max:2000});}catch(e){}}
-  S.chat.push({role:'ai',text:String(String(out.reply||'').trim()||(queued?'Here\'s what I suggest.':after?'Opening that for you.':'I couldn\'t put an answer together that time. Please ask again.'))+(queued?`\n\n*${queued} change${queued>1?'s':''} waiting for your approval.*`:'')});save();if(cur==='home')R.home();else renderChat();if(after)setTimeout(after,300);});}
+   try{execAction({...a,id:uid(),desc});doneL.push(desc);}catch(err){S.pending.push({...a,id:uid(),desc,ts:Date.now()});queued++;}}
+  if(!String(out.reply||'').trim()&&!queued&&!after&&!doneL.length){try{out.reply=await ai(prompt,{system:COACH_SYS.split('You can propose')[0],temp:.4,max:2000});}catch(e){}}
+  S.chat.push({role:'ai',text:String(String(out.reply||'').trim()||(doneL.length?'Done.':queued?'Here\'s what I suggest.':after?'Opening that for you.':'I couldn\'t put an answer together that time. Please ask again.'))+(doneL.length?'\n\n'+doneL.map(x=>'- Done: '+x).join('\n'):'')+(queued?`\n\n*${queued} change${queued>1?'s':''} waiting for your approval.*`:'')});save();refresh();if(cur==='home')R.home();else renderChat();if(after)setTimeout(after,300);});}
 
 /* ---------- HOME ---------- */
 function insights(){const out=[];const at=atsScore();if(!hasResume())out.push('Upload your resume and add target roles — the agent will find matching jobs, tailor your materials and prepare you for interviews.');else if(at.score<70)out.push(`Your resume scores ${at.score}/100 for applicant-tracking systems. The biggest fix: ${(at.items.find(i=>!i.ok)||{}).fix||'add more quantified results'}.`);
@@ -1185,10 +1185,9 @@ function init(){icons();bindSettings();
 init();
 })();
 </script>
-<script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261121h" defer></script><script src="../onboard.js?v=20261121f" defer></script>
-<script src="../connect.js?v=20261121c" defer></script>
-<script src="aiv-connect.js?v=20261122b"></script>
-<script src="../askai.js?v=20261121h" defer></script>
+<script src="../legal.js?v=20261123a" defer></script>
+<script src="../mobile.js?v=20261123a" defer></script><script src="../onboard.js?v=20261123a" defer></script>
+<script src="../connect.js?v=20261123a" defer></script>
+<script src="aiv-connect.js?v=20261123a"></script>
 </body>
 </html>

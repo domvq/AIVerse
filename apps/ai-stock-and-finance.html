@@ -326,7 +326,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   </div>
   <div class="box" style="margin-top:10px">
    <h3>AI agent permissions</h3><p class="sub">You approve changes</p><br>
-   <label class="check"><input type="checkbox" data-set="autoLow"> Auto-approve watchlists and reports</label>
+   <label class="check"><input type="checkbox" data-set="autoLow"> Ask before every action, except trades always ask</label>
   </div>
   <div class="box" id="aiCard" style="margin-top:10px">
    <h3>AI provider</h3>
@@ -417,7 +417,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 <div id="llmBar" hidden><span id="llmText"></span><div class="llm-track"><i id="llmFill"></i></div></div>
 
 <input type="file" id="filePick" hidden>
-<script src="../config.js?v=20261121c"></script>
+<script src="../config.js?v=20261123a"></script>
 <script>
 (()=>{
 'use strict';
@@ -874,7 +874,7 @@ async function insights(pf,sn){const out=[];if(pf&&pf.rows.length){const top=[..
 /* ---------- ADVISOR + AGENT ---------- */
 const ADVISOR_SYS_TEXT=`You are a careful, plain-spoken financial assistant inside a personal finance app. You help the user understand markets, specific securities, their portfolio, budget and goals, using ONLY the data provided (quote real numbers). You are educational, not a licensed advisor: never tell the user to buy or sell a specific security or guarantee returns. Instead lay out the evidence, the risks, the uncertainty, and how it relates to their stated goals, risk tolerance and time horizon; suggest a licensed professional for major decisions, taxes or legal questions. Forecasts are probabilities with wide ranges. Prefer diversification and fundamentals over predictions. Keep answers under 250 words unless asked for a report; use short markdown.`;
 const ADVISOR_SYS=ADVISOR_SYS_TEXT+`
-You can also propose app actions. They run ONLY after the user approves, so propose them only when the user asks you to do, change, add, prepare or create something. Action types:
+You can also take app actions. They run right away (trades still wait for the user's approval), so use them when the user asks you to do, change, add, prepare or create something. Action types:
 - {"type":"add_watchlist","symbols":["AAPL"]} / {"type":"remove_watchlist","symbols":["AAPL"]}
 - {"type":"add_holding","symbol":"VTI","shares":10,"cost":250,"account":"Brokerage"} / {"type":"update_holding","symbol":"VTI","shares":12,"cost":248} / {"type":"remove_holding","symbol":"VTI"}
 - {"type":"prepare_trade","symbol":"SPY","side":"buy","qty":10,"orderType":"market"|"limit","limitPrice":null,"account":"paper"|"instruction","rationale":"why, in one sentence"}  (paper = practice account; instruction = a written ticket the user may place at their own broker)
@@ -910,7 +910,7 @@ async function askAdvisor(q,btn){q=q.trim();if(!q)return;S.chat.push({role:'user
   try{out=await ai(prompt,{system:ADVISOR_SYS,json:true,temp:.4,max:2500});}catch(e){if(!/unreadable/.test(e.message))throw e;out={reply:await ai(prompt,{system:ADVISOR_SYS_TEXT,temp:.4,max:2000}),actions:[]};}
   let reply=String(out.reply||out.answer||'').trim();const acts=Array.isArray(out.actions)?out.actions:[];
   if(!reply&&!acts.length){try{reply=String(await ai(prompt,{system:ADVISOR_SYS_TEXT,temp:.4,max:2000})||'').trim();}catch(e){}}
-  const queued=await handleActions(acts);if(!reply)reply=queued?'Here\'s what I suggest.':'I couldn\'t put an answer together that time. Please ask again.';
+  handleActions.done=[];const queued=await handleActions(acts);const doneL=handleActions.done||[];if(doneL.length)reply=(reply?reply+'\n\n':'')+doneL.map(x=>'- Done: '+x).join('\n');if(!reply)reply=doneL.length?'Done.':queued?'Here\'s what I suggest.':'I couldn\'t put an answer together that time. Please ask again.';
   S.chat.push({role:'ai',text:reply+(queued?`\n\n*${queued} action${queued>1?'s':''} waiting for your approval below.*`:'')});save();if(cur==='home')R.home();else renderChat();});}
 function renderChat(){const c=$('#chat');if(!c)return;const m=S.chat.slice(-8);c.innerHTML=m.map(x=>x.role==='user'?`<div class="msg me">${esc(x.text)}</div>`:`<div class="msg ai"><div class="md">${md(x.text)}</div></div>`).join('')+(m.length?'<div class="row end"><button class="btn ghost sm" id="chatClear">Clear chat</button></div>':'');const cl=$('#chatClear');if(cl)cl.onclick=()=>{S.chat=[];save();renderChat();};}
 const VALID_SYM=/^[A-Z][A-Z0-9.\-]{0,9}$/;
@@ -928,7 +928,7 @@ function cleanAction(a){if(!a||typeof a!=='object')return null;const t=a.type;co
  case'generate_report':return{type:t,kind:['portfolio','budget','market','stock'].includes(a.kind)?a.kind:'portfolio',symbol:a.symbol?S2(a.symbol):null};
  case'open':return{type:t,view:['markets','research','portfolio','budget','home'].includes(a.view)?a.view:'home',symbol:a.symbol?S2(a.symbol):null};}}catch(e){}return null;}
 const validDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(String(s||''))?s:'';
-async function handleActions(list){let queued=0;for(const raw of list){const a=cleanAction(raw);if(!a)continue;if(a.type==='open'){if(a.symbol){S.lastSym=a.symbol;}setTimeout(()=>go(a.symbol&&a.view==='home'?'research':a.view),50);continue;}if(S.settings.autoLow&&['add_watchlist','remove_watchlist','generate_report'].includes(a.type)){await execAction(a).catch(e=>toast(e.message,{err:true}));continue;}S.pending.push({id:uid(),ts:Date.now(),...a,desc:describe(a)});queued++;}save();return queued;}
+async function handleActions(list){let queued=0;for(const raw of list){const a=cleanAction(raw);if(!a)continue;if(a.type==='open'){if(a.symbol){S.lastSym=a.symbol;}setTimeout(()=>go(a.symbol&&a.view==='home'?'research':a.view),50);continue;}if(a.type!=='prepare_trade'){try{await execAction(a);(handleActions.done=handleActions.done||[]).push(describe(a));}catch(e){toast(e.message,{err:true});}continue;}S.pending.push({id:uid(),ts:Date.now(),...a,desc:describe(a)});queued++;}save();return queued;}
 async function execAction(a){switch(a.type){
  case'add_watchlist':a.symbols.forEach(s=>{if(!S.watchlist.includes(s))S.watchlist.push(s);});break;
  case'remove_watchlist':S.watchlist=S.watchlist.filter(s=>!a.symbols.includes(s));break;
@@ -1370,10 +1370,9 @@ function init(){
 init();
 })();
 </script>
-<script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261121h" defer></script><script src="../onboard.js?v=20261121f" defer></script>
-<script src="../connect.js?v=20261121c" defer></script>
-<script src="aiv-connect.js?v=20261122b"></script>
-<script src="../askai.js?v=20261121h" defer></script>
+<script src="../legal.js?v=20261123a" defer></script>
+<script src="../mobile.js?v=20261123a" defer></script><script src="../onboard.js?v=20261123a" defer></script>
+<script src="../connect.js?v=20261123a" defer></script>
+<script src="aiv-connect.js?v=20261123a"></script>
 </body>
 </html>
