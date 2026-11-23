@@ -104,7 +104,7 @@
   }
   function globalAsk() {
     return [].some.call(document.querySelectorAll('input,textarea'), function (i) {
-      return !i.closest('.view') && !i.closest('.aiv-ask') && /^ask\b/i.test(i.getAttribute('placeholder') || '') && i.offsetParent !== null;
+      return !i.closest('.view') && !i.closest('.aiv-ask') && !i.closest('#aivmAsk') && /^ask\b/i.test(i.getAttribute('placeholder') || '') && i.offsetParent !== null;
     });
   }
   function screenText(view) {
