@@ -41,6 +41,39 @@
   var file = (location.pathname.split("/").pop() || "").replace(/\.html?$/i, "").replace(/\.desktop$/i, "");
   var APP_ID = FILE_TO_ID[file] || file || "app";
 
+  /* ---------- light / dark: follow AIV X's theme when the app runs inside AIV X ----------
+     The apps switch themes with @media (prefers-color-scheme: dark). Inside AIV X (and the iPhone app)
+     that media query can be out of date or differ from AIV X's own Theme setting, so AIV X sends
+     the theme to use and these rules are turned on or off to match. On their own, apps follow the device. */
+  var THEME_RULES = null;
+  function themeRules() {
+    if (THEME_RULES) return THEME_RULES;
+    THEME_RULES = [];
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var rules; try { rules = document.styleSheets[i].cssRules; } catch (e) { continue; }
+      (function walk(rs) {
+        for (var j = 0; j < rs.length; j++) {
+          var r = rs[j];
+          if (r.media && /prefers-color-scheme\s*:\s*dark/i.test(r.media.mediaText)) THEME_RULES.push({ r: r, orig: r.media.mediaText });
+          else if (r.cssRules) walk(r.cssRules);
+        }
+      })(rules);
+    }
+    return THEME_RULES;
+  }
+  var currentTheme = "";
+  function applyAivTheme(t) {
+    t = t === "dark" || t === "light" ? t : "";
+    if (t === currentTheme) return;
+    currentTheme = t;
+    themeRules().forEach(function (x) { try { x.r.media.mediaText = t === "dark" ? "all" : (t === "light" ? "not all" : x.orig); } catch (e) {} });
+    var root = document.documentElement;
+    if (t) root.setAttribute("data-aiv-theme", t); else root.removeAttribute("data-aiv-theme");
+    root.style.colorScheme = t || "";
+    // let charts and canvases redraw with the new colors
+    try { window.dispatchEvent(new Event("resize")); } catch (e) {}
+  }
+
   /* ---------- access the app's own state (S, KEY, load, save, refresh, go) ---------- */
   // Each app exposes a tiny handle: window.AIV_APP = { key, S, reload(), go(screen), screen() }
   var H = window.AIV_APP || null;
@@ -289,6 +322,8 @@
       var d = e.data || {};
       if (!d.aivx) return;
       if (d.type === "reply" && waiting[d.id]) { var w = waiting[d.id]; delete waiting[d.id]; d.error ? w[1](new Error(d.error)) : w[0](d.result); return; }
+      if ((d.type === "welcome" || d.type === "theme") && d.theme) applyAivTheme(d.theme);
+      if (d.type === "theme") return;
       if (d.type === "welcome" && OK && d.signedIn) {
         pusher = function () { ask("push", { at: localAt(), data: localData() }).catch(function () {}); };
         reconcile(function () { return ask("pull", {}); }, function (at, data) { return ask("push", { at: at, data: data }); })
