@@ -265,11 +265,15 @@
       var grid = view.querySelector(':scope > .grid, :scope > #stats');
       var chat = view.querySelector(':scope > .soft .askbar, :scope > .hero-ask');
       chat = chat ? (chat.classList.contains('hero-ask') ? chat : chat.closest('.soft')) : null;
-      if (grid && chat && chat.previousElementSibling !== grid && !(chat.previousElementSibling && chat.previousElementSibling.tagName === 'H2' && chat.previousElementSibling.previousElementSibling === grid)) {
+      // the Ask AI box (and its title) sits at the very top of Home; the stats and the circle graph follow it
+      if (chat) {
         var h = chat.previousElementSibling && chat.previousElementSibling.tagName === 'H2' ? chat.previousElementSibling : null;
-        if (h) { h.classList.add('aivr-h'); grid.after(h); h.after(chat); } else grid.after(chat);
+        var top = h || chat;
+        if (view.firstElementChild !== top || (h && h.nextElementSibling !== chat)) { view.prepend(chat); if (h) { h.classList.remove('aivr-h'); view.prepend(h); } }
       }
-      var anchor = chat || grid; if (!anchor) return;
+      var ask2 = view.querySelector(':scope > .aiv-ask');
+      if (ask2 && chat && chat.nextElementSibling !== ask2) chat.after(ask2);
+      var anchor = grid || ask2 || chat; if (!anchor) return;
       var ms = metrics(view, cfg); if (!ms.length) return;
       var sig = ms.map(function (m) { return m.label + '=' + m.value; }).join('|');
       var box = view.querySelector(':scope > .aivr');
