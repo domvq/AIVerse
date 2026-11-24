@@ -249,6 +249,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  <section class="view" id="v-training"></section>
  <section class="view" id="v-body"></section>
  <section class="view" id="v-nutrition"></section>
+ <section class="view" id="v-wellness"></section>
  <section class="view" id="v-analytics"></section>
  <section class="view" id="v-settings">
   <div class="row between"><h2 style="margin-top:4px">Settings</h2><a class="btn sm" href="#home">Done</a></div>
@@ -327,6 +328,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  <a href="#training" data-nav="training"><span class="ico"><span data-ic="dumbbell"></span></span>Training</a>
  <a href="#body" data-nav="body"><span class="ico"><span data-ic="body"></span></span>Body</a>
  <a href="#nutrition" data-nav="nutrition"><span class="ico"><span data-ic="apple"></span></span>Nutrition</a>
+ <a href="#wellness" data-nav="wellness"><span class="ico"><span data-ic="leaf"></span></span>Wellness</a>
  <a href="#analytics" data-nav="analytics"><span class="ico"><span data-ic="chart"></span></span>Analytics</a>
 </div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
 <dialog id="dlg"></dialog>
@@ -364,6 +366,11 @@ const cap=s=>String(s||'').replace(/^\w/,c=>c.toUpperCase());
 
 /* ---------- icons ---------- */
 const I={
+ leaf:'<path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/><path d="M5 19l7-7"/>',
+ barcode:'<path d="M4 6v12M7 6v12M10 6v12M14 6v12M16 6v12M20 6v12"/>',
+ timer:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
+ wind:'<path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
+ plates:'<path d="M3 12h18M7 7v10M10 5v14M14 5v14M17 7v10"/>',
  flame:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.7 1.2 2.6 2.2 2.8C10.5 9 11 6 12 3z"/>',
  dumbbell:'<path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/>',
  protein:'<circle cx="12" cy="12" r="8.5"/><path d="M8 13c1.5-3 6.5-3 8 0M9 9.5c1-1 5-1 6 0"/>',
@@ -391,6 +398,7 @@ function icons(root=document){$$('[data-ic]',root).forEach(el=>{const t=document
 /* ---------- storage ---------- */
 const KEY='fitcoach.v1';
 const DEF=()=>({
+ steps:{},habits:null,habitLog:{},mood:{},fast:null,fasts:[],
  profile:{name:'',units:'imperial',sex:'',age:'',height:'',weight:'',goal:'muscle',activity:'light',level:'beginner',days:'3',mode:'gym',equip:['dumbbell','bench'],diet:'any',avoid:'',kcalOverride:'',proOverride:'',waterOverride:''},
  settings:{provider:'',aivKey:'',aivModel:'aiv-1',groqKey:'',model:'openai/gpt-oss-120b',customPreset:'openai',customBase:'https://api.openai.com/v1',customKey:'',customModel:'',localBase:'http://localhost:11434/v1',localModel:'',webllmModel:'Qwen3-0.6B-q4f16_1-MLC',llmReady:'',visionModel:'qwen/qwen3.8-27b',customVision:'',localVision:''},
  setupDone:false,plan:null,planIdx:0,sessions:[],active:null,swaps:{},measures:[],food:{},water:{},sleep:{},mealPlan:null,grocery:[],customFoods:[],recentFoods:[],chat:[],insight:null,posture:[]});
@@ -867,6 +875,7 @@ function coachContext(q=''){
  L.push(`Profile: ${p.sex||'sex not given'}, ${p.age?p.age+' y':'age not given'}, ${heightCm()?fL(heightCm())+' '+lU():'height not given'}, ${curWeight()?fW(curWeight())+' '+wU():'weight not given'}, goal ${p.goal.replace('_',' ')}, ${p.level}, ${p.days} days/week at ${p.mode}${p.mode==='home'?' (equipment: '+avail().join(', ')+')':''}, diet ${p.diet}${p.avoid?' (avoid '+p.avoid+')':''}.`);
  L.push(`Targets: ${t.kcal} kcal (maintenance ~${t.tdee}, BMR ${t.bmr}), protein ${t.pro} g, carbs ${t.carb} g, fat ${t.fat} g, water ${fV(t.water)}.`);
  const bf=latestBF();if(bf!=null)L.push(`Estimated body fat: ${bf}%.`);
+ try{const d0=today();L.push(`Steps today: ${((S.steps||{})[d0]||0)} of ${stepGoal()}. Logging streak: ${dayStreak()} days. Training streak: ${weekStreak()} weeks.`);const md=(S.mood||{})[d0];if(md)L.push(`Mood today: ${md.m?(MOODS.find(x=>x[0]===md.m)||[])[1]:'not set'}, stress ${md.s||'not set'}/5${md.note?' ('+md.note+')':''}.`);if(S.fast)L.push(`Fasting now: ${r1((Date.now()-S.fast.start)/36e5)} of ${S.fast.goal} hours.`);L.push('Habits today: '+habitsList().map(h=>h.name+((S.habitLog[d0]||[]).includes(h.id)?' (done)':'')).join(', ')+'.');}catch(e){}
  const wt=weightTrend();if(wt)L.push(`Weight trend (28 d): ${wt.perWeek>=0?'+':''}${fW(wt.perWeek,2)} ${wU()}/week.`);
  if(S.plan)L.push(`Program: ${S.plan.name} (${S.plan.days.length} days): `+S.plan.days.map(d=>`${d.name}: ${d.slots.map(s=>EX[s.exId]?.name+' '+s.sets+'x'+s.lo+'-'+s.hi).join(', ')}`).join(' | '));
  const nd=nextDay();if(nd)L.push(`Next planned workout: ${nd.day.name}.`);
@@ -916,7 +925,13 @@ Actions (use only these):
 - {"type":"log_weight","weight_kg":number}
 - {"type":"log_water","ml":number}
 - {"type":"log_sleep","hours":number}
-- {"type":"open","view":"home|training|body|nutrition|analytics|settings"}
+- {"type":"log_steps","steps":number}
+- {"type":"log_mood","mood":1-5,"stress":1-5,"note":"text"}  mood 5 = great, stress 5 = very high
+- {"type":"start_fast","hours":12-24}
+- {"type":"end_fast"}
+- {"type":"add_habit","name":"habit"}
+- {"type":"breathing","kind":"box|478|calm"}  opens a guided breathing session
+- {"type":"open","view":"home|training|body|nutrition|wellness|analytics|settings"}
 Put update_profile first if the user gave new body details. If they want a nutrition plan but height, weight, age or sex are missing from MY DATA and the message, ask for the missing ones in "reply" and add {"type":"open","view":"nutrition"} instead. For plain questions, return "actions":[] and answer in "reply".`;
 async function runCoachActions(acts,btn){const done=[];let after=null;
  for(const a of acts){if(!a||!a.type)continue;try{switch(a.type){
@@ -927,6 +942,12 @@ async function runCoachActions(acts,btn){const done=[];let after=null;
   case'log_food':{const meal=MEALS.some(m=>m[0]===a.meal)?a.meal:mealNow();const L=(Array.isArray(a.items)?a.items:[]).slice(0,12);L.forEach(x=>dayFood().push({id:uid(),name:String(x.name||'Food').slice(0,80),g:r0(+x.grams||0),meal,kcal:r0(+x.kcal||0),p:r1(+x.protein||0),c:r1(+x.carbs||0),f:r1(+x.fat||0)}));if(L.length){save();done.push(`Logged ${L.length} food${L.length>1?'s':''} to ${meal}`);}break;}
   case'build_nutrition_plan':after=async()=>{await mealPlanGen(btn,{days:+a.days||3,meals:+a.meals||4,prefs:a.preferences||''});if(S.mealPlan)go('nutrition');};break;
   case'build_workout_plan':after=()=>aiBuildPlan(String(a.request||'a program for my goal'),btn);break;
+  case'log_steps':if(+a.steps>=0){S.steps=S.steps||{};S.steps[today()]=clamp(r0(+a.steps),0,200000);save();done.push(`Logged ${(+a.steps).toLocaleString()} steps`);}break;
+  case'log_mood':{S.mood=S.mood||{};const o={...(S.mood[today()]||{})};if(+a.mood>=1&&+a.mood<=5)o.m=r0(+a.mood);if(+a.stress>=1&&+a.stress<=5)o.s=r0(+a.stress);if(a.note)o.note=String(a.note).slice(0,300);S.mood[today()]=o;save();done.push('Saved your mood check-in');break;}
+  case'start_fast':startFast(+a.hours||16);done.push(`Started a ${S.fast.goal}-hour fast`);break;
+  case'end_fast':if(S.fast){endFast();done.push('Ended your fast');}break;
+  case'add_habit':if(a.name){habitsList().push({id:uid(),name:String(a.name).slice(0,60)});save();done.push('Added habit: '+String(a.name).slice(0,60));}break;
+  case'breathing':after=()=>openBreath(BREATHS[a.kind]?a.kind:'box');break;
   case'open':if(VIEWS.includes(a.view))after=after||(()=>go(a.view));break;}}catch(e){console.warn(e);}}
  return{done,after};}
 
@@ -947,7 +968,7 @@ async function aiBuildPlan(request,btn){
 }
 
 /* ---------- navigation ---------- */
-const VIEWS=['home','training','body','nutrition','analytics','settings'];
+const VIEWS=['home','training','body','nutrition','wellness','analytics','settings'];
 let cur='home';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
 function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
@@ -1140,6 +1161,100 @@ function renderGrocery(){if(!S.grocery.length)return'<p class="empty">Create a m
 
 /* ---------- ANALYTICS ---------- */
 let anRange=30;
+
+/* =========================================================================
+   Extra features from the top fitness and health apps:
+   plate + 1RM calculators, training streaks, barcode scanner, fasting timer,
+   water reminders, steps, daily habits, mood and stress check-ins, guided breathing
+   ========================================================================= */
+const DEFAULT_HABITS=[{id:'h-water',name:'Drink enough water'},{id:'h-move',name:'Move for 30 minutes'},{id:'h-sleep',name:'Sleep 7+ hours'},{id:'h-veg',name:'Eat fruit and vegetables'}];
+const habitsList=()=>Array.isArray(S.habits)?S.habits:(S.habits=DEFAULT_HABITS.map(h=>({...h})));
+const stepGoal=()=>+S.settings.stepGoal||8000;
+const MOODS=[[5,'Great'],[4,'Good'],[3,'Okay'],[2,'Low'],[1,'Bad']];
+function loggedOn(d){return (S.food[d]||[]).length||S.water[d]||S.sleep[d]!=null||(S.steps||{})[d]||((S.habitLog||{})[d]||[]).length||(S.mood||{})[d]||S.sessions.some(x=>ymd(new Date(x.start))===d)||S.measures.some(m=>m.date===d);}
+function dayStreak(){let n=0,d=new Date();if(!loggedOn(ymd(d)))d=addDays(d,-1);while(n<3650&&loggedOn(ymd(d))){n++;d=addDays(d,-1);}return n;}
+function weekStreak(){const goal=Math.max(1,+S.profile.days||3);let n=0,ws=weekStart();const cnt=w=>S.sessions.filter(x=>x.start>=w&&x.start<w+7*DAY).length;if(cnt(ws)<goal)ws-=7*DAY;while(n<520&&cnt(ws)>=goal){n++;ws-=7*DAY;}return n;}
+function habitStreak(id){let n=0,d=new Date();const has=x=>((S.habitLog||{})[ymd(x)]||[]).includes(id);if(!has(d))d=addDays(d,-1);while(n<3650&&has(d)){n++;d=addDays(d,-1);}return n;}
+
+/* ---- plate calculator + 1RM calculator ---- */
+function plateCalc(total,bar){const plates=imp()?[45,35,25,10,5,2.5]:[25,20,15,10,5,2.5,1.25];let side=(total-bar)/2;const out=[];if(side<0)return null;for(const p of plates){while(side>=p-1e-9){out.push(p);side=Math.round((side-p)*100)/100;}}return{out,left:side*2};}
+function openPlates(start){const bar=imp()?45:20;openModal('Plate calculator',`<div class="form-row"><label>Target weight (${wU()})<input id="pcW" type="number" inputmode="decimal" placeholder="Enter weight" value="${start||''}"></label><label>Bar (${wU()})<input id="pcB" type="number" inputmode="decimal" value="${bar}"></label></div><div id="pcOut" class="soft" style="margin-top:10px"></div><p class="note">Plates for each side of the bar</p>`,{onMount:d=>{const f=()=>{const w=num($('#pcW',d).value),b=num($('#pcB',d).value)||0,o=$('#pcOut',d);if(!w){o.innerHTML='<span class="muted small">Enter a weight</span>';return;}const r=plateCalc(w,b);if(!r){o.innerHTML='<span class="muted small">Lighter than the bar</span>';return;}const g={};r.out.forEach(p=>g[p]=(g[p]||0)+1);o.innerHTML=`<b>Each side:</b> ${r.out.length?Object.entries(g).sort((a,b)=>b[0]-a[0]).map(([p,n])=>`${n} × ${p}`).join(' + '):'just the bar'}${r.left>0.01?`<div class="small muted" style="margin-top:4px">${r1(r.left)} ${wU()} can't be made with standard plates</div>`:''}`;};$('#pcW',d).oninput=f;$('#pcB',d).oninput=f;f();}});}
+function open1RM(){openModal('One-rep max calculator',`<div class="form-row"><label>Weight lifted (${wU()})<input id="rmW" type="number" inputmode="decimal" placeholder="Enter weight"></label><label>Reps<input id="rmR" type="number" inputmode="numeric" placeholder="Enter reps"></label></div><div id="rmOut" style="margin-top:10px"></div><p class="note">An estimate, not a test</p>`,{onMount:d=>{const f=()=>{const w=num($('#rmW',d).value),r=num($('#rmR',d).value),o=$('#rmOut',d);if(!w||!r){o.innerHTML='';return;}const m=e1rm(w,r);o.innerHTML=`<div class="soft"><b style="font-size:24px">${r0(m)} ${wU()}</b><div class="small muted">estimated 1-rep max</div></div><div class="kv" style="margin-top:10px">${[[95,2],[90,4],[85,6],[80,8],[75,10],[70,12],[65,15]].map(([p,n])=>`<span>${p}% · about ${n} reps</span><span>${r0(m*p/100)} ${wU()}</span>`).join('')}</div>`;};$('#rmW',d).oninput=f;$('#rmR',d).oninput=f;}});}
+
+/* ---- barcode scanner (Open Food Facts) ---- */
+async function offLookup(code){const r=await fetch(`https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(code)}.json?fields=product_name,brands,nutriments,serving_quantity`);if(!r.ok)throw new Error('Lookup failed');const j=await r.json();if(!j||j.status!==1||!j.product)throw new Error('No product found for that barcode');return j.product;}
+function openScanner(){let stream=null,stop=false;const done=()=>{stop=true;try{stream&&stream.getTracks().forEach(t=>t.stop());}catch(e){}};
+ const d=openModal('Scan a barcode',`<div id="bcCam" class="soft" style="padding:0;overflow:hidden;border-radius:14px;display:none"><video id="bcVid" playsinline muted style="width:100%;display:block;max-height:260px;object-fit:cover"></video></div><p class="small muted" id="bcMsg" style="margin:8px 0">${'BarcodeDetector' in window?'Point your camera at the barcode':'Type the number under the barcode'}</p><div class="row"><input id="bcCode" inputmode="numeric" placeholder="Enter barcode number"><button class="btn primary" id="bcGo">Look up</button></div><div id="bcRes" style="margin-top:10px"></div>`,{onMount:dd=>{
+  const show=async code=>{code=String(code||'').replace(/\D/g,'');if(code.length<6){$('#bcMsg',dd).textContent='Enter the full barcode number';return;}done();$('#bcCode',dd).value=code;const res=$('#bcRes',dd);res.innerHTML='<p class="small muted">Looking it up…</p>';
+   try{const p=await offLookup(code),n=p.nutriments||{},k100=+n['energy-kcal_100g']||(+n.energy_100g?n.energy_100g/4.184:0),sv=+p.serving_quantity||100;const name=[p.product_name,p.brands].filter(Boolean).join(' · ')||'Scanned food';
+    res.innerHTML=`<div class="soft"><b>${esc(name)}</b><div class="tiny muted">Per 100 g: ${r0(k100)} kcal · P ${r1(+n.proteins_100g||0)} g · C ${r1(+n.carbohydrates_100g||0)} g · F ${r1(+n.fat_100g||0)} g</div></div><div class="form-row" style="margin-top:8px"><label>Amount (g)<input id="bcG" type="number" inputmode="decimal" value="${r0(sv)}"></label><label>Meal<select id="bcMeal">${MEALS.map(([k,l])=>`<option value="${k}" ${k===mealNow()?'selected':''}>${l}</option>`).join('')}</select></label></div><button class="btn primary block" id="bcAdd">Add to food log</button>`;
+    $('#bcAdd',dd).onclick=()=>{const g=num($('#bcG',dd).value)||sv,x=g/100;dayFood().push({id:uid(),name:name.slice(0,80),g:r0(g),meal:$('#bcMeal',dd).value,kcal:r0(k100*x),p:r1((+n.proteins_100g||0)*x),c:r1((+n.carbohydrates_100g||0)*x),f:r1((+n.fat_100g||0)*x)});save();closeModal();refresh();toast('Added '+name);};
+   }catch(e){res.innerHTML=`<p class="small" style="color:var(--bad,#c0392b)">${esc(e.message||'Lookup failed')}. You can use Quick add instead.</p>`;}};
+  $('#bcGo',dd).onclick=()=>show($('#bcCode',dd).value);$('#bcCode',dd).onkeydown=e=>{if(e.key==='Enter')show(e.target.value);};
+  if('BarcodeDetector' in window&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){(async()=>{try{const det=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e']});stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});const v=$('#bcVid',dd);v.srcObject=stream;await v.play();$('#bcCam',dd).style.display='block';
+    const loop=async()=>{if(stop||!dd.open)return done();try{const c=await det.detect(v);if(c&&c.length){show(c[0].rawValue);return;}}catch(e){}setTimeout(loop,300);};loop();}catch(e){$('#bcMsg',dd).textContent='Camera unavailable. Type the number under the barcode';}})();}
+  dd.addEventListener('close',done,{once:true});}});}
+
+/* ---- fasting timer ---- */
+function fastHTML(){const f=S.fast,last=(S.fasts||[]).slice(-1)[0];if(!f)return `<h2>Fasting</h2><div class="box"><p class="small muted" style="margin:0 0 10px">${last?`Last fast: ${r1(last.hours)} h on ${fmtD(ymd(new Date(last.end)))}`:'Track an eating window'}</p><div class="row wrap">${[12,14,16,18,20].map(h=>`<button class="btn sm${h===16?' primary':''}" data-fast="${h}">${h}:${24-h}</button>`).join('')}</div><p class="note">Not for anyone pregnant, under 18 or with a history of disordered eating</p></div>`;
+ const hrs=(Date.now()-f.start)/36e5,pct=clamp(hrs/f.goal*100,0,100),endAt=new Date(f.start+f.goal*36e5);
+ return `<h2>Fasting</h2><div class="box"><div class="row between"><div><b style="font-size:24px" id="fastClock">${fmtClock(Math.floor(hrs*60))}</b><div class="small muted">of ${f.goal} h · ends ${endAt.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</div></div><button class="btn sm" id="fastEnd">End fast</button></div><div class="bar" style="margin-top:10px"><i style="width:${pct}%;background:var(--accent,#111)"></i></div></div>`;}
+function startFast(h){S.fast={start:Date.now(),goal:clamp(+h||16,8,72)};save();refresh();toast(`Fast started: ${S.fast.goal} hours`);}
+function endFast(){const f=S.fast;if(!f)return;const hours=(Date.now()-f.start)/36e5;S.fasts=(S.fasts||[]).concat({start:f.start,end:Date.now(),goal:f.goal,hours:r1(hours)}).slice(-60);S.fast=null;save();refresh();toast(`Fast ended at ${r1(hours)} hours`);}
+
+/* ---- water reminders (while the app is open) ---- */
+let waterIv=null;
+function setWaterReminders(){clearInterval(waterIv);const m=+S.settings.remindWater||0;if(!m)return;waterIv=setInterval(()=>{const msg='Time for some water';try{if(document.hidden&&'Notification' in window&&Notification.permission==='granted')new Notification('AI Health and Fitness',{body:msg});else toast(msg,{action:'+ '+(imp()?'8 oz':'250 ml'),fn:()=>{S.water[today()]=(S.water[today()]||0)+(imp()?8*OZ:250);save();refresh();}});}catch(e){}},m*60000);}
+
+/* ---- guided breathing ---- */
+const BREATHS={box:{name:'Box breathing',steps:[['Breathe in',4],['Hold',4],['Breathe out',4],['Hold',4]]},'478':{name:'4-7-8 breathing',steps:[['Breathe in',4],['Hold',7],['Breathe out',8]]},calm:{name:'Calm breathing',steps:[['Breathe in',4],['Breathe out',6]]}};
+function openBreath(k){const B=BREATHS[k];let stop=false,round=0;const rounds=k==='478'?4:6;
+ const d=openModal(B.name,`<div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:10px 0"><div id="brC" style="width:170px;height:170px;border-radius:50%;background:color-mix(in srgb,var(--water,#3b82f6) 22%,transparent);border:2px solid var(--water,#3b82f6);display:flex;align-items:center;justify-content:center;transform:scale(.6);transition:transform 4s ease-in-out"><b id="brT" style="font-size:30px">Ready</b></div><div id="brL" style="font-size:18px;font-weight:600">Get comfortable</div><div class="small muted" id="brN"></div></div><button class="btn block" id="brStop">Stop</button>`,{onMount:dd=>{
+  $('#brStop',dd).onclick=()=>{stop=true;closeModal();};dd.addEventListener('close',()=>{stop=true;},{once:true});
+  (async()=>{await sleep(1200);while(!stop&&round<rounds){round++;$('#brN',dd).textContent=`Round ${round} of ${rounds}`;for(const [lab,sec] of B.steps){if(stop)return;const c=$('#brC',dd);c.style.transitionDuration=sec+'s';if(lab==='Breathe in')c.style.transform='scale(1)';if(lab==='Breathe out')c.style.transform='scale(.6)';$('#brL',dd).textContent=lab;for(let t=sec;t>0;t--){if(stop)return;$('#brT',dd).textContent=t;await sleep(1000);}}}
+   if(!stop){$('#brL',dd).textContent='Nice work';$('#brT',dd).textContent='✓';const L=(S.habitLog[today()]=S.habitLog[today()]||[]);save();}})();}});}
+
+/* ---- the Wellness tab ---- */
+R.wellness=()=>{const v=$('#v-wellness'),d=today(),st=(S.steps||{})[d]||0,goal=stepGoal(),H=habitsList(),done=(S.habitLog[d]=S.habitLog[d]||[]),md=(S.mood||{})[d]||{};
+ const days=[...Array(7)].map((_,i)=>ymd(addDays(new Date(),i-6)));const maxSt=Math.max(goal,...days.map(x=>(S.steps||{})[x]||0));
+ v.innerHTML=`<div class="row between wrap"><h2 style="margin-top:4px">Wellness</h2></div>
+ <div class="grid"><div class="soft"><b style="font-size:24px">${dayStreak()}</b><div class="small muted">day logging streak</div></div><div class="soft"><b style="font-size:24px">${weekStreak()}</b><div class="small muted">week training streak</div></div><div class="soft"><b style="font-size:24px">${done.length}/${H.length}</b><div class="small muted">habits today</div></div></div>
+ <h2>Steps</h2><div class="box"><div class="row"><input id="stIn" type="number" inputmode="numeric" placeholder="Enter today's steps" value="${st||''}"><button class="btn primary" id="stSave">Save</button></div><div class="bar" style="margin-top:10px"><i style="width:${clamp(st/goal*100,0,100)}%;background:var(--good,#16a34a)"></i></div><div class="small muted" style="margin-top:6px">${st.toLocaleString()} of ${goal.toLocaleString()} steps · <button class="linkbtn" id="stGoal" style="background:none;border:0;padding:0;color:inherit;text-decoration:underline;cursor:pointer">Change goal</button></div>
+  <div style="display:flex;gap:6px;align-items:flex-end;height:70px;margin-top:12px">${days.map(x=>{const n=(S.steps||{})[x]||0;return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;border-radius:6px;background:${n>=goal?'var(--good,#16a34a)':'var(--line,#ddd)'};height:${Math.max(4,n/maxSt*52)}px" title="${n.toLocaleString()} steps"></div><span class="tiny muted">${parseD(x).toLocaleDateString([],{weekday:'narrow'})}</span></div>`;}).join('')}</div></div>
+ <h2>Daily habits</h2><div class="box"><div class="list">${H.map(h=>{const on=done.includes(h.id),sk=habitStreak(h.id);return `<div class="item"><button class="setchk ${on?'on':''}" data-hab="${esc(h.id)}" aria-label="${on?'Undo':'Done'}: ${esc(h.name)}">✓</button><div class="grow"><div class="t">${esc(h.name)}</div><div class="tiny muted">${sk?sk+' day streak':'Start a streak today'}</div></div><button class="btn sm ghost" data-habdel="${esc(h.id)}" aria-label="Remove ${esc(h.name)}">×</button></div>`;}).join('')||'<p class="empty">No habits yet</p>'}</div><div class="row" style="margin-top:10px"><input id="habNew" placeholder="Enter a new habit"><button class="btn" id="habAdd">Add</button></div></div>
+ <h2>Mood and stress</h2><div class="box"><div class="small muted" style="margin-bottom:8px">How do you feel today?</div><div class="seg" id="moodSeg" style="flex-wrap:wrap">${MOODS.map(([n,l])=>`<button data-mood="${n}" class="${md.m===n?'on':''}">${l}</button>`).join('')}</div><div class="small muted" style="margin:12px 0 8px">Stress level</div><div class="seg" id="stressSeg">${[1,2,3,4,5].map(n=>`<button data-stress="${n}" class="${md.s===n?'on':''}">${['Very low','Low','Medium','High','Very high'][n-1]}</button>`).join('')}</div><label style="margin-top:10px">Note<input id="moodNote" placeholder="Enter a note (optional)" value="${esc(md.note||'')}"></label>
+  <div class="small muted" style="margin-top:10px">Last 7 days: ${days.map(x=>{const m=(S.mood||{})[x];return m&&m.m?(MOODS.find(y=>y[0]===m.m)||[])[1]:'·';}).join(' · ')}</div>${md.s>=4?'<p class="note">Stress is high today. A breathing session below can help. If you feel this way most days, talking to a doctor or counselor is a good idea.</p>':''}</div>
+ <h2>Breathing</h2><div class="box"><div class="row wrap">${Object.entries(BREATHS).map(([k,b])=>`<button class="btn" data-breath="${k}">${ic('wind')} ${esc(b.name)}</button>`).join('')}</div><p class="note">A few minutes to relax and reset</p></div>`;
+ icons(v);
+ $('#stSave').onclick=()=>{const n=r0(num($('#stIn').value)||0);S.steps=S.steps||{};S.steps[d]=clamp(n,0,200000);save();refresh();toast('Steps saved');};
+ $('#stGoal').onclick=()=>{const g=prompt('Daily step goal',String(goal));if(g&&num(g)>0){S.settings.stepGoal=r0(num(g));save();refresh();}};
+ $$('[data-hab]',v).forEach(b=>b.onclick=()=>{const id=b.dataset.hab,L=S.habitLog[d];const i=L.indexOf(id);if(i>=0)L.splice(i,1);else L.push(id);save();refresh();});
+ $$('[data-habdel]',v).forEach(b=>b.onclick=()=>{S.habits=habitsList().filter(h=>h.id!==b.dataset.habdel);save();refresh();});
+ $('#habAdd').onclick=()=>{const n=$('#habNew').value.trim();if(!n)return;habitsList().push({id:uid(),name:n.slice(0,60)});save();refresh();};
+ const setMood=o=>{S.mood=S.mood||{};S.mood[d]={...(S.mood[d]||{}),...o};save();};
+ $$('[data-mood]',v).forEach(b=>b.onclick=()=>{setMood({m:+b.dataset.mood});refresh();});
+ $$('[data-stress]',v).forEach(b=>b.onclick=()=>{setMood({s:+b.dataset.stress});refresh();});
+ $('#moodNote').onchange=e=>setMood({note:e.target.value.slice(0,300)});
+ $$('[data-breath]',v).forEach(b=>b.onclick=()=>openBreath(b.dataset.breath));
+};
+
+/* ---- add the new pieces into Training and Nutrition ---- */
+const _rTraining=R.training;R.training=()=>{_rTraining();const v=$('#v-training');if(!v)return;
+ if(S.active){const h=v.querySelector('#wFinish');if(h&&!v.querySelector('#wPlates')){const b=document.createElement('button');b.className='btn sm';b.id='wPlates';b.innerHTML=ic('plates')+' Plates';b.onclick=()=>openPlates();h.parentNode.insertBefore(b,h);}return;}
+ const lib=[...v.querySelectorAll('h2')].find(x=>/Exercise library/.test(x.textContent));if(!lib||v.querySelector('#gymTools'))return;
+ const w=document.createElement('div');w.id='gymTools';w.innerHTML=`<h2>Gym tools</h2><div class="box"><div class="row wrap"><button class="btn" id="gtPlates">${ic('plates')} Plate calculator</button><button class="btn" id="gt1rm">${ic('dumbbell')} 1RM calculator</button></div><div class="small muted" style="margin-top:8px">${weekStreak()?weekStreak()+' week training streak · ':''}${sessionsThisWeek()} of ${S.profile.days} workouts this week</div></div>`;
+ lib.parentNode.insertBefore(w,lib);[...w.children].forEach(c=>lib.parentNode.insertBefore(c,lib));w.remove();$('#gtPlates').onclick=()=>openPlates();$('#gt1rm').onclick=open1RM;};
+const _rNutrition=R.nutrition;R.nutrition=()=>{_rNutrition();const v=$('#v-nutrition');if(!v)return;
+ const ph=v.querySelector('#fPhoto');if(ph&&!v.querySelector('#fScan')){const b=document.createElement('button');b.className='btn';b.id='fScan';b.innerHTML=ic('barcode')+' Scan';b.onclick=openScanner;ph.parentNode.insertBefore(b,ph);}
+ const wb=v.querySelector('[data-water]');const wbox=wb&&wb.closest('.soft,.box');
+ if(wbox&&!v.querySelector('#wRem')){const r=document.createElement('div');r.className='row';r.style.marginTop='10px';r.innerHTML=`<label class="small" style="display:flex;align-items:center;gap:8px;flex:1">Water reminders<select id="wRem" style="max-width:150px">${[[0,'Off'],[30,'Every 30 min'],[60,'Every hour'],[90,'Every 90 min'],[120,'Every 2 hours']].map(([m,l])=>`<option value="${m}" ${(+S.settings.remindWater||0)===m?'selected':''}>${l}</option>`).join('')}</select></label>`;wbox.appendChild(r);
+  $('#wRem').onchange=e=>{S.settings.remindWater=+e.target.value;save();setWaterReminders();if(+e.target.value&&'Notification' in window&&Notification.permission==='default')try{Notification.requestPermission();}catch(x){}toast(+e.target.value?'Reminders on while the app is open':'Reminders off');};
+  const fw=document.createElement('div');fw.id='fastWrap';fw.innerHTML=fastHTML();const after=wbox.nextSibling;[...fw.children].forEach(c=>wbox.parentNode.insertBefore(c,after));
+  $$('[data-fast]',v).forEach(b=>b.onclick=()=>startFast(b.dataset.fast));const fe=v.querySelector('#fastEnd');if(fe)fe.onclick=endFast;}
+ icons(v);};
+setInterval(()=>{if(cur==='nutrition'&&S.fast){const el=$('#fastClock');if(el)el.textContent=fmtClock(Math.floor((Date.now()-S.fast.start)/60000));}},30000);
+setTimeout(setWaterReminders,1500);
+
 R.analytics=()=>{
  const v=$('#v-analytics'),ss=sessionsIn(anRange),vol=sum(ss.flatMap(s=>s.ex.flatMap(e=>e.sets.filter(x=>x.done).map(x=>(x.w||0)*(x.r||0))))),st=strengthTable(),band=S.profile.level==='beginner'?[8,14]:[10,20],mv=muscleVolume(7),t=targets();
  const weeks=[];for(let i=7;i>=0;i--){const s=weekStart()-i*7*DAY;weeks.push({label:fmtD(ymd(new Date(s))),v:S.sessions.filter(x=>x.start>=s&&x.start<s+7*DAY).length});}

@@ -286,6 +286,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  <section class="view" id="v-home"></section>
  <section class="view" id="v-edit"></section>
  <section class="view" id="v-create"></section>
+ <section class="view" id="v-collage"></section>
  <section class="view" id="v-portrait"></section>
  <section class="view" id="v-social"></section>
  <section class="view" id="v-library"></section>
@@ -369,6 +370,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
  <a href="#edit" data-nav="edit"><span class="ico"><span data-ic="wand"></span></span>Edit</a>
  <a href="#create" data-nav="create"><span class="ico"><span data-ic="spark"></span></span>Create</a>
+ <a href="#collage" data-nav="collage"><span class="ico"><span data-ic="grid"></span></span>Collage</a>
  <a href="#portrait" data-nav="portrait"><span class="ico"><span data-ic="user"></span></span>Portrait</a>
  <a href="#social" data-nav="social"><span class="ico"><span data-ic="share"></span></span>Social</a>
  <a href="#library" data-nav="library"><span class="ico"><span data-ic="grid"></span></span>Library</a>
@@ -804,7 +806,7 @@ function wireMics(root=document){$$('[data-dictate]',root).forEach(b=>{if(b._w)r
 
 
 /* ---------- navigation ---------- */
-const VIEWS=['home','edit','create','portrait','social','library','settings'];
+const VIEWS=['home','edit','create','collage','portrait','social','library','settings'];
 let cur='home';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
 function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
@@ -830,7 +832,7 @@ async function saveEditor(){const c=curC();if(!c)return;await run($('#edSave'),a
 async function exportCanvas(c,name,fmt='png',q=.92){const type={png:'image/png',jpg:'image/jpeg',webp:'image/webp'}[fmt];const b=await toBlob(fmt==='jpg'?composite(c,{type:'color',color:'#ffffff'}):c,type,q);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(name||'image').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'_')+'.'+fmt;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000);}
 
 /* ---------- EDIT view ---------- */
-const TOOLS=[['prompt','Prompt'],['adjust','Adjust'],['filters','Filters'],['bg','Background'],['remove','Remove objects'],['enhance','Enhance'],['crop','Crop'],['understand','Understand']];
+const TOOLS=[['prompt','Prompt'],['adjust','Adjust'],['filters','Filters'],['hsl','Color mixer'],['effects','Effects'],['text','Text'],['stickers','Stickers'],['draw','Draw'],['frame','Frames'],['expand','AI expand'],['bg','Background'],['remove','Remove objects'],['enhance','Enhance'],['crop','Crop'],['understand','Understand']];
 const EX_PROMPTS=['Make it brighter and warmer','Blur the background','Remove the background','Black and white with strong contrast','Crop to a square and make the colors pop','Fix the lighting and sharpen','Give it a cinematic look','Replace the sky with a dramatic sunset'];
 R.edit=()=>{const v=$('#v-edit');if(!curC()){v.innerHTML=`<div class="box" style="text-align:center;padding:36px 16px" id="drop"><div class="c-lift" style="display:flex;justify-content:center">${ic('image')}</div><h3 style="margin:8px 0 4px">Open a photo to start editing</h3><p class="sub">Drop an image here, or choose one.</p><div class="row wrap" style="justify-content:center;margin-top:12px"><button class="btn primary" id="edOpen">${ic('upload')} Upload photo</button><a class="btn" href="#library">From library</a><a class="btn" href="#create">Generate one</a></div></div>`;icons(v);$('#edOpen').onclick=async()=>openFile(await pickImg());bindDrop($('#drop'));return;}renderEditor();};
 function renderEditor(){const v=$('#v-edit'),c=curC();
@@ -1015,6 +1017,161 @@ async function generateBatch(btn){const base=CR.prompt.trim();if(!base){toast('D
 /* ---------- PORTRAIT ---------- */
 const PFMT={'1:1':['Square (LinkedIn, avatars)',1,1080,1080],'4:5':['Portrait 4:5',.8,1080,1350],'passport':['Passport / ID 35×45mm',35/45,827,1063],'2x2':['US passport 2×2in',1,600,600],'3:4':['Resume photo 3:4',.75,900,1200]};
 const PT={src:null,out:null,fmt:'1:1',bg:'studio',color:'#ffffff',smooth:30,light:10,warmth:0,consent:false,busy:false};
+
+/* =========================================================================
+   Studio features inspired by Picsart, Hypic and other top photo apps:
+   text, stickers + sticker maker, draw / blur / pixelate brush, color mixer (HSL),
+   effects, frames + no-crop fit, AI expand, saved looks, collage maker, batch edit
+   ========================================================================= */
+const TFONTS=[['Inter','Inter, system-ui, sans-serif'],['Serif','Georgia, "Times New Roman", serif'],['Mono','"Courier New", monospace'],['Impact','Impact, "Arial Black", sans-serif'],['Rounded','"Trebuchet MS", "Segoe UI", sans-serif'],['Script','"Brush Script MT", "Segoe Script", cursive'],['Condensed','"Arial Narrow", "Roboto Condensed", sans-serif']];
+const STICKERS=['❤️','⭐','✨','🔥','😍','😂','😎','🥳','👑','🌸','🌈','☀️','🌙','💯','👍','🎉','💖','🦋','🍀','📍','🎵','💬','✅','⚡'];
+const XT={layer:null,strokes:[],brush:{mode:'pen',color:'#ff2d55',size:18},hsl:null,stk:[]};
+const ovWrap=()=>{const st=$('#stage'),vc=$('#view');if(!st||!vc)return null;let ov=$('#xov');if(!ov){ov=mk(vc.width,vc.height);ov.id='xov';ov.className='ov';st.appendChild(ov);}const r=vc.getBoundingClientRect(),sr=st.getBoundingClientRect();Object.assign(ov.style,{position:'absolute',left:(r.left-sr.left)+'px',top:(r.top-sr.top)+'px',width:r.width+'px',height:r.height+'px',touchAction:'none',cursor:'crosshair',zIndex:4,pointerEvents:'auto'});ov.width=vc.width;ov.height=vc.height;return ov;};
+const relPt=(ov,e)=>{const r=ov.getBoundingClientRect();return[clamp((e.clientX-r.left)/r.width,0,1),clamp((e.clientY-r.top)/r.height,0,1)];};
+
+/* ---- text ---- */
+function drawText(g,W,H,L){const fs=Math.max(8,L.size/100*Math.min(W,H));g.save();g.font=`${L.bold?'700':'500'} ${fs}px ${L.font}`;g.textAlign='center';g.textBaseline='middle';const lines=String(L.text||'').split('\n');const lh=fs*1.15,x=L.x*W,y0=L.y*H-(lines.length-1)*lh/2;
+ lines.forEach((ln,i)=>{const y=y0+i*lh;if(L.bg){const w=g.measureText(ln).width+fs*.6;g.fillStyle=L.bgColor||'rgba(0,0,0,.55)';g.fillRect(x-w/2,y-lh/2,w,lh);}if(L.shadow){g.shadowColor='rgba(0,0,0,.55)';g.shadowBlur=fs*.18;g.shadowOffsetY=fs*.05;}if(L.outline){g.lineJoin='round';g.lineWidth=fs*.12;g.strokeStyle=L.outlineColor||'#000';g.strokeText(ln,x,y);}g.fillStyle=L.color;g.fillText(ln,x,y);g.shadowColor='transparent';});g.restore();}
+function drawSticker(g,W,H,L){const fs=Math.max(8,L.size/100*Math.min(W,H));g.save();g.translate(L.x*W,L.y*H);g.rotate((L.rot||0)*Math.PI/180);if(L.img){const k=fs*2/Math.max(L.img.width,L.img.height);g.drawImage(L.img,-L.img.width*k/2,-L.img.height*k/2,L.img.width*k,L.img.height*k);}else{g.font=`${fs}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;g.textAlign='center';g.textBaseline='middle';g.fillText(L.ch,0,0);}g.restore();}
+function previewLayer(){const ov=ovWrap();if(!ov)return;const g=cx(ov);g.clearRect(0,0,ov.width,ov.height);const L=XT.layer;if(!L)return;if(L.type==='text')drawText(g,ov.width,ov.height,L);else drawSticker(g,ov.width,ov.height,L);
+ let drag=false;ov.onpointerdown=e=>{drag=true;ov.setPointerCapture(e.pointerId);[L.x,L.y]=relPt(ov,e);previewLayer();};ov.onpointermove=e=>{if(!drag)return;[L.x,L.y]=relPt(ov,e);const g2=cx(ov);g2.clearRect(0,0,ov.width,ov.height);L.type==='text'?drawText(g2,ov.width,ov.height,L):drawSticker(g2,ov.width,ov.height,L);};ov.onpointerup=()=>{drag=false;};}
+function bakeLayer(label){const L=XT.layer;if(!L)return;const c=clone(curC()),g=cx(c);L.type==='text'?drawText(g,c.width,c.height,L):drawSticker(g,c.width,c.height,L);XT.layer=null;push(c,label);renderEditor();}
+
+/* ---- draw / blur / pixelate brush ---- */
+function strokePath(g,st,W,H,scale=1){g.lineCap='round';g.lineJoin='round';g.lineWidth=st.size*scale;g.beginPath();st.pts.forEach(([x,y],i)=>i?g.lineTo(x*W,y*H):g.moveTo(x*W,y*H));if(st.pts.length===1)g.lineTo(st.pts[0][0]*W+.1,st.pts[0][1]*H);g.stroke();}
+function renderStrokes(base,strokes,preview){const W=base.width,H=base.height,out=clone(base),g=cx(out),k=Math.max(W,H)/1000;
+ for(const st of strokes){if(st.mode==='pen'||st.mode==='marker'){g.save();g.globalAlpha=st.mode==='marker'?.4:1;g.strokeStyle=st.color;strokePath(g,st,W,H,k);g.restore();}
+  else{const m=mk(W,H),mg=cx(m);mg.strokeStyle='#000';strokePath(mg,st,W,H,k*1.6);let fx;if(st.mode==='blur'){fx=mk(W,H);const fg=cx(fx);fg.filter=`blur(${Math.max(4,r0(Math.max(W,H)/90))}px)`;fg.drawImage(out,0,0);}else{const px=Math.max(6,r0(Math.max(W,H)/70)),sm=mk(W/px,H/px);cx(sm).drawImage(out,0,0,sm.width,sm.height);fx=mk(W,H);const fg=cx(fx);fg.imageSmoothingEnabled=false;fg.drawImage(sm,0,0,W,H);}
+   const mg2=cx(m);mg2.globalCompositeOperation='source-in';mg2.drawImage(fx,0,0);g.drawImage(m,0,0);}}
+ return out;}
+function bindDraw(){const ov=ovWrap();if(!ov)return;const pv=$('#view');const paint=()=>{const g=cx(ov);g.clearRect(0,0,ov.width,ov.height);if(XT.strokes.length){const r=renderStrokes(pv,XT.strokes);g.drawImage(r,0,0);}};paint();let cur=null;
+ ov.onpointerdown=e=>{ov.setPointerCapture(e.pointerId);cur={...XT.brush,pts:[relPt(ov,e)]};XT.strokes.push(cur);paint();};ov.onpointermove=e=>{if(!cur)return;cur.pts.push(relPt(ov,e));paint();};ov.onpointerup=()=>{cur=null;};}
+
+/* ---- color mixer (HSL per color) ---- */
+const HSL_BANDS=[['red',0],['orange',30],['yellow',60],['green',120],['aqua',180],['blue',225],['purple',275],['magenta',320]];
+const zeroHSL=()=>Object.fromEntries(HSL_BANDS.map(([k])=>[k,{h:0,s:0,l:0}]));
+function hslCanvas(src,adj){const o=clone(src),g=cx(o),img=g.getImageData(0,0,o.width,o.height),d=img.data;
+ for(let i=0;i<d.length;i+=4){let r=d[i]/255,gg=d[i+1]/255,b=d[i+2]/255;const mx=Math.max(r,gg,b),mn=Math.min(r,gg,b);let h=0,sat=0,l=(mx+mn)/2;const dd=mx-mn;if(dd>1e-6){sat=l>.5?dd/(2-mx-mn):dd/(mx+mn);h=mx===r?((gg-b)/dd+(gg<b?6:0)):mx===gg?((b-r)/dd+2):((r-gg)/dd+4);h*=60;}
+  if(sat<.04)continue;let dh=0,ds=0,dl=0;for(const [k,c] of HSL_BANDS){const a=adj[k];if(!a.h&&!a.s&&!a.l)continue;let dist=Math.abs(h-c);dist=Math.min(dist,360-dist);const w=Math.max(0,1-dist/40);if(!w)continue;dh+=a.h*w*.3;ds+=a.s/100*w;dl+=a.l/100*w;}
+  if(!dh&&!ds&&!dl)continue;h=(h+dh+360)%360;sat=clamp(sat*(1+ds),0,1);l=clamp(l+dl*.25*sat,0,1);
+  const q=l<.5?l*(1+sat):l+sat-l*sat,p=2*l-q,hk=h/360,f=t=>{t<0&&(t+=1);t>1&&(t-=1);return t<1/6?p+(q-p)*6*t:t<.5?q:t<2/3?p+(q-p)*(2/3-t)*6:p;};d[i]=f(hk+1/3)*255;d[i+1]=f(hk)*255;d[i+2]=f(hk-1/3)*255;}
+ g.putImageData(img,0,0);return o;}
+
+/* ---- effects ---- */
+const EFFECTS={glitch:'Glitch',duotone:'Duotone',pixel:'Pixelate',posterize:'Posterize',sketch:'Sketch',leak:'Light leak',halftone:'Halftone',dream:'Dreamy glow',mirror:'Mirror',invert:'Invert'};
+function effectCanvas(src,k,amt=1){const W=src.width,H=src.height,o=clone(src),g=cx(o);
+ if(k==='glitch'){const sh=Math.max(2,r0(W*.012*amt));const id=cx(src).getImageData(0,0,W,H),od=g.getImageData(0,0,W,H),a=id.data,b=od.data;for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=(y*W+x)*4,ir=(y*W+Math.min(W-1,x+sh))*4,ib=(y*W+Math.max(0,x-sh))*4;b[i]=a[ir];b[i+2]=a[ib+2];}g.putImageData(od,0,0);for(let n=0;n<8*amt;n++){const y=Math.random()*H,h=H*.02*Math.random()+2,dx=(Math.random()-.5)*W*.06*amt;g.drawImage(o,0,y,W,h,dx,y,W,h);}return o;}
+ if(k==='pixel'){const px=Math.max(4,r0(Math.max(W,H)/(60/amt))),sm=mk(W/px,H/px);cx(sm).drawImage(src,0,0,sm.width,sm.height);g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);g.drawImage(sm,0,0,W,H);return o;}
+ if(k==='mirror'){g.save();g.translate(W,0);g.scale(-1,1);g.drawImage(src,0,0,W/2,H,0,0,W/2,H);g.restore();return o;}
+ if(k==='leak'){const gr=g.createRadialGradient(W*.1,H*.15,0,W*.1,H*.15,Math.max(W,H)*.7);gr.addColorStop(0,`rgba(255,140,60,${.55*amt})`);gr.addColorStop(.5,`rgba(255,60,120,${.25*amt})`);gr.addColorStop(1,'rgba(255,60,120,0)');g.globalCompositeOperation='screen';g.fillStyle=gr;g.fillRect(0,0,W,H);return o;}
+ if(k==='dream'){const b=mk(W,H),bg=cx(b);bg.filter=`blur(${Math.max(3,r0(Math.max(W,H)/80))}px) brightness(1.15)`;bg.drawImage(src,0,0);g.globalCompositeOperation='screen';g.globalAlpha=.55*amt;g.drawImage(b,0,0);return o;}
+ const id=g.getImageData(0,0,W,H),d=id.data;
+ if(k==='halftone'){const cell=Math.max(4,r0(Math.max(W,H)/110)),sm=mk(Math.ceil(W/cell),Math.ceil(H/cell));cx(sm).drawImage(src,0,0,sm.width,sm.height);const sd=cx(sm).getImageData(0,0,sm.width,sm.height).data;g.fillStyle='#fff';g.fillRect(0,0,W,H);g.fillStyle='#111';for(let y=0;y<sm.height;y++)for(let x=0;x<sm.width;x++){const i=(y*sm.width+x)*4,l=(sd[i]*.3+sd[i+1]*.59+sd[i+2]*.11)/255,r=(1-l)*cell*.62;if(r>.3){g.beginPath();g.arc(x*cell+cell/2,y*cell+cell/2,r,0,7);g.fill();}}return o;}
+ for(let i=0;i<d.length;i+=4){const l=(d[i]*.3+d[i+1]*.59+d[i+2]*.11)/255;
+  if(k==='duotone'){const a=[20,30,90],b=[255,120,170];for(let c=0;c<3;c++)d[i+c]=d[i+c]*(1-amt)+(a[c]+(b[c]-a[c])*l)*amt;}
+  else if(k==='posterize'){const n=Math.max(2,r0(6-amt*2));for(let c=0;c<3;c++)d[i+c]=Math.round(d[i+c]/255*(n-1))/(n-1)*255;}
+  else if(k==='invert'){for(let c=0;c<3;c++)d[i+c]=d[i+c]*(1-amt)+(255-d[i+c])*amt;}
+  else if(k==='sketch'){d[i]=d[i+1]=d[i+2]=l*255;}}
+ g.putImageData(id,0,0);
+ if(k==='sketch'){const inv=mk(W,H),ig=cx(inv);ig.filter=`invert(1) blur(${Math.max(2,r0(Math.max(W,H)/300))}px)`;ig.drawImage(o,0,0);g.globalCompositeOperation='color-dodge';g.drawImage(inv,0,0);g.globalCompositeOperation='source-over';}
+ return o;}
+
+/* ---- frames and no-crop fit ---- */
+const FRAMES={white:'White border',black:'Black border',polaroid:'Polaroid',round:'Rounded + shadow',fit11:'Fit 1:1 (no crop)',fit45:'Fit 4:5 (no crop)',fit916:'Fit 9:16 (no crop)'};
+function frameCanvas(src,k,color){const W=src.width,H=src.height;
+ if(k==='white'||k==='black'){const p=r0(Math.min(W,H)*.06),o=mk(W+p*2,H+p*2),g=cx(o);g.fillStyle=color||(k==='white'?'#ffffff':'#0b0b0c');g.fillRect(0,0,o.width,o.height);g.drawImage(src,p,p);return o;}
+ if(k==='polaroid'){const p=r0(Math.min(W,H)*.05),o=mk(W+p*2,H+p*2+r0(Math.min(W,H)*.18)),g=cx(o);g.fillStyle='#fbfaf7';g.fillRect(0,0,o.width,o.height);g.drawImage(src,p,p);return o;}
+ if(k==='round'){const p=r0(Math.min(W,H)*.07),o=mk(W+p*2,H+p*2),g=cx(o),rr=Math.min(W,H)*.06;g.fillStyle=color||'#f2f1ee';g.fillRect(0,0,o.width,o.height);g.save();g.shadowColor='rgba(0,0,0,.28)';g.shadowBlur=p*.6;g.shadowOffsetY=p*.15;g.beginPath();g.roundRect(p,p,W,H,rr);g.fillStyle='#000';g.fill();g.restore();g.save();g.beginPath();g.roundRect(p,p,W,H,rr);g.clip();g.drawImage(src,p,p);g.restore();return o;}
+ const ar=k==='fit11'?1:k==='fit45'?4/5:9/16;let OW=W,OH=H;if(W/H>ar)OH=r0(W/ar);else OW=r0(H*ar);const o=mk(OW,OH),g=cx(o);
+ if(color){g.fillStyle=color;g.fillRect(0,0,OW,OH);}else{g.filter=`blur(${Math.max(8,r0(Math.max(OW,OH)/40))}px) brightness(.9)`;const s2=Math.max(OW/W,OH/H)*1.1;g.drawImage(src,(OW-W*s2)/2,(OH-H*s2)/2,W*s2,H*s2);g.filter='none';}
+ g.drawImage(src,(OW-W)/2,(OH-H)/2);return o;}
+
+/* ---- AI expand (outpaint) ---- */
+function expandCanvas(src,pct,dir){const W=src.width,H=src.height,px=r0(W*pct/100),py=r0(H*pct/100);const L=dir==='all'||dir==='x'?px:0,T=dir==='all'||dir==='y'?py:0;const o=mk(W+L*2,H+T*2),g=cx(o);
+ g.drawImage(src,0,0,o.width,o.height);const bl=Math.max(10,r0(Math.max(W,H)/30));const tmp=mk(o.width,o.height),tg=cx(tmp);tg.filter=`blur(${bl}px)`;tg.drawImage(src,-bl*2,-bl*2,o.width+bl*4,o.height+bl*4);g.drawImage(tmp,0,0);g.drawImage(src,L,T);const m=mk(o.width,o.height),mg=cx(m);mg.fillStyle='#000';mg.fillRect(0,0,o.width,o.height);mg.clearRect(L+2,T+2,W-4,H-4);return{c:o,mask:m};}
+
+/* ---- render the new tools ---- */
+const _renderTool=renderTool;
+renderTool=function(){const b=$('#toolBox');if(!b)return;const t=ED.tool;
+ if(!['text','stickers','draw','hsl','effects','frame','expand'].includes(t)){XT.layer=null;XT.strokes=[];const ov=$('#xov');if(ov)ov.remove();return _renderTool();}
+ if(t==='text'){XT.layer=XT.layer&&XT.layer.type==='text'?XT.layer:{type:'text',text:'Your text',font:TFONTS[0][1],size:9,color:'#ffffff',outline:true,outlineColor:'#000000',shadow:false,bold:true,bg:false,x:.5,y:.82};const L=XT.layer;
+  b.innerHTML=`<label>Text<textarea id="txT" rows="2" placeholder="Enter your text">${esc(L.text)}</textarea></label><div class="form-row"><label>Font<select id="txF">${TFONTS.map(([n,v])=>`<option value='${v}' ${v===L.font?'selected':''}>${n}</option>`).join('')}</select></label><label>Color<input type="color" id="txC" value="${L.color}"></label></div><div class="sl"><span>Size</span><input type="range" id="txS" min="3" max="30" value="${L.size}"><b id="txSV">${L.size}</b></div><div class="row wrap"><label class="check"><input type="checkbox" id="txB" ${L.bold?'checked':''}> Bold</label><label class="check"><input type="checkbox" id="txO" ${L.outline?'checked':''}> Outline</label><label class="check"><input type="checkbox" id="txSh" ${L.shadow?'checked':''}> Shadow</label><label class="check"><input type="checkbox" id="txBg" ${L.bg?'checked':''}> Label</label></div><div class="row wrap" style="margin-top:6px"><button class="btn sm" data-tp="top">Top</button><button class="btn sm" data-tp="mid">Middle</button><button class="btn sm" data-tp="bot">Bottom</button><button class="btn sm ghost" id="txMeme">Meme style</button></div><div class="row end" style="margin-top:10px"><button class="btn primary" id="txGo">Add text</button></div><p class="note">Drag the text on the photo to move it</p>`;
+  const up=()=>{L.text=$('#txT').value;L.font=$('#txF').value;L.color=$('#txC').value;L.size=+$('#txS').value;$('#txSV').textContent=L.size;L.bold=$('#txB').checked;L.outline=$('#txO').checked;L.shadow=$('#txSh').checked;L.bg=$('#txBg').checked;previewLayer();};
+  $$('input,select,textarea',b).forEach(x=>x.oninput=up);$$('[data-tp]',b).forEach(x=>x.onclick=()=>{L.y={top:.12,mid:.5,bot:.86}[x.dataset.tp];L.x=.5;previewLayer();});
+  $('#txMeme').onclick=()=>{L.font=TFONTS[3][1];L.color='#ffffff';L.outline=true;L.bold=true;L.text=L.text.toUpperCase();renderTool();};$('#txGo').onclick=()=>{if(!L.text.trim())return;bakeLayer('Text');};setTimeout(previewLayer,30);return;}
+ if(t==='stickers'){XT.layer=XT.layer&&XT.layer.type==='sticker'?XT.layer:null;
+  b.innerHTML=`<div class="chips" style="font-size:22px">${STICKERS.map((ch,i)=>`<button class="chip" data-stk="${i}" style="font-size:22px;padding:4px 10px">${ch}</button>`).join('')}${XT.stk.map((c,i)=>`<button class="chip" data-mystk="${i}" style="padding:2px"><img src="${c.toDataURL()}" style="width:30px;height:30px;object-fit:contain" alt="My sticker"></button>`).join('')}</div>
+  <div class="sl" style="margin-top:10px"><span>Size</span><input type="range" id="skS" min="4" max="45" value="${XT.layer?XT.layer.size:14}"><b id="skSV">${XT.layer?XT.layer.size:14}</b></div><div class="sl"><span>Rotate</span><input type="range" id="skR" min="-180" max="180" value="${XT.layer?XT.layer.rot||0:0}"><b id="skRV">${XT.layer?XT.layer.rot||0:0}°</b></div>
+  <div class="row wrap" style="margin-top:8px"><button class="btn primary" id="skGo" ${XT.layer?'':'disabled'}>Add sticker</button><button class="btn" id="skMake">${ic('cut')} Make a sticker from this photo</button><button class="btn sm" id="skUp">${ic('upload')} Sticker from file</button></div><p class="note">Pick a sticker, then drag it on the photo</p>`;icons(b);
+  const pick=L=>{XT.layer={type:'sticker',x:.5,y:.5,size:+$('#skS').value,rot:+$('#skR').value,...L};$('#skGo').disabled=false;previewLayer();};
+  $$('[data-stk]',b).forEach(x=>x.onclick=()=>pick({ch:STICKERS[+x.dataset.stk]}));$$('[data-mystk]',b).forEach(x=>x.onclick=()=>pick({img:XT.stk[+x.dataset.mystk]}));
+  $('#skS').oninput=e=>{$('#skSV').textContent=e.target.value;if(XT.layer){XT.layer.size=+e.target.value;previewLayer();}};$('#skR').oninput=e=>{$('#skRV').textContent=e.target.value+'°';if(XT.layer){XT.layer.rot=+e.target.value;previewLayer();}};
+  $('#skGo').onclick=()=>bakeLayer('Sticker');
+  $('#skMake').onclick=e=>run(e.currentTarget,async()=>{const src=curC();const cut=maskToAlpha(src,await subjectMask(src));XT.stk.unshift(cropToAlpha(cut));toast('Sticker made. Tap it to add it.');renderTool();});
+  $('#skUp').onclick=async()=>{const f=await pickImg();if(!f)return;const c=await blobToCanvas(f);XT.stk.unshift(scaled(c,600));renderTool();};
+  if(XT.layer)setTimeout(previewLayer,30);return;}
+ if(t==='draw'){const B=XT.brush;b.innerHTML=`<div class="seg" id="drM">${[['pen','Pen'],['marker','Highlighter'],['blur','Blur brush'],['pixel','Pixelate brush']].map(([k,l])=>`<button data-dm="${k}" class="${B.mode===k?'on':''}">${l}</button>`).join('')}</div><div class="row" style="margin-top:10px;align-items:center"><label style="display:flex;align-items:center;gap:8px">Color<input type="color" id="drC" value="${B.color}"></label></div><div class="sl"><span>Brush size</span><input type="range" id="drS" min="2" max="80" value="${B.size}"><b id="drSV">${B.size}</b></div><div class="row wrap" style="margin-top:8px"><button class="btn primary" id="drGo">Apply</button><button class="btn sm" id="drUndo">Undo stroke</button><button class="btn sm ghost" id="drClr">Clear</button></div><p class="note">Blur or pixelate faces, plates and private info</p>`;
+  $$('[data-dm]',b).forEach(x=>x.onclick=()=>{B.mode=x.dataset.dm;$$('[data-dm]',b).forEach(y=>y.classList.toggle('on',y===x));});$('#drC').oninput=e=>B.color=e.target.value;$('#drS').oninput=e=>{B.size=+e.target.value;$('#drSV').textContent=e.target.value;};
+  $('#drUndo').onclick=()=>{XT.strokes.pop();bindDraw();};$('#drClr').onclick=()=>{XT.strokes=[];bindDraw();};$('#drGo').onclick=e=>{if(!XT.strokes.length){toast('Draw on the photo first.');return;}const s2=XT.strokes;XT.strokes=[];doOp(e.currentTarget,'Drawing',c=>renderStrokes(c,s2));};setTimeout(bindDraw,30);return;}
+ if(t==='hsl'){XT.hsl=XT.hsl||zeroHSL();XT.band=XT.band||'red';const a=XT.hsl[XT.band];
+  b.innerHTML=`<div class="chips">${HSL_BANDS.map(([k,deg])=>`<button class="chip" data-band="${k}" style="${k===XT.band?'outline:2px solid var(--ink);':''}"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:hsl(${deg},85%,55%);margin-right:6px;vertical-align:-1px"></span>${cap(k)}</button>`).join('')}</div>${[['h','Hue',-100,100],['s','Saturation',-100,100],['l','Luminance',-100,100]].map(([k,l,mn,mx])=>`<div class="sl"><span>${l}</span><input type="range" data-hk="${k}" min="${mn}" max="${mx}" value="${a[k]}"><b id="hv-${k}">${a[k]}</b></div>`).join('')}<div class="row end" style="margin-top:8px"><button class="btn sm" id="hReset">Reset</button><button class="btn primary sm" id="hApply">Apply</button></div>`;
+  const prev=()=>{const vc=$('#view');if(!vc)return;const base=scaled(curC(),900);const out=hslCanvas(base,XT.hsl);const g=cx(vc);g.clearRect(0,0,vc.width,vc.height);g.drawImage(out,0,0,vc.width,vc.height);};let tm=null;
+  $$('[data-band]',b).forEach(x=>x.onclick=()=>{XT.band=x.dataset.band;renderTool();});$$('[data-hk]',b).forEach(r=>r.oninput=()=>{a[r.dataset.hk]=+r.value;$('#hv-'+r.dataset.hk).textContent=r.value;clearTimeout(tm);tm=setTimeout(prev,60);});
+  $('#hReset').onclick=()=>{XT.hsl=zeroHSL();renderTool();drawStage();};$('#hApply').onclick=e=>{const h=XT.hsl;XT.hsl=null;doOp(e.currentTarget,'Color mixer',c=>hslCanvas(c,h));};return;}
+ if(t==='effects'){const sm=scaled(curC(),140);b.innerHTML=`<div class="gal" style="grid-template-columns:repeat(auto-fill,minmax(86px,1fr))">${Object.entries(EFFECTS).map(([k,l])=>`<button class="gi" data-fx="${k}"><img src="${effectCanvas(sm,k).toDataURL('image/jpeg',.8)}" alt=""><span>${l}</span></button>`).join('')}</div><div class="sl" style="margin-top:10px"><span>Strength</span><input type="range" id="fxS" min="20" max="150" value="100"><b id="fxSV">100%</b></div>`;
+  $('#fxS').oninput=e=>$('#fxSV').textContent=e.target.value+'%';$$('[data-fx]',b).forEach(x=>x.onclick=()=>doOp(x,EFFECTS[x.dataset.fx],c=>effectCanvas(c,x.dataset.fx,+$('#fxS').value/100)));return;}
+ if(t==='frame'){const sm=scaled(curC(),140);b.innerHTML=`<div class="gal" style="grid-template-columns:repeat(auto-fill,minmax(86px,1fr))">${Object.entries(FRAMES).map(([k,l])=>`<button class="gi" data-fr="${k}"><img src="${frameCanvas(sm,k).toDataURL('image/jpeg',.8)}" alt="" style="object-fit:contain;background:var(--card)"><span>${l}</span></button>`).join('')}</div><div class="row" style="margin-top:10px;align-items:center;gap:10px"><label class="check"><input type="checkbox" id="frUse"> Use my color</label><input type="color" id="frCol" value="#ffffff"></div><p class="note">"Fit" keeps the whole photo, with a blurred background, for posts and stories</p>`;
+  $$('[data-fr]',b).forEach(x=>x.onclick=()=>doOp(x,FRAMES[x.dataset.fr],c=>frameCanvas(c,x.dataset.fr,$('#frUse').checked?$('#frCol').value:null)));return;}
+ if(t==='expand'){b.innerHTML=`<p class="small" style="margin-top:0">Make the photo bigger and let AI fill in the new edges</p><div class="seg" id="xpD">${[['all','All sides'],['x','Left + right'],['y','Top + bottom']].map(([k,l],i)=>`<button data-xd="${k}" class="${i===0?'on':''}">${l}</button>`).join('')}</div><div class="sl" style="margin-top:10px"><span>How much</span><input type="range" id="xpP" min="10" max="50" value="25"><b id="xpPV">25%</b></div><label>Describe the new area (optional)<input id="xpPr" placeholder="Enter what should appear"></label><div class="row wrap" style="margin-top:8px"><button class="btn primary" id="xpGo" ${canEditGen()?'':'disabled title="Needs an image model in Settings"'}>${ic('spark')} AI expand</button><button class="btn" id="xpFast">Quick expand (blur fill)</button></div><p class="note">${canEditGen()?'Uses your image model':'AI expand needs an image model. Choose one in Settings. Quick expand works on your device.'}</p>`;icons(b);
+  let dir='all';$$('[data-xd]',b).forEach(x=>x.onclick=()=>{dir=x.dataset.xd;$$('[data-xd]',b).forEach(y=>y.classList.toggle('on',y===x));});$('#xpP').oninput=e=>$('#xpPV').textContent=e.target.value+'%';
+  $('#xpFast').onclick=e=>doOp(e.currentTarget,'Expanded',c=>expandCanvas(c,+$('#xpP').value,dir).c);
+  $('#xpGo').onclick=e=>{const p=$('#xpPr').value.trim();doOp(e.currentTarget,'AI expand',async c=>{const r=expandCanvas(c,+$('#xpP').value,dir);return editGenerative(r.c,(p?p+'. ':'')+'Extend the scene naturally into the new outer area so it matches the original photo seamlessly.',r.mask);});};return;}
+};
+function cropToAlpha(c){const g=cx(c),d=g.getImageData(0,0,c.width,c.height).data;let x0=c.width,y0=c.height,x1=-1,y1=-1;for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++)if(d[(y*c.width+x)*4+3]>20){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}if(x1<0)return c;const o=mk(x1-x0+1,y1-y0+1);cx(o).drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);return scaled(o,600);}
+const _drawStage=drawStage;drawStage=function(){_drawStage();const t=ED.tool;if(t==='text'||t==='stickers')setTimeout(previewLayer,0);else if(t==='draw')setTimeout(bindDraw,0);else{const ov=$('#xov');if(ov)ov.remove();}};
+
+/* ---- saved looks (your own filter presets) ---- */
+const _renderTool2=renderTool;renderTool=function(){_renderTool2();const b=$('#toolBox');if(!b)return;S.looks=S.looks||[];
+ if(ED.tool==='adjust'&&!$('#lkSave')){const r=document.createElement('div');r.className='row end';r.style.marginTop='6px';r.innerHTML='<button class="btn sm ghost" id="lkSave">Save as my look</button>';b.appendChild(r);$('#lkSave').onclick=()=>{if(isZero(ED.adj)){toast('Move a slider first.');return;}const n=prompt('Name this look',`My look ${S.looks.length+1}`);if(!n)return;S.looks.unshift({id:uid(),name:n.slice(0,30),adj:{...ED.adj}});S.looks=S.looks.slice(0,24);save();toast('Saved to Filters → My looks');};}
+ if(ED.tool==='filters'&&S.looks.length&&!$('#myLooks')){const sm=scaled(curC(),140);const w=document.createElement('div');w.id='myLooks';w.innerHTML=`<h4>My looks</h4><div class="gal" style="grid-template-columns:repeat(auto-fill,minmax(86px,1fr))">${S.looks.map((l,i)=>`<button class="gi" data-look="${i}"><img src="${adjustCanvas(sm,{...zeroAdj(),...l.adj}).toDataURL('image/jpeg',.8)}" alt=""><span>${esc(l.name)}</span></button>`).join('')}</div><p class="note">Long-press or right-click a look to delete it</p>`;b.prepend(w);
+  $$('[data-look]',w).forEach(x=>{const L=S.looks[+x.dataset.look];x.onclick=()=>doOp(x,L.name,c=>adjustCanvas(c,{...zeroAdj(),...L.adj}));x.oncontextmenu=e=>{e.preventDefault();if(confirm('Delete "'+L.name+'"?')){S.looks.splice(+x.dataset.look,1);save();renderTool();}};});}};
+
+/* ---- collage maker + batch edit ---- */
+const CL={imgs:[],layout:'auto',gap:12,radius:12,bg:'#ffffff',ratio:'1:1',batch:[],bLook:'vivid'};
+const CL_LAYOUTS={auto:'Auto grid',h:'Side by side',v:'Stacked',big:'One big + small',mosaic:'Mosaic'};
+function collageRects(n,layout,W,H){const R=[];if(!n)return R;
+ const grid=(c,r)=>{for(let i=0;i<n;i++){const x=i%c,y=Math.floor(i/c);R.push([x/c,y/r,1/c,1/r]);}};
+ if(layout==='h'){for(let i=0;i<n;i++)R.push([i/n,0,1/n,1]);return R;}if(layout==='v'){for(let i=0;i<n;i++)R.push([0,i/n,1,1/n]);return R;}
+ if(layout==='big'&&n>1){R.push([0,0,.62,1]);const m=n-1;for(let i=0;i<m;i++)R.push([.62,i/m,.38,1/m]);return R;}
+ if(layout==='mosaic'&&n>2){R.push([0,0,.6,.6],[.6,0,.4,.6]);const rest=n-2;for(let i=0;i<rest;i++)R.push([i/rest,.6,1/rest,.4]);return R;}
+ const c=Math.ceil(Math.sqrt(n)),r=Math.ceil(n/c);grid(c,r);return R;}
+function renderCollage(maxSide=2000){const [aw,ah]=CL.ratio.split(':').map(Number),W=aw>=ah?maxSide:r0(maxSide*aw/ah),H=aw>=ah?r0(maxSide*ah/aw):maxSide;const o=mk(W,H),g=cx(o);g.fillStyle=CL.bg;g.fillRect(0,0,W,H);const gap=CL.gap/1000*Math.max(W,H);
+ collageRects(CL.imgs.length,CL.layout,W,H).forEach((rc,i)=>{const im=CL.imgs[i];if(!im||!rc[2])return;const x=rc[0]*W+gap,y=rc[1]*H+gap,w=rc[2]*W-gap*(rc[0]+rc[2]>=.999?2:1),h=rc[3]*H-gap*(rc[1]+rc[3]>=.999?2:1);if(w<4||h<4)return;
+  const k=Math.max(w/im.width,h/im.height),sw=w/k,sh=h/k;g.save();g.beginPath();g.roundRect(x,y,w,h,CL.radius/100*Math.min(w,h));g.clip();g.drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,x,y,w,h);g.restore();});return o;}
+R.collage=()=>{const v=$('#v-collage');
+ v.innerHTML=`<h2 style="margin-top:4px">Collage maker</h2><div class="box"><div class="row wrap"><button class="btn primary" id="clAdd">${ic('upload')} Add photos</button>${curC()?'<button class="btn" id="clEd">Add photo from editor</button>':''}${CL.imgs.length?'<button class="btn sm ghost" id="clClr">Clear</button>':''}<span class="tiny muted" style="align-self:center">${CL.imgs.length}/9 photos</span></div>
+  ${CL.imgs.length?`<div class="stage" id="clStage" style="margin-top:10px;min-height:0;background:var(--card)"></div>`:'<p class="empty" style="margin-top:10px">Add 2 to 9 photos</p>'}
+  <h4>Layout</h4><div class="chips">${Object.entries(CL_LAYOUTS).map(([k,l])=>`<button class="chip" data-cl="${k}" style="${k===CL.layout?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${l}</button>`).join('')}</div>
+  <h4>Shape</h4><div class="chips">${['1:1','4:5','9:16','16:9','3:2'].map(a=>`<button class="chip" data-clr="${a}" style="${a===CL.ratio?'background:var(--btn);color:var(--btn-ink);border-color:var(--btn)':''}">${a}</button>`).join('')}</div>
+  <div class="sl" style="margin-top:10px"><span>Spacing</span><input type="range" id="clG" min="0" max="40" value="${CL.gap}"><b>${CL.gap}</b></div><div class="sl"><span>Corners</span><input type="range" id="clR" min="0" max="50" value="${CL.radius}"><b>${CL.radius}</b></div><div class="row" style="align-items:center;gap:10px"><label style="display:flex;gap:8px;align-items:center">Background<input type="color" id="clBg" value="${CL.bg}"></label></div>
+  ${CL.imgs.length?`<div class="row wrap" style="margin-top:10px"><button class="btn primary" id="clSave">${ic('save')} Save to library</button><button class="btn" id="clEdit">Open in editor</button><button class="btn" id="clDl">${ic('dl')} Download</button></div>`:''}</div>
+ <h2>Batch edit</h2><div class="box"><p class="small" style="margin-top:0">Apply one look to many photos and download them all</p><div class="row wrap"><button class="btn" id="bAdd">${ic('upload')} Choose photos</button><span class="tiny muted" style="align-self:center">${CL.batch.length} selected</span></div><label style="margin-top:8px">Look<select id="bLook">${Object.entries(FILTERS).filter(([k])=>k!=='none').map(([k,[l]])=>`<option value="f:${k}" ${'f:'+k===CL.bLook?'selected':''}>${l}</option>`).join('')}${(S.looks||[]).map(l=>`<option value="m:${l.id}">${esc(l.name)} (my look)</option>`).join('')}${Object.entries(FRAMES).map(([k,l])=>`<option value="r:${k}">${l}</option>`).join('')}</select></label><div class="row wrap" style="margin-top:8px"><button class="btn primary" id="bGo" ${CL.batch.length?'':'disabled'}>Apply and download</button></div></div>`;icons(v);
+ const redraw=()=>{const st=$('#clStage');if(!st)return;st.innerHTML='';const c=renderCollage(900);c.style.maxWidth='100%';c.style.display='block';st.appendChild(c);};redraw();
+ const pickMany=()=>new Promise(res=>{const f=$('#filePick');f.value='';f.accept='image/*';f.multiple=true;f.onchange=()=>{const L=[...f.files];f.multiple=false;res(L);};f.click();});
+ $('#clAdd').onclick=async()=>{const fs=await pickMany();for(const f of fs.slice(0,9-CL.imgs.length)){try{CL.imgs.push(scaled(await blobToCanvas(f),2000));}catch(e){}}R.collage();};
+ const ed=$('#clEd');if(ed)ed.onclick=()=>{if(CL.imgs.length<9)CL.imgs.push(scaled(curC(),2000));R.collage();};const cl=$('#clClr');if(cl)cl.onclick=()=>{CL.imgs=[];R.collage();};
+ $$('[data-cl]',v).forEach(x=>x.onclick=()=>{CL.layout=x.dataset.cl;R.collage();});$$('[data-clr]',v).forEach(x=>x.onclick=()=>{CL.ratio=x.dataset.clr;R.collage();});
+ $('#clG').oninput=e=>{CL.gap=+e.target.value;e.target.nextElementSibling.textContent=e.target.value;redraw();};$('#clR').oninput=e=>{CL.radius=+e.target.value;e.target.nextElementSibling.textContent=e.target.value;redraw();};$('#clBg').oninput=e=>{CL.bg=e.target.value;redraw();};
+ const sv=$('#clSave');if(sv)sv.onclick=e=>run(e.currentTarget,async()=>{await saveItem({c:renderCollage(2400),name:'Collage',source:'edited'});toast('Saved to library');});
+ const oe=$('#clEdit');if(oe)oe.onclick=()=>{loadIntoEditor(renderCollage(2400),{name:'Collage',source:'edited'});go('edit');};
+ const dl=$('#clDl');if(dl)dl.onclick=()=>exportModal(renderCollage(2400),'Collage');
+ $('#bAdd').onclick=async()=>{const fs=await pickMany();CL.batch=fs.slice(0,30);R.collage();};$('#bLook').onchange=e=>CL.bLook=e.target.value;
+ $('#bGo').onclick=e=>run(e.currentTarget,async()=>{const sel=$('#bLook').value,[kind,key]=[sel.slice(0,1),sel.slice(2)];let n=0;
+  for(const f of CL.batch){const c=await blobToCanvas(f);let out;if(kind==='f')out=key==='auto'?autoEnhance(c):adjustCanvas(c,{...zeroAdj(),...FILTERS[key][1]});else if(kind==='m'){const L=(S.looks||[]).find(l=>l.id===key);out=adjustCanvas(c,{...zeroAdj(),...(L?L.adj:{})});}else out=frameCanvas(c,key);
+   const blob=await toBlob(out,'image/jpeg',.92);const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(f.name.replace(/\.\w+$/,'')||'photo')+'-edited.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);n++;await sleep(250);}
+  toast(`Edited and downloaded ${n} photo${n===1?'':'s'}`);});
+};
+
 R.portrait=()=>{const v=$('#v-portrait');
  v.innerHTML=`<h2 style="margin-top:4px">Headshots &amp; portraits</h2><div class="box">
   <div class="row wrap"><button class="btn ${PT.src?'':'primary'}" id="ptUp">${ic('upload')} ${PT.src?'Use a different photo':'Upload a photo of a face'}</button>${curC()?'<button class="btn" id="ptEd">Use photo from editor</button>':''}<button class="btn" id="ptLib">From library</button></div>

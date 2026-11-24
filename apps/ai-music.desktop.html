@@ -337,6 +337,7 @@ html.aivm #player{bottom:calc(88px + env(safe-area-inset-bottom))}
  <section class="view" id="v-home"></section>
  <section class="view" id="v-create"></section>
  <section class="view" id="v-playlists"></section>
+ <section class="view" id="v-foryou"></section>
  <section class="view" id="v-discover"></section>
  <section class="view" id="v-blend"></section>
 <section class="view" id="v-settings">
@@ -400,12 +401,13 @@ html.aivm #player{bottom:calc(88px + env(safe-area-inset-bottom))}
 </div>
 <nav class="tabs" aria-label="Sections"><a class="side-brand" href="#home"><span class="logo">M</span><span><b>AI Music</b><small>AI playlists &amp; music discovery</small></span></a><div class="in">
  <a href="#home" data-nav="home"><span class="ico"><span data-ic="home"></span></span>Home</a>
+ <a href="#foryou" data-nav="foryou"><span class="ico"><span data-ic="disc"></span></span>For you</a>
  <a href="#create" data-nav="create"><span class="ico"><span data-ic="spark"></span></span>Create</a>
  <a href="#playlists" data-nav="playlists"><span class="ico"><span data-ic="list"></span></span>Playlists</a>
  <a href="#discover" data-nav="discover"><span class="ico"><span data-ic="compass"></span></span>Discover</a>
  <a href="#blend" data-nav="blend"><span class="ico"><span data-ic="users"></span></span>Blend</a>
 </div><a class="side-home" href="../index.html">← Back to AI Verse</a></nav>
-<div id="player" hidden role="region" aria-label="Preview player"><img class="pl-art" alt=""><div style="min-width:0"><div class="pl-t"></div><div class="pl-a"></div></div><div class="pl-b"><button type="button" id="plLike" aria-label="Save song"></button><button type="button" id="plPlay" aria-label="Play"></button><button type="button" id="plNext" aria-label="Next song"></button></div><div class="pl-p"><i id="plFill"></i></div></div>
+<div id="player" hidden role="region" aria-label="Preview player"><img class="pl-art" alt=""><div style="min-width:0"><div class="pl-t"></div><div class="pl-a"></div></div><div class="pl-b"><button type="button" id="plLike" aria-label="Save song"></button><button type="button" id="plPlay" aria-label="Play"></button><button type="button" id="plNext" aria-label="Next song"></button><button type="button" id="plMore" aria-label="Queue, shuffle, repeat, sleep timer and DJ"></button></div><div class="pl-p"><i id="plFill"></i></div></div>
 <dialog id="dlg"></dialog>
 <dialog id="gate" aria-labelledby="gateTitle"><div class="dlg-b"><h3 id="gateTitle"></h3><p class="sub" id="gateText"></p><div class="llm-track big" id="gateTrack"><i id="gateFill"></i></div><p class="hint" id="gateStatus" style="min-height:1.5em;margin:8px 0 0"></p><div class="row end wrap" id="gateBtns" style="margin-top:12px"></div><div class="row end"><button class="btn ghost sm" id="gateHide" type="button" hidden>Hide — keep downloading</button></div></div></dialog>
 <div id="toasts" aria-live="polite"></div>
@@ -685,7 +687,7 @@ const ja=(p,o={})=>{ctl=new AbortController();return ai(p,{system:o.system||'',j
 async function job(out,stopSel,msg,fn){out.innerHTML=`<p class="muted">${esc(msg)}…</p>`;const st=stopSel&&$(stopSel);if(st){st.hidden=false;st.onclick=()=>ctl&&ctl.abort();}try{await fn();}catch(e){console.error(e);out.innerHTML=e&&e.stopped?'<p class="muted">Stopped.</p>':`<p class="err">${esc((e&&e.message)||'Something went wrong. Try again.')}</p>`;}finally{if(st)st.hidden=true;}}
 
 /* ---------- navigation ---------- */
-const VIEWS=['home','create','playlists','discover','blend','settings'];
+const VIEWS=['home','foryou','create','playlists','discover','blend','settings'];
 let cur='home';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'home';};
 function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));(R[v]||(()=>{}))();badge();window.scrollTo(0,0);}
@@ -989,6 +991,113 @@ function parseFriend(txt,fallbackName){txt=String(txt||'').trim();const m=txt.ma
  if(m){try{const d=JSON.parse(decodeURIComponent(escape(atob(m[0].slice(CODE_PREFIX.length)))));if(d&&Array.isArray(d.s))return{name:String(fallbackName||d.n||'Friend').slice(0,30),songs:d.s.filter(x=>Array.isArray(x)&&x[0]&&x[1]).slice(0,25).map(([a,t])=>({a:String(a).slice(0,80),t:String(t).slice(0,120)}))};}catch(e){}throw new Error('That taste code isn\'t valid. Ask your friend to copy it again.');}
  const songs=txt.split('\n').map(l=>l.replace(/^\s*\d+[.)]\s*/,'').trim()).filter(Boolean).map(l=>{const p=l.split(/\s+[–—-]\s+/);return p.length>1?{a:p[0].trim(),t:p.slice(1).join(' - ').trim()}:null;}).filter(Boolean).slice(0,25);
  if(!songs.length)throw new Error('Paste a taste code, or songs as “Artist – Title”, one per line.');return{name:String(fallbackName||'Friend').slice(0,30),songs};}
+
+/* =========================================================================
+   Listening features modeled on Spotify, Apple Music, YouTube Music, Pandora and Shazam:
+   Made for you (weekly discovery + daily mixes), Release radar, song radio, queue
+   (play next, add to queue, shuffle, repeat), sleep timer, AI DJ voice, Replay stats,
+   song finder, playlist enhance, concerts
+   ========================================================================= */
+const XP={shuffle:false,repeat:'off',sleepAt:0,sleepEnd:false,dj:false,radio:null,extending:false,played:new Set(),own:false};
+const TR={};
+function xmInit(){S.plog=Array.isArray(S.plog)?S.plog:[];S.mfy=S.mfy||{};S.profile.city=S.profile.city||'';}
+const weekKey=()=>{const d=new Date(),m=new Date(d);m.setDate(d.getDate()-((d.getDay()+6)%7));return m.toISOString().slice(0,10);};
+const dayKey=()=>new Date().toISOString().slice(0,10);
+/* track rows: register tracks and add queue / radio / concert actions to the ··· menu */
+const _trackRow=trackRow;
+trackRow=function(t,i,o={}){if(t&&t.id)TR[t.id]=t;const extra=`<button type="button" data-xq="next" data-xid="${esc(t.id)}">Play next</button><button type="button" data-xq="add" data-xid="${esc(t.id)}">Add to queue</button><button type="button" data-xq="radio" data-xid="${esc(t.id)}">Start song radio</button><button type="button" data-xq="live" data-xid="${esc(t.id)}">Find concerts</button>`;return _trackRow(t,i,{...o,ctx:(o.ctx||'')+extra});};
+const findT=id=>TR[id]||S.liked.find(x=>x.id===id)||P.queue.find(x=>x.id===id);
+function ownQueue(){if(!XP.own){P.queue=P.queue.slice();XP.own=true;}}
+function playNext(t){if(!t)return;if(!P.tr){playTrack(t,[t]);return;}ownQueue();P.queue=P.queue.filter((x,i)=>x.id!==t.id||i===P.idx);P.idx=P.queue.findIndex(x=>x.id===P.id);P.queue.splice(P.idx+1,0,t);toast(`"${t.t}" plays next`);}
+function addQueue(t){if(!t)return;if(!P.tr){playTrack(t,[t]);return;}ownQueue();if(!P.queue.some(x=>x.id===t.id))P.queue.push(t);toast(`Added "${t.t}" to the queue`);}
+async function startRadio(t){if(!t)return;if(!hasAI()){aiBadgeClick();return;}toast(`Starting ${t.a} radio…`);try{const pl=await generate({mode:'like',seeds:[t],n:15,useTaste:true,surprise:true});const q=pl.tracks;const first=q.find(x=>x.pv);if(!first)throw new Error('No previews found for this radio.');playTrack(first,q);XP.own=true;XP.radio={seed:t,title:`${t.t} radio`};toast(`${t.t} radio is playing. It keeps adding songs.`);}catch(e){toast(e.message||'Could not start radio',{err:true});}}
+async function extendRadio(){if(!XP.radio||XP.extending)return;XP.extending=true;try{const seeds=P.queue.slice(Math.max(0,P.idx-3),P.idx+2).filter(Boolean);const pl=await generate({mode:'mix',seeds:seeds.length>=2?seeds:[XP.radio.seed,...seeds],n:10,useTaste:true,exclude:P.queue.map(x=>`${x.a} – ${x.t}`)});ownQueue();const have=new Set(P.queue.map(x=>x.id));pl.tracks.forEach(x=>{if(!have.has(x.id)){P.queue.push(x);have.add(x.id);}});}catch(e){}finally{XP.extending=false;}}
+function concertsModal(artists){xmInit();const city=S.profile.city;const L=[...new Set(artists.filter(Boolean))].slice(0,12);const q=a=>encodeURIComponent(a+(city?' '+city:''));
+ const d=openModal('Concerts and tour dates',`<label>Your city<input id="ccCity" value="${esc(city)}" placeholder="Enter your city (optional)"></label><div class="list" id="ccL" style="margin-top:8px"></div><p class="note">Opens each artist's tour dates on Bandsintown, Songkick or Ticketmaster.</p>`);
+ const draw=()=>{const c=S.profile.city;$('#ccL',d).innerHTML=L.length?L.map(a=>`<div class="item"><b class="grow small">${esc(a)}</b><a class="btn sm ghost" target="_blank" rel="noopener" href="https://www.bandsintown.com/search?search_term=${encodeURIComponent(a)}">Bandsintown</a><a class="btn sm ghost" target="_blank" rel="noopener" href="https://www.songkick.com/search?query=${encodeURIComponent(a)}">Songkick</a><a class="btn sm ghost" target="_blank" rel="noopener" href="https://www.ticketmaster.com/search?q=${q(a)}">Tickets</a></div>`).join(''):'<p class="empty">Save or play some songs first</p>';};draw();
+ $('#ccCity',d).oninput=e=>{S.profile.city=e.target.value.trim();save();draw();};}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-xq]');if(!b)return;e.preventDefault();e.stopPropagation();const t=findT(b.dataset.xid);const det=b.closest('details');if(det)det.open=false;
+ ({next:()=>playNext(t),add:()=>addQueue(t),radio:()=>startRadio(t),live:()=>concertsModal([t&&t.a,...topOf(S.taste.artists,8)])})[b.dataset.xq]();},true);
+
+/* player: shuffle, repeat, radio, play log, AI DJ, sleep timer */
+const _nextTrack=nextTrack;
+nextTrack=function(by=1){if(XP.radio&&P.idx>=P.queue.length-4)extendRadio();
+ if(by===1&&XP.shuffle&&P.queue.length>1){XP.played.add(P.id);let pool=P.queue.map((x,i)=>[x,i]).filter(([x])=>x.pv&&!XP.played.has(x.id));if(!pool.length&&XP.repeat==='all'){XP.played=new Set([P.id]);pool=P.queue.map((x,i)=>[x,i]).filter(([x])=>x.pv&&x.id!==P.id);}if(pool.length){const[x]=pool[Math.floor(Math.random()*pool.length)];playTrack(x,P.queue);return;}}
+ if(by===1&&XP.repeat==='all'){let i=P.idx+1;while(i<P.queue.length&&!P.queue[i].pv)i++;if(i>=P.queue.length){const f=P.queue.find(x=>x.pv);if(f){playTrack(f,P.queue);return;}}}
+ if(by===1&&XP.sleepEnd){XP.sleepEnd=false;audio.pause();toast('Sleep timer: playback stopped');paintPlayer();return;}
+ return _nextTrack(by);};
+const DJ_LINES=['Up next, {t} by {a}.','Here is {a} with {t}.','Coming up, {t} from {a}.','This one is {t}, by {a}.','Next on your mix, {a}, {t}.'];
+let djVoice=null;function djSpeak(text,done){try{const sy=window.speechSynthesis;if(!sy){done();return;}sy.cancel();const u=new SpeechSynthesisUtterance(text);const vs=sy.getVoices();djVoice=djVoice||vs.find(v=>/en(-|_)US/i.test(v.lang)&&/natural|neural|samantha|google/i.test(v.name))||vs.find(v=>/^en/i.test(v.lang))||null;if(djVoice)u.voice=djVoice;u.rate=1.02;let fin=false;const go=()=>{if(!fin){fin=true;done();}};u.onend=go;u.onerror=go;setTimeout(go,Math.min(14000,1500+text.length*90));sy.speak(u);}catch(e){done();}}
+const _playTrack=playTrack;
+playTrack=function(tr,queue){xmInit();const isNew=tr&&tr.pv&&P.id!==tr.id;if(queue&&queue!==P.queue){XP.own=false;XP.radio=null;XP.played=new Set();}
+ _playTrack(tr,queue);if(!isNew)return;TR[tr.id]=tr;audio.loop=XP.repeat==='one';
+ S.plog.push({id:tr.id,t:tr.t,a:tr.a,g:tr.g||'',ts:Date.now()});if(S.plog.length>4000)S.plog=S.plog.slice(-3500);save();
+ if(XP.dj){audio.pause();const line=DJ_LINES[Math.floor(Math.random()*DJ_LINES.length)].replace('{t}',tr.t).replace('{a}',tr.a)+(tr.why?' '+String(tr.why).replace(/[.!]*$/,'.'):'');djSpeak(line,()=>{if(P.id===tr.id)audio.play().catch(()=>{});});}};
+audio.addEventListener('timeupdate',()=>{if(XP.sleepAt){const left=XP.sleepAt-Date.now();if(left<=0){XP.sleepAt=0;audio.pause();audio.volume=1;toast('Sleep timer: playback stopped');paintPlayer();}else if(left<10000)audio.volume=Math.max(0.05,left/10000);}});
+function nowModal(){const d=openModal('Now playing',`<div id="npB"></div>`,{wide:true});const draw=()=>{const up=P.queue.slice(P.idx+1).filter(x=>x.pv).slice(0,25);const sl=XP.sleepAt?Math.max(1,Math.round((XP.sleepAt-Date.now())/60000))+' min left':XP.sleepEnd?'After this song':'Off';
+  $('#npB',d).innerHTML=`<div class="row wrap" style="gap:6px"><button class="btn sm ${XP.shuffle?'primary':''}" id="npSh">Shuffle ${XP.shuffle?'on':'off'}</button><button class="btn sm ${XP.repeat!=='off'?'primary':''}" id="npRp">Repeat ${XP.repeat==='one'?'this song':XP.repeat==='all'?'all':'off'}</button><button class="btn sm ${XP.dj?'primary':''}" id="npDj">${ic('mic')}AI DJ ${XP.dj?'on':'off'}</button></div>
+  <div class="row wrap" style="margin-top:10px;align-items:center;gap:8px"><b class="small">Sleep timer</b><select id="npSl" style="width:auto">${[['','Choose…'],['0','Off'],['5','5 minutes'],['15','15 minutes'],['30','30 minutes'],['45','45 minutes'],['60','1 hour'],['end','End of this song']].map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select><span class="tiny muted">${sl}</span></div>
+  ${XP.radio?`<p class="small" style="margin:10px 0 0"><b>${esc(XP.radio.title)}</b> keeps adding similar songs. <a href="#" id="npRad">Stop radio</a></p>`:''}
+  <h4>Up next</h4>${up.length?`<ol class="trks mini" id="npQ">${up.map(x=>`<li class="trk" data-id="${esc(x.id)}"><span class="art">${x.art?`<img src="${esc(x.art)}" alt="">`:''}</span><div class="tm"><div class="tt">${esc(x.t)}</div><div class="ta">${esc(x.a)}</div></div><div class="ta2"><button class="tb" type="button" data-npup="${esc(x.id)}" aria-label="Play now">${ic('play')}</button><button class="tb" type="button" data-nprm="${esc(x.id)}" aria-label="Remove from queue">×</button></div></li>`).join('')}</ol><div class="row end" style="margin-top:8px"><button class="btn sm ghost" id="npClr">Clear up next</button></div>`:'<p class="empty">Nothing queued. Use ··· on any song to add it.</p>'}`;icons($('#npB',d));
+  $('#npSh',d).onclick=()=>{XP.shuffle=!XP.shuffle;XP.played=new Set([P.id]);draw();};$('#npRp',d).onclick=()=>{XP.repeat={off:'all',all:'one',one:'off'}[XP.repeat];audio.loop=XP.repeat==='one';draw();};
+  $('#npDj',d).onclick=()=>{XP.dj=!XP.dj;if(XP.dj){try{speechSynthesis.getVoices();}catch(e){}toast(window.speechSynthesis?'AI DJ will introduce each song':'Your browser cannot speak, so the DJ is unavailable');}draw();};
+  $('#npSl',d).onchange=e=>{const v=e.target.value;if(v==='')return;XP.sleepAt=0;XP.sleepEnd=false;audio.volume=1;if(v==='end')XP.sleepEnd=true;else if(+v>0)XP.sleepAt=Date.now()+v*60000;toast(v==='0'?'Sleep timer off':'Sleep timer set');draw();};
+  const rr=$('#npRad',d);if(rr)rr.onclick=e=>{e.preventDefault();XP.radio=null;draw();};
+  $$('[data-npup]',d).forEach(b=>b.onclick=()=>{const t=P.queue.find(x=>x.id===b.dataset.npup);if(t)playTrack(t,P.queue);draw();});
+  $$('[data-nprm]',d).forEach(b=>b.onclick=()=>{ownQueue();P.queue=P.queue.filter((x,i)=>i<=P.idx||x.id!==b.dataset.nprm);draw();});
+  const cl=$('#npClr',d);if(cl)cl.onclick=()=>{ownQueue();P.queue=P.queue.slice(0,P.idx+1);XP.radio=null;draw();};};draw();}
+(function(){const b=$('#plMore');if(b){b.innerHTML=ic('list');b.onclick=nowModal;}})();
+
+/* playlists: Enhance adds fitting songs mixed through the list */
+const PLREG={};const _plHtml=plHtml;
+plHtml=function(pl,o={}){PLREG[pl.id]=pl;const h=_plHtml(pl,o);return h.replace(`data-act="export">`,`data-act="export">`).replace(/(<button class="btn sm" type="button" data-act="export">)/,`<button class="btn sm" type="button" data-xenh="${esc(pl.id)}">${ic('spark')}Enhance</button>$1`);};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-xenh]');if(!b)return;const pl=PLREG[b.dataset.xenh];if(!pl)return;if(!hasAI()){aiBadgeClick();return;}
+ run(b,async()=>{const n=Math.max(3,Math.min(10,Math.round(pl.tracks.length/3)));const r=await generate({mode:'mix',seeds:pl.tracks.slice(0,8),n,useTaste:true,exclude:pl.tracks.map(x=>`${x.a} – ${x.t}`)});const have=new Set(pl.tracks.map(x=>x.id));const add=r.tracks.filter(x=>!have.has(x.id)).map(x=>({...x,why:'Added by Enhance. '+(x.why||'')}));if(!add.length)throw new Error('No new songs found. Try again.');
+  const before=pl.tracks.slice();const out=[];const gap=Math.max(1,Math.floor(pl.tracks.length/add.length));let k=0;pl.tracks.forEach((x,i)=>{out.push(x);if((i+1)%gap===0&&k<add.length)out.push(add[k++]);});while(k<add.length)out.push(add[k++]);pl.tracks=out;save();
+  toast(`Added ${add.length} songs`,{action:'Undo',fn:()=>{pl.tracks=before;save();(R[cur]||(()=>{}))();}});(R[cur]||(()=>{}))();});},false);
+
+/* For you: weekly discovery, daily mixes, release radar, replay stats, concerts */
+let fyPl=null,fyRel=null;
+R.foryou=()=>{xmInit();const v=$('#v-foryou');const gens=topOf(S.taste.genres,4),arts=topOf(S.taste.artists,8);const wk=S.mfy.weekly&&S.mfy.weekly.week===weekKey()?S.mfy.weekly.pl:null;
+ v.innerHTML=`<h2 style="margin-top:4px">Made for you</h2><div class="grid">
+  <button class="stat" type="button" id="fyWeek">${ic('compass')}<b style="font-size:17px;margin-top:10px">Weekly discovery</b><span>${wk?wk.tracks.length+' songs · new every Monday':'New songs picked for you'}</span></button>
+  ${(gens.length?gens.slice(0,3):['Your favorites']).map((g,i)=>`<button class="stat" type="button" data-mix="${esc(g)}">${ic('disc')}<b style="font-size:17px;margin-top:10px">Daily mix ${i+1}</b><span>${esc(g)}${S.mfy['d'+g]&&S.mfy['d'+g].day===dayKey()?' · ready':''}</span></button>`).join('')}
+ </div><div id="fyOut" style="margin-top:12px"></div>
+ <h2>Release radar</h2><div class="box"><div class="row between wrap"><span class="small">Newest songs from artists you listen to</span><button class="btn sm" type="button" id="fyRel">${ic('refresh')}${fyRel?'Check again':'Check new releases'}</button></div><div id="fyRelOut"></div></div>
+ <h2>Your replay</h2><div class="box"><div class="seg" id="fySeg" style="margin:0 0 10px"><button data-r="30" class="on">Last 30 days</button><button data-r="365">This year</button><button data-r="0">All time</button></div><div id="fyStats"></div></div>
+ <h2>Concerts</h2><div class="box"><div class="row between wrap"><span class="small">${arts.length?'Tour dates for '+esc(arts.slice(0,3).join(', '))+(arts.length>3?' and more':''):'Play or save songs to see your artists here'}</span><button class="btn sm" type="button" id="fyLive" ${arts.length?'':'disabled'}>Find concerts</button></div></div>`;icons(v);
+ const out=$('#fyOut');const show=(pl,label)=>{fyPl=pl;out.innerHTML=`<div id="fyPl"></div>`;mountPl($('#fyPl'),pl,{saved:false});};
+ if(fyPl)show(fyPl);
+ const make=async(btn,key,q,label)=>{if(!hasAI()){aiBadgeClick();return;}await run(btn,()=>job(out,null,'Making your '+label,async()=>{const pl=await generate(q);pl.title=label;S.mfy[key]={...(key==='weekly'?{week:weekKey()}:{day:dayKey()}),pl};save();show(pl);}));};
+ $('#fyWeek').onclick=e=>{if(wk&&!e.shiftKey){show(wk);return;}make(e.currentTarget,'weekly',{mode:'vibe',text:'A weekly discovery playlist: songs this listener has probably never heard that match their taste, mixing deep cuts, new releases and lesser-known artists.',n:20,useTaste:true,newArtists:true,surprise:true},'Weekly discovery');};
+ $$('[data-mix]',v).forEach(b=>b.onclick=e=>{const g=b.dataset.mix,k='d'+g,c=S.mfy[k];if(c&&c.day===dayKey()){show(c.pl);return;}make(e.currentTarget,k,{mode:'vibe',text:`A daily mix of ${g} for this listener: mostly songs and artists they already love in this style, plus a few new ones that fit.`,n:20,useTaste:true},`Daily mix · ${g}`);});
+ $('#fyRel').onclick=e=>run(e.currentTarget,async()=>{const el=$('#fyRelOut');const names=topOf(S.taste.artists,8);if(!names.length){el.innerHTML='<p class="empty">Play or save some songs first</p>';return;}el.innerHTML='<p class="muted small">Checking new releases…</p>';const found=[];
+  for(const a of names){try{const r=await itunes('search?term='+encodeURIComponent(a)+'&entity=musicArtist&limit=3');const hit=(r.results||[]).find(x=>norm(x.artistName)===norm(a));if(!hit)continue;const s2=await itunes('lookup?id='+hit.artistId+'&entity=song&limit=25&sort=recent');(s2.results||[]).filter(x=>x.kind==='song'&&x.releaseDate&&Date.now()-Date.parse(x.releaseDate)<120*864e5).slice(0,3).forEach(x=>found.push({...fromIt(x),why:'Released '+new Date(x.releaseDate).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}),rd:Date.parse(x.releaseDate)}));}catch(err){if(/busy/.test(err.message))break;}}
+  found.sort((a,b)=>b.rd-a.rd);fyRel=found;paintRel();});
+ const paintRel=()=>{const el=$('#fyRelOut');if(!el||!fyRel)return;el.innerHTML=fyRel.length?`<ol class="trks">${fyRel.map((t,i)=>trackRow(t,i,{removable:false,ctx:`<button type="button" data-addto="${esc(t.id)}">Add to a playlist</button>`})).join('')}</ol>`:'<p class="empty" style="margin-top:8px">No new releases from your top artists in the last 4 months</p>';icons(el);paintPlayer();const ol=el.querySelector('.trks');if(ol)bindTracks(ol,()=>fyRel);};paintRel();
+ const stats=days=>{const since=days?Date.now()-days*864e5:0;let L=S.plog.filter(x=>x.ts>=since);if(days===365){const y=new Date(new Date().getFullYear(),0,1).getTime();L=S.plog.filter(x=>x.ts>=y);}
+  const el=$('#fyStats');if(!L.length){el.innerHTML='<p class="empty">Play some previews and your stats show up here</p>';return;}
+  const cnt=(k)=>{const m={};L.forEach(x=>{const key=k(x);if(key)m[key]=(m[key]||0)+1;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
+  const songs=cnt(x=>x.a+' – '+x.t).slice(0,5),artists=cnt(x=>x.a).slice(0,5),genres=cnt(x=>x.g).slice(0,5),hours=Array(24).fill(0);L.forEach(x=>hours[new Date(x.ts).getHours()]++);
+  const part=[['Mornings',5,12],['Afternoons',12,17],['Evenings',17,22],['Late nights',22,29]].map(([l,a,b])=>[l,hours.reduce((s,n,h)=>s+(((h>=a&&h<b)||(h+24>=a&&h+24<b))?n:0),0)]).sort((a,b)=>b[1]-a[1])[0][0];
+  const days2=new Set(L.map(x=>new Date(x.ts).toDateString())).size;const uniqA=new Set(L.map(x=>x.a)).size;
+  const li=(arr)=>`<ol class="small" style="margin:4px 0 0;padding-left:20px">${arr.map(([k,n])=>`<li>${esc(k)} <span class="muted tiny">· ${n} play${n===1?'':'s'}</span></li>`).join('')}</ol>`;
+  el.innerHTML=`<div class="grid"><div class="soft"><div class="tiny muted">Songs played</div><b style="font-size:24px">${L.length}</b></div><div class="soft"><div class="tiny muted">Artists</div><b style="font-size:24px">${uniqA}</b></div><div class="soft"><div class="tiny muted">Days listening</div><b style="font-size:24px">${days2}</b></div><div class="soft"><div class="tiny muted">You listen most</div><b style="font-size:18px">${part}</b></div></div>
+  <h4>Top songs</h4>${li(songs)}<h4>Top artists</h4>${li(artists)}${genres.length?`<h4>Top genres</h4>${li(genres)}`:''}<div class="row end" style="margin-top:10px"><button class="btn sm" type="button" id="fyCard">${ic('share')}Save share card</button></div><p class="note">Counts the previews you play in this app.</p>`;icons(el);
+  $('#fyCard').onclick=()=>shareCard({label:days===30?'Last 30 days':days===365?'This year':'All time',plays:L.length,artists,songs,part});};
+ $$('#fySeg button').forEach(b=>b.onclick=()=>{$$('#fySeg button').forEach(x=>x.classList.toggle('on',x===b));stats(+b.dataset.r);});stats(30);
+ $('#fyLive').onclick=()=>concertsModal(topOf(S.taste.artists,12));};
+function shareCard(o){const c=document.createElement('canvas');c.width=1080;c.height=1350;const g=c.getContext('2d');g.fillStyle='#0e0f11';g.fillRect(0,0,1080,1350);g.fillStyle='#ffffff';g.font='700 64px Inter, system-ui, sans-serif';g.fillText('My AI Music Replay',80,150);g.font='400 36px Inter, system-ui, sans-serif';g.fillStyle='#a1a3a8';g.fillText(o.label+' · '+o.plays+(o.plays===1?' song':' songs')+' played · most '+o.part.toLowerCase(),80,215);
+ const col=(title,arr,x)=>{g.fillStyle='#a1a3a8';g.font='600 30px Inter, system-ui, sans-serif';g.fillText(title.toUpperCase(),x,330);arr.slice(0,5).forEach(([k],i)=>{g.fillStyle='#ffffff';g.font='700 40px Inter, system-ui, sans-serif';const t=String(k);let s2=t;while(g.measureText((i+1)+'. '+s2).width>900&&s2.length>4)s2=s2.slice(0,-2);g.fillText((i+1)+'. '+s2+(s2!==t?'…':''),x,400+i*72);});};
+ col('Top artists',o.artists,80);g.save();g.translate(0,460);col('Top songs',o.songs,80);g.restore();g.fillStyle='#a1a3a8';g.font='400 28px Inter, system-ui, sans-serif';g.fillText('AI Music · AI Verse',80,1280);
+ c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='my-ai-music-replay.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast('Share card saved');},'image/png');}
+
+/* Discover: song finder (describe it, Shazam-style without the microphone) */
+const _Rdiscover=R.discover;let sfLast=null;
+R.discover=()=>{_Rdiscover();const v=$('#v-discover');const box=document.createElement('div');box.innerHTML=`<h2>Find a song</h2><div class="box"><p class="sub" style="margin-top:0">Can't remember the name? Describe it: a few words you remember, what it sounds like, or where you heard it.</p><textarea id="sfT" rows="2" placeholder="Describe the song"></textarea><div class="row wrap" style="margin-top:8px"><button class="btn primary" type="button" id="sfGo">${ic('spark')}Find it</button></div><div id="sfOut" style="margin-top:10px"></div></div>`;v.appendChild(box);icons(box);
+ const paint=()=>{const el=$('#sfOut');if(!sfLast)return;el.innerHTML=sfLast.length?`<ol class="trks">${sfLast.map((t,i)=>trackRow(t,i,{removable:false,ctx:`<button type="button" data-addto="${esc(t.id)}">Add to a playlist</button>`})).join('')}</ol>`:'<p class="empty">No match found. Add more details.</p>';icons(el);paintPlayer();const ol=el.querySelector('.trks');if(ol)bindTracks(ol,()=>sfLast);};paint();
+ $('#sfGo').onclick=e=>run(e.currentTarget,async()=>{const q=$('#sfT').value.trim();if(!q)return;if(!hasAI()){aiBadgeClick();return;}$('#sfOut').innerHTML='<p class="muted small">Searching…</p>';const j=await ja(`A listener is trying to identify a song. Their description: "${q}"\nList the 6 most likely real songs, most likely first. For each, say in at most 14 words why it matches.\nReturn JSON exactly like: {"songs":[{"artist":"","title":"","why":""}]}`,{system:SYS_DJ,temp:.3,max:1200});const out=[];for(const c of (j.songs||[]).slice(0,6)){if(!c||!c.artist||!c.title)continue;try{const t=await verify(c.artist,c.title);if(t&&!out.some(x=>x.id===t.id))out.push({...t,why:c.why||''});}catch(err){if(/busy|reach/.test(err.message))throw err;}}sfLast=out;paint();});};
+
 R.blend=()=>{const v=$('#v-blend');const mineN=S.liked.length+Object.values(S.taste.tracks).filter(x=>x.s>0).length;
  v.innerHTML=`<h2 style="margin-top:4px">Blend tastes with friends</h2>
  <div class="box"><h3>Your taste code</h3><p class="sub">Share it with friends so they can add you to a group playlist. It includes up to 20 of your favorite songs and nothing else.</p><br>

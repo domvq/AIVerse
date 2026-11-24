@@ -267,7 +267,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
 .freedlg .fd-alt button{background:none;border:0;color:var(--muted);font:inherit;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px}
 .freedlg a:focus-visible,.freedlg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 </style>
-</head>
+<style id="xpaCss">.xsubs label,.xchk{display:flex!important;flex-direction:row!important;gap:8px;align-items:center;margin:3px 0!important;font-weight:400}.xsubs input,.xchk input{width:auto!important;margin:0!important;flex:none}</style></head>
 <body>
 <div class="app">
 <aside id="nav" aria-label="Main navigation">
@@ -278,6 +278,8 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
   <a href="#planner" data-nav="planner"><span data-ic="clock"></span>Daily planner</a>
   <a href="#calendar" data-nav="calendar"><span data-ic="cal"></span>Calendar</a>
   <a href="#tasks" data-nav="tasks"><span data-ic="tasks"></span>Tasks<span class="badge" hidden></span></a>
+  <a href="#habits" data-nav="habits"><span data-ic="repeat"></span>Habits &amp; routines</a>
+  <a href="#notes" data-nav="notes"><span data-ic="note"></span>Notes &amp; lists</a>
   <a href="#reminders" data-nav="reminders"><span data-ic="bell"></span>Reminders &amp; dates<span class="badge" hidden></span></a>
   <a href="#travel" data-nav="travel"><span data-ic="pin"></span>Travel &amp; events</a>
   <div class="navgroup">Communicate</div>
@@ -332,6 +334,13 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
    <div class="card"><div class="card-h"><h3>Coming up</h3><a href="#reminders" class="hint">Reminders →</a></div><div id="todayUpcoming"></div></div>
    <div class="card"><div class="card-h"><h3>Needs a reply</h3><a href="#inbox" class="hint">Inbox →</a></div><div id="todayInbox"></div></div>
   </div>
+  <div class="grid2">
+   <div class="card"><div class="card-h"><h3>Weather</h3><button class="btn ghost sm" id="xwSet">Change place</button></div><div id="xWeather"></div></div>
+   <div class="card"><div class="card-h"><h3>Habits today</h3><a href="#habits" class="hint">All habits →</a></div><div id="xTodayHabits"></div></div>
+   <div class="card"><div class="card-h"><h3>Timers</h3><button class="btn ghost sm" id="xtSw">Stopwatch</button></div><div id="xTimers"></div></div>
+   <div class="card"><div class="card-h"><h3>Countdowns</h3><button class="btn ghost sm" id="xcAdd">+ Add</button></div><div id="xCountdowns"></div></div>
+  </div>
+  <div class="card"><div class="card-h"><h3>Weekly review</h3><button class="btn primary sm" id="xwrGo"><span data-ic="spark"></span><span>Review my week</span></button></div><div id="xwrOut" class="md"><p class="m" style="margin:0">Look back at what you finished, what slipped, and set your top priorities for next week.</p></div></div>
  </section>
 
  <!-- PLANNER -->
@@ -371,7 +380,7 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
    <button class="btn primary sm" type="submit">Add</button><button class="btn ghost sm" type="button" id="btnTaskForm">Details…</button>
   </form>
   <div class="card brief" id="focusCard" hidden><div id="focusOut" class="md"></div></div>
-  <div class="seg" id="taskFilter"><button data-f="open" class="on">Open</button><button data-f="today">Due today</button><button data-f="overdue">Overdue</button><button data-f="done">Done</button></div>
+  <div class="seg" id="taskFilter"><button data-f="open" class="on">Open</button><button data-f="today">Due today</button><button data-f="overdue">Overdue</button><button data-f="done">Done</button><button data-f="matrix">Matrix</button></div>
   <div id="taskList" class="list"></div>
  </section>
 
@@ -391,6 +400,8 @@ dialog.freedlg::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
  </section>
 
  <!-- TRAVEL -->
+ <section class="view" id="v-habits"><header class="vh"><div><h1>Habits &amp; routines</h1><p class="sub">Small things, every day</p></div><div class="row"><button class="btn primary" id="xhAdd">+ Habit</button><button class="btn" id="xrAdd">+ Routine</button></div></header><div id="xhBody"></div></section>
+ <section class="view" id="v-notes"><header class="vh"><div><h1>Notes &amp; lists</h1><p class="sub">Capture anything</p></div><div class="row"><button class="btn primary" id="xnAdd">+ Note</button><button class="btn" id="xlAdd">+ List</button></div></header><div id="xnBody"></div></section>
  <section class="view" id="v-travel">
   <header class="vh"><div><h1>Travel &amp; events</h1><p class="sub">Plan any trip</p></div></header>
   <div class="card">
@@ -598,6 +609,8 @@ const PRI={high:0,medium:1,low:2};
 
 /* ---------- icons ---------- */
 const I={
+ repeat:'<path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>',
+ note:'<path d="M5 3h10l4 4v14H5z"/><path d="M9 9h6M9 13h6M9 17h4"/>',
  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
  cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
@@ -826,7 +839,7 @@ function remForm(r,pre={}){const at=localISO(new Date(Date.now()+3600e3));openFo
 function dateForm(d){openForm(d?'Edit date':'Add a birthday or date',[{k:'name',label:'Who or what',req:1,ph:'e.g. Mom, Alex & Jordan, Work anniversary'},{k:'kind',label:'Kind',type:'select',options:[['birthday','Birthday'],['anniversary','Anniversary'],['other','Other']]},{k:'month',label:'Month',type:'select',options:MONTHS.map((m,i)=>[String(i+1),m])},{k:'day',label:'Day',type:'number',min:1,max:31},{k:'year',label:'Year (optional — shows age)',type:'number'},{k:'remindDays',label:'Remind me this many days ahead',type:'number',min:0},{k:'notes',label:'Notes (likes, gift ideas, address)',type:'textarea',rows:2}],d?{...d,month:String(d.month)}:{kind:'birthday',month:String(new Date().getMonth()+1),remindDays:7},v=>{const x={...v,month:Number(v.month),day:Math.min(31,Math.max(1,Number(v.day)||1)),year:v.year||null,remindDays:v.remindDays??7};if(d){Object.assign(d,x);save();refresh();}else addDate(x);});}
 
 /* ---------- navigation ---------- */
-const VIEWS=['today','planner','calendar','tasks','reminders','travel','inbox','compose','meetings','settings'];
+const VIEWS=['today','planner','calendar','tasks','habits','notes','reminders','travel','inbox','compose','meetings','settings'];
 let cur='today';const R={};
 const hashView=()=>{const h=location.hash.slice(1);return VIEWS.includes(h)?h:'today';};
 function show(v){cur=v;$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav a').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));document.body.classList.remove('navopen');(R[v]||(()=>{}))();badges();window.scrollTo(0,0);}
@@ -878,6 +891,11 @@ Action types (fields):
 - open {view: today|planner|calendar|tasks|reminders|travel|inbox|compose|meetings|settings}
 - plan_day {date:"YYYY-MM-DD"}
 - briefing {}
+- add_to_list {list:"list name, e.g. Groceries", items:["…"]}
+- add_note {title, body}
+- log_habit {name}
+- start_timer {minutes, label}
+- add_countdown {title, date:"YYYY-MM-DD"}
 - answer {text}  (for questions — answer briefly from the data below; say so if the data doesn't contain it)
 Resolve relative dates ("tomorrow", "next Tuesday", "in 2 hours") from the current time. If an event has no time, choose a sensible one and mention it in "say". Several actions are allowed.
 Return {"actions":[{"type":"…",…}],"say":"one short, friendly confirmation or answer"}.
@@ -902,6 +920,11 @@ ${ctxRems()}`;
   case 'open':if(VIEWS.includes(a.view))nav=a.view;break;
   case 'plan_day':nav='planner';post=()=>{$('#planDate').value=validDate(a.date)||todayStr();R.planner();buildPlan($('#btnPlan'));};break;
   case 'briefing':nav='today';post=()=>genBriefing($('#btnBrief'),true);break;
+  case 'add_to_list':{const L=xList(a.list||'Groceries');(Array.isArray(a.items)?a.items:[a.items]).filter(Boolean).forEach(it=>L.items.push({id:uid(),t:String(it),done:false}));L.updated=Date.now();lines.push(`Added ${(a.items||[]).length||1} item(s) to **${L.title}**`);break;}
+  case 'add_note':{const n={id:uid(),title:String(a.title||'Note'),body:String(a.body||''),items:null,pinned:false,updated:Date.now()};xnInit();S.notes.unshift(n);lines.push(`Saved note **${n.title}**`);break;}
+  case 'log_habit':{xhInit();const h=S.habits.find(x=>x.name.toLowerCase().includes(String(a.name||'').toLowerCase()));if(h){xhCheck(h,true);lines.push(`Logged **${h.name}** for today`);}else lines.push(`I couldn't find a habit called "${a.name}".`);break;}
+  case 'start_timer':{const m=Number(a.minutes);if(m>0){xtStart(m*60,a.label||'');lines.push(`Timer started: **${a.label||m+' min'}**`);}break;}
+  case 'add_countdown':{const d=validDate(a.date);if(d){xcInit();S.countdowns.push({id:uid(),title:String(a.title||'Countdown'),date:d});lines.push(`Counting down to **${a.title}** — ${relDay(d)}`);}break;}
   case 'answer':answer=a.text||'';break;
  }}catch(err){console.error(err);}}
  save();
@@ -953,6 +976,8 @@ async function genBriefing(btn,force){
   const mails=mailSrc().filter(m=>m.ai&&(m.ai.needsReply||m.ai.category==='important')).slice(0,8);
   const plan=S.plans[t];
   const prompt=`Write my daily briefing.
+${xWeatherLine()}
+${xHabitLine()}
 Today's events:
 ${ctxEvents(new Date(),1)}
 Scheduling conflicts today: ${conflicts(t).join('; ')||'none'}
@@ -1222,6 +1247,134 @@ function renderMeeting(m){const L=a=>a?.length?md(a.map(x=>'- '+x).join('\n')):'
 /* ---------- SETTINGS ---------- */
 function renderProv(){const p=prov();$$('#provSeg button').forEach(b=>{b.classList.toggle('on',b.dataset.p===p);});$$('[data-prov]').forEach(d=>d.hidden=d.dataset.prov!==p);const o=location.origin&&location.origin!=='null'?location.origin:'https://your-site.com';$$('.originCode').forEach(c=>c.textContent=o);const lp=$('#localPreset');if(lp)lp.value=[...lp.options].some(x=>x.value===(S.settings.localBase||''))?S.settings.localBase:'';$('#voiceNote').textContent='';if(p!=='browser'&&$('#llmStatus'))$('#llmStatus').textContent='';if(p==='browser'&&!navigator.gpu)$('#llmStatus').textContent='This browser doesn\'t support WebGPU — try Chrome or Edge on a computer.';}
 R.settings=()=>{renderProv();$$('[data-set]').forEach(el=>{const k=el.dataset.set;if(el.type==='checkbox')el.checked=!!S.settings[k];else el.value=S.settings[k]??'';});$('#originHint').textContent=location.origin&&location.origin!=='null'?location.origin:'https://your-username.github.io';const p='Notification'in window?Notification.permission:'unsupported';$('#notifStatus').textContent=p==='granted'?'Notifications are on.':p==='denied'?'Notifications blocked':p==='unsupported'?'This browser does not support notifications.':'Turn on notifications so reminders reach you while AI Personal Assistant is in another tab.';$('#btnNotif2').hidden=p==='granted'||p==='unsupported';gUI();};
+
+
+/* =========================================================================
+   Features modeled on Google Assistant, Siri, Alexa, Todoist, TickTick, Things,
+   Google Keep, Streaks and Structured: habits with streaks, routines, notes and
+   checklists, subtasks + AI breakdown, repeating tasks, Eisenhower matrix,
+   timers + stopwatch, weather, weekly review, countdowns
+   ========================================================================= */
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function xhInit(){S.habits=Array.isArray(S.habits)?S.habits:[];S.routines=Array.isArray(S.routines)?S.routines:[];}
+function xnInit(){S.notes=Array.isArray(S.notes)?S.notes:[];}
+function xcInit(){S.countdowns=Array.isArray(S.countdowns)?S.countdowns:[];}
+const hDue=(h,d=new Date())=>!h.days||!h.days.length||h.days.includes(d.getDay());
+const hCount=(h,ds=todayStr())=>(h.log&&h.log[ds])||0;
+function hStreak(h){let n=0;let d=sod(new Date());if(hCount(h)<(h.target||1))d=addDays(d,-1);for(let i=0;i<1000;i++){if(!hDue(h,d)){d=addDays(d,-1);continue;}if(hCount(h,ymd(d))>=(h.target||1))n++;else break;d=addDays(d,-1);}return n;}
+function hRate(h,days=30){let due=0,ok=0;for(let i=0;i<days;i++){const d=addDays(sod(new Date()),-i);if(d<sod(new Date(h.created||Date.now())))break;if(!hDue(h,d))continue;due++;if(hCount(h,ymd(d))>=(h.target||1))ok++;}return due?Math.round(ok/due*100):0;}
+function xhCheck(h,add){h.log=h.log||{};const k=todayStr();const t=h.target||1;let c=h.log[k]||0;if(add)c=c>=t?0:c+1;h.log[k]=c;if(!c)delete h.log[k];save();if(c===t){toast(`${h.name} done. ${hStreak(h)} day streak`);try{beep();}catch(e){}}}
+function xHabitLine(){xhInit();const due=S.habits.filter(h=>hDue(h));return due.length?'Habits due today: '+due.map(h=>`${h.name} (${hCount(h)}/${h.target||1}, ${hStreak(h)}-day streak)`).join('; '):'';}
+function habitForm(h){const isNew=!h;h=h||{id:uid(),name:'',target:1,days:[],created:Date.now(),log:{}};const d=openModal(isNew?'New habit':'Edit habit',`<label>Habit<input id="hfN" value="${esc(h.name)}" placeholder="Enter a habit"></label><div class="form-row"><label>Times per day<input id="hfT" type="number" min="1" max="20" value="${h.target||1}"></label></div><div class="small" style="margin:8px 0 4px">Days</div><div class="seg" id="hfD">${DOW.map((x,i)=>`<button type="button" data-d="${i}" class="${!h.days.length||h.days.includes(i)?'on':''}">${x}</button>`).join('')}</div><div class="row end">${isNew?'':'<button class="btn ghost" id="hfDel">Delete</button>'}<button class="btn primary" id="hfSave">Save</button></div>`);
+ $('#hfD',d).onclick=e=>{const b=e.target.closest('button');if(b)b.classList.toggle('on');};
+ $('#hfSave',d).onclick=()=>{const n=$('#hfN',d).value.trim();if(!n){toast('Name the habit.');return;}h.name=n;h.target=Math.max(1,+$('#hfT',d).value||1);const ds=$$('#hfD button.on',d).map(b=>+b.dataset.d);h.days=ds.length===7?[]:ds;if(isNew){xhInit();S.habits.push(h);}save();d.close();refresh();};
+ const del=$('#hfDel',d);if(del)del.onclick=()=>{if(!confirm('Delete this habit and its history?'))return;S.habits=S.habits.filter(x=>x.id!==h.id);save();d.close();refresh();};}
+function habitRow(h,compact){const c=hCount(h),t=h.target||1,st=hStreak(h);const wk=Array.from({length:7},(_,i)=>{const d=addDays(sod(new Date()),i-6);const due=hDue(h,d),ok=hCount(h,ymd(d))>=t;return`<span title="${d.toDateString()}" style="width:14px;height:14px;border-radius:4px;display:inline-block;background:${!due?'transparent':ok?'var(--good,#16a34a)':'var(--line)'};border:1px solid ${due?'transparent':'var(--line)'}"></span>`;}).join('');
+ return`<div class="item" data-hab="${h.id}"><button class="btn ${c>=t?'primary':''} sm" data-hchk="${h.id}" aria-label="Check ${esc(h.name)}" style="min-width:52px">${t>1?c+'/'+t:c>=t?'Done':'Check'}</button><div class="grow"><div class="t">${esc(h.name)}</div><div class="m">${st?st+'-day streak':'No streak yet'}${compact?'':` · ${hRate(h)}% in the last 30 days${h.days&&h.days.length?' · '+h.days.map(i=>DOW[i]).join(', '):''}`}</div>${compact?'':`<div class="row" style="gap:3px;margin-top:4px">${wk}</div>`}</div>${compact?'':`<div class="acts"><button class="iconbtn" data-hed="${h.id}" title="Edit">✎</button></div>`}</div>`;}
+function routineForm(r){const isNew=!r;r=r||{id:uid(),name:'',time:'morning',steps:[]};const d=openModal(isNew?'New routine':'Edit routine',`<div class="form-row"><label>Routine<input id="rfN" value="${esc(r.name)}" placeholder="Enter a routine name"></label><label>When<select id="rfW">${['morning','afternoon','evening','anytime'].map(x=>`<option ${r.time===x?'selected':''}>${x}</option>`).join('')}</select></label></div><label>Steps, one per line. Add minutes at the end, like "Stretch 5"<textarea id="rfS" rows="7" placeholder="Enter steps">${esc(r.steps.map(s2=>s2.text+(s2.min?' '+s2.min:'')).join('\n'))}</textarea></label><div class="row wrap"><input id="rfAI" placeholder="Describe the routine you want" style="flex:1;min-width:180px"><button class="btn sm" id="rfGen"><span data-ic="spark"></span><span>Build with AI</span></button></div><div class="row end" style="margin-top:10px">${isNew?'':'<button class="btn ghost" id="rfDel">Delete</button>'}<button class="btn primary" id="rfSave">Save</button></div>`);icons(d);
+ const parse=()=>$('#rfS',d).value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const m=l.match(/^(.*?)[\s,-]+(\d{1,3})\s*(min|mins|minutes|m)?$/i);return m?{text:m[1].trim(),min:+m[2]}:{text:l,min:0};});
+ $('#rfGen',d).onclick=e=>run(e.currentTarget,async()=>{const q=$('#rfAI',d).value.trim()||$('#rfN',d).value.trim();if(!q)throw new Error('Describe the routine first.');const o=await ai(q,{system:'Design a realistic routine. Return {"name":"short name","time":"morning"|"afternoon"|"evening"|"anytime","steps":[{"text":"short step","min":minutes}]} with 4-8 steps.',json:true,temp:.4,max:800});if(o.name&&!$('#rfN',d).value)$('#rfN',d).value=o.name;if(o.time)$('#rfW',d).value=o.time;$('#rfS',d).value=(o.steps||[]).map(s2=>s2.text+(s2.min?' '+s2.min:'')).join('\n');});
+ $('#rfSave',d).onclick=()=>{const n=$('#rfN',d).value.trim();const st=parse();if(!n||!st.length){toast('Add a name and at least one step.');return;}Object.assign(r,{name:n,time:$('#rfW',d).value,steps:st});if(isNew){xhInit();S.routines.push(r);}save();d.close();refresh();};
+ const del=$('#rfDel',d);if(del)del.onclick=()=>{S.routines=S.routines.filter(x=>x.id!==r.id);save();d.close();refresh();};}
+function runRoutine(r){let i=0,tm=null,left=0;const d=openModal(r.name,`<div id="rrB"></div>`);const total=r.steps.length;
+ const draw=()=>{clearInterval(tm);if(i>=total){r.done=r.done||{};r.done[todayStr()]=1;save();$('#rrB',d).innerHTML=`<p style="font-size:18px;margin-top:0"><b>Routine complete</b></p><p class="m">${total} steps done</p><div class="row end"><button class="btn primary" id="rrX">Close</button></div>`;try{beep();if(S.settings.speak)speak('Routine complete. Nice work.');}catch(e){}$('#rrX',d).onclick=()=>{d.close();refresh();};return;}
+  const s2=r.steps[i];left=(s2.min||0)*60;$('#rrB',d).innerHTML=`<div class="m">Step ${i+1} of ${total}</div><div style="height:6px;background:var(--line);border-radius:4px;margin:6px 0 14px"><div style="height:100%;width:${i/total*100}%;background:var(--accent);border-radius:4px"></div></div><p style="font-size:20px;margin:0 0 6px"><b>${esc(s2.text)}</b></p>${s2.min?`<div id="rrT" style="font:600 34px/1.1 Fraunces,Georgia,serif">${String(s2.min).padStart(2,'0')}:00</div>`:''}<div class="row end" style="margin-top:12px"><button class="btn ghost" id="rrSkip">Skip</button><button class="btn primary" id="rrNext">${i===total-1?'Finish':'Next step'}</button></div>`;
+  if(S.settings.speak)try{speak(s2.text+(s2.min?', '+s2.min+' minutes':''));}catch(e){}
+  if(s2.min)tm=setInterval(()=>{if(!d.open){clearInterval(tm);return;}left--;const el=$('#rrT',d);if(el)el.textContent=`${String(Math.floor(Math.max(0,left)/60)).padStart(2,'0')}:${String(Math.max(0,left)%60).padStart(2,'0')}`;if(left<=0){clearInterval(tm);try{beep();}catch(e){}}},1000);
+  $('#rrNext',d).onclick=()=>{i++;draw();};$('#rrSkip',d).onclick=()=>{i++;draw();};};draw();d.addEventListener('close',()=>clearInterval(tm),{once:true});}
+R.habits=()=>{xhInit();const b=$('#xhBody');const H=S.habits,Rt=S.routines;
+ b.innerHTML=`<div class="card"><div class="card-h"><h3>Habits</h3><span class="m">${H.filter(h=>hDue(h)&&hCount(h)>=(h.target||1)).length} of ${H.filter(h=>hDue(h)).length} done today</span></div><div class="list">${H.length?H.map(h=>habitRow(h,false)).join(''):'<p class="empty">No habits yet. Try drinking water, reading or a walk.</p>'}</div>${H.length?'':`<div class="row wrap" style="margin-top:8px">${['Drink water|8','Read 20 minutes|1','Walk|1','Meditate|1','No phone before bed|1'].map(x=>`<button class="btn ghost sm" data-hq="${x}">+ ${x.split('|')[0]}</button>`).join('')}</div>`}</div>
+ <div class="card"><div class="card-h"><h3>Routines</h3></div><div class="list">${Rt.length?Rt.map(r=>`<div class="item"><div class="grow"><div class="t">${esc(r.name)}</div><div class="m">${esc(r.time)} · ${r.steps.length} steps${r.steps.some(s2=>s2.min)?' · about '+r.steps.reduce((n,s2)=>n+(s2.min||0),0)+' min':''}${r.done&&r.done[todayStr()]?' · done today':''}</div></div><button class="btn primary sm" data-rgo="${r.id}">Start</button><div class="acts"><button class="iconbtn" data-red="${r.id}" title="Edit">✎</button></div></div>`).join(''):'<p class="empty">No routines yet. A routine walks you through steps, like a morning or wind-down routine.</p>'}</div></div>`;
+ $$('[data-hchk]',b).forEach(x=>x.onclick=()=>{xhCheck(S.habits.find(h=>h.id===x.dataset.hchk),true);R.habits();});$$('[data-hed]',b).forEach(x=>x.onclick=()=>habitForm(S.habits.find(h=>h.id===x.dataset.hed)));
+ $$('[data-hq]',b).forEach(x=>x.onclick=()=>{const[n,t]=x.dataset.hq.split('|');S.habits.push({id:uid(),name:n,target:+t,days:[],created:Date.now(),log:{}});save();R.habits();});
+ $$('[data-rgo]',b).forEach(x=>x.onclick=()=>runRoutine(S.routines.find(r=>r.id===x.dataset.rgo)));$$('[data-red]',b).forEach(x=>x.onclick=()=>routineForm(S.routines.find(r=>r.id===x.dataset.red)));};
+
+/* ---- notes & lists ---- */
+let xnQ='';
+function xList(name){xnInit();const n=String(name).trim().toLowerCase();let L=S.notes.find(x=>x.items&&x.title.toLowerCase()===n);if(!L){L={id:uid(),title:cap1(String(name).trim()||'List'),body:'',items:[],pinned:false,updated:Date.now()};S.notes.unshift(L);}return L;}
+const cap1=s2=>s2.replace(/^\w/,c=>c.toUpperCase());
+R.notes=()=>{xnInit();const b=$('#xnBody');const q=xnQ.toLowerCase();const L=S.notes.filter(n=>!q||(n.title+' '+n.body+' '+(n.items||[]).map(i=>i.t).join(' ')).toLowerCase().includes(q)).sort((a,c)=>(c.pinned-a.pinned)||(c.updated-a.updated));
+ b.innerHTML=`<div class="card addbar"><input id="xnQ" placeholder="Search notes" value="${esc(xnQ)}"></div><div class="grid2">${L.map(n=>`<div class="card" data-note="${n.id}" style="cursor:pointer"><div class="card-h"><h3 style="margin:0">${n.pinned?'<span class="chip high" style="margin-right:6px">Pinned</span>':''}${esc(n.title||'Untitled')}</h3><span class="m">${n.items?n.items.filter(i=>i.done).length+'/'+n.items.length:''}</span></div>${n.items?`<div>${n.items.slice(0,8).map(i=>`<div class="m" style="${i.done?'text-decoration:line-through':''}">${i.done?'✓':'○'} ${esc(i.t)}</div>`).join('')}${n.items.length>8?`<div class="m">+${n.items.length-8} more</div>`:''}</div>`:`<div class="m" style="white-space:pre-wrap;max-height:140px;overflow:hidden">${esc(n.body.slice(0,400))}</div>`}</div>`).join('')}</div>${L.length?'':`<p class="empty">${q?'No matches':'No notes yet. Say "add milk and eggs to my grocery list" in the command bar.'}</p>`}`;
+ const qi=$('#xnQ',b);qi.oninput=()=>{xnQ=qi.value;clearTimeout(qi._t);qi._t=setTimeout(()=>{R.notes();const z=$('#xnQ');z.focus();z.setSelectionRange(z.value.length,z.value.length);},250);};
+ $$('[data-note]',b).forEach(c=>c.onclick=()=>noteModal(S.notes.find(n=>n.id===c.dataset.note)));};
+function noteModal(n){xnInit();const isNew=!S.notes.includes(n);const d=openModal(n.items?'List':'Note',`<input id="nmT" value="${esc(n.title)}" placeholder="Title" style="font-weight:600">${n.items?`<div id="nmI" style="margin-top:8px"></div><form id="nmF" class="row" style="margin-top:6px"><input id="nmNew" placeholder="Add an item"><button class="btn sm">Add</button></form>`:`<textarea id="nmB" rows="10" style="margin-top:8px" placeholder="Write anything">${esc(n.body)}</textarea>`}<div class="row wrap" style="margin-top:10px;gap:6px"><button class="btn sm" id="nmPin">${n.pinned?'Unpin':'Pin'}</button>${n.items?'<button class="btn sm" id="nmClr">Clear checked</button>':'<button class="btn sm" id="nmSum"><span data-ic="spark"></span><span>Summarize</span></button><button class="btn sm" id="nmTasks"><span data-ic="spark"></span><span>Turn into tasks</span></button>'}<span class="grow"></span><button class="btn ghost sm" id="nmDel">Delete</button><button class="btn primary sm" id="nmSave">Save</button></div><div id="nmOut" class="md" style="margin-top:8px"></div>`,{wide:true});icons(d);
+ const persist=()=>{n.title=$('#nmT',d).value.trim()||(n.items?'List':'Note');if(!n.items)n.body=$('#nmB',d).value;n.updated=Date.now();if(!S.notes.includes(n))S.notes.unshift(n);save();};
+ const drawI=()=>{const el=$('#nmI',d);if(!el)return;el.innerHTML=n.items.map((i,k)=>`<label class="item xchk" style="cursor:pointer;margin-top:4px;padding:6px 10px"><input type="checkbox" class="chk" data-ni="${k}" ${i.done?'checked':''}><span class="grow" style="${i.done?'text-decoration:line-through;opacity:.6':''}">${esc(i.t)}</span><button type="button" class="iconbtn" data-nx="${k}">×</button></label>`).join('')||'<p class="m">No items yet</p>';
+  $$('[data-ni]',el).forEach(c=>c.onchange=()=>{n.items[+c.dataset.ni].done=c.checked;persist();drawI();});$$('[data-nx]',el).forEach(x=>x.onclick=e=>{e.preventDefault();n.items.splice(+x.dataset.nx,1);persist();drawI();});};drawI();
+ const f=$('#nmF',d);if(f)f.onsubmit=e=>{e.preventDefault();const v=$('#nmNew',d).value.trim();if(!v)return;v.split(/,\s*|\n/).filter(Boolean).forEach(t=>n.items.push({id:uid(),t:t.trim(),done:false}));$('#nmNew',d).value='';persist();drawI();};
+ $('#nmPin',d).onclick=()=>{n.pinned=!n.pinned;persist();d.close();refresh();};const cl=$('#nmClr',d);if(cl)cl.onclick=()=>{n.items=n.items.filter(i=>!i.done);persist();drawI();};
+ $('#nmDel',d).onclick=()=>{S.notes=S.notes.filter(x=>x.id!==n.id);save();d.close();refresh();toast('Deleted',{action:'Undo',fn:()=>{S.notes.unshift(n);save();refresh();}});};$('#nmSave',d).onclick=()=>{persist();d.close();refresh();};
+ const sm=$('#nmSum',d);if(sm)sm.onclick=e=>run(e.currentTarget,async()=>{const t=$('#nmB',d).value.trim();if(!t)throw new Error('Write something first.');$('#nmOut',d).innerHTML=md(await ai(t,{system:'Summarize this note in 3-5 short bullets, then list any action items.',temp:.3,max:600}));});
+ const tk=$('#nmTasks',d);if(tk)tk.onclick=e=>run(e.currentTarget,async()=>{const t=$('#nmB',d).value.trim();if(!t)throw new Error('Write something first.');const o=await ai(t,{system:`Pull the action items out of this note. Today is ${todayStr()}. Return {"tasks":[{"title":"","due":"YYYY-MM-DD"|null,"priority":"high"|"medium"|"low"}]}.`,json:true,temp:.2,max:800});const L=(o.tasks||[]).filter(x=>x&&x.title);L.forEach(x=>addTask({title:x.title,due:validDate(x.due),priority:PRI[x.priority]!=null?x.priority:'medium'},true));persist();save();$('#nmOut',d).innerHTML=md(L.length?`Added ${L.length} task${L.length===1?'':'s'}:\n`+L.map(x=>'- '+x.title).join('\n'):'No action items found.');});}
+
+/* ---- tasks: subtasks, AI breakdown, repeating tasks, Eisenhower matrix ---- */
+const REP={'':'Does not repeat',daily:'Every day',weekdays:'Every weekday',weekly:'Every week',monthly:'Every month'};
+function nextDue(d,r){let x=parseLocal(d||todayStr());if(r==='daily')x=addDays(x,1);else if(r==='weekdays'){do{x=addDays(x,1);}while(x.getDay()===0||x.getDay()===6);}else if(r==='weekly')x=addDays(x,7);else if(r==='monthly')x=new Date(x.getFullYear(),x.getMonth()+1,x.getDate());return ymd(x);}
+const _taskItem=taskItem;
+taskItem=function(t){let h=_taskItem(t);const subs=t.subs||[];const sh=subs.length?`<div class="xsubs" style="margin-top:6px">${subs.map((s2,i)=>`<label class="m" style="display:flex;gap:6px;align-items:center;cursor:pointer;${s2.done?'text-decoration:line-through;opacity:.7':''}"><input type="checkbox" data-xsub="${t.id}:${i}" ${s2.done?'checked':''}> ${esc(s2.t)}</label>`).join('')}<div class="m">${subs.filter(s2=>s2.done).length}/${subs.length} steps</div></div>`:'';
+ const rep=t.repeat?`<span class="chip">${esc(REP[t.repeat])}</span> `:'';h=h.replace('<div class="m"><span class="chip','<div class="m">'+rep+'<span class="chip');
+ return h.replace('</div><div class="acts">',sh+'</div><div class="acts">'+(t.done?'':`<button class="iconbtn" data-xbreak="${t.id}" title="Break into steps with AI">⋯</button>`));};
+document.addEventListener('change',e=>{const c=e.target.closest('[data-xsub]');if(!c)return;const[id,i]=c.dataset.xsub.split(':');const t=taskById(id);if(!t||!t.subs)return;t.subs[+i].done=c.checked;save();refresh();});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-xbreak]');if(!b)return;e.stopPropagation();const t=taskById(b.dataset.xbreak);if(!t)return;if(!hasAI()){toast('Turn on AI in Settings first.',{err:true});return;}
+ run(b,async()=>{const o=await ai(`Task: ${t.title}${t.notes?'\nNotes: '+t.notes:''}`,{system:'Break this task into 3-7 small, concrete next steps that each take under 30 minutes. Return {"steps":["…"],"est":total minutes}.',json:true,temp:.3,max:600});const st=(o.steps||[]).filter(Boolean).slice(0,10);if(!st.length)throw new Error('Could not break it down.');t.subs=st.map(x=>({t:String(x),done:false}));if(!t.est&&num(o.est))t.est=num(o.est);save();refresh();toast(`Broke it into ${st.length} steps`);});},true);
+const _tg=ACT.task.toggle;ACT.task.toggle=id=>{const t=taskById(id);const was=t&&t.done;_tg(id);if(t&&!was&&t.done&&t.repeat){const nt=addTask({title:t.title,notes:t.notes,priority:t.priority,est:t.est,repeat:t.repeat,due:nextDue(t.due||todayStr(),t.repeat),subs:(t.subs||[]).map(s2=>({t:s2.t,done:false}))});toast(`Next one scheduled ${relDay(nt.due)}`);}};
+const _taskForm=taskForm;
+taskForm=function(t){_taskForm(t);const d=$('#dlg');const form=d&&d.querySelector('form');if(!form)return;const lab=document.createElement('label');lab.innerHTML=`Repeat<select id="xRep">${Object.entries(REP).map(([k,l])=>`<option value="${k}" ${(t&&t.repeat||'')===k?'selected':''}>${l}</option>`).join('')}</select>`;const btn=form.querySelector('button[type=submit],.btn.primary');(btn?btn.closest('.row')||btn:form.lastElementChild).before(lab);
+ form.addEventListener('submit',()=>{const v=$('#xRep',d).value,n0=S.tasks.length;setTimeout(()=>{const x=t?(d.open?null:t):(S.tasks.length>n0?S.tasks[S.tasks.length-1]:null);if(x){x.repeat=v;if(v&&!x.due)x.due=todayStr();save();refresh();}},0);},true);};
+const _Rtasks=R.tasks;
+R.tasks=()=>{if(taskFilter!=='matrix'){_Rtasks();return;}$$('#taskFilter button').forEach(b=>b.classList.toggle('on',b.dataset.f==='matrix'));const soon=ymd(addDays(new Date(),2));const O=openTasks();const urg=t=>t.due&&t.due<=soon,imp=t=>t.priority==='high'||(t.priority==='medium'&&urg(t));
+ const Q=[['Do first','Urgent and important',O.filter(t=>urg(t)&&imp(t))],['Schedule','Important, not urgent',O.filter(t=>!urg(t)&&imp(t))],['Delegate or batch','Urgent, less important',O.filter(t=>urg(t)&&!imp(t))],['Later or drop','Neither',O.filter(t=>!urg(t)&&!imp(t))]];
+ $('#taskList').innerHTML=`<div class="grid2">${Q.map(([a,b2,L])=>`<div class="card"><div class="card-h"><h3 style="margin:0">${a}</h3><span class="m">${b2}</span></div><div class="list">${L.length?L.map(taskItem).join(''):'<p class="empty">Nothing here</p>'}</div></div>`).join('')}</div><p class="m">Urgent means due within 2 days. Important means high priority. Change a task's priority or due date to move it.</p>`;};
+
+/* ---- timers & stopwatch ---- */
+let XT=[];let xsw={on:false,start:0,acc:0,laps:[]};
+try{XT=JSON.parse(localStorage.getItem('aiv-pa-timers')||'[]');}catch(e){XT=[];}
+const xtSave=()=>{try{localStorage.setItem('aiv-pa-timers',JSON.stringify(XT));}catch(e){}};
+const mmss=s2=>{s2=Math.max(0,Math.round(s2));const h=Math.floor(s2/3600),m=Math.floor(s2%3600/60),x=s2%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0');};
+function xtStart(sec,label){XT.push({id:uid(),label:label||mmss(sec)+' timer',total:sec,end:Date.now()+sec*1000,paused:0});xtSave();xtPaint();}
+function xtPaint(){const el=$('#xTimers');if(!el)return;const now=Date.now();
+ el.innerHTML=`${XT.length?XT.map(t=>{const left=t.paused||Math.max(0,(t.end-now)/1000);return`<div class="item" style="padding:8px 10px;margin-bottom:6px"><div class="grow"><div class="t">${esc(t.label)}</div><div style="font:600 22px/1.2 Fraunces,Georgia,serif" data-xtl="${t.id}">${mmss(left)}</div></div><button class="btn ghost sm" data-xtp="${t.id}">${t.paused?'Resume':'Pause'}</button><button class="iconbtn" data-xtx="${t.id}" title="Cancel">×</button></div>`;}).join(''):''}${xsw.on||xsw.acc?`<div class="item" style="padding:8px 10px;margin-bottom:6px"><div class="grow"><div class="t">Stopwatch</div><div style="font:600 22px/1.2 Fraunces,Georgia,serif" id="xswT">${mmss((xsw.acc+(xsw.on?now-xsw.start:0))/1000)}</div>${xsw.laps.length?`<div class="m">${xsw.laps.map((l,i)=>'Lap '+(i+1)+' '+mmss(l/1000)).join(' · ')}</div>`:''}</div><button class="btn ghost sm" id="xswP">${xsw.on?'Pause':'Resume'}</button>${xsw.on?'<button class="btn ghost sm" id="xswL">Lap</button>':'<button class="btn ghost sm" id="xswR">Reset</button>'}</div>`:''}<div class="row wrap" style="gap:6px">${[[1,'1 min'],[5,'5 min'],[10,'10 min'],[25,'Focus 25'],[50,'Focus 50']].map(([m,l])=>`<button class="btn sm" data-xtq="${m}" data-l="${l.startsWith('Focus')?'Focus session':''}">${l}</button>`).join('')}<button class="btn ghost sm" id="xtC">Custom</button></div>`;
+ $$('[data-xtq]',el).forEach(b=>b.onclick=()=>xtStart(+b.dataset.xtq*60,b.dataset.l||''));$('#xtC',el).onclick=()=>{const v=prompt('Minutes','15');const m=parseFloat(v);if(m>0){const l=prompt('Label (optional)','')||'';xtStart(Math.round(m*60),l);}};
+ $$('[data-xtx]',el).forEach(b=>b.onclick=()=>{XT=XT.filter(t=>t.id!==b.dataset.xtx);xtSave();xtPaint();});
+ $$('[data-xtp]',el).forEach(b=>b.onclick=()=>{const t=XT.find(x=>x.id===b.dataset.xtp);if(t.paused){t.end=Date.now()+t.paused*1000;t.paused=0;}else t.paused=Math.max(0,(t.end-Date.now())/1000);xtSave();xtPaint();});
+ const p=$('#xswP',el);if(p)p.onclick=()=>{if(xsw.on){xsw.acc+=Date.now()-xsw.start;xsw.on=false;}else{xsw.start=Date.now();xsw.on=true;}xtPaint();};const l=$('#xswL',el);if(l)l.onclick=()=>{xsw.laps.push(xsw.acc+Date.now()-xsw.start);xtPaint();};const r=$('#xswR',el);if(r)r.onclick=()=>{xsw={on:false,start:0,acc:0,laps:[]};xtPaint();};}
+setInterval(()=>{const now=Date.now();let ch=false;XT.forEach(t=>{if(!t.paused&&t.end<=now&&!t.fired){t.fired=1;ch=true;notify('Timer done',t.label);try{if(S.settings.speak)speak(t.label+' is done');}catch(e){}}});if(ch){XT=XT.filter(t=>!t.fired);xtSave();xtPaint();return;}
+ XT.forEach(t=>{const el=document.querySelector(`[data-xtl="${t.id}"]`);if(el&&!t.paused)el.textContent=mmss((t.end-now)/1000);});const sw=$('#xswT');if(sw&&xsw.on)sw.textContent=mmss((xsw.acc+now-xsw.start)/1000);},500);
+
+/* ---- weather (Open-Meteo, no key) ---- */
+const WC={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Cloudy',45:'Fog',48:'Fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',66:'Freezing rain',67:'Freezing rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Showers',82:'Heavy showers',85:'Snow showers',86:'Snow showers',95:'Thunderstorms',96:'Thunderstorms with hail',99:'Thunderstorms with hail'};
+let xW=null;
+async function xwLoad(force){const W=S.settings.wx;if(!W)return null;if(!force&&xW&&Date.now()-xW.t<30*60000)return xW;const u=W.unit==='c'?'celsius':'fahrenheit';const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${W.lat}&longitude=${W.lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=${u}&wind_speed_unit=${W.unit==='c'?'kmh':'mph'}&timezone=auto&forecast_days=4`);if(!r.ok)throw new Error('Weather is unavailable right now.');xW={t:Date.now(),d:await r.json()};return xW;}
+function xWeatherLine(){if(!xW||!S.settings.wx)return'';const d=xW.d,c=d.current,dl=d.daily,U=S.settings.wx.unit==='c'?'C':'F';return`Weather in ${S.settings.wx.name}: now ${Math.round(c.temperature_2m)}°${U} and ${WC[c.weather_code]||''}; today high ${Math.round(dl.temperature_2m_max[0])}°, low ${Math.round(dl.temperature_2m_min[0])}°, ${dl.precipitation_probability_max[0]??0}% chance of rain.`;}
+async function xwPaint(){const el=$('#xWeather');if(!el)return;if(!S.settings.wx){el.innerHTML='<p class="empty" style="margin:0">Add your city to see the weather</p><button class="btn sm" id="xwSet2" style="margin-top:6px">Set location</button>';$('#xwSet2').onclick=xwSetup;return;}
+ try{const w=await xwLoad();const d=w.d,c=d.current,dl=d.daily,U=S.settings.wx.unit==='c'?'C':'F';const rain=dl.precipitation_probability_max[0]??0,lo=dl.temperature_2m_min[0];const tips=[];if(rain>=50)tips.push('Bring an umbrella');if((U==='F'&&lo<50)||(U==='C'&&lo<10))tips.push('Grab a jacket');if((U==='F'&&dl.temperature_2m_max[0]>=90)||(U==='C'&&dl.temperature_2m_max[0]>=32))tips.push('Stay hydrated');
+  el.innerHTML=`<div class="row" style="align-items:flex-end;gap:12px"><div style="font:600 34px/1 Fraunces,Georgia,serif">${Math.round(c.temperature_2m)}°${U}</div><div class="grow"><div class="t">${WC[c.weather_code]||''}</div><div class="m">${esc(S.settings.wx.name)} · feels like ${Math.round(c.apparent_temperature)}° · high ${Math.round(dl.temperature_2m_max[0])}° low ${Math.round(lo)}° · ${rain}% rain</div></div></div>${tips.length?`<p class="m" style="margin:8px 0 0"><b>${tips.join(' · ')}</b></p>`:''}<div class="row" style="gap:8px;margin-top:10px">${[1,2,3].map(i=>`<div style="flex:1;text-align:center;background:var(--panel2);border-radius:8px;padding:6px"><div class="m">${DOW[parseLocal(dl.time[i]).getDay()]}</div><div class="t">${Math.round(dl.temperature_2m_max[i])}° / ${Math.round(dl.temperature_2m_min[i])}°</div><div class="m">${WC[dl.weather_code[i]]||''}</div></div>`).join('')}</div>`;}catch(e){el.innerHTML=`<p class="m">${esc(e.message)}</p>`;}}
+function xwSetup(){const W=S.settings.wx||{};const d=openModal('Weather location',`<label>City<input id="wxC" value="${esc(W.name||'')}" placeholder="Enter a city"></label><div class="form-row"><label>Units<select id="wxU"><option value="f" ${W.unit!=='c'?'selected':''}>Fahrenheit</option><option value="c" ${W.unit==='c'?'selected':''}>Celsius</option></select></label></div><div class="row end"><button class="btn ghost" id="wxLoc">Use my location</button><button class="btn primary" id="wxSave">Save</button></div>`);
+ const set=w=>{S.settings.wx=w;xW=null;save();d.close();xwPaint();};
+ $('#wxSave',d).onclick=e=>run(e.currentTarget,async()=>{const q=$('#wxC',d).value.trim();if(!q)throw new Error('Enter a city.');const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&name='+encodeURIComponent(q.split(',')[0]));const j=await r.json();const g=(j.results||[])[0];if(!g)throw new Error('City not found.');set({name:g.name+(g.admin1?', '+g.admin1:''),lat:g.latitude,lon:g.longitude,unit:$('#wxU',d).value});});
+ $('#wxLoc',d).onclick=()=>{if(!navigator.geolocation){toast('Location is not available in this browser.',{err:true});return;}navigator.geolocation.getCurrentPosition(p=>set({name:'Your location',lat:+p.coords.latitude.toFixed(3),lon:+p.coords.longitude.toFixed(3),unit:$('#wxU',d).value}),()=>toast('Location permission was blocked.',{err:true}),{timeout:10000});};}
+
+/* ---- countdowns ---- */
+function xcPaint(){xcInit();const el=$('#xCountdowns');if(!el)return;const L=S.countdowns.filter(c=>c.date>=todayStr()).sort((a,b)=>a.date<b.date?-1:1);S.countdowns=S.countdowns.filter(c=>c.date>=ymd(addDays(new Date(),-1)));
+ el.innerHTML=L.length?L.slice(0,6).map(c=>{const n=daysUntil(c.date);return`<div class="mini"><span class="time" style="min-width:64px"><b style="font:600 20px Fraunces,Georgia,serif">${n}</b> ${n===1?'day':'days'}</span><div class="grow"><div class="t">${esc(c.title)}</div><div class="m">${fmtDate(c.date)}</div></div><button class="iconbtn" data-xcx="${c.id}" title="Remove">×</button></div>`;}).join(''):'<p class="empty" style="margin:0">Count down to a trip, a birthday or a deadline</p>';
+ $$('[data-xcx]',el).forEach(b=>b.onclick=()=>{S.countdowns=S.countdowns.filter(c=>c.id!==b.dataset.xcx);save();xcPaint();});}
+function xcForm(){const d=openModal('New countdown',`<label>What<input id="cdT" placeholder="Enter an event"></label><label>Date<input id="cdD" type="date" value="${ymd(addDays(new Date(),30))}"></label><div class="row end"><button class="btn primary" id="cdS">Add</button></div>`);$('#cdS',d).onclick=()=>{const t=$('#cdT',d).value.trim(),dt=$('#cdD',d).value;if(!t||!dt){toast('Add a name and date.');return;}xcInit();S.countdowns.push({id:uid(),title:t,date:dt});save();d.close();xcPaint();};}
+
+/* ---- weekly review ---- */
+async function weeklyReview(btn){await run(btn,async()=>{xhInit();const wk=Date.now()-7*DAY;const done=S.tasks.filter(t=>t.done&&t.doneAt>=wk),over=S.tasks.filter(isOverdue),open=openTasks();
+ const hab=S.habits.map(h=>`${h.name}: ${hRate(h,7)}% of days, ${hStreak(h)}-day streak`).join('; ');
+ const o=await ai(`My last 7 days.\nCompleted tasks (${done.length}):\n${done.map(t=>'- '+t.title).join('\n')||'(none)'}\nOverdue tasks:\n${over.map(t=>'- '+t.title+' (due '+t.due+')').join('\n')||'(none)'}\nOther open tasks:\n${open.slice(0,30).map(t=>'- '+t.title+(t.due?' (due '+t.due+')':'')+' ['+t.priority+']').join('\n')||'(none)'}\nHabits: ${hab||'(none)'}\nNext 7 days of events:\n${ctxEvents(new Date(),7)}`,{system:'Run a short, encouraging weekly review. Return {"wins":["…"],"slipped":["…"],"insight":"one sentence about patterns","priorities":[{"title":"concrete task for next week","due":"YYYY-MM-DD"|null}]} with up to 4 wins, up to 4 slipped items and exactly 3 priorities.',json:true,temp:.4,max:1200});
+ const P=(o.priorities||[]).filter(p=>p&&p.title).slice(0,3);const L=a=>(a||[]).map(x=>'- '+x).join('\n');
+ $('#xwrOut').innerHTML=md(`Finished this week: ${done.length} task${done.length===1?'':'s'}\n\nWins\n${L(o.wins)||'- Getting started counts.'}\n\nSlipped\n${L(o.slipped)||'- Nothing major.'}\n\n${o.insight||''}\n\nTop 3 for next week\n${P.map((p,i)=>`${i+1}. ${p.title}${p.due?' (by '+relDay(validDate(p.due)||p.due)+')':''}`).join('\n')}`)+(P.length?'<div class="row end" style="margin-top:8px"><button class="btn sm primary" id="xwrAdd">Add these as tasks</button></div>':'');
+ const a=$('#xwrAdd');if(a)a.onclick=()=>{P.forEach(p=>addTask({title:p.title,due:validDate(p.due),priority:'high'},true));save();refresh();toast('Added 3 priorities to your tasks');a.disabled=true;};});}
+
+/* ---- wire Today ---- */
+const _Rtoday=R.today;
+R.today=()=>{_Rtoday();xhInit();const th=$('#xTodayHabits');if(th){const due=S.habits.filter(h=>hDue(h));const rt=S.routines.filter(r=>{const h=new Date().getHours();return r.time==='anytime'||(r.time==='morning'&&h<12)||(r.time==='afternoon'&&h>=11&&h<18)||(r.time==='evening'&&h>=16);});
+  th.innerHTML=(due.length?due.map(h=>habitRow(h,true)).join(''):'<p class="empty" style="margin:0">No habits yet</p>')+(rt.length?`<div class="row wrap" style="margin-top:8px;gap:6px">${rt.map(r=>`<button class="btn sm" data-rgo="${r.id}">Start ${esc(r.name)}</button>`).join('')}</div>`:'');
+  $$('[data-hchk]',th).forEach(x=>x.onclick=()=>{xhCheck(S.habits.find(h=>h.id===x.dataset.hchk),true);R.today();});$$('[data-rgo]',th).forEach(x=>x.onclick=()=>runRoutine(S.routines.find(r=>r.id===x.dataset.rgo)));}
+ xtPaint();xcPaint();xwPaint();};
+document.addEventListener('click',e=>{const id=e.target.closest('button')&&e.target.closest('button').id;if(!id)return;({xhAdd:()=>habitForm(null),xrAdd:()=>routineForm(null),xnAdd:()=>noteModal({id:uid(),title:'',body:'',items:null,pinned:false,updated:Date.now()}),xlAdd:()=>noteModal({id:uid(),title:'',body:'',items:[],pinned:false,updated:Date.now()}),xwSet:xwSetup,xcAdd:xcForm,xtSw:()=>{if(!xsw.on&&!xsw.acc){xsw.on=true;xsw.start=Date.now();}xtPaint();},xwrGo:()=>weeklyReview(e.target.closest('button'))}[id]||(()=>{}))();});
 
 /* ---------- icons injection & init ---------- */
 function icons(root=document){$$('[data-ic]',root).forEach(el=>{if(el._i)return;el._i=1;const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
