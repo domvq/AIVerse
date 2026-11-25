@@ -602,10 +602,15 @@ const PLAN_SYS=`Translate the user's photo-editing request into steps for a phot
 {"op":"auto_enhance"} {"op":"denoise"} {"op":"fix_lighting"} {"op":"upscale","scale":2}
 {"op":"crop","aspect":"1:1|4:5|3:2|2:3|4:3|3:4|16:9|9:16"} {"op":"rotate","deg":90} {"op":"flip","axis":"h|v"}
 {"op":"remove_background"} {"op":"blur_background","amount":40} {"op":"replace_background","color":"#hex"} or {"op":"replace_background","prompt":"scene description"}
+{"op":"color_mix","band":"red|orange|yellow|green|aqua|blue|purple|magenta","h":0,"s":0,"l":0}  (change one color range, each -100..100, for example make the sky bluer or the grass greener)
+{"op":"effect","name":"glitch|duotone|pixel|posterize|sketch|leak|halftone|dream|mirror|invert","strength":1}  (strength 0.2..1.5)
+{"op":"frame","name":"white|black|polaroid|round|fit11|fit45|fit916"}  (border, polaroid, rounded corners, or fit the whole photo into a square, 4:5 or 9:16 without cropping)
+{"op":"expand","percent":25}  (make the canvas bigger on all sides)
+{"op":"text","text":"words","position":"top|middle|bottom","style":"clean|meme|serif"}  (add a caption on the photo)
 {"op":"generative","prompt":"instruction for an AI image editor"}  (ONLY for content changes that adjustments can't do: adding/removing/changing objects, changing clothing, style transfer, changing the sky, etc.)
-Prefer local steps over generative whenever they achieve the request. Return {"steps":[…],"note":"one short sentence describing what you'll do"}.`;
+Read loose wording kindly: "the dark parts", "the darkest areas", "the darkness", "it's too dark" or "underexposed" means lift shadows (shadows +40 to +60), raise exposure a little (+10 to +20) and fix_lighting if very dark; "too bright" or "washed out" means lower highlights and exposure. Prefer local steps over generative whenever they achieve the request. Return {"steps":[…],"note":"one short sentence describing what you'll do"}.`;
 function fallbackPlan(t){t=t.toLowerCase();const st=[],a={};const has=re=>re.test(t);const amt=has(/\b(slightly|a bit|a little|subtle)\b/)?15:has(/\b(very|much|lot|strong|really)\b/)?50:30;
- if(has(/brighter|brighten|lighter|more light/))a.exposure=amt*.7;if(has(/darker|darken|moodier|moody/))a.exposure=-amt*.7;if(has(/more contrast|punchier|contrast up|punch/))a.contrast=amt;if(has(/less contrast|softer|flatten/))a.contrast=-amt;if(has(/warmer|warm\b|golden/))a.warmth=amt;if(has(/cooler|cool\b|colder|blue tone/))a.warmth=-amt;if(has(/more colou?r|saturat|vibrant|colorful/))a.vibrance=amt*1.2;if(has(/less colou?r|desaturat|muted/))a.saturation=-amt;if(has(/sharper|sharpen|crisp/))a.sharpen=amt*1.2;if(has(/vignette/))a.vignette=amt*1.2;if(has(/grain|film/))a.grain=amt;if(has(/shadows? (up|brighter|lift)|lift (the )?shadows/))a.shadows=amt;if(has(/highlights? (down|recover)|recover highlights/))a.highlights=-amt;
+ if(has(/brighter|brighten|lighter|more light/))a.exposure=amt*.7;if(has(/darker|darken|moodier|moody/))a.exposure=-amt*.7;if(has(/more contrast|punchier|contrast up|punch/))a.contrast=amt;if(has(/less contrast|softer|flatten/))a.contrast=-amt;if(has(/warmer|warm\b|golden/))a.warmth=amt;if(has(/cooler|cool\b|colder|blue tone/))a.warmth=-amt;if(has(/more colou?r|saturat|vibrant|colorful/))a.vibrance=amt*1.2;if(has(/less colou?r|desaturat|muted/))a.saturation=-amt;if(has(/sharper|sharpen|crisp/))a.sharpen=amt*1.2;if(has(/vignette/))a.vignette=amt*1.2;if(has(/grain|film/))a.grain=amt;if(has(/shadows? (up|brighter|lift)|lift (the )?shadows|dark(est)? (parts?|areas?|spots?)|darkness|too dark|underexposed/)){a.shadows=Math.max(amt,40);a.exposure=a.exposure||12;}if(has(/highlights? (down|recover)|recover highlights/))a.highlights=-amt;
  if(Object.keys(a).length)st.push({op:'adjust',params:a});
  const f=Object.keys(FILTERS).find(k=>k!=='none'&&k!=='auto'&&t.includes(FILTERS[k][0].toLowerCase()));if(f)st.push({op:'filter',name:f});if(has(/black and white|b&w|monochrome|grayscale|greyscale/))st.push({op:'filter',name:'bw'});
  if(has(/enhance|improve|fix (it|the photo|this)|make it better|auto/))st.push({op:'auto_enhance'});if(has(/denoise|noise|grainy/)&&!has(/add (some )?grain/))st.push({op:'denoise'});if(has(/lighting|underexposed|too dark/))st.push({op:'fix_lighting'});if(has(/upscale|enlarge|higher resolution|bigger/))st.push({op:'upscale',scale:2});
@@ -914,11 +919,16 @@ async function promptEdit(text,btn,forceGen){text=String(text||'').trim();if(!te
   if(out)out.innerHTML=`<b>${esc(plan.note||'')}</b><ol style="margin:6px 0 0;padding-left:20px">${plan.steps.map((s,i)=>`<li id="ps${i}">${esc(describeStep(s))}</li>`).join('')}</ol>`;
   for(let i=0;i<plan.steps.length;i++){if(stop)break;const s=plan.steps[i];const li=$('#ps'+i);if(li)li.style.fontWeight='600';try{const c=await execStep(s,curC());if(c){push(c,describeStep(s));if(cur==='edit'){drawStage();}}if(li){li.style.fontWeight='';li.insertAdjacentHTML('beforeend',' <span style="color:var(--good)">✓</span>');}}catch(e){if(li)li.insertAdjacentHTML('beforeend',` <span style="color:var(--bad)">— ${esc(e.message)}</span>`);if(e.stopped)break;}}
   if(cur==='edit'){const keep=out?out.innerHTML:'';renderEditor();const o2=$('#pOut');if(o2)o2.innerHTML=keep;}}).finally(()=>{const s2=$('#pStop');if(s2)s2.hidden=true;});}
-function describeStep(s){switch(s.op){case'adjust':return'Adjust '+Object.entries(s.params||{}).filter(([,v])=>v).map(([k,v])=>`${k} ${v>0?'+':''}${Math.round(v)}`).join(', ');case'filter':return(FILTERS[s.name]||['Filter'])[0]+' filter';case'auto_enhance':return'Auto enhance';case'denoise':return'Reduce noise';case'fix_lighting':return'Fix lighting';case'upscale':return`Upscale ${s.scale||2}×`;case'crop':return'Crop to '+s.aspect;case'rotate':return`Rotate ${s.deg}°`;case'flip':return'Flip '+(s.axis==='v'?'vertical':'horizontal');case'remove_background':return'Remove background';case'blur_background':return'Blur background';case'replace_background':return s.prompt?'AI background: '+s.prompt:'Background '+(s.color||'');case'generative':return'AI edit: '+s.prompt;default:return s.op;}}
+function describeStep(s){switch(s.op){case'adjust':return'Adjust '+Object.entries(s.params||{}).filter(([,v])=>v).map(([k,v])=>`${k} ${v>0?'+':''}${Math.round(v)}`).join(', ');case'filter':return(FILTERS[s.name]||['Filter'])[0]+' filter';case'auto_enhance':return'Auto enhance';case'denoise':return'Reduce noise';case'fix_lighting':return'Fix lighting';case'upscale':return`Upscale ${s.scale||2}×`;case'crop':return'Crop to '+s.aspect;case'rotate':return`Rotate ${s.deg}°`;case'flip':return'Flip '+(s.axis==='v'?'vertical':'horizontal');case'remove_background':return'Remove background';case'blur_background':return'Blur background';case'replace_background':return s.prompt?'AI background: '+s.prompt:'Background '+(s.color||'');case'generative':return'AI edit: '+s.prompt;case'color_mix':return`Color mixer: ${s.band}`;case'effect':return(EFFECTS[s.name]||'Effect')+' effect';case'frame':return FRAMES[s.name]||'Frame';case'expand':return`Expand ${s.percent||25}%`;case'text':return`Add text "${String(s.text||'').slice(0,30)}"`;default:return s.op;}}
 async function execStep(s,c){switch(s.op){case'adjust':{const a=zeroAdj();Object.entries(s.params||{}).forEach(([k,v])=>{if(k in a)a[k]=clamp(+v||0,ADJ_MIN[k]??-100,ADJ_MAX[k]??100);});return isZero(a)?null:adjustCanvas(c,a);}
  case'filter':{const f=FILTERS[s.name];if(!f)return null;return f[1]?adjustCanvas(c,{...zeroAdj(),...f[1]}):autoEnhance(c);}
  case'auto_enhance':return autoEnhance(c);case'denoise':return denoiseCV(c);case'fix_lighting':return lightingCV(c);case'upscale':return upscaleAI(scaled(c,1024),s.scale>=4?4:2);
  case'crop':{const ar=ASPECTS[s.aspect];if(!ar)return null;let cxp=.5,cyp=.5;try{const f=await faceBox(c);if(f){cxp=(f.originX+f.width/2)/c.width;cyp=(f.originY+f.height/2)/c.height;}}catch(e){}const r=aspectRect(c.width,c.height,ar,cxp,cyp);return cropRect(c,r.x,r.y,r.w,r.h);}
+ case'color_mix':{const z=zeroHSL();if(z[s.band])z[s.band]={h:clamp(+s.h||0,-100,100),s:clamp(+s.s||0,-100,100),l:clamp(+s.l||0,-100,100)};return hslCanvas(c,z);}
+ case'effect':return EFFECTS[s.name]?effectCanvas(c,s.name,clamp(+s.strength||1,.2,1.5)):null;
+ case'frame':return FRAMES[s.name]?frameCanvas(c,s.name,null):null;
+ case'expand':{const r=expandCanvas(c,clamp(+s.percent||25,10,50),'all');return canEditGen()?editGenerative(r.c,'Extend the scene naturally into the new outer area so it matches the original photo seamlessly.',r.mask):r.c;}
+ case'text':{const o=clone(c);const st=s.style==='meme'?{font:TFONTS[3][1],outline:true,bold:true,color:'#ffffff'}:s.style==='serif'?{font:TFONTS[1][1],outline:false,shadow:true,bold:false,color:'#ffffff'}:{font:TFONTS[0][1],outline:false,shadow:true,bold:true,color:'#ffffff'};drawText(cx(o),o.width,o.height,{text:s.style==='meme'?String(s.text||'').toUpperCase():String(s.text||''),size:8,x:.5,y:s.position==='top'?.12:s.position==='middle'?.5:.86,...st});return o;}
  case'rotate':return rotate(c,+s.deg||90);case'flip':return flip(c,s.axis==='v'?'v':'h');
  case'remove_background':return hasAlpha(c)?null:maskToAlpha(c,await subjectMask(c));
  case'blur_background':{const m=await subjectMask(c);const fg=maskToAlpha(c,m);const o=blurCanvas(composite(c,{type:'color',color:'#000'}),Math.round(clamp(+s.amount||40,5,100)*Math.max(c.width,c.height)/2400));cx(o).drawImage(fg,0,0);return o;}
@@ -933,7 +943,7 @@ async function indexItem(it){const c=await blobToCanvas(it.blob);const emb=await
 
 /* ---------- AI assistant (Home) ---------- */
 const ASSIST_SYS=`You are the assistant inside AI Photo and Art, an AI photo editor. Help with editing ideas, photography tips, prompts for image generation, captions and social posts. You can also run actions in the app. Return JSON {"reply":"short markdown answer","actions":[...]}. Actions (only when the user asks for something the app can do):
-{"type":"edit","prompt":"edit instruction for the photo currently open in the editor"}
+{"type":"edit","prompt":"edit instruction for the photo currently open in the editor"}  (use this for ANY change to the open photo: lighter or darker areas, colors, filters, effects, text, frames, background, crop; rewrite vague wording into a clear instruction, for example \"can you edit the darkest on my photo\" becomes \"brighten the darkest areas and lift the shadows\")
 {"type":"generate","prompt":"detailed image prompt","aspect":"1:1|4:5|16:9|9:16|3:2|2:3"}
 {"type":"search","query":"words to search the photo library"}
 {"type":"social","topic":"what the post is about","template":"ig|ig45|story|fb|x|li|yt|pin|lib"}
@@ -1338,9 +1348,9 @@ init();
 })();
 </script>
 <script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261123f" defer></script><script src="../onboard.js?v=20261124a" defer></script>
+<script src="../mobile.js?v=20261124b" defer></script><script src="../onboard.js?v=20261124a" defer></script>
 <script src="../connect.js?v=20261121c" defer></script>
 <script src="aiv-connect.js?v=20261123e"></script>
-<script src="../askai.js?v=20261123f" defer></script>
+<script src="../askai.js?v=20261124e" defer></script>
 </body>
 </html>

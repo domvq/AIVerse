@@ -1376,6 +1376,9 @@ R.today=()=>{_Rtoday();xhInit();const th=$('#xTodayHabits');if(th){const due=S.h
  xtPaint();xcPaint();xwPaint();};
 document.addEventListener('click',e=>{const id=e.target.closest('button')&&e.target.closest('button').id;if(!id)return;({xhAdd:()=>habitForm(null),xrAdd:()=>routineForm(null),xnAdd:()=>noteModal({id:uid(),title:'',body:'',items:null,pinned:false,updated:Date.now()}),xlAdd:()=>noteModal({id:uid(),title:'',body:'',items:[],pinned:false,updated:Date.now()}),xwSet:xwSetup,xcAdd:xcForm,xtSw:()=>{if(!xsw.on&&!xsw.acc){xsw.on=true;xsw.start=Date.now();}xtPaint();},xwrGo:()=>weeklyReview(e.target.closest('button'))}[id]||(()=>{}))();});
 
+
+/* Ask AI on any tab can carry out requests through the command engine */
+window.AIV_APP.act=async function(q){await runCommand(String(q||''),false);const box=$('#cmdRes');if(!box||box.hidden)return '';const md0=box.querySelector('.md');return md0?md0.innerText.trim():'';};
 /* ---------- icons injection & init ---------- */
 function icons(root=document){$$('[data-ic]',root).forEach(el=>{if(el._i)return;el._i=1;const t=document.createElement('template');t.innerHTML=ic(el.dataset.ic);el.replaceWith(t.content.firstChild);});}
 function init(){
@@ -1460,9 +1463,9 @@ init();
 })();
 </script>
 <script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261123f" defer></script><script src="../onboard.js?v=20261124a" defer></script>
+<script src="../mobile.js?v=20261124b" defer></script><script src="../onboard.js?v=20261124a" defer></script>
 <script src="../connect.js?v=20261121c" defer></script>
 <script src="aiv-connect.js?v=20261123e"></script>
-<script src="../askai.js?v=20261123f" defer></script>
+<script src="../askai.js?v=20261124e" defer></script>
 </body>
 </html>

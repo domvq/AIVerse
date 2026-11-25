@@ -1098,6 +1098,33 @@ R.discover=()=>{_Rdiscover();const v=$('#v-discover');const box=document.createE
  const paint=()=>{const el=$('#sfOut');if(!sfLast)return;el.innerHTML=sfLast.length?`<ol class="trks">${sfLast.map((t,i)=>trackRow(t,i,{removable:false,ctx:`<button type="button" data-addto="${esc(t.id)}">Add to a playlist</button>`})).join('')}</ol>`:'<p class="empty">No match found. Add more details.</p>';icons(el);paintPlayer();const ol=el.querySelector('.trks');if(ol)bindTracks(ol,()=>sfLast);};paint();
  $('#sfGo').onclick=e=>run(e.currentTarget,async()=>{const q=$('#sfT').value.trim();if(!q)return;if(!hasAI()){aiBadgeClick();return;}$('#sfOut').innerHTML='<p class="muted small">Searching…</p>';const j=await ja(`A listener is trying to identify a song. Their description: "${q}"\nList the 6 most likely real songs, most likely first. For each, say in at most 14 words why it matches.\nReturn JSON exactly like: {"songs":[{"artist":"","title":"","why":""}]}`,{system:SYS_DJ,temp:.3,max:1200});const out=[];for(const c of (j.songs||[]).slice(0,6)){if(!c||!c.artist||!c.title)continue;try{const t=await verify(c.artist,c.title);if(t&&!out.some(x=>x.id===t.id))out.push({...t,why:c.why||''});}catch(err){if(/busy|reach/.test(err.message))throw err;}}sfLast=out;paint();});};
 
+/* ---- Ask AI can carry out music requests: playlists, mixes, finding artists or a song, radio, timers ---- */
+const MUSIC_ACT_SYS=`You are Riff, the music guide inside AI Music. You can DO things in the app. Return JSON {"reply":"short friendly answer","actions":[...]}. Actions (only when the user asks for something the app can do):
+{"type":"playlist","request":"what the playlist should be, in the user's words plus any details","length":10|15|20|25|30}
+{"type":"more_like","artist":"","title":""}  (a playlist that sounds like one song)
+{"type":"weekly_mix"}  (their weekly discovery mix)
+{"type":"daily_mix","genre":"one genre"}
+{"type":"find_artists","artists":["artists they like"]}  (discover similar artists)
+{"type":"find_song","description":"lyrics or details they remember"}
+{"type":"radio","artist":"","title":""}  (song radio that keeps playing similar songs)
+{"type":"releases"}  (new releases from their artists)
+{"type":"open","view":"home|foryou|create|playlists|discover|blend|settings"}
+Never claim an action finished; say you are starting it. Only suggest real songs and artists.`;
+window.AIV_APP.act=async function(q){q=String(q||'').trim();if(!q)return '';if(!hasAI()){aiBadgeClick();return 'Turn on AI in Settings first.';}
+ const o=await ai(`What I like: ${topOf(S.taste.artists,8).join(', ')||'not known yet'}. Top genres: ${topOf(S.taste.genres,4).join(', ')||'not known yet'}.\nMy message: ${q}`,{system:MUSIC_ACT_SYS,json:true,temp:.3,max:900});
+ const A=Array.isArray(o.actions)?o.actions:[];const notes=[];
+ for(const a of A){if(!a||!a.type)continue;try{switch(a.type){
+  case'playlist':if(a.length)S.settings.len=[10,15,20,25,30].includes(+a.length)?+a.length:S.settings.len;startCreate('vibe',{text:String(a.request||q),auto:true});notes.push('Making your playlist in Create.');break;
+  case'more_like':{let seed=null;try{seed=await verify(a.artist,a.title);}catch(e){}if(seed){startCreate('like',{seeds:[seed],auto:true});notes.push(`Making a playlist like ${seed.t}.`);}else{startCreate('vibe',{text:`Songs that sound like ${a.title} by ${a.artist}`,auto:true});notes.push('Making a playlist in that style.');}break;}
+  case'weekly_mix':go('foryou');setTimeout(()=>{const b=$('#fyWeek');if(b)b.click();},250);notes.push('Opening your weekly discovery mix.');break;
+  case'daily_mix':go('foryou');setTimeout(()=>{const b=[...document.querySelectorAll('[data-mix]')].find(x=>x.dataset.mix.toLowerCase()===String(a.genre||'').toLowerCase())||document.querySelector('[data-mix]');if(b)b.click();},250);notes.push('Making a daily mix.');break;
+  case'find_artists':go('discover');setTimeout(()=>{const i=$('#dArts');if(i){i.value=(a.artists||[]).join(', ')||i.value;const b=$('#dGo');if(b)b.click();}},250);notes.push('Finding similar artists in Discover.');break;
+  case'find_song':go('discover');setTimeout(()=>{const t=$('#sfT');if(t){t.value=String(a.description||q);$('#sfGo').click();t.scrollIntoView({block:'center'});}},300);notes.push('Looking for that song in Discover.');break;
+  case'radio':{let t=null;try{t=await verify(a.artist,a.title);}catch(e){}if(t){startRadio(t);notes.push(`Starting ${t.t} radio.`);}else notes.push(`I couldn't find "${a.title}" by ${a.artist} in the catalog.`);break;}
+  case'releases':go('foryou');setTimeout(()=>{const b=$('#fyRel');if(b)b.click();},250);notes.push('Checking new releases from your artists.');break;
+  case'open':if(VIEWS.includes(a.view))go(a.view);break;}}catch(e){console.warn(e);}}
+ return [String(o.reply||'').trim(),notes.join(' ')].filter(Boolean).join('\n\n')||'On it.';};
+
 R.blend=()=>{const v=$('#v-blend');const mineN=S.liked.length+Object.values(S.taste.tracks).filter(x=>x.s>0).length;
  v.innerHTML=`<h2 style="margin-top:4px">Blend tastes with friends</h2>
  <div class="box"><h3>Your taste code</h3><p class="sub">Share it with friends so they can add you to a group playlist. It includes up to 20 of your favorite songs and nothing else.</p><br>
@@ -1165,9 +1192,9 @@ init();
 })();
 </script>
 <script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261123f" defer></script><script src="../onboard.js?v=20261124a" defer></script>
+<script src="../mobile.js?v=20261124b" defer></script><script src="../onboard.js?v=20261124a" defer></script>
 <script src="../connect.js?v=20261121c" defer></script>
 <script src="aiv-connect.js?v=20261123e"></script>
-<script src="../askai.js?v=20261123f" defer></script>
+<script src="../askai.js?v=20261124e" defer></script>
 </body>
 </html>

@@ -919,6 +919,7 @@ You work inside the app and can DO things, not just talk. When the user asks you
 {"reply":"what you did or your answer, short markdown","actions":[...]}
 Actions (use only these):
 - {"type":"update_profile","height_cm":number,"weight_kg":number,"age":number,"sex":"male|female","activity":"sedentary|light|moderate|very|extra","goal":"fat_loss|muscle|recomp|strength|general|endurance","diet":"any|vegetarian|vegan|pescatarian|keto|halal|kosher","avoid":"text","days":2-6}  include only fields the user gave; convert feet/inches and pounds to cm and kg
+- {"type":"set_targets","kcal":number,"protein_g":number,"water_ml":number}  only when the user names their own numbers; use 0 to go back to the automatic target
 - {"type":"build_nutrition_plan","days":1|3|7,"meals":3|4|5,"preferences":"text"}  a meal plan built from their calorie and macro targets
 - {"type":"build_workout_plan","request":"what program they want"}
 - {"type":"log_food","meal":"breakfast|lunch|dinner|snack","items":[{"name":"food","grams":number,"kcal":number,"protein":number,"carbs":number,"fat":number}]}  realistic estimates
@@ -932,10 +933,12 @@ Actions (use only these):
 - {"type":"add_habit","name":"habit"}
 - {"type":"breathing","kind":"box|478|calm"}  opens a guided breathing session
 - {"type":"open","view":"home|training|body|nutrition|wellness|analytics|settings"}
+GOALS: when the user states or implies a goal, act on it right away instead of only giving advice. "Help me lose weight / lose fat / cut / slim down" = update_profile goal fat_loss. "Build muscle / bulk / gain weight" = muscle. "Tone up / lose fat and build muscle" = recomp. "Get stronger" = strength. "Run farther / more stamina" = endurance. "Be healthier / get fit" = general. Changing the goal recalculates their calorie, protein and water targets automatically. If their body details are set, also add build_nutrition_plan (3 days) so they get meals for the new targets, and add {"type":"open","view":"nutrition"}. Mention 2-3 habits that support the goal (for example steps or protein) and offer to rebuild their workout plan for it. Never set calories below 1,200 (women) or 1,500 (men) a day.
 Put update_profile first if the user gave new body details. If they want a nutrition plan but height, weight, age or sex are missing from MY DATA and the message, ask for the missing ones in "reply" and add {"type":"open","view":"nutrition"} instead. For plain questions, return "actions":[] and answer in "reply".`;
 async function runCoachActions(acts,btn){const done=[];let after=null;
  for(const a of acts){if(!a||!a.type)continue;try{switch(a.type){
-  case'update_profile':setBody(a);done.push('Updated your profile');break;
+  case'update_profile':{const g0=S.profile.goal;setBody(a);if(GOALS[a.goal]&&a.goal!==g0){S.planDirty=true;save();const T=targets();done.push(`Goal changed to ${GOALS[a.goal]}`+(hasBody()?`. New daily targets: ${T.kcal.toLocaleString()} kcal, ${T.pro} g protein, ${fV(T.water)} water`:'. Add your height, weight, age and sex to get calorie targets'));}else done.push('Updated your profile');break;}
+  case'set_targets':{const p=S.profile;if(a.kcal!=null)p.kcalOverride=+a.kcal>0?String(r0(+a.kcal)):'';if(a.protein_g!=null)p.proOverride=+a.protein_g>0?String(r0(+a.protein_g)):'';if(a.water_ml!=null)p.waterOverride=+a.water_ml>0?String(r1(toV(+a.water_ml))):'';save();const T=targets();done.push(`Targets set: ${T.kcal.toLocaleString()} kcal, ${T.pro} g protein, ${fV(T.water)} water`);break;}
   case'log_weight':if(+a.weight_kg>0){setBody({weight_kg:+a.weight_kg});done.push(`Logged weight: ${fW(+a.weight_kg)} ${wU()}`);}break;
   case'log_water':if(+a.ml>0){S.water[today()]=(S.water[today()]||0)+clamp(+a.ml,0,5000);save();done.push(`Logged ${fV(+a.ml)} of water`);}break;
   case'log_sleep':if(+a.hours>0){S.sleep[today()]=r1(clamp(+a.hours,0,16)*100)/100;save();done.push(`Logged ${r1(+a.hours)} h of sleep`);}break;
@@ -1349,9 +1352,9 @@ init();
 })();
 </script>
 <script src="../legal.js?v=20261121c" defer></script>
-<script src="../mobile.js?v=20261123f" defer></script><script src="../onboard.js?v=20261124a" defer></script>
+<script src="../mobile.js?v=20261124b" defer></script><script src="../onboard.js?v=20261124a" defer></script>
 <script src="../connect.js?v=20261121c" defer></script>
 <script src="aiv-connect.js?v=20261123e"></script>
-<script src="../askai.js?v=20261123f" defer></script>
+<script src="../askai.js?v=20261124e" defer></script>
 </body>
 </html>
