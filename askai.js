@@ -139,7 +139,9 @@
     var v = document.getElementById('v-' + id), b = v && v.querySelector(':scope > .aiv-ask');
     if (b) draw(b, id); else refresh();
   }
-  var DO_RE = /\b(make|build|create|generate|design|write|log|add|track|record|set|plan|schedule|start|quiz|test me|save|put|update|change|remove|delete|move|remind|book|turn|apply|edit)\b/i;
+  var DO_RE = /\b(make|build|create|generate|design|write|log|add|track|record|set|plan|schedule|start|quiz|test me|save|put|update|change|remove|delete|move|remind|book|turn|apply|edit|fix|brighten|darken|lighten|enhance|crop|rotate|blur|sharpen|adjust|increase|decrease|reduce|raise|lower|boost|switch|cancel|clear|find|search|compare|organize|prioritize|convert|translate|lose|gain|cut|bulk|tone|play|queue|start|stop|open|show me|take me|go to|buy|sell|invest|rebalance|budget|tailor|apply to|prep me|practice)\b/i;
+  // requests phrased as asks ("can you…", "help me…", "I want to…") also go to the app's own AI, which can act or just answer
+  var REQ_RE = /^\s*(please\s+|hey\s+\w+,?\s+)?(can|could|would|will)\s+you\b|\b(help me|i want|i'd like|i would like|i need|let's|lets|i'm trying to|im trying to)\b/i;
   function ask(id, q, extra) {
     q = String(q || '').trim(); if (!q) return;
     var a = app(); if (!a || !a.ai) return;
@@ -152,12 +154,12 @@
       'Use what is on their screen and what they typed when it helps. If you need something they have not told you, ask one short question. Never make up facts, numbers, sources or quotes. No emojis.';
     var prompt = 'On screen (' + label + ' tab):\n' + (ctx.txt || '(empty)') + (ctx.typed ? '\n\nWhat the user typed on this tab:\n' + ctx.typed : '') + (extra ? '\n\n' + extra : '') + '\n\nQuestion: ' + q;
     // requests to DO something (build, log, add, plan…) go to the app's own AI, which can carry them out
-    var doIt = typeof a.act === 'function' && !extra && DO_RE.test(q);
+    var doIt = typeof a.act === 'function' && !extra && (DO_RE.test(q) || REQ_RE.test(q));
     Promise.resolve().then(function () { return doIt ? a.act(q) : a.ai(prompt, { system: system, temp: 0.4, max: 1200 }); }).then(function (r) {
       m.busy = false; m.a = String(typeof r === 'string' ? r : (r && (r.text || r.reply)) || '').trim() || 'I could not get an answer. Try asking again.';
     }, function (e) {
       m.busy = false; m.a = (e && e.message) ? 'Sorry, that did not work: ' + e.message : 'Sorry, that did not work. Try again.';
-    }).then(function () { redraw(id); });
+    }).then(function () { redraw(id); if (doIt) setTimeout(function () { var nid = cur(); if (nid && nid !== id && nid !== 'settings') { memo[nid] = m; refresh(); redraw(nid); var v = document.getElementById('v-' + nid), b = v && v.querySelector(':scope > .aiv-ask'); if (b && b.offsetHeight) b.scrollIntoView({ block: 'start', behavior: 'smooth' }); } }, 700); });
   }
   function place(view, id) {
     var box = view.querySelector(':scope > .aiv-ask');
