@@ -431,3 +431,23 @@
   if (document.readyState === 'complete') setTimeout(init, 0);
   else window.addEventListener('load', function () { setTimeout(init, 0); });
 })();
+/* phones: keep the box you're typing in above the keyboard, by scrolling only this page's own panels */
+(function(){
+  if(window.__aivKb || !matchMedia("(hover:none) and (pointer:coarse)").matches) return; window.__aivKb = 1;
+  var ed = function(el){ return !!el && el.matches && el.matches("input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=button]):not([type=submit]),textarea,select,[contenteditable=true]"); };
+  var scroller = function(el){ for(var p = el.parentElement; p && p !== document.body && p !== document.documentElement; p = p.parentElement){ var cs = getComputedStyle(p); if(/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight > p.clientHeight + 2) return p; } return null; };
+  var reveal = function(){
+    var el = document.activeElement; if(!ed(el)) return;
+    var vh = window.visualViewport ? visualViewport.height : innerHeight, r = el.getBoundingClientRect(), bar = 0;
+    // leave room for anything pinned to the bottom (an Ask bar or tab bar) that the box isn't part of
+    [].forEach.call(document.querySelectorAll("body>*,body>*>nav,body>*>form,.aivm-bar,.aivm-tabs,nav.tabs"), function(b){ if(b.contains(el)) return; var br = b.getBoundingClientRect(), cs = getComputedStyle(b); if((cs.position === "fixed" || cs.position === "sticky") && br.height && br.top > vh / 2 && br.top < vh) bar = Math.max(bar, vh - br.top); });
+    var bottom = vh - bar - 12;
+    if(r.bottom <= bottom && r.top >= 8) return;
+    var d = r.bottom > bottom ? Math.min(r.bottom - bottom, r.top - 8) : r.top - 8, sc = scroller(el);
+    if(sc) sc.scrollTop += d; else (document.scrollingElement || document.documentElement).scrollTop += d;
+  };
+  var t, later = function(){ clearTimeout(t); t = setTimeout(reveal, 320); };
+  document.addEventListener("focusin", later); addEventListener("resize", later);
+  if(window.visualViewport) visualViewport.addEventListener("resize", later);
+  document.addEventListener("input", function(e){ if(e.target === document.activeElement && e.target.tagName === "TEXTAREA") later(); });
+})();
