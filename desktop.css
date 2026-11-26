@@ -1,0 +1,149 @@
+/* AI Verse apps, desktop look: light colors, floating sidebar, glass top bar, soft cards.
+   Only applies on wide screens (html.aivd is set by desktop.js); phones keep the mobile layout. */
+@media (min-width:900px){
+
+/* ---------- light palette, with each app's own two logo colors as accents ---------- */
+html.aivd{
+  --a1:#6366f1;--a2:#38bdf8;
+  --bg:#f6f7fb;--box:#fff;--card:#f4f5f9;--line:#e8e9f0;--ink:#15161a;--muted:#676a75;--soft:#9b9ea8;
+  --good:#15803d;--good-bg:#dcfce7;--warn:#b45309;--warn-bg:#fef3c7;--bad:#b91c1c;--bad-bg:#fee2e2;
+  --kcal:#f97316;--pro:#0891b2;--carb:#d97706;--fat:#8b5cf6;--sleep:#8b5cf6;--lift:#0e7490;--water:#0284c7;
+  --btn:#111214;--btn-ink:#fff;--r:18px;
+  --glass:rgba(255,255,255,.74);--glass-line:rgba(255,255,255,.9);
+  --lift1:0 1px 2px rgba(22,24,45,.04),0 8px 28px rgba(22,24,45,.06);
+  --lift2:0 2px 4px rgba(22,24,45,.05),0 14px 40px rgba(22,24,45,.10);
+  --tint1:color-mix(in srgb,var(--a1) 10%,#fff);--tint2:color-mix(in srgb,var(--a2) 10%,#fff);
+  color-scheme:light
+}
+html.aivd[data-aivd="ai-music"]{--a1:#ec4899;--a2:#a78bfa}
+html.aivd[data-aivd="ai-health-and-fitness"]{--a1:#fb7185;--a2:#fb923c}
+html.aivd[data-aivd="ai-stock-and-finance"]{--a1:#10b981;--a2:#4ade80}
+html.aivd[data-aivd="ai-study-and-research"]{--a1:#8b5cf6;--a2:#60a5fa}
+html.aivd[data-aivd="ai-photo"]{--a1:#8b5cf6;--a2:#f59e0b}
+html.aivd[data-aivd="ai-career"]{--a1:#6366f1;--a2:#38bdf8}
+html.aivd[data-aivd="ai-personal-assistant"]{--a1:#10b981;--a2:#0ea5e9;
+  --panel:#fff;--panel2:#f6f7fb;--accent:#0f766e;--accent2:#e6f4f1;--accent-ink:#fff;--hi:#b8432f;--med:#b97a1f;--low:#4f7aa3;--ok:#3d8b5a;--shadow:var(--lift1);--r:18px}
+
+html.aivd body{
+  color:var(--ink);
+  background:
+    radial-gradient(1000px 680px at 102% -8%,color-mix(in srgb,var(--a1) 24%,transparent),transparent 62%),
+    radial-gradient(860px 600px at 30% 112%,color-mix(in srgb,var(--a2) 22%,transparent),transparent 60%),
+    radial-gradient(620px 420px at -4% 18%,color-mix(in srgb,var(--a2) 9%,transparent),transparent 60%),
+    #f6f7fb;
+  background-attachment:fixed;
+}
+
+/* ---------- floating sidebar ---------- */
+html.aivd body:has(> nav.tabs){padding-left:284px}
+html.aivd nav.tabs{top:16px;bottom:16px;left:16px;width:252px;padding:12px;gap:12px;border:1px solid var(--glass-line);border-radius:26px;
+  background:var(--glass);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);box-shadow:var(--lift2)}
+html.aivd nav.tabs .side-brand{background:#111214;color:#fff;border-radius:18px;padding:12px 12px;gap:12px;box-shadow:0 8px 22px rgba(17,18,20,.22)}
+html.aivd nav.tabs .side-brand .logo{width:38px;height:38px;border-radius:11px;background:#0b0b0c;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+html.aivd nav.tabs .side-brand b{color:#fff;font-size:15px}
+html.aivd nav.tabs .side-brand small{color:rgba(255,255,255,.62)}
+html.aivd nav.tabs .side-brand .aiv-nick{background:rgba(255,255,255,.14)!important;color:#fff!important;border:0!important}
+html.aivd nav.tabs .in{gap:4px;padding:4px 0}
+html.aivd nav.tabs .in a{padding:7px 10px 7px 7px;border-radius:15px;color:#3b3d45;font-size:14.5px;font-weight:500;gap:12px;transition:background .15s,box-shadow .15s,color .15s}
+html.aivd nav.tabs .in a .ico{flex:none;width:34px!important;height:34px!important;border-radius:11px!important;display:grid!important;place-items:center;background:#f1f2f7;color:#4a4d57;transition:background .15s,color .15s}
+html.aivd nav.tabs .in a:hover{background:rgba(255,255,255,.9);color:var(--ink)}
+html.aivd nav.tabs .in a.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--lift1)}
+html.aivd nav.tabs .in a.on .ico{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff}
+html.aivd nav.tabs .side-home{margin-top:auto;padding:11px 14px;border-radius:15px;background:#fff;border:1px solid var(--line);color:#3b3d45;font-weight:500;text-align:center}
+html.aivd nav.tabs .side-home:hover{background:#fff;color:var(--ink);box-shadow:var(--lift1)}
+
+/* ---------- page and glass top bar ---------- */
+html.aivd .shell{max-width:1260px;padding:16px 28px 70px 4px;background:transparent}
+html.aivd header.top{position:sticky;top:16px;z-index:30;justify-content:space-between;align-items:center;gap:16px;margin:0 0 24px;padding:10px 12px 10px 22px;
+  border:1px solid var(--glass-line);border-radius:22px;background:var(--glass);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);box-shadow:var(--lift1)}
+html.aivd .aivd-hello{display:flex;flex-direction:column;min-width:0}
+html.aivd .aivd-hello b{font-size:19px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
+html.aivd .aivd-hello span{font-size:13px;color:var(--muted);margin-top:1px}
+html.aivd header.top .hdr-r{gap:8px}
+html.aivd header.top .icon-btn{width:40px;height:40px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(22,24,45,.04)}
+html.aivd header.top .icon-btn:hover{box-shadow:var(--lift1)}
+html.aivd header.top .badge{border-radius:999px;padding:6px 12px}
+
+/* ---------- headings ---------- */
+html.aivd .view h2{font-size:19px;font-weight:700;letter-spacing:-.015em;margin:30px 0 14px}
+html.aivd .view>h2:first-child,html.aivd .view>.row:first-child h2{margin-top:6px}
+html.aivd .view h3{letter-spacing:-.01em}
+
+/* ---------- cards ---------- */
+html.aivd .box{background:#fff;border:1px solid rgba(22,24,45,.06);border-radius:22px;padding:20px 22px;box-shadow:var(--lift1)}
+html.aivd .soft{background:linear-gradient(135deg,var(--tint1),var(--tint2));border:1px solid color-mix(in srgb,var(--a1) 14%,#fff);border-radius:22px;padding:20px 22px}
+html.aivd .grid,html.aivd .grid3{gap:16px}
+html.aivd .stat{background:#fff;border:1px solid rgba(22,24,45,.06);border-radius:20px;padding:18px 18px 16px;box-shadow:var(--lift1);transition:transform .15s,box-shadow .15s;text-align:left}
+html.aivd button.stat:hover,html.aivd a.stat:hover{transform:translateY(-2px);box-shadow:var(--lift2)}
+html.aivd .stat>span:first-child:has(svg):not(:only-child){display:inline-grid;place-items:center;width:40px;height:40px;border-radius:13px;margin-bottom:12px;background:color-mix(in srgb,currentColor 13%,#fff)}
+html.aivd .stat>span:first-child svg{width:20px;height:20px}
+html.aivd .stat b{font-size:30px;letter-spacing:-.02em}
+html.aivd .item,html.aivd .row-card{border-radius:16px}
+
+/* ---------- buttons, chips, fields ---------- */
+html.aivd .btn{border-radius:999px;font-weight:600;transition:transform .12s,box-shadow .15s,background .15s}
+html.aivd .btn:not(.primary):not(.ghost){background:#fff;border:1px solid var(--line)}
+html.aivd .btn:not(.primary):not(.ghost):hover{box-shadow:var(--lift1)}
+html.aivd .btn.primary{background:#111214;color:#fff;border-color:#111214;box-shadow:0 6px 16px rgba(17,18,20,.18)}
+html.aivd .btn.primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(17,18,20,.22)}
+html.aivd .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;transition:border-color .15s,box-shadow .15s}
+html.aivd .chip:hover{border-color:color-mix(in srgb,var(--a1) 45%,#fff);box-shadow:0 4px 14px color-mix(in srgb,var(--a1) 14%,transparent)}
+html.aivd .pill{border-radius:999px;background:#fff;border:1px solid var(--line)}
+html.aivd .view input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),html.aivd .view select,html.aivd .view textarea{
+  background:#fff;border:1px solid var(--line);border-radius:14px;transition:border-color .15s,box-shadow .15s}
+html.aivd .view input:focus,html.aivd .view select:focus,html.aivd .view textarea:focus{outline:none;border-color:color-mix(in srgb,var(--a1) 55%,#fff);box-shadow:0 0 0 4px color-mix(in srgb,var(--a1) 14%,transparent)}
+html.aivd .seg{background:#eef0f5;border-radius:999px;padding:4px}
+html.aivd .seg button{border-radius:999px}
+html.aivd .seg button.on{background:#fff;box-shadow:var(--lift1)}
+
+/* ---------- tiles with an icon on top ---------- */
+html.aivd .tile{background:#fff;border:1px solid rgba(22,24,45,.06);border-radius:20px;box-shadow:var(--lift1);transition:transform .15s,box-shadow .15s}
+html.aivd .tile:hover{transform:translateY(-2px);box-shadow:var(--lift2)}
+html.aivd .tile>span:first-child:has(svg):not(:only-child){display:inline-grid;place-items:center;width:40px;height:40px;border-radius:13px;margin-bottom:10px;color:var(--a1);background:color-mix(in srgb,var(--a1) 12%,#fff)}
+html.aivd .stat>svg:first-child{box-sizing:content-box;width:20px;height:20px;padding:10px;border-radius:13px;margin-bottom:12px;color:var(--a1);background:color-mix(in srgb,var(--a1) 12%,#fff)}
+html.aivd .hero-ask{background:linear-gradient(135deg,var(--tint1),var(--tint2));border:1px solid color-mix(in srgb,var(--a1) 14%,#fff);border-radius:24px;padding:26px 26px 22px}
+html.aivd .hero-ask h2{margin-top:0}
+
+/* ---------- Ask boxes: a roomy composer card ---------- */
+html.aivd .aiv-ask{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
+html.aivd .aiv-ask form,html.aivd .askbar{background:#fff;border:1px solid rgba(22,24,45,.07);border-radius:22px;box-shadow:var(--lift1);padding:8px 8px 8px 16px}
+html.aivd .aiv-ask form:focus-within,html.aivd .askbar:focus-within{box-shadow:0 0 0 4px color-mix(in srgb,var(--a1) 13%,transparent),var(--lift1)}
+html.aivd .askbar input,html.aivd .aiv-ask .aiv-in{border:0!important;box-shadow:none!important;background:transparent!important}
+html.aivd .aiv-ask .aiv-ic{color:var(--a1)}
+html.aivd .aiv-ask .aiv-go{border-radius:999px;background:#111214;color:#fff}
+html.aivd .soft .askbar{background:#fff}
+
+/* ---------- smaller bits ---------- */
+html.aivd .aivl-foot{padding-left:284px;color:var(--muted)}
+html.aivd .modal .box,html.aivd dialog{border-radius:24px}
+html.aivd #toasts>*{border-radius:16px}
+html.aivd svg.chart{border-radius:14px}
+
+/* ================= AI Personal Assistant (its own layout) ================= */
+html.aivd .app{grid-template-columns:284px minmax(0,1fr);background:transparent}
+html.aivd aside#nav{top:16px;height:calc(100vh - 32px);margin:16px 0 16px 16px;width:252px;padding:12px;gap:3px;border:1px solid var(--glass-line);border-radius:26px;
+  background:var(--glass);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);box-shadow:var(--lift2)}
+html.aivd aside#nav .brand{background:#111214;color:#fff;border-radius:18px;padding:12px;margin-bottom:8px;box-shadow:0 8px 22px rgba(17,18,20,.22)}
+html.aivd aside#nav .brand small{color:rgba(255,255,255,.62)}
+html.aivd aside#nav .brand .logo{background:#0b0b0c;border-radius:11px}
+html.aivd aside#nav .brand .aiv-nick{background:rgba(255,255,255,.14)!important;color:#fff!important;border:0!important}
+html.aivd aside#nav .navgroup{padding:12px 10px 4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+html.aivd aside#nav nav a{border-radius:14px;padding:8px 10px;color:#3b3d45;font-weight:500;transition:background .15s,box-shadow .15s}
+html.aivd aside#nav nav a:hover{background:rgba(255,255,255,.9);color:var(--ink)}
+html.aivd aside#nav nav a.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--lift1)}
+html.aivd aside#nav nav a.on [data-ic]{color:var(--a1)}
+html.aivd aside#nav .navhome{margin-top:auto;border-radius:15px;background:#fff;border:1px solid var(--line);padding:11px 14px;text-align:center}
+html.aivd main{padding:0 28px 80px 12px}
+html.aivd .topbar{top:16px;margin-top:16px;padding:10px 12px;border:1px solid var(--glass-line);border-radius:22px;background:var(--glass);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);box-shadow:var(--lift1)}
+html.aivd .topbar .cmd{border-radius:16px;box-shadow:none;background:#fff}
+html.aivd .vh{margin:26px 0 20px}
+html.aivd .vh h1{font-size:30px;letter-spacing:-.025em}
+html.aivd .card{background:#fff;border:1px solid rgba(22,24,45,.06);border-radius:22px;padding:20px 22px;box-shadow:var(--lift1)}
+html.aivd .stats{gap:16px}
+html.aivd .stats .stat b{font-size:30px}
+html.aivd .stats .stat:nth-child(4n+1){background:linear-gradient(135deg,var(--tint1),#fff)}
+html.aivd .stats .stat:nth-child(4n+2){background:linear-gradient(135deg,var(--tint2),#fff)}
+html.aivd .stats .stat:nth-child(4n+3){background:linear-gradient(135deg,color-mix(in srgb,#f59e0b 9%,#fff),#fff)}
+html.aivd .stats .stat:nth-child(4n+4){background:linear-gradient(135deg,color-mix(in srgb,#ec4899 8%,#fff),#fff)}
+html.aivd .grid2{gap:16px}
+}
