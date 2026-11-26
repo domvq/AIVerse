@@ -28,7 +28,8 @@
   var css = '' +
     '.aivl-foot{max-width:900px;margin:28px auto 0;padding:16px 16px 24px;text-align:center;font:400 11.5px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--muted,#6e6c68)}' +
     '.aivl-foot a{color:inherit;text-decoration:underline;text-underline-offset:2px}' +
-    '@media (max-width:820px){.aivl-foot{padding-bottom:96px}}';
+    '@media (max-width:820px){.aivl-foot{padding-bottom:96px}}' +
+    '.aivl-foot.aivl-short{margin:4px auto 0!important;padding:4px 16px 0!important;font-size:11px!important;line-height:1.4!important;opacity:.85}';
 
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
@@ -45,6 +46,14 @@
   function footer() {
     var f = document.createElement('footer');
     f.className = 'aivl-foot'; f.setAttribute('role', 'contentinfo');
+    // inside AIV X on a phone: just one short line (AIV X already covers the Terms and Privacy Policy)
+    var inAivx = false; try { inAivx = window.top !== window.self; } catch (e) { inAivx = true; }
+    if (inAivx && window.matchMedia && matchMedia('(max-width: 820px)').matches) {
+      f.className += ' aivl-short'; f.textContent = 'AI can make mistakes.';
+      var nv = document.querySelector('nav.tabs');
+      if (nv && nv.parentNode === document.body) document.body.insertBefore(f, nv); else document.body.appendChild(f);
+      return;
+    }
     f.innerHTML = (NOTES[file] ? NOTES[file] + ' ' : 'AI can be wrong. Check important information. ') +
       '<br>' + (GUIDES[file] ? '<a href="' + base + GUIDES[file][0] + '">' + GUIDES[file][1] + '</a> · ' : '') + '<a href="' + base + 'index.html#apps">More free AI apps</a> · <a href="' + base + 'introducing-aiv-x.html">AIV X</a>' +
       '<br>By using this app you agree to the <a href="' + terms + '" target="_blank" rel="noopener">Terms</a> and <a href="' + privacy + '" target="_blank" rel="noopener">Privacy Policy</a>. © ' + new Date().getFullYear() + ' AI Verse';
