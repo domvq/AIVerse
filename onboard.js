@@ -94,7 +94,7 @@
       home: 'today'
     },
     'ai-photo': {
-      nick: 'Prism', role: 'your creative studio', name: 'AI Photo and Video',
+      nick: 'Prism', role: 'your creative studio', name: 'AI Photo and Art',
       steps: [],
       tour: [
         ['edit', 'Edit', 'Describe the change you want.'],

@@ -29,7 +29,7 @@ window.AIV_SITE = {
     spotifyClientId: '',   // developer.spotify.com/dashboard → Create app → Client ID   (AI Music)
     googleClientId: '',    // console.cloud.google.com → Credentials → OAuth client ID (Web) (Tasks, Docs, Sheets, Drive)
     stravaClientId: '',    // strava.com/settings/api → Client ID. Secret goes on the worker as STRAVA_CLIENT_SECRET (AI Health and Fitness)
-    dropboxAppKey: '',     // dropbox.com/developers/apps → App key (AI Photo and Video)
+    dropboxAppKey: '',     // dropbox.com/developers/apps → App key (AI Photo and Art)
     appleMusic: false      // true after adding APPLE_TEAM_ID, APPLE_MUSIC_KEY_ID and APPLE_MUSIC_PRIVATE_KEY to the worker (AI Music)
   }
 };
