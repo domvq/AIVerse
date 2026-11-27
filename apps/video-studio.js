@@ -22,6 +22,11 @@
   const aivKey = () => String(settings().aivKey || '').trim();
   const REQ_PER_SEC = 50;   // shown to the user; the server decides the real count
   const isPhone = () => matchMedia('(max-width: 820px)').matches;
+  // On phones, AI video is free to try without a key (a few short videos a day; the server enforces the limits).
+  const FREE_VIDEO_SEC = 8, FREE_VIDEO_PER_DAY = 3;
+  const freeVideo = () => !aivKey() && isPhone();
+  const needsKey = () => !aivKey() && !isPhone();
+  const maxSec = () => freeVideo() ? FREE_VIDEO_SEC : 15;
 
   const I = {
     video: '<rect x="3" y="5" width="13" height="14" rx="2.5"/><path d="m16 10 5-3v10l-5-3z"/>',
@@ -83,13 +88,15 @@
   /* ---------------- AI Verse server ---------------- */
   async function readErr(r, fallback) { const j = await r.json().catch(() => ({})); const e = j.error; return new Error((e && (e.message || e)) || fallback); }
   async function videoApi(body) {
-    const r = await fetch(API + '/videos', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + aivKey() }, body: JSON.stringify(body) });
+    const k = aivKey(), headers = { 'Content-Type': 'application/json' }; if (k) headers.Authorization = 'Bearer ' + k;
+    const r = await fetch((k ? API : FREE) + '/videos', { method: 'POST', headers, body: JSON.stringify(body) });
     if (!r.ok) throw await readErr(r, 'The video AI had a problem. Please try again.');
     return r.json();
   }
   async function uploadFile(blob) {
     if (blob.size > 24 * 1024 * 1024) throw new Error('That clip is larger than 24 MB. Trim it in the Editor and export it first.');
-    const r = await fetch(API + '/videos/upload', { method: 'POST', headers: { 'Content-Type': blob.type || 'video/mp4', Authorization: 'Bearer ' + aivKey() }, body: blob });
+    const k = aivKey(), headers = { 'Content-Type': blob.type || 'video/mp4' }; if (k) headers.Authorization = 'Bearer ' + k;
+    const r = await fetch((k ? API : FREE) + '/videos/upload', { method: 'POST', headers, body: blob });
     if (!r.ok) throw await readErr(r, 'Couldn\'t upload the clip. Please try again.');
     return (await r.json()).url;
   }
@@ -300,7 +307,7 @@ html.aivm #v-video .vs-stage{height:42vh}
     return `<div class="vs-lock">${ic('lock')}<div><b>${what} needs an AIV key</b><span>AI video takes a lot of computing, so it's part of AIV keys. The video editor is free.</span></div>
       <a class="btn sm" href="../api.html#plans" target="_top">Get AIV key</a><a class="btn primary sm" href="#settings">Add my key</a></div>`;
   }
-  const costLine = (sec, res) => `About ${Math.ceil(sec * (res === '480p' ? Math.round(REQ_PER_SEC * 0.7) : REQ_PER_SEC)).toLocaleString()} AIV requests`;
+  const costLine = (sec, res) => freeVideo() ? `Free: ${FREE_VIDEO_PER_DAY} videos a day, up to ${FREE_VIDEO_SEC} seconds each` : `About ${Math.ceil(sec * (res === '480p' ? Math.round(REQ_PER_SEC * 0.7) : REQ_PER_SEC)).toLocaleString()} AIV requests`;
 
   /* =====================================================================
      CREATE WITH AI
@@ -308,7 +315,8 @@ html.aivm #v-video .vs-stage{height:42vh}
   const CR = { prompt: '', duration: 6, aspect: '9:16', res: '720p', photo: null, busy: false, result: null };
   const IDEAS = ['A golden retriever running through a sunflower field at sunset, slow motion', 'Drone shot over a misty mountain lake at sunrise', 'A cozy coffee shop on a rainy evening, steam rising from a latte', 'Product shot: a sneaker spinning on a pedestal, studio lighting', 'Neon city street at night after rain, cinematic', 'Waves crashing on black sand, 4K nature documentary style'];
   function renderCreate(box) {
-    const locked = !aivKey();
+    const locked = needsKey();
+    CR.duration = Math.min(CR.duration, maxSec());
     box.innerHTML = `${locked ? lockCard('AI video') : ''}
     <div class="box">
       <label class="vs-field">Describe your video<textarea id="vsPrompt" placeholder="What happens, where, the camera movement and the mood. For example: a hummingbird drinking from a red flower, macro close-up, soft morning light">${esc(CR.prompt)}</textarea></label>
@@ -316,7 +324,7 @@ html.aivm #v-video .vs-stage{height:42vh}
       <div class="vs-photo"><b style="font-size:14px">Start from a photo</b><span style="font-size:13px;color:var(--vs-muted)">optional</span>
         ${CR.photo ? `<img src="${CR.photo}" alt="Starting photo"><button class="btn sm ghost" id="vsPhotoX">Remove</button>` : `<button class="btn sm" id="vsPhotoUp">${ic('photo')} Choose photo</button><button class="btn sm ghost" id="vsPhotoLib">From my photos</button>`}</div>
       <div class="vs-opts">
-        <div class="vs-opt"><span>Length: <b id="vsDurV">${CR.duration}s</b></span><input type="range" id="vsDur" min="1" max="15" value="${CR.duration}"></div>
+        <div class="vs-opt"><span>Length: <b id="vsDurV">${CR.duration}s</b></span><input type="range" id="vsDur" min="1" max="${maxSec()}" value="${CR.duration}"></div>
         <div class="vs-opt"><span>Shape</span><div class="vs-seg">${['9:16', '16:9', '1:1', '4:3', '3:4'].map(a => `<button class="vs-chip${CR.aspect === a ? ' on' : ''}" data-aspect="${a}">${a}</button>`).join('')}</div></div>
         <div class="vs-opt"><span>Quality</span><div class="vs-seg">${['720p', '480p'].map(a => `<button class="vs-chip${CR.res === a ? ' on' : ''}" data-res="${a}">${a}</button>`).join('')}</div></div>
       </div>
@@ -350,7 +358,7 @@ html.aivm #v-video .vs-stage{height:42vh}
     renderMine($('#vsMine', box));
   }
   async function runCreate(box) {
-    if (!aivKey()) { toast('AI video needs an AIV key. Add it in Settings.', true); return; }
+    if (needsKey()) { toast('AI video needs an AIV key. Add it in Settings.', true); return; }
     const prompt = CR.prompt.trim(); if (!prompt) { $('#vsPrompt', box).focus(); return toast('Describe the video first.'); }
     CR.busy = true; $('#vsGo', box).disabled = true;
     const out = $('#vsCreateOut', box);
@@ -362,6 +370,7 @@ html.aivm #v-video .vs-stage{height:42vh}
       CR.result = { id, prompt };
       stop(); showResult(out, CR.result);
       if (j.requests_left != null) toast('Video ready. ' + j.requests_left.toLocaleString() + ' requests left this month.');
+      else if (j.free_videos_left_today != null) toast('Video ready. ' + j.free_videos_left_today + ' free video' + (j.free_videos_left_today === 1 ? '' : 's') + ' left today.');
       renderMine($('#vsMine', box));
     } catch (err) { stop(); out.innerHTML = ''; toast(err.message, true); }
     CR.busy = false; const g = $('#vsGo', box); if (g) g.disabled = false;
@@ -439,8 +448,9 @@ html.aivm #v-video .vs-stage{height:42vh}
   const AE = { clip: null, prompt: '', mode: 'edit', extra: 5, busy: false, result: null, dur: 0 };
   const EDIT_IDEAS = ['Make it look like a movie, cinematic color', 'Turn day into night with city lights', 'Add gently falling snow', 'Make it anime style', 'Change the background to a tropical beach', 'Make it look like an old film from the 1970s'];
   async function renderAIEdit(box) {
-    const locked = !aivKey();
-    let clipHtml = `<div class="vs-photo"><button class="btn sm" id="aeUp">${ic('video')} Upload a clip</button><button class="btn sm ghost" id="aeMine">From my videos</button><span style="font-size:13px;color:var(--vs-muted)">Up to 15 seconds and 24 MB</span></div>`;
+    const locked = needsKey();
+    AE.extra = Math.min(AE.extra, maxSec());
+    let clipHtml = `<div class="vs-photo"><button class="btn sm" id="aeUp">${ic('video')} Upload a clip</button><button class="btn sm ghost" id="aeMine">From my videos</button><span style="font-size:13px;color:var(--vs-muted)">Up to ${maxSec()} seconds and 24 MB</span></div>`;
     if (AE.clip) {
       if (!AE.clip.url) AE.clip.url = URL.createObjectURL(AE.clip.blob);
       clipHtml = `<div style="margin-bottom:12px"><video src="${AE.clip.url}" controls playsinline muted style="width:100%;max-height:44vh;border-radius:14px;background:#000"></video>
@@ -450,33 +460,33 @@ html.aivm #v-video .vs-stage{height:42vh}
       <div class="box">${clipHtml}
         <div class="vs-seg" style="margin-bottom:12px"><button class="vs-chip${AE.mode === 'edit' ? ' on' : ''}" data-mode="edit">${ic('wand')} Change the video</button><button class="vs-chip${AE.mode === 'extend' ? ' on' : ''}" data-mode="extend">${ic('ext')} Make it longer</button></div>
         <label class="vs-field">${AE.mode === 'extend' ? 'What happens next?' : 'What should change?'}<textarea id="aePrompt" placeholder="${AE.mode === 'extend' ? 'For example: the camera keeps moving forward and the sun sets' : 'For example: make it look like a snowy winter evening'}">${esc(AE.prompt)}</textarea></label>
-        ${AE.mode === 'edit' ? `<div class="vs-chips">${EDIT_IDEAS.map(x => `<button class="vs-chip" data-idea="${esc(x)}">${esc(x)}</button>`).join('')}</div>` : `<div class="vs-opt" style="margin-bottom:12px"><span>Add: <b id="aeExV">${AE.extra}s</b></span><input type="range" id="aeEx" min="1" max="15" value="${AE.extra}"></div>`}
-        <div class="vs-actions"><span class="hint" id="aeCost">${costLine(AE.mode === 'extend' ? AE.extra : Math.max(1, Math.min(15, Math.round(AE.dur || 6))), '720p')}</span>
+        ${AE.mode === 'edit' ? `<div class="vs-chips">${EDIT_IDEAS.map(x => `<button class="vs-chip" data-idea="${esc(x)}">${esc(x)}</button>`).join('')}</div>` : `<div class="vs-opt" style="margin-bottom:12px"><span>Add: <b id="aeExV">${AE.extra}s</b></span><input type="range" id="aeEx" min="1" max="${maxSec()}" value="${AE.extra}"></div>`}
+        <div class="vs-actions"><span class="hint" id="aeCost">${costLine(AE.mode === 'extend' ? AE.extra : Math.max(1, Math.min(maxSec(), Math.round(AE.dur || 6))), '720p')}</span>
           <button class="btn primary" id="aeGo" ${AE.busy ? 'disabled' : ''}>${ic('spark')} ${AE.mode === 'extend' ? 'Make it longer' : 'Change video'}</button></div>
       </div><div id="aeOut"></div>`;
     const p = $('#aePrompt', box); p.oninput = () => { AE.prompt = p.value; };
     $$('[data-idea]', box).forEach(b => b.onclick = () => { AE.prompt = p.value = b.dataset.idea; });
     $$('[data-mode]', box).forEach(b => b.onclick = () => { AE.mode = b.dataset.mode; renderAIEdit(box); });
     const ex = $('#aeEx', box); if (ex) ex.oninput = () => { AE.extra = +ex.value; $('#aeExV', box).textContent = ex.value + 's'; $('#aeCost', box).textContent = costLine(AE.extra, '720p'); };
-    const setClip = async c => { if (!c) return; if (!/^video\//.test(c.blob.type || 'video/')) return toast('Choose a video file.', true); AE.clip = c; AE.result = null; const m = await mediaDuration(c.blob); AE.dur = m.dur; renderAIEdit(box); if (m.dur > 15.5) toast('This clip is ' + Math.round(m.dur) + ' seconds. AI editing works on up to 15 seconds: trim it in the Editor and export it first.', true); };
+    const setClip = async c => { if (!c) return; if (!/^video\//.test(c.blob.type || 'video/')) return toast('Choose a video file.', true); AE.clip = c; AE.result = null; const m = await mediaDuration(c.blob); AE.dur = m.dur; renderAIEdit(box); if (m.dur > maxSec() + 0.5) toast('This clip is ' + Math.round(m.dur) + ' seconds. AI editing works on up to ' + maxSec() + ' seconds: trim it in the Editor and export it first.', true); };
     const up = $('#aeUp', box) || $('#aeChange', box);
     if (up) up.onclick = () => choose('video/*', false).then(fs => fs[0] && setClip({ blob: fs[0], name: fs[0].name }));
     const mine = $('#aeMine', box); if (mine) mine.onclick = () => pickMineVideo().then(setClip);
-    if (AE.clip && !AE.dur) mediaDuration(AE.clip.blob).then(m => { AE.dur = m.dur; const c = $('#aeCost', box); if (c && AE.mode === 'edit') c.textContent = costLine(Math.max(1, Math.min(15, Math.round(m.dur || 6))), '720p'); const inf = $('#aeInfo', box); if (inf) inf.textContent = (AE.clip.name || 'Clip') + ' · ' + fmtShort(m.dur); });
+    if (AE.clip && !AE.dur) mediaDuration(AE.clip.blob).then(m => { AE.dur = m.dur; const c = $('#aeCost', box); if (c && AE.mode === 'edit') c.textContent = costLine(Math.max(1, Math.min(maxSec(), Math.round(m.dur || 6))), '720p'); const inf = $('#aeInfo', box); if (inf) inf.textContent = (AE.clip.name || 'Clip') + ' · ' + fmtShort(m.dur); });
     $('#aeGo', box).onclick = () => runAIEdit(box);
     if (AE.result) showResult($('#aeOut', box), AE.result);
   }
   async function runAIEdit(box) {
-    if (!aivKey()) return toast('Editing videos with AI needs an AIV key. Add it in Settings.', true);
+    if (needsKey()) return toast('Editing videos with AI needs an AIV key. Add it in Settings.', true);
     if (!AE.clip) return toast('Choose a clip first.');
     const prompt = AE.prompt.trim(); if (!prompt) { $('#aePrompt', box).focus(); return toast(AE.mode === 'extend' ? 'Say what happens next.' : 'Say what should change.'); }
-    if (AE.dur > 15.5) return toast('AI editing works on clips up to 15 seconds. Trim it in the Editor and export it first.', true);
+    if (AE.dur > maxSec() + 0.5) return toast('AI editing works on clips up to ' + maxSec() + ' seconds' + (freeVideo() ? ' for free' : '') + '. Trim it in the Editor and export it first.', true);
     AE.busy = true; $('#aeGo', box).disabled = true;
     const out = $('#aeOut', box);
     const stop = progress(out, AE.mode === 'extend' ? 'Making your video longer' : 'Changing your video', 'This usually takes 1 to 3 minutes. Keep this page open.');
     try {
       const url = await uploadFile(AE.clip.blob);
-      const j = await videoApi({ prompt, operation: AE.mode, video: url, duration: AE.mode === 'extend' ? AE.extra : Math.max(1, Math.min(15, Math.round(AE.dur || 6))) });
+      const j = await videoApi({ prompt, operation: AE.mode, video: url, duration: AE.mode === 'extend' ? AE.extra : Math.max(1, Math.min(maxSec(), Math.round(AE.dur || 6))) });
       const blob = await (await fetch(j.video)).blob();
       const id = await addMine(blob, { name: (AE.mode === 'extend' ? 'Longer: ' : 'Edited: ') + prompt.slice(0, 50), prompt, kind: 'ai-' + AE.mode });
       AE.result = { id, prompt };
