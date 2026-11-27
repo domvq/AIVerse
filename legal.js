@@ -17,7 +17,9 @@
 
   var NOTES = {
     'stock-and-finance-ai': 'Education only. Not financial advice. Demo prices unless you add a market-data key. No real trades.',
-    'health-and-fitness-ai': 'General fitness information, not medical advice. In an emergency, call 911.'
+    'health-and-fitness-ai': 'General fitness information, not medical advice. In an emergency, call 911.',
+    'ai-music': 'Song details and previews by Apple.',
+    'photo-ai': 'Only use images you have the rights to. No deceptive images of real people.'
   };
   var css = '' +
     '.aivl-foot{max-width:900px;margin:28px auto 0;padding:16px 16px 24px;text-align:center;font:400 11.5px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--muted,#6e6c68)}' +
