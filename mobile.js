@@ -60,7 +60,7 @@
   }
 
   /* Every section fits in the 4 bottom tabs: related sections share a tab and switch with a small row of
-     sub-tabs at the top of the page. Settings, Connections and Back to AI Verse live in Settings (gear at the top). */
+     sub-tabs at the top of the page. Settings is the 5th tab; Connections and Back to AI Verse live in Settings. */
   var GROUPS = {
     'ai-career': [['home', 'Home', ['home']], ['resume', 'Resume', ['resume', 'interview']], ['jobs', 'Jobs', ['jobs', 'tracker']], ['growth', 'Growth', ['growth']]],
     'ai-health-and-fitness': [['home', 'Home', ['home', 'analytics']], ['training', 'Training', ['training']], ['nutrition', 'Nutrition', ['nutrition']], ['body', 'Body', ['body', 'wellness']]],
@@ -128,10 +128,11 @@
       bar.className = 'aivm-bar aivm-grouped'; bar.setAttribute('aria-label', 'App sections');
       bar.innerHTML = '<div class="aivm-tabs">' + groups.map(function (g) {
         return '<a class="aivm-it" href="' + esc(g.href) + '" data-k="' + esc(g.key) + '"><span class="i" aria-hidden="true">' + g.icon + '</span><span class="l">' + esc(g.label) + '</span></a>';
-      }).join('') + '</div>';
+      }).join('') + (document.getElementById('v-settings') ? '<a class="aivm-it" href="#settings" data-k="settings"><span class="i" aria-hidden="true">' + ICON_GEAR + '</span><span class="l">Settings</span></a>' : '') + '</div>';
       document.body.appendChild(bar);
       bar.addEventListener('click', function (e) {
         var a = e.target.closest('.aivm-it'); if (!a) return; e.preventDefault();
+        if (a.getAttribute('data-k') === 'settings') { go('settings'); return; }
         var g = groups.filter(function (x) { return x.key === a.getAttribute('data-k'); })[0]; if (!g) return;
         var cur = activeKey(), target = g.keys.indexOf(cur) >= 0 ? g.keys[0] : (lastIn[g.key] || g.keys[0]);
         if (g.keys.indexOf(cur) >= 0 && cur === g.keys[0]) { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (x) {} }

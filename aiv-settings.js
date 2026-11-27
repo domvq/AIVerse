@@ -53,7 +53,8 @@
     ".aivs-toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink,#111);color:var(--bg,#fff);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;z-index:99999;opacity:0;transition:opacity .2s;pointer-events:none}" +
     ".aivs-toast.on{opacity:1}" +
     "#btnSettings .aivs-gi{display:inline-grid;place-items:center}#btnSettings .aivs-gi svg{width:20px;height:20px}#btnSettings .aivs-gl{display:none}" +
-    "html.aivm #btnSettings[data-aivs]{width:auto!important;min-width:0!important;padding:0 14px 0 11px!important;gap:6px;display:inline-flex!important;align-items:center;border-radius:999px!important;font:inherit;font-size:14px;font-weight:600;color:var(--ink,#111)}html.aivm #btnSettings .aivs-gl{display:inline}html.aivm #btnSettings .aivs-gi svg{width:18px;height:18px}" +
+    "" +
+    ".aivm-ask.aivs-hasgear::before{right:62px!important}#aivmAsk #aivsGear{display:grid;place-items:center;flex:none;width:40px;height:40px;min-height:0;border-radius:50%;border:1px solid var(--line,#ececee);background:var(--box,var(--bg,#fff));color:var(--ink,#0b0b0c);padding:0;margin:0 0 0 2px;cursor:pointer}#aivmAsk #aivsGear svg{width:19px;height:19px}" +
     "@media (min-width:901px){.aivs-toast{bottom:28px}}#aivsAbout #aivmSetX{margin:0 0 12px}" +
     "@media (max-width:560px){.aivs-row{flex-wrap:wrap}.aivs-row .aivs-seg{width:100%}.aivs-row .aivs-seg button{flex:1}}";
   var st = document.createElement("style"); st.id = "aivsCss"; st.textContent = css; (document.head || document.documentElement).appendChild(st);
@@ -303,11 +304,13 @@
       b.dataset.aivs = "1";
       b.innerHTML = '<span class="aivs-gi">' + GEAR + '</span><span class="aivs-gl">Settings</span>';
     }
+    var own = document.getElementById("aivsGear"); if (own) own.remove();
     var g = document.getElementById("aivmGear");
     if (g && !g.dataset.aivs) { g.dataset.aivs = "1"; g.innerHTML = GEAR; }
   }
   function init() {
-    mount(); navLink(); gearBtn(); setTimeout(gearBtn, 800);
+    mount(); navLink(); gearBtn(); setTimeout(gearBtn, 800); setInterval(gearBtn, 1500);
+    window.addEventListener("resize", function () { setTimeout(gearBtn, 50); });
     // apps that rebuild their Settings view get the sections back
     var v = document.getElementById("v-settings");
     if (v && typeof MutationObserver === "function") new MutationObserver(function () { if (!document.getElementById("aivSet")) mount(); else placeExtras(); }).observe(v, { childList: true });
