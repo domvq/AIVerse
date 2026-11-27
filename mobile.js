@@ -66,7 +66,7 @@
     'ai-health-and-fitness': [['home', 'Home', ['home', 'analytics']], ['training', 'Training', ['training']], ['nutrition', 'Nutrition', ['nutrition']], ['body', 'Body', ['body', 'wellness']]],
     'ai-music': [['home', 'Home', ['home', 'foryou']], ['create', 'Create', ['create', 'blend']], ['playlists', 'Playlists', ['playlists']], ['discover', 'Discover', ['discover']]],
     'ai-personal-assistant': [['today', 'Today', ['today', 'habits', 'notes']], ['planner', 'Plan', ['planner', 'calendar', 'travel']], ['tasks', 'Tasks', ['tasks', 'reminders']], ['inbox', 'Inbox', ['inbox', 'compose', 'meetings']]],
-    'ai-photo': [['home', 'Home', ['home', 'library']], ['edit', 'Edit', ['edit', 'collage']], ['create', 'Create', ['create', 'portrait']], ['social', 'Social', ['social']]],
+    'ai-photo': [['home', 'Home', ['home', 'library']], ['edit', 'Edit', ['edit', 'collage', 'portrait']], ['create', 'Create', ['create', 'social']], ['video', 'Video', ['video']]],
     'ai-stock-and-finance': [['home', 'Home', ['home']], ['markets', 'Markets', ['markets', 'research', 'predict']], ['portfolio', 'Portfolio', ['portfolio']], ['budget', 'Budget', ['budget']]],
     'ai-study-and-research': [['home', 'Home', ['home']], ['learn', 'Learn', ['learn', 'sets']], ['papers', 'Research', ['papers', 'methods']], ['writing', 'Writing', ['writing']]]
   };
