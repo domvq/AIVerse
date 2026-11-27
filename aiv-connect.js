@@ -73,7 +73,13 @@
       try { if (x.r.media.mediaText !== want) x.r.media.mediaText = want; } catch (e) {}
     });
   }
-  function applyAivTheme(t) {
+  /* The person's own Theme choice in Settings (Light or Dark) wins over AIV X and the device; Auto follows them */
+  var aivxTheme = "";
+  function userTheme() { try { var p = JSON.parse(localStorage.getItem("aiv.prefs.v1") || "{}"); return p.theme === "light" || p.theme === "dark" ? p.theme : ""; } catch (e) { return ""; } }
+  function applyAivTheme(t) { aivxTheme = t === "dark" || t === "light" ? t : ""; setAivTheme(userTheme() || aivxTheme); }
+  window.AIVTheme = { refresh: function () { setAivTheme(userTheme() || aivxTheme); }, current: function () { return currentTheme; } };
+  if (userTheme()) setAivTheme(userTheme());
+  function setAivTheme(t) {
     t = t === "dark" || t === "light" ? t : "";
     var changed = t !== currentTheme;
     currentTheme = t;
@@ -421,7 +427,7 @@
   var TERMS_VERSION = "2026-11-04";
   var TERMS_URL = "https://aiv-x.com/terms.html", PRIVACY_URL = "https://aiv-x.com/privacy.html";
   var AGREE_HTML = '<label class="ag"><input type="checkbox" class="agc"><span>I\'m 18 or older and agree to the <a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms of Use</a> and <a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>';
-  var APP_NAMES = { aide: "AI Personal Assistant", study: "AI Study and Research", finance: "AI Stock and Finance", fitness: "AI Health and Fitness", photo: "AI Photo and Art", career: "AI Career", music: "AI Music" };
+  var APP_NAMES = { aide: "AI Personal Assistant", study: "AI Study and Research", finance: "AI Stock and Finance", fitness: "AI Health and Fitness", photo: "AI Photo and Video", career: "AI Career", music: "AI Music" };
   var STARTERS = {
     aide: ["Add “call the dentist Friday” to my tasks", "What's on my calendar this week?", "Plan my day"],
     study: ["Quiz me on what I'm studying", "Find recent research on my topic", "Make flashcards for this"],

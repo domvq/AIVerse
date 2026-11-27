@@ -7,7 +7,7 @@
        AI Personal Assistant Gmail + Google Calendar, Google Tasks, Apple Reminders, Apple / Outlook Calendar
        AI Health and Fitness Strava, Apple Health (via Strava), calendars, spreadsheets
        AI Stock and Finance  Your bank (CSV), Google Sheets, Excel, TradingView, Yahoo Finance, SEC EDGAR
-       AI Photo and Art ............ Dropbox, Google Drive, share to any app
+       AI Photo and Video ............ Dropbox, Google Drive, share to any app
        AI Study and Research Anki, Quizlet, Notion, Google Docs
    - MCP: use any MCP server's tools inside the app, and connect the
      AI Verse MCP server to Claude, ChatGPT and other AI apps
@@ -872,7 +872,7 @@
     { id: 'share', name: 'Instagram · Messages · any app', mark: '↗', desc: 'Share a photo straight to Instagram, Messages, WhatsApp, email or any app on your phone.',
       actions: [{ label: 'Share a photo', run: sharePhoto }] },
     { id: 'icloud', name: 'iCloud Photos · Apple Photos', mark: '☁', desc: 'Use photos from your iPhone or Mac.',
-      note: 'Apple Photos has no web connection, but your iPhone\'s photo picker opens it: choose Upload in AI Photo and Art, then pick from Photos. To save to Photos, use Share a photo and choose Save Image.',
+      note: 'Apple Photos has no web connection, but your iPhone\'s photo picker opens it: choose Upload in AI Photo and Video, then pick from Photos. To save to Photos, use Share a photo and choose Save Image.',
       actions: [{ label: 'Open a photo from my device', run: async function () { var f = (await pickFile('image/*'))[0]; if (f) await openInApp(f, f.name); } }] }
   ];
 
@@ -933,7 +933,7 @@
   ];
 
   var REG = { music: MUSIC, career: CAREER, aide: AIDE, fitness: FITNESS, finance: FINANCE, photo: PHOTO, study: STUDY };
-  var NAMES = { music: 'AI Music', career: 'AI Career', aide: 'AI Personal Assistant', fitness: 'AI Health and Fitness', finance: 'AI Stock and Finance', photo: 'AI Photo and Art', study: 'AI Study and Research' };
+  var NAMES = { music: 'AI Music', career: 'AI Career', aide: 'AI Personal Assistant', fitness: 'AI Health and Fitness', finance: 'AI Stock and Finance', photo: 'AI Photo and Video', study: 'AI Study and Research' };
 
   /* =====================================================================
      MCP — use MCP servers' tools in the app (Streamable HTTP)

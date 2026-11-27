@@ -94,7 +94,7 @@
       home: 'today'
     },
     'ai-photo': {
-      nick: 'Prism', role: 'your creative studio', name: 'AI Photo and Art',
+      nick: 'Prism', role: 'your creative studio', name: 'AI Photo and Video',
       steps: [],
       tour: [
         ['edit', 'Edit', 'Describe the change you want.'],
@@ -470,6 +470,6 @@
       setTimeout(open, 350);
     } else if (s === 'skipped') showBar();
   }
-  window.AIVOnboard = { open: open, about: about, reset: function () { try { localStorage.removeItem(KEY); sessionStorage.removeItem(KEY + '.hide'); } catch (e) {} } };
+  window.AIVOnboard = { open: open, about: about, tour: function () { set('tour'); removeBar(); tour(0); }, reset: function () { try { localStorage.removeItem(KEY); sessionStorage.removeItem(KEY + '.hide'); } catch (e) {} } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -10,7 +10,7 @@
   var slug = (location.pathname.split('/').pop() || '').replace(/\.desktop\.html$|\.html$/, '');
   var NICK = { 'ai-career': 'Climb', 'ai-health-and-fitness': 'Pulse', 'ai-music': 'Riff', 'ai-photo': 'Prism',
     'ai-stock-and-finance': 'Ticker', 'ai-study-and-research': 'Sage', 'ai-personal-assistant': 'Orbit' };
-  var NAME = { 'ai-career': 'AI Career', 'ai-health-and-fitness': 'AI Health and Fitness', 'ai-music': 'AI Music', 'ai-photo': 'AI Photo and Art',
+  var NAME = { 'ai-career': 'AI Career', 'ai-health-and-fitness': 'AI Health and Fitness', 'ai-music': 'AI Music', 'ai-photo': 'AI Photo and Video',
     'ai-stock-and-finance': 'AI Stock and Finance', 'ai-study-and-research': 'AI Study and Research', 'ai-personal-assistant': 'AI Personal Assistant' };
   var ROLE = { 'ai-career': 'career coach', 'ai-health-and-fitness': 'fitness and nutrition coach', 'ai-music': 'music guide', 'ai-photo': 'photo and art assistant',
     'ai-stock-and-finance': 'money advisor (education only, not financial advice)', 'ai-study-and-research': 'tutor and research guide', 'ai-personal-assistant': 'personal assistant' };
