@@ -265,12 +265,23 @@
 html.aivm #v-video .vs-stage{height:42vh}
 #v-video label.vs-row{flex-direction:row;align-items:center;flex:none;min-width:0;gap:10px;color:var(--vs-ink);font-weight:500;font-size:13px}
 #v-video label.vs-row>span:first-child{color:var(--vs-muted);text-align:left}
-#v-video label.vs-field{display:block;flex:none;color:var(--vs-ink);font-size:14px}
+#v-video label.vs-field{display:flex;flex:none}
+#vsBody{margin-top:0!important}
+.vs-title{display:none}
+#v-video .vs-drop .btn{background:#fff!important;color:#111!important;border-color:#fff!important}
+.vs-chip{white-space:nowrap}
 #v-video .vs-side .vs-row input[type=checkbox]{width:20px;height:20px;margin:0}
 #v-video .vs-side select{flex:1;width:auto}
 @media (max-width:899px){
- .vs-head h2{display:none}.vs-head{margin-top:0}
- .vs-tabs{display:flex;width:100%}.vs-tabs button{flex:1;justify-content:center;padding:9px 6px}
+ .vs-head{display:block;margin:2px 0 0}.vs-head h2{display:none}
+ .vs-tabs{display:flex;background:none;padding:2px 0;gap:6px;border-radius:0;overflow-x:auto;scrollbar-width:none}
+ .vs-tabs button{flex:none;font-size:13.5px;font-weight:600;border:1px solid var(--line,#ececee);background:var(--bg,#fff);color:var(--muted,#6e6e73);border-radius:999px;padding:8px 16px;min-height:36px;box-shadow:none}
+ .vs-tabs button .ic{display:none}
+ .vs-tabs button.on{background:var(--ink,#0b0b0c);border-color:var(--ink,#0b0b0c);color:var(--bg,#fff);box-shadow:none}
+ #v-video .vs-title{display:block;font-size:19px;font-weight:700;margin:14px 0 14px!important}
+ .vs-lock{flex-wrap:wrap;align-items:flex-start}.vs-lock>div{flex:1 1 calc(100% - 40px)}.vs-lock .btn{flex:1;justify-content:center}
+ .vs-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-2px;padding:0 2px 2px}.vs-chips::-webkit-scrollbar{display:none}
+ .vs-chip{flex:none}
  .vs-stagewrap{order:1}.vs-tlwrap{order:2}.vs-tools{order:3}.vs-side{order:4}
  .vs-side:empty{display:none}
 }
@@ -1136,7 +1147,7 @@ html.aivm #v-video .vs-stage{height:42vh}
     root.innerHTML = `<div class="vs-head"><h2>Video</h2><div class="vs-tabs" role="tablist">
       <button role="tab" data-tab="create" class="${TAB === 'create' ? 'on' : ''}">${ic('spark')} Create</button>
       <button role="tab" data-tab="aiedit" class="${TAB === 'aiedit' ? 'on' : ''}">${ic('wand')} AI edit</button>
-      <button role="tab" data-tab="editor" class="${TAB === 'editor' ? 'on' : ''}">${ic('scissors')} Editor</button></div></div><div id="vsBody"></div>`;
+      <button role="tab" data-tab="editor" class="${TAB === 'editor' ? 'on' : ''}">${ic('scissors')} Editor</button></div></div><h2 class="vs-title">${TAB === 'create' ? 'Text to video' : TAB === 'aiedit' ? 'Edit a video with AI' : 'Video editor'}</h2><div id="vsBody"></div>`;
     $$('[data-tab]', root).forEach(b => b.onclick = () => setTab(b.dataset.tab));
     const body = $('#vsBody', root);
     if (TAB === 'create') renderCreate(body);
