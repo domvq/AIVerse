@@ -52,6 +52,8 @@
     ".aivs-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}" +
     ".aivs-toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink,#111);color:var(--bg,#fff);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;z-index:99999;opacity:0;transition:opacity .2s;pointer-events:none}" +
     ".aivs-toast.on{opacity:1}" +
+    "#btnSettings .aivs-gi{display:inline-grid;place-items:center}#btnSettings .aivs-gi svg{width:20px;height:20px}#btnSettings .aivs-gl{display:none}" +
+    "html.aivm #btnSettings[data-aivs]{width:auto!important;min-width:0!important;padding:0 14px 0 11px!important;gap:6px;display:inline-flex!important;align-items:center;border-radius:999px!important;font:inherit;font-size:14px;font-weight:600;color:var(--ink,#111)}html.aivm #btnSettings .aivs-gl{display:inline}html.aivm #btnSettings .aivs-gi svg{width:18px;height:18px}" +
     "@media (min-width:901px){.aivs-toast{bottom:28px}}#aivsAbout #aivmSetX{margin:0 0 12px}" +
     "@media (max-width:560px){.aivs-row{flex-wrap:wrap}.aivs-row .aivs-seg{width:100%}.aivs-row .aivs-seg button{flex:1}}";
   var st = document.createElement("style"); st.id = "aivsCss"; st.textContent = css; (document.head || document.documentElement).appendChild(st);
@@ -293,8 +295,19 @@
     window.addEventListener("hashchange", mark); mark();
   }
 
+  /* the Settings button: a clear gear everywhere, and on phones a labeled "Settings" button */
+  var GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>';
+  function gearBtn() {
+    var b = document.getElementById("btnSettings");
+    if (b && !b.dataset.aivs) {
+      b.dataset.aivs = "1";
+      b.innerHTML = '<span class="aivs-gi">' + GEAR + '</span><span class="aivs-gl">Settings</span>';
+    }
+    var g = document.getElementById("aivmGear");
+    if (g && !g.dataset.aivs) { g.dataset.aivs = "1"; g.innerHTML = GEAR; }
+  }
   function init() {
-    mount(); navLink();
+    mount(); navLink(); gearBtn(); setTimeout(gearBtn, 800);
     // apps that rebuild their Settings view get the sections back
     var v = document.getElementById("v-settings");
     if (v && typeof MutationObserver === "function") new MutationObserver(function () { if (!document.getElementById("aivSet")) mount(); else placeExtras(); }).observe(v, { childList: true });
