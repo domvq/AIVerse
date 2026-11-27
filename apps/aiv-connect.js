@@ -421,7 +421,7 @@
   var TERMS_VERSION = "2026-11-04";
   var TERMS_URL = "https://aiv-x.com/terms.html", PRIVACY_URL = "https://aiv-x.com/privacy.html";
   var AGREE_HTML = '<label class="ag"><input type="checkbox" class="agc"><span>I\'m 18 or older and agree to the <a href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms of Use</a> and <a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>';
-  var APP_NAMES = { aide: "AI Personal Assistant", study: "AI Study and Research", finance: "AI Stock and Finance", fitness: "AI Health and Fitness", photo: "AI Photo and Art", career: "AI Career", music: "AI Music" };
+  var APP_NAMES = { aide: "AI Personal Assistant", study: "AI Study and Research", finance: "AI Stock and Finance", fitness: "AI Health and Fitness", photo: "AI Photo and Video", career: "AI Career", music: "AI Music" };
   var STARTERS = {
     aide: ["Add “call the dentist Friday” to my tasks", "What's on my calendar this week?", "Plan my day"],
     study: ["Quiz me on what I'm studying", "Find recent research on my topic", "Make flashcards for this"],
