@@ -73,7 +73,13 @@
       try { if (x.r.media.mediaText !== want) x.r.media.mediaText = want; } catch (e) {}
     });
   }
-  function applyAivTheme(t) {
+  /* The person's own Theme choice in Settings (Light or Dark) wins over AIV X and the device; Auto follows them */
+  var aivxTheme = "";
+  function userTheme() { try { var p = JSON.parse(localStorage.getItem("aiv.prefs.v1") || "{}"); return p.theme === "light" || p.theme === "dark" ? p.theme : ""; } catch (e) { return ""; } }
+  function applyAivTheme(t) { aivxTheme = t === "dark" || t === "light" ? t : ""; setAivTheme(userTheme() || aivxTheme); }
+  window.AIVTheme = { refresh: function () { setAivTheme(userTheme() || aivxTheme); }, current: function () { return currentTheme; } };
+  if (userTheme()) setAivTheme(userTheme());
+  function setAivTheme(t) {
     t = t === "dark" || t === "light" ? t : "";
     var changed = t !== currentTheme;
     currentTheme = t;
